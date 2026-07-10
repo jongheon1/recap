@@ -1,0 +1,21 @@
+# Secrets — credentials must NEVER be committed
+.env
+*.tfvars
+!*.tfvars.example
+
+# Terraform state
+.terraform/
+*.tfstate
+*.tfstate.*
+
+# Audio sources & STT working files — recordings stay local, only result JSON is committed
+audio/
+work/
+*.m4a
+*.mp3
+*.flac
+*.wav
+*.stt.txt
+
+node_modules/
+.DS_Store

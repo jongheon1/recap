@@ -1,0 +1,7 @@
+# Copy to terraform.tfvars (gitignored) and fill in.
+# The API token goes in via env: TF_VAR_cloudflare_api_token (from ../.env)
+
+# Zone ID of jongheon.click — look up with:
+#   curl -s "https://api.cloudflare.com/client/v4/zones?name=jongheon.click" \
+#     -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" | jq -r '.result[0].id'
+zone_id = "..."

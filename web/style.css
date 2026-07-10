@@ -1,0 +1,95 @@
+:root {
+  --bg: #faf9f6;
+  --fg: #1f2328;
+  --muted: #6b7280;
+  --card: #ffffff;
+  --border: #e5e3dd;
+  --accent: #2563eb;
+  --ko: #3f4854;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14161a;
+    --fg: #e6e6e3;
+    --muted: #8b929c;
+    --card: #1c1f24;
+    --border: #2b2f36;
+    --accent: #7aa2f7;
+    --ko: #aab3bf;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font: 16px/1.7 -apple-system, "Apple SD Gothic Neo", "Noto Sans KR", Georgia, serif;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  z-index: 10;
+}
+#home-link { font-weight: 700; font-size: 18px; color: var(--fg); text-decoration: none; }
+main { max-width: 1100px; margin: 0 auto; padding: 24px 20px 80px; }
+
+/* lists */
+.list { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
+.card {
+  display: block;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 18px;
+  color: var(--fg);
+  text-decoration: none;
+}
+.card:hover { border-color: var(--accent); }
+.card .title { font-weight: 600; }
+.card .meta { color: var(--muted); font-size: 13px; margin-top: 2px; }
+h1 { font-size: 22px; margin: 8px 0 4px; }
+.crumb { color: var(--muted); font-size: 14px; }
+.crumb a { color: var(--muted); }
+
+/* reader */
+.doc-head { margin-bottom: 20px; }
+button.toggle {
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--fg);
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 13px;
+  cursor: pointer;
+}
+button.toggle:hover { border-color: var(--accent); }
+.para {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+}
+.para .en { }
+.para .ko { color: var(--ko); }
+.para .t {
+  grid-column: 1 / -1;
+  color: var(--muted);
+  font-size: 12px;
+  font-family: ui-monospace, monospace;
+  margin-bottom: -8px;
+}
+body.hide-ko .para { grid-template-columns: 1fr; }
+body.hide-ko .para .ko { display: none; }
+
+@media (max-width: 760px) {
+  .para { grid-template-columns: 1fr; gap: 8px; }
+  .para .ko { font-size: 15px; }
+}
+.empty { color: var(--muted); text-align: center; padding: 60px 0; }

@@ -1,0 +1,17 @@
+{
+  "courses": [
+    {
+      "id": "demo",
+      "name": "Demo",
+      "files": [
+        {
+          "id": "2026-07-10-demo",
+          "title": "Sample: How recap works",
+          "date": "2026-07-10",
+          "duration_sec": 60,
+          "paragraphs": 2
+        }
+      ]
+    }
+  ]
+}

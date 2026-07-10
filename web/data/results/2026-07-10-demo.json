@@ -1,0 +1,19 @@
+{
+  "id": "2026-07-10-demo",
+  "course": "demo",
+  "title": "Sample: How recap works",
+  "date": "2026-07-10",
+  "duration_sec": 60,
+  "paragraphs": [
+    {
+      "t": 0,
+      "en": "This is a sample document. When you record a lecture and hand the audio file to Claude Code, it transcribes the recording, fixes obvious speech-to-text errors, splits the text into paragraphs at topic boundaries, and translates each paragraph into Korean.",
+      "ko": "이것은 샘플 문서입니다. 강의를 녹음해서 오디오 파일을 Claude Code에 넘기면, 녹음을 전사하고 명백한 STT 오류를 교정한 뒤 화제 전환 기준으로 문단을 나누고 각 문단을 한국어로 번역합니다."
+    },
+    {
+      "t": 30,
+      "en": "The result is published as static JSON to this site, so you can read the English original and the Korean translation side by side — on desktop in two columns, on mobile stacked. Use the button in the header to hide the Korean while practicing.",
+      "ko": "결과는 정적 JSON으로 이 사이트에 게시되어, 영어 원문과 한국어 번역을 나란히 읽을 수 있습니다 — 데스크톱에서는 2단, 모바일에서는 위아래로. 연습할 때는 헤더의 버튼으로 한국어를 숨길 수 있습니다."
+    }
+  ]
+}
