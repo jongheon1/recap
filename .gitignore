@@ -19,3 +19,6 @@ work/
 
 node_modules/
 .DS_Store
+
+# wrangler cache
+.wrangler/
