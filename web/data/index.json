@@ -1,6 +1,19 @@
 {
   "courses": [
     {
+      "id": "compression-is-intelligence",
+      "name": "Compression is Intelligence",
+      "files": [
+        {
+          "id": "2026-07-10-reinventing-entropy",
+          "title": "Reinventing Entropy (Part 1)",
+          "date": "2026-07-10",
+          "duration_sec": 1939,
+          "paragraphs": 44
+        }
+      ]
+    },
+    {
       "id": "demo",
       "name": "Demo",
       "files": [
