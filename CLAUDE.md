@@ -117,6 +117,19 @@ npx wrangler pages deploy web --project-name recap --branch main --commit-dirty=
 배포 후 사용자에게 문서 URL을 보고한다:
 `https://recap.jongheon.click/#/r/<id>`
 
+## 문서 관리 (제목 변경 · 코스 이동 · 삭제)
+
+사용자가 요청하면 아래처럼 정적 JSON을 수정하고 "커밋 + 배포"(위 4단계)를
+다시 수행한다. 같은 값이 두 곳(문서 JSON + index.json)에 있으므로 반드시
+**둘 다** 고친다.
+
+- **제목 변경**: `web/data/results/<id>.json`의 `title` + `web/data/index.json`
+  해당 파일 항목의 `title`. `id`(=URL)는 바꾸지 않는다 — 링크가 살아있어야 함.
+- **코스 이동**: 문서 JSON의 `course` + index.json에서 항목을 원래 코스의
+  `files`에서 빼서 대상 코스로 옮긴다.
+- **코스 이름 변경**: index.json의 코스 `name`만 변경 (`id`는 유지).
+- **삭제**: results JSON 파일 삭제 + index.json 항목 제거.
+
 ## 데이터 스키마 요약
 
 - `web/data/index.json` — 코스 목록. 각 코스: `{id, name, files[]}`,
