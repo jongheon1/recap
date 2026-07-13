@@ -18,5 +18,19 @@ cp .env.example .env   # OPENAI_API_KEY, CLOUDFLARE_API_TOKEN 입력
 claude                 # → "audio/오늘강의.m4a 처리해줘, 코스는 os"
 ```
 
+## 일상 사용 (전부 Claude Code에게 말로 시키면 됨)
+
+| 하고 싶은 것 | 이렇게 시킨다 | 실제로 일어나는 일 |
+|---|---|---|
+| 강의 처리 | "`<파일>` 처리해줘, 코스는 X" | 전사 → 교정·문단화·번역 → JSON 생성 → 커밋 → 배포 |
+| 제목 변경 | "그 문서 제목 ○○로 바꿔줘" | `results/<id>.json` + `index.json` 두 곳 수정 후 재배포 (URL은 유지) |
+| 코스 이동/삭제, 코스명 변경 | 마찬가지로 말로 | CLAUDE.md "문서 관리" 절차 수행 |
+
+수동으로 하고 싶으면: `web/data/`의 JSON을 고치고
+`npx wrangler pages deploy web --project-name recap --branch main --commit-dirty=true`.
+
+세부 절차·데이터 스키마·보안 규칙은 [CLAUDE.md](CLAUDE.md),
+인프라 변경은 `infra/`(Terraform)가 유일한 경로다.
+
 자매 프로젝트: [listen-up](https://github.com/jongheon1/listen-up) —
 문장 단위 듣기 훈련용 오디오 플레이어. recap은 내용 이해용 문서 리더.
