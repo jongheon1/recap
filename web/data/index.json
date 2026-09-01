@@ -1,6 +1,19 @@
 {
   "courses": [
     {
+      "id": "software-engineering",
+      "name": "Software Engineering",
+      "files": [
+        {
+          "id": "2026-09-01-software-engineering-1",
+          "title": "Course Introduction & Policies",
+          "date": "2026-09-01",
+          "duration_sec": 1672,
+          "paragraphs": 19
+        }
+      ]
+    },
+    {
       "id": "compression-is-intelligence",
       "name": "Compression is Intelligence",
       "files": [

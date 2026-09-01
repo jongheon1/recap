@@ -1,0 +1,105 @@
+{
+  "id": "2026-09-01-software-engineering-1",
+  "course": "software-engineering",
+  "title": "Course Introduction & Policies",
+  "date": "2026-09-01",
+  "duration_sec": 1672,
+  "audio_url": "https://pub-950a8b85c4a448b4b96d2942eec87d6b.r2.dev/2026-09-01-software-engineering-1.m4a",
+  "paragraphs": [
+    {
+      "t": 600,
+      "en": "But in this course, we usually address the application layer — this is a software engineering course, so we'll cover the basic concepts of software engineering. You'll learn the distinction between a simple program and a software system, and the software development lifecycle — planning, analysis, design, implementation, testing, and maintenance — along with some basic tools like Git, GitHub, and Docker.",
+      "ko": "하지만 이 수업에서는 주로 애플리케이션 계층을 다룹니다 — 이 과목은 소프트웨어공학 수업이니까요, 그래서 소프트웨어공학의 기본 개념을 배우게 됩니다. 단순한 프로그램과 소프트웨어 시스템의 차이를 이해하게 되고, 소프트웨어 개발 생명주기 — 계획, 분석, 설계, 구현, 테스트, 유지보수 — 그리고 Git, GitHub, Docker 같은 기본적인 도구들도 배우게 됩니다."
+    },
+    {
+      "t": 650,
+      "en": "The thing is — I was thinking hard about the syllabus for this course, and I kept asking myself: these days AI does everything, so what's the role of software engineering anymore? In the near future, almost everything might be done by AI models. So I decided that this semester, we should investigate how to develop and design software by leveraging AI models.",
+      "ko": "사실 이 수업 커리큘럼을 짜면서 계속 고민했습니다. 요즘은 AI가 다 해주는데, 그럼 소프트웨어공학의 역할은 뭘까 하고요. 가까운 미래엔 거의 모든 게 AI 모델로 처리될 수도 있겠죠. 그래서 이번 학기엔 AI 모델을 활용해서 소프트웨어를 어떻게 개발하고 설계할지 탐구해보기로 마음먹었습니다."
+    },
+    {
+      "t": 690,
+      "en": "A few months ago, I met someone running a startup, and he told me that he and his colleagues never write a single line of code themselves anymore — everything is done by AI tools like Claude and Codex. Still, what matters most — verification, planning, and architecting the software — is still a human's job.",
+      "ko": "몇 달 전에 스타트업 하는 분을 만났는데, 본인과 동료들은 이제 코드를 단 한 줄도 직접 안 쓴다고 하더라고요 — 전부 Claude나 Codex 같은 AI 도구로 처리한다고요. 그런데도 가장 중요한 부분 — 검증, 기획, 소프트웨어 아키텍처 설계 — 은 여전히 사람의 몫이라고 했습니다."
+    },
+    {
+      "t": 730,
+      "en": "There's a well-known phrase: you won't be replaced by AI, you'll be replaced by an engineer who knows how to use AI. So you should get familiar with AI tools and become an expert in AI-native software development — that's the goal of this course this semester. In that sense, I think software engineering matters more than ever, not less — it's just that the key examples are changing.",
+      "ko": "유명한 말이 있죠 — AI에게 대체되는 게 아니라, AI를 쓸 줄 아는 엔지니어에게 대체되는 거라고요. 그러니 여러분은 AI 도구에 익숙해지고, AI 네이티브 소프트웨어 개발의 전문가가 되어야 합니다 — 그게 이번 학기 이 수업의 목표입니다. 그런 의미에서 소프트웨어공학은 오히려 예전보다 더 중요해졌다고 생각합니다. 다만 다루는 예시들이 달라질 뿐이죠."
+    },
+    {
+      "t": 770,
+      "en": "In this course, you won't learn a new programming language or specific programming skills, nor the fundamental concepts of AI or LLMs — we'll focus purely on software development. I also won't teach you how to use AI tools like Copilot, Claude, or Codex; I expect you already have some experience developing software with these tools.",
+      "ko": "이 수업에서는 새로운 프로그래밍 언어나 구체적인 코딩 스킬, AI나 LLM의 이론적 개념 같은 건 다루지 않습니다 — 순수하게 소프트웨어 개발 자체에 집중합니다. 그리고 Copilot, Claude, Codex 같은 AI 도구 사용법도 가르치지 않을 거예요. 여러분은 이미 이런 도구로 소프트웨어를 개발해본 경험이 있을 거라고 생각합니다."
+    },
+    {
+      "t": 820,
+      "en": "There's no official textbook for this course, because I've packed in a lot of unusual topics this semester. There is a well-known textbook on software engineering, but you don't need to buy it — it's totally fine to just focus on the lecture materials, slides, and what I explain in class.",
+      "ko": "이번 학기엔 좀 특이한 주제들을 많이 넣어서, 이 수업엔 공식 교재가 없습니다. 소프트웨어공학 관련 유명한 교재가 있긴 하지만, 굳이 사지 않아도 됩니다 — 강의 자료와 슬라이드, 수업 중 설명한 내용에만 집중해도 충분합니다."
+    },
+    {
+      "t": 870,
+      "en": "You should be familiar with the basics of programming languages like C++ and Java, data structures like queues and stacks, and object-oriented programming concepts. It also helps to have some basic knowledge of computer systems and introductory computer science — but you don't need any deep knowledge of AI or machine learning.",
+      "ko": "C++이나 Java 같은 프로그래밍 언어의 기초, 큐나 스택 같은 자료구조, 객체지향 프로그래밍 개념 정도는 알고 있어야 합니다. 컴퓨터 시스템이나 컴퓨터공학 개론 수준의 지식이 있으면 도움이 되지만, AI나 머신러닝에 대한 깊은 지식은 전혀 필요 없습니다."
+    },
+    {
+      "t": 910,
+      "en": "Back in college, I never took an AI course at all — at the time, doing AI was almost a joke, right in the middle of a famous 'AI winter,' when everyone said AI was just science fiction. So I have no theoretical background in AI models — don't ask me about that kind of thing, okay?",
+      "ko": "저는 대학 다닐 때 AI 수업을 아예 안 들었어요 — 그땐 AI 한다는 게 거의 농담 취급받던 시절이었거든요, 유명한 'AI 겨울' 한복판이라 다들 AI는 그냥 공상과학이라고 했으니까요. 그래서 저는 AI 모델의 이론적 배경은 전혀 없습니다 — 그런 건 저한테 묻지 마세요, 아셨죠?"
+    },
+    {
+      "t": 950,
+      "en": "The official language of this course is English — lectures and exams will be given in English. But you may write your answers in Korean or English, whichever you're more comfortable with. If you do answer in English, please write clearly and deliberately — I'm not a native English speaker, so if you write like a native speaker, I might not understand your answer. You can also ask questions in English or Korean, either by email or in person after class — but everything will fundamentally be delivered in English.",
+      "ko": "이 수업의 공식 언어는 영어입니다 — 강의도 시험도 영어로 진행됩니다. 다만 답안은 한국어든 영어든 편한 대로 쓰셔도 됩니다. 영어로 답안을 쓴다면 명확하고 신중하게 써주세요 — 저는 영어 원어민이 아니라서, 원어민처럼 쓰시면 오히려 제가 못 알아들을 수도 있습니다. 질문은 이메일이든 수업 후 오프라인이든, 영어나 한국어 아무거나 괜찮습니다 — 다만 수업 자체는 기본적으로 전부 영어로 진행됩니다."
+    },
+    {
+      "t": 1030,
+      "en": "This is actually only the second time I've taught a course in English. At my previous university, I taught a course in English, but everyone kept staring at their laptop or iPad screens instead of watching me — it turned out they were all using AI translation tools, because the class was 100% Korean students, so I didn't feel there was much point lecturing in English. But this course is much more international, so I'll deliver everything in English.",
+      "ko": "사실 제가 영어로 강의하는 건 이번이 두 번째예요. 예전 학교에서 영어로 강의를 한 적이 있었는데, 다들 저를 안 보고 노트북이나 아이패드 화면만 쳐다보더라고요 — 알고 보니 전부 AI 번역기를 쓰고 있었던 거예요. 수강생이 100% 한국인이었으니, 굳이 영어로 강의하는 의미를 못 느꼈죠. 그런데 이번 수업은 훨씬 국제적이라서, 전부 영어로 진행하겠습니다."
+    },
+    {
+      "t": 1080,
+      "en": "Now, grading — probably the most important part for you. There's no assignment, no homework, and no project. I used to give a few assignments in my courses, but now everyone just does their homework with AI, so I decided it's better to remove assignments from this course entirely.",
+      "ko": "자, 이제 성적 — 여러분한테 아마 제일 중요한 부분이겠죠. 과제도, 숙제도, 프로젝트도 없습니다. 예전엔 과제를 좀 냈었는데, 요즘은 다들 AI로 숙제를 하니까, 아예 이 수업에서는 과제를 없애는 게 낫겠다고 판단했습니다."
+    },
+    {
+      "t": 1200,
+      "en": "Your grade will be determined only by the midterm exam, the final exam, and attendance. For attendance, you'll use the Y-attend app — I'll show a video at the beginning of the lecture so you can check in. This is a hard university rule: if you miss more than one-third of the classes, you'll receive an F.",
+      "ko": "성적은 오직 중간고사, 기말고사, 출석으로만 결정됩니다. 출석은 Y-attend 앱을 사용하고, 강의 시작할 때 영상을 보여드릴 테니 그걸로 체크인하면 됩니다. 이건 학교의 엄격한 규정인데, 전체 수업의 3분의 1 이상 결석하면 무조건 F입니다."
+    },
+    {
+      "t": 1250,
+      "en": "Grading is based on an absolute scale, but I also check the overall distribution of scores, so it's really a mix of relative and absolute grading. You could still receive an F if your performance is significantly lower than the rest of the class — attending every lecture and taking every exam doesn't guarantee you a good grade if your performance is too low.",
+      "ko": "성적은 절대평가 기준이지만, 전체 점수 분포도 함께 확인하기 때문에 사실상 상대평가와 절대평가가 섞여 있습니다. 반 전체 대비 성취도가 너무 낮으면 모든 수업에 출석하고 모든 시험을 봤더라도 F를 받을 수 있습니다."
+    },
+    {
+      "t": 1300,
+      "en": "If you have a serious reason that might put you at risk of an F, please consider taking a different course instead. This matters because we have roughly 100 students, so it's really a matter of probability — everyone's situation is different, and some of you may face circumstances that make it hard to focus on the course this semester.",
+      "ko": "F를 받을 위험이 있을 만한 심각한 사정이 있다면, 차라리 다른 수업을 듣는 걸 고려해보세요. 이게 중요한 이유는 수강생이 대략 100명이라, 결국 확률의 문제이기 때문입니다 — 사람마다 사정이 다르고, 이번 학기 수업에 집중하기 어려운 상황에 놓인 분도 분명 있을 테니까요."
+    },
+    {
+      "t": 1350,
+      "en": "And this should go without saying: cheating is prohibited and will be reported to the department. No AI tools, phones, or notes are allowed during exams, and you can't share your attendance check-in details with friends — doing so will get you an F. But it's totally fine to study the course materials with AI tools and share your learning experience with others.",
+      "ko": "당연한 얘기지만 부정행위는 금지고, 적발되면 학과에 보고됩니다. 시험 중에는 AI 도구, 휴대폰, 노트 전부 사용 금지고, 출석 체크 정보를 친구한테 공유해줘도 안 됩니다 — 그러면 F 받습니다. 하지만 AI 도구로 수업 자료를 공부하거나 학습 경험을 남들과 나누는 건 전혀 문제없습니다."
+    },
+    {
+      "t": 1410,
+      "en": "We'll have a midterm and a final exam at weeks 8 and 16, and the exam dates cannot be changed for any reason. This class meets twice a week, on Tuesday and Thursday, and both exams will be held during the Thursday class.",
+      "ko": "중간고사와 기말고사는 각각 8주차와 16주차에 있고, 시험 날짜는 어떤 이유로도 변경되지 않습니다. 이 수업은 화요일과 목요일 주 2회 진행되고, 두 시험 다 목요일 수업 시간에 치릅니다."
+    },
+    {
+      "t": 1450,
+      "en": "I'm emphasizing this because I've run into some uncomfortable situations before. For example, one student told me she couldn't take the exam on the scheduled day because she'd already booked a flight to Jeju Island, and asked if she could take the exam online after landing — the answer was no.",
+      "ko": "이걸 강조하는 이유는 예전에 곤란한 상황을 몇 번 겪었기 때문입니다. 예를 들면 한 학생이 이미 제주도행 비행기를 예약해서 시험 당일에 못 온다며, 도착 후에 온라인으로 시험을 볼 수 있냐고 물어본 적이 있는데 — 답은 안 된다였습니다."
+    },
+    {
+      "t": 1500,
+      "en": "Grade appeals are another issue. Some students have emailed me asking to raise their grade — or, ironically, even to lower it to an F. But I don't accept grade appeals by personal email, and I never respond to them. In fact, in Korea, this kind of grade appeal is strictly prohibited by law — it's called the Improper Solicitation and Graft Act. If I accepted an appeal like that, I could go to jail, so I really don't want to be in that situation.",
+      "ko": "성적 이의제기도 마찬가지입니다. 개인 이메일로 성적을 올려달라고 하는 학생도 있고, 반대로 아이러니하게 F로 낮춰달라는 학생도 있었어요. 하지만 저는 개인 이메일로 성적 이의제기를 받지 않고, 답장도 절대 하지 않습니다. 사실 한국에서는 이런 성적 청탁이 법으로 엄격히 금지돼 있습니다 — 이른바 '부정청탁 및 금품등 수수의 금지에 관한 법률'이죠. 만약 그런 청탁을 받아들이면 저는 감옥에 갈 수도 있으니, 그런 상황은 정말 원하지 않습니다."
+    },
+    {
+      "t": 1560,
+      "en": "That said, you can always ask me if your score seems different from what you expected — calculation errors or similar mistakes can absolutely be corrected. All right, that covers the class policies. Any questions? ... All right, I think that's the end of class for today. See you on Thursday.",
+      "ko": "다만 예상했던 점수와 다르다면 언제든 물어보셔도 됩니다 — 계산 실수 같은 건 당연히 정정해드립니다. 자, 이걸로 수업 운영 방침은 다 말씀드렸고요. 질문 있나요? ...네, 없으면 오늘 수업은 여기까지 하겠습니다. 목요일에 뵙겠습니다."
+    }
+  ]
+}
