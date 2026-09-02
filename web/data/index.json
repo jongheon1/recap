@@ -1,6 +1,19 @@
 {
   "courses": [
     {
+      "id": "quantum-computer-programming",
+      "name": "Quantum Computer Programming",
+      "files": [
+        {
+          "id": "2026-09-02-quantum-computer-programming-1",
+          "title": "Course Administration",
+          "date": "2026-09-02",
+          "duration_sec": 3099,
+          "paragraphs": 32
+        }
+      ]
+    },
+    {
       "id": "algorithm-analysis",
       "name": "Algorithm Analysis",
       "files": [
