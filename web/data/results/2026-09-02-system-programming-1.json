@@ -1,0 +1,95 @@
+{
+  "id": "2026-09-02-system-programming-1",
+  "course": "system-programming",
+  "title": "Introduction to Linux",
+  "date": "2026-09-02",
+  "duration_sec": 1350,
+  "audio_url": "https://pub-950a8b85c4a448b4b96d2942eec87d6b.r2.dev/2026-09-02-system-programming-1.m4a",
+  "paragraphs": [
+    {
+      "t": 0,
+      "en": "This is my first lecture — I just joined the university, so this is my very first time teaching. I'm a little nervous, but I'm very excited to teach you. As I understand it, we'll take attendance through this system — some of you have already installed the Y-Attend app, some haven't, so please make sure to install it on your smartphone. Today is just a test run for it.",
+      "ko": "이번이 제 첫 강의입니다 — 저도 이 학교에 막 부임해서, 가르치는 것 자체가 처음이에요. 조금 긴장되지만 여러분을 가르치게 되어 정말 기쁩니다. 제가 알기로 출석은 이 시스템으로 체크하는데, Y-Attend 앱을 이미 설치한 분도 있고 아직 안 하신 분도 있을 텐데, 스마트폰에 꼭 설치해 주세요. 오늘은 그냥 테스트로 한번 해보는 거예요."
+    },
+    {
+      "t": 90,
+      "en": "Our course this semester is System Programming — it covers the Linux kernel and its internals in detail. As you may already know, Linux is everywhere: your smartphones, your watches, your devices, even home appliances. Why is Linux used so widely? I think the most important reason is that it's free and open — you don't need to pay anything to use it. And Linux is also the most mature operating system out there, having been developed for about 30 years, so it's very stable and comfortable to work with.",
+      "ko": "이번 학기 저희 과목은 시스템 프로그래밍입니다 — 리눅스 커널과 그 내부 동작을 자세히 다룹니다. 이미 아시겠지만 리눅스는 어디에나 있습니다: 스마트폰, 워치, 각종 기기, 심지어 가전제품까지요. 왜 리눅스가 이렇게 널리 쓰일까요? 가장 중요한 이유는 무료이고 개방적이라는 점이라고 생각합니다 — 사용하는 데 비용이 전혀 안 들죠. 그리고 리눅스는 약 30년간 개발되어 온, 가장 성숙한 운영체제이기도 해서 매우 안정적이고 다루기 편합니다."
+    },
+    {
+      "t": 160,
+      "en": "The primary goal of this course is to learn the practical side of OS kernel programming, specifically the Linux kernel. If you haven't taken the operating systems course yet, I'd suggest taking that first and then coming back to this course, because this one goes into much more detail with real Linux kernel implementation. The regular OS course is more theoretical and doesn't really touch the actual Linux source code — but this course will.",
+      "ko": "이 과목의 주된 목표는 OS 커널 프로그래밍의 실전적인 측면, 특히 리눅스 커널을 배우는 것입니다. 아직 운영체제 수업을 안 들으셨다면 그것부터 듣고 이 수업을 듣는 걸 추천합니다 — 이 수업은 실제 리눅스 커널 구현을 훨씬 더 깊이 다루거든요. 일반 운영체제 수업은 좀 더 이론적이고 실제 리눅스 소스 코드는 잘 다루지 않는데, 이 수업은 다룹니다."
+    },
+    {
+      "t": 210,
+      "en": "In this course, we'll learn Linux kernel internals using real code — how the kernel works, and how you can customize it. The assignments will involve modifying the kernel or writing kernel modules. Through this, you'll build systems programming skills and get some experience with open-source software development. This matters beyond just OS or kernel programming, too: if you want to build high-level things like applications or AI systems, you need to understand how the underlying operating system works. Taking this course will give you that understanding, which will help you build better high-level applications and AI systems later.",
+      "ko": "이 수업에서는 실제 코드로 리눅스 커널 내부를 배웁니다 — 커널이 어떻게 동작하는지, 어떻게 커스터마이징할 수 있는지요. 과제는 커널을 수정하거나 커널 모듈을 작성하는 형태가 될 겁니다. 이 과정을 통해 시스템 프로그래밍 역량을 기르고 오픈소스 소프트웨어 개발 경험도 쌓게 됩니다. 이건 단순히 OS나 커널 프로그래밍에 국한된 얘기가 아닙니다 — 애플리케이션이나 AI 같은 상위 레벨의 것들을 개발하고 싶어도, 그 밑을 받치는 운영체제가 어떻게 동작하는지 이해해야 합니다. 이 수업을 들으면 그런 이해를 얻게 되고, 나중에 더 나은 상위 레벨 애플리케이션과 AI 시스템을 만드는 데 도움이 될 겁니다."
+    },
+    {
+      "t": 280,
+      "en": "My name is Seonghoon Park, and you can reach me by email. We also have a teaching assistant — Gunjoong Kim, a PhD student here — so if you have questions about assignments, attendance, or anything like that, please email him.",
+      "ko": "제 이름은 박성훈이고, 이메일로 연락하시면 됩니다. 조교도 있는데, 이 학교 박사과정생인 김건중 님입니다 — 과제, 출석 등 관련 질문이 있으면 그쪽으로 이메일 보내주세요."
+    },
+    {
+      "t": 320,
+      "en": "We'll have two exams — a midterm and a final. And I'll give you two programming assignments, maybe three, but I think it'll be two.",
+      "ko": "시험은 중간·기말 두 번 있습니다. 그리고 프로그래밍 과제는 두 개, 어쩌면 세 개일 수도 있는데 아마 두 개가 될 것 같습니다."
+    },
+    {
+      "t": 350,
+      "en": "I understand AI is very pervasive these days, so I can't really forbid you from using it. But I strongly recommend you attempt the assignment on your own first, and only then discuss it with AI if you're stuck. Trial and error really matters here — going through that process yourself is what actually builds your understanding of the internals and fundamentals of how things work.",
+      "ko": "요즘 AI가 워낙 널리 쓰이니까, 쓰지 말라고 막을 수는 없다고 생각합니다. 하지만 과제를 먼저 스스로 해보시길 강력히 권합니다 — 막히는 부분이 있을 때만 AI와 상의하세요. 시행착오 자체가 정말 중요합니다. 그 과정을 직접 겪어야 내부 동작 원리와 근본 원리에 대한 이해가 실제로 생기거든요."
+    },
+    {
+      "t": 390,
+      "en": "As for participation, I put down 10% on the syllabus, but I won't deduct a lot of points if you miss a class or two — that shouldn't be a big problem. Maybe you'll want to go watch the Yonsei-Korea rivalry games — I was quite into it as a Yonsei student myself, so I get it, go enjoy it if you want. That said, the two-thirds attendance rule is university policy, not mine, so please follow it if you don't want to run into trouble. Attendance will be checked electronically through the Y-Attend system.",
+      "ko": "출석 관련해서는 배점표에 10%라고 적어뒀는데, 한두 번 결석한다고 해서 점수를 크게 깎지는 않을 거예요 — 큰 문제는 안 될 겁니다. 연고전 보러 가고 싶으신 분도 있을 텐데, 저도 연세대 다닐 때 열심히 참여했던 사람이라 이해합니다, 가고 싶으면 다녀오세요. 다만 3분의 2 출석 규정은 제 개인 방침이 아니라 학교 방침이니, 곤란해지고 싶지 않으면 꼭 지켜주세요. 출석 체크는 Y-Attend 시스템으로 전자식으로 진행합니다."
+    },
+    {
+      "t": 460,
+      "en": "As for the textbook — I don't really recommend buying it, honestly, because it's quite outdated by now, about 10 years old. These slides cover a more recent version of the Linux kernel. You can still buy the book and read it if you want — you might pick up some points from it — but as far as I know, it covers a pretty old version of the kernel. I'd recommend going to the website I'll show you and reading the real, current source instead. And feel free to use AI to help you understand the real problems based on these lecture slides.",
+      "ko": "교재 관련해서는, 솔직히 사시는 걸 별로 추천하지 않습니다 — 나온 지 10년 정도 돼서 꽤 오래됐거든요. 이 슬라이드들은 더 최신 버전의 리눅스 커널을 다룹니다. 원하시면 책을 사서 읽으셔도 되고 거기서 얻을 점도 있겠지만, 제가 알기로는 꽤 오래된 커널 버전을 다루고 있어요. 대신 제가 알려드릴 웹사이트에 가서 실제 최신 소스를 읽어보시길 추천합니다. 그리고 이 강의 슬라이드를 바탕으로 실제 문제를 이해하는 데 AI를 활용하셔도 좋습니다."
+    },
+    {
+      "t": 600,
+      "en": "This slide shows the course outline. I assume most of you have already taken the operating systems course, so the outline will look similar — but the difference is that the OS course covers more theoretical material, without really touching real Linux code, while our course will cover the real Linux code. That's the key difference. We'll cover Linux processes, scheduling, system calls, synchronization, memory management, file systems, and so on.",
+      "ko": "이 슬라이드는 이번 학기 강의 개요입니다. 대부분 이미 운영체제 수업을 들으셨을 테니 목차는 비슷해 보일 텐데, 차이는 운영체제 수업이 더 이론 위주이고 실제 리눅스 코드는 거의 안 다룬다면, 이 수업은 실제 리눅스 코드를 다룬다는 겁니다. 그게 핵심적인 차이예요. 리눅스 프로세스, 스케줄링, 시스템 콜, 동기화, 메모리 관리, 파일 시스템 등을 다룹니다."
+    },
+    {
+      "t": 660,
+      "en": "So far I've given you a broad overview and introduction to this lecture. Now I want to explain why we need to learn Linux kernels, using my own research as an example. My research is more focused on smartphones. Nowadays everyone has a smartphone, and smartphones have evolved a lot since the Galaxy S back in 2010 — I was a high school student back then, and that first smartphone had a lot of flaws and was pretty poor overall. But it's evolved a lot since — modern phones have many more sensors, cores, and features.",
+      "ko": "지금까지 이 강의 전체에 대한 큰 그림과 소개를 드렸습니다. 이제 왜 우리가 리눅스 커널을 배워야 하는지, 제 연구를 예로 들어 설명드리고 싶습니다. 제 연구는 스마트폰 쪽에 더 초점이 맞춰져 있습니다. 요즘은 다들 스마트폰을 갖고 있죠. 그리고 스마트폰은 2010년 갤럭시 S 이후로 정말 많이 발전했습니다 — 그때 저는 고등학생이었는데, 그 첫 스마트폰은 결함도 많고 전반적으로 꽤 부족했어요. 하지만 그 이후로 많이 발전해서, 요즘 폰들은 센서도, 코어도, 기능도 훨씬 많습니다."
+    },
+    {
+      "t": 720,
+      "en": "There are several smartphone operating systems — Android, iPhone, and back then also Symbian, Windows 10 Mobile, WebOS, BlackBerry, Tizen, and so on. Most of these smartphone operating systems were based on Linux. Why? Because it's free and well-maintained. Unfortunately, WebOS and Tizen — maintained by LG and Samsung respectively — aren't really used for smartphones anymore, but those operating systems are now used in home appliances instead, like TVs and refrigerators. That's another reason Linux is so important.",
+      "ko": "스마트폰 운영체제는 여러 개가 있었습니다 — 안드로이드, 아이폰, 그리고 예전에는 심비안, 윈도우 10 모바일, webOS, 블랙베리, 타이젠 등도 있었죠. 이 스마트폰 운영체제 대부분이 리눅스 기반이었습니다. 왜일까요? 무료이고 잘 관리되기 때문입니다. 아쉽게도 LG가 관리하던 webOS와 삼성이 관리하던 타이젠은 이제 스마트폰용으로는 거의 안 쓰이지만, 대신 TV나 냉장고 같은 가전제품에서 그 운영체제들이 쓰이고 있습니다. 이게 리눅스가 중요한 또 다른 이유입니다."
+    },
+    {
+      "t": 770,
+      "en": "This slide shows the Android stack. When we say 'Android operating system,' that includes everything from the kernel up to the Android framework — but the framework is about high-level things, while the kernel handles low-level things like CPU scheduling, memory management, and file systems. The Android kernel is based on Linux. This slide also shows the Tizen stack, and as you can see, the lowest layer there is the Linux kernel too. Some of you might end up working at LG, Samsung, Google, or other big IT companies on exactly this layer — so understanding the Linux kernel will really help you there.",
+      "ko": "이 슬라이드는 안드로이드 스택을 보여줍니다. '안드로이드 운영체제'라고 하면 커널부터 안드로이드 프레임워크까지 다 포함하는데, 프레임워크는 상위 레벨의 것들을 다루고, 커널은 CPU 스케줄링, 메모리 관리, 파일 시스템 같은 하위 레벨을 다룹니다. 안드로이드 커널은 리눅스 기반이고요. 이 슬라이드는 타이젠 스택도 보여주는데, 보시다시피 맨 아래 레이어가 여기서도 리눅스 커널입니다. 여러분 중 누군가는 나중에 LG, 삼성, 구글 같은 큰 IT 기업에서 바로 이 부분을 다루는 일을 하게 될 수도 있어요 — 그럴 때 리눅스 커널에 대한 이해가 정말 큰 도움이 될 겁니다."
+    },
+    {
+      "t": 830,
+      "en": "I know today's the first lecture, so you probably want me to wrap this up quickly — but before I do, I'd like to introduce my research a bit more. My lab is called the Mobile AI and Systems Lab, and my vision is to enable advanced mobile experiences for users, like real-time scene understanding for augmented reality. Imagine a mobile device that can understand its surroundings in real time — that would be pretty amazing. It's also related to things like immersive, interactive 3D video content, which can give users really compelling visual experiences — devices like Meta Quest or other XR devices could deliver that kind of experience.",
+      "ko": "오늘이 첫 강의라 빨리 끝내주길 바라시겠지만, 끝내기 전에 제 연구를 조금 더 소개하고 싶습니다. 제 연구실 이름은 Mobile AI and Systems Lab이고, 제 비전은 사용자에게 발전된 모바일 경험을 제공하는 것입니다 — 예를 들면 증강현실을 위한 실시간 주변 상황 이해 같은 것이죠. 모바일 기기가 주변 환경을 실시간으로 이해할 수 있다고 상상해보세요, 정말 대단할 겁니다. 이건 몰입감 있고 인터랙티브한 3D 영상 콘텐츠와도 관련이 있는데, 이런 콘텐츠는 사용자에게 정말 강렬한 시각적 경험을 줄 수 있습니다 — Meta Quest 같은 XR 기기들이 그런 경험을 제공할 수 있겠죠."
+    },
+    {
+      "t": 900,
+      "en": "To support these kinds of applications, running these computationally intensive tasks is very challenging. We're talking about emerging techniques like vision foundation models, vision-language models, even large language models, plus 3D representations like NeRF — Neural Radiance Fields — and 3D Gaussian Splatting, which are also very computationally heavy. My goal is to run these heavy tasks in real time on resource-constrained mobile devices. But mobile devices are far more resource-constrained than server-grade GPUs or processors — much slower. That's a real problem, and it means we need serious optimization techniques to run these heavy tasks. On top of that, mobile systems also suffer from battery and thermal issues — we don't want devices draining their battery too fast or overheating. That's another important constraint.",
+      "ko": "이런 애플리케이션들을 지원하려면, 이렇게 연산량이 많은 작업을 실행하는 게 매우 어렵습니다. vision foundation model, vision-language model, 심지어 대형 언어 모델까지, 여기에 NeRF(Neural Radiance Field)나 3D Gaussian Splatting 같은 3D 표현 기법도 연산 부담이 매우 큽니다. 제 목표는 이런 무거운 작업들을 자원이 제한된 모바일 기기에서 실시간으로 돌리는 겁니다. 그런데 모바일 기기는 서버급 GPU나 프로세서보다 자원이 훨씬 제한적이고 훨씬 느립니다. 이게 진짜 문제이고, 이런 무거운 작업을 돌리려면 상당한 최적화 기법이 필요하다는 뜻입니다. 게다가 모바일 시스템은 배터리와 발열 문제도 있습니다 — 배터리가 너무 빨리 닳거나 기기가 과열되는 걸 원치 않으니까요. 이것도 중요한 제약 조건입니다."
+    },
+    {
+      "t": 1000,
+      "en": "This slide shows a breakdown of a smartphone's AP — as you can see, modern smartphones are equipped with neural processing units, CPUs, and GPUs. So we need optimization techniques to make the most efficient use of these heterogeneous processors — NPUs, CPUs, and GPUs. To do this kind of research, we can use several strategies: task allocation across CPU, GPU, and NPU; controlling the processors' operating frequency; and fine-grained, model-specific scheduling between GPU and NPU. To do any of this well, you really need to understand the internal behavior of the operating system — that's exactly why I'm bringing this up. On top of that, there are also AI-side techniques we can use — static model configuration to provide various control points, dynamic neural architectures like multi-exit networks and stitchable networks, and for 3D representations, scalable scene representations that give you various control points for different trade-offs. Combining these AI-side techniques with model and system optimization is really our strategy — and it still requires a deep understanding of Linux or Android internals. That said, I won't cover those details in this particular lecture.",
+      "ko": "이 슬라이드는 스마트폰 AP의 구조를 보여줍니다 — 보시다시피 요즘 스마트폰에는 신경망 처리 장치(NPU), CPU, GPU가 다 들어 있습니다. 그래서 이런 이종(heterogeneous) 프로세서들 — NPU, CPU, GPU — 을 최대한 효율적으로 활용하기 위한 최적화 기법이 필요합니다. 이런 연구를 하려면 여러 전략을 쓸 수 있는데, CPU/GPU/NPU 간 작업 분배, 프로세서 동작 주파수 제어, 그리고 GPU와 NPU 사이의 세밀한 모델별 스케줄링 같은 것들입니다. 이걸 잘하려면 운영체제의 내부 동작을 제대로 이해해야 하는데, 그래서 제가 이 얘기를 꺼내는 겁니다. 여기에 더해 AI 쪽 기법들도 활용할 수 있는데, 다양한 제어점을 제공하는 static model configuration, multi-exit network나 stitchable network 같은 dynamic neural architecture, 그리고 3D 표현의 경우 다양한 트레이드오프에 대한 제어점을 주는 scalable scene representation 등이 있습니다. 이런 AI 쪽 기법들과 모델·시스템 최적화를 결합하는 게 저희 전략인데, 이 역시 리눅스나 안드로이드 내부에 대한 깊은 이해를 필요로 합니다. 다만 이번 강의에서 그 세부 내용까지 다루지는 않을 겁니다."
+    },
+    {
+      "t": 1200,
+      "en": "We won't get into detailed scheduling or memory management topics — I don't think that's really undergrad-level material, it's more graduate or PhD level. But if you're genuinely interested in this area, feel free to talk to me — I'm actively looking for highly motivated interns or PhD students, so consider this a bit of advertising. I think I've given you a good overview of the course and how I'll run these lectures, so if you have any questions, feel free to ask. Also, as far as I know, you can still freely drop the class during the first week, so I'll mark everyone present for week one — don't worry about that. That wraps up today's lecture. Thank you, thank you very much.",
+      "ko": "세부적인 스케줄링이나 메모리 관리 주제까지는 다루지 않을 겁니다 — 학부 수준이라기보다는 대학원, 박사과정 수준이라고 생각해서요. 하지만 이 분야에 정말 관심 있으신 분은 편하게 저한테 얘기해주세요 — 열정 있는 인턴이나 박사과정 학생을 적극적으로 찾고 있거든요, 이건 약간의 홍보라고 생각해주시면 됩니다. 이 정도면 과목 개요와 앞으로 강의를 어떻게 진행할지 잘 설명드린 것 같네요, 질문 있으시면 편하게 해주세요. 그리고 제가 알기로 첫 주에는 자유롭게 수강철회가 가능하니, 1주차는 다들 출석으로 처리할 테니 걱정 마세요. 오늘 강의는 여기까지입니다. 감사합니다, 정말 감사합니다."
+    }
+  ]
+}

@@ -1,6 +1,32 @@
 {
   "courses": [
     {
+      "id": "algorithm-analysis",
+      "name": "Algorithm Analysis",
+      "files": [
+        {
+          "id": "2026-09-02-algorithm-analysis-1",
+          "title": "Maximum Subsequence Sum",
+          "date": "2026-09-02",
+          "duration_sec": 2273,
+          "paragraphs": 23
+        }
+      ]
+    },
+    {
+      "id": "system-programming",
+      "name": "System Programming",
+      "files": [
+        {
+          "id": "2026-09-02-system-programming-1",
+          "title": "Introduction to Linux",
+          "date": "2026-09-02",
+          "duration_sec": 1350,
+          "paragraphs": 17
+        }
+      ]
+    },
+    {
       "id": "distributed-learning-and-inference",
       "name": "Distributed Learning and Inference",
       "files": [
