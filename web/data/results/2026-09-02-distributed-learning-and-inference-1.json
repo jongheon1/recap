@@ -1,0 +1,155 @@
+{
+  "id": "2026-09-02-distributed-learning-and-inference-1",
+  "course": "distributed-learning-and-inference",
+  "title": "Course Overview",
+  "date": "2026-09-02",
+  "duration_sec": 1832,
+  "audio_url": "https://pub-950a8b85c4a448b4b96d2942eec87d6b.r2.dev/2026-09-02-distributed-learning-and-inference-1.m4a",
+  "paragraphs": [
+    {
+      "t": 0,
+      "en": "Welcome to the Distributed Learning and Inference course. Since today is the first day of class, I'll keep today's lecture brief and go over three things: a short introduction of myself, what this course is about, and the logistics of the course.",
+      "ko": "분산 학습 및 추론 수업에 오신 것을 환영합니다. 오늘이 첫 수업이니 오늘 강의는 간단하게 마치려고 합니다. 제 소개를 짧게 하고, 이 수업이 무엇에 관한 것인지, 그리고 수업 운영 방식(로지스틱스)을 이야기하겠습니다."
+    },
+    {
+      "t": 40,
+      "en": "During my bachelor's degree I majored in mathematics, but I wasn't very good at it, so I double-majored in electrical engineering. That's where I learned how to integrate machine learning with network communication and computer science. I'm currently at Yonsei University working on various aspects of machine learning, including making machine learning models very compact and efficient, and personalized machine learning, where we fine-tune models to personalize them to a user's dataset. I'm also interested in making large language models safe. So overall, I work on a range of topics including distributed machine learning, which is the topic of this course.",
+      "ko": "학부 때 수학을 전공했는데 그다지 잘하지 못해서 전기전자공학을 복수전공했습니다. 그때 머신러닝을 네트워크 통신, 컴퓨터공학과 어떻게 결합하는지 배웠습니다. 지금 연세대학교에서 머신러닝의 다양한 측면을 연구하고 있는데, 모델을 아주 작고 효율적으로 만드는 것, 그리고 개인화된 머신러닝 — 즉 특정 사용자의 데이터셋에 맞게 모델을 파인튜닝하는 것 — 등을 다룹니다. 또한 대규모 언어 모델을 안전하게 만드는 데도 관심이 있습니다. 이렇게 분산 머신러닝을 포함한 다양한 주제를 연구하고 있으며, 이 분산 머신러닝이 바로 이 수업의 주제입니다."
+    },
+    {
+      "t": 150,
+      "en": "This is my email and my room number — if you have any concerns during the course, you can email me, or you can also email the TAs. Our class is in Room D408, in the engineering building, and we meet on Wednesdays and Fridays.",
+      "ko": "제 이메일과 방 번호입니다. 수업 중 궁금한 점이 있으면 저에게 이메일을 보내시거나 조교(TA)들에게 이메일을 보내시면 됩니다. 강의실은 공학관의 D408호이고, 수요일과 금요일에 수업이 있습니다."
+    },
+    {
+      "t": 210,
+      "en": "On the official schedule, Friday's session includes a 10-minute break, but I probably won't take that break — I'll just end around 12:40 so we have some time for lunch.",
+      "ko": "공식 시간표에는 금요일 수업에 10분 휴식이 포함되어 있지만, 저는 아마 그 휴식을 따로 갖지 않고 12시 40분쯤 끝내려고 합니다. 그래야 점심 먹을 시간이 좀 생기니까요."
+    },
+    {
+      "t": 260,
+      "en": "Before we get into anything, it's always important to know why we're learning a course and what it's about. So what's the title of this course? Distributed Learning and Inference. There are a few important keywords here. I'll first talk about what learning and inference mean in this context, and then about the keyword 'distributed.'",
+      "ko": "무엇이든 배우기 전에 왜 이 수업을 듣는지, 이 수업이 무엇에 관한 것인지 아는 게 항상 중요합니다. 이 수업의 제목이 뭘까요? 바로 '분산 학습 및 추론(Distributed Learning and Inference)'입니다. 여기에 중요한 키워드가 몇 개 있습니다. 먼저 이 수업에서 말하는 학습(learning)과 추론(inference)이 무엇인지 이야기하고, 그다음 '분산(distributed)'이라는 키워드를 이야기하겠습니다."
+    },
+    {
+      "t": 300,
+      "en": "Nowadays we all know AI services are very capable — not just the models that appeared around ten years ago, but also many recent generative models, including DeepSeek, ChatGPT, and Gemini. AI has received a lot of attention because of models like AlphaGo, AlphaStar, and AlphaFold — and you may know that the inventors of AlphaFold received a Nobel Prize.",
+      "ko": "요즘 우리는 AI 서비스가 정말 뛰어나다는 걸 알고 있습니다. 10년 전쯤 등장했던 모델들뿐 아니라, DeepSeek, ChatGPT, Gemini 같은 최근의 생성형 모델들도 마찬가지입니다. AlphaGo, AlphaStar, AlphaFold 같은 훌륭한 모델들 덕분에 AI가 큰 주목을 받아왔고, AlphaFold를 개발한 분들이 노벨상을 받은 것도 아실 겁니다."
+    },
+    {
+      "t": 350,
+      "en": "So we know what an AI model is, but how is it related to learning and inference? These AI models are obtained through learning — we teach them to make predictions through training. There's a model we want to train, and there's data. The basic idea is: we have a model we want to optimize, and data we want the model to learn from, and from that we obtain a model that can solve a given task. In AlphaGo's case, for example, we have many past games, we feed that information to the model, and the model learns how to win. This whole process is called training. Traditionally people separate training into supervised, unsupervised, and reinforcement learning, but you can just think of training broadly as any process that uses data to change a model.",
+      "ko": "그럼 AI 모델이 무엇인지는 알겠는데, 학습·추론과는 어떤 관계가 있을까요? 이런 AI 모델들은 학습(learning)을 통해 얻어집니다 — 즉 훈련(training)을 통해 무언가를 예측하도록 가르치는 것이죠. 우리가 학습시키고 싶은 모델이 있고, 데이터가 있습니다. 기본 아이디어는, 최적화하고 싶은 모델이 있고, 그 모델이 학습하길 바라는 데이터가 있으며, 이를 통해 특정 과제를 풀 수 있는 모델을 얻는다는 것입니다. 예를 들어 AlphaGo의 경우, 수많은 바둑 대국 기록이 있고, 그 정보를 모델에 입력하면 모델이 이기는 방법을 학습합니다. 이 전체 과정을 훈련(training)이라고 부릅니다. 전통적으로는 훈련을 지도학습, 비지도학습, 강화학습으로 나누지만, 그냥 데이터를 이용해 모델을 변화시키는 모든 과정을 훈련이라고 폭넓게 생각하셔도 됩니다."
+    },
+    {
+      "t": 430,
+      "en": "So you have training data and a model, and to train the model you need to know how — that's where the algorithm comes in. We'll talk about many different algorithms in this class, especially distributed learning algorithms. Another important point is hardware: you always train a model using some GPU, and if that GPU has limited memory and compute, and the model is very large, training becomes impossible. Many engineering courses ignore efficiency or hardware, but in this course we will talk about hardware to some extent — not in great detail, but especially about memory constraints. Existing algorithms mostly focus on improving performance itself, but in this class we'll also talk about efficient algorithms — how to improve memory usage and computational efficiency during training.",
+      "ko": "훈련 데이터와 모델이 있고, 모델을 훈련시키려면 어떻게 훈련시킬지 알아야 하는데, 바로 이 부분이 알고리즘의 역할입니다. 이 수업에서는 다양한 알고리즘, 특히 분산 학습 알고리즘들을 다룰 것입니다. 또 하나 중요한 것은 하드웨어입니다. 모델은 항상 특정 GPU를 이용해 훈련하는데, 그 GPU의 메모리와 연산 자원이 제한적이고 모델 크기가 아주 크다면 훈련 자체가 불가능해집니다. 많은 공학 수업들이 효율성이나 하드웨어 측면을 간과하지만, 이 수업에서는 하드웨어도 어느 정도 — 아주 자세히는 아니지만 특히 메모리 제약 측면에서 — 다룰 것입니다. 기존 알고리즘들은 대체로 성능 자체를 높이는 데 집중하지만, 이 수업에서는 훈련 과정에서 메모리와 연산 효율을 높이는 효율적인 알고리즘들도 함께 다루겠습니다."
+    },
+    {
+      "t": 520,
+      "en": "Once you have good hardware and a good algorithm and obtain a good model — like AlphaGo or ChatGPT — what do you do with it? The more important part of a machine learning service is actually inference, where the service provider serves the model to users. We don't know exactly how ChatGPT was trained, but it was trained somehow, and then that trained model gets served to us — OpenAI provides the service so we can get output from the model. This part is called inference, or the test, service, or deployment phase.",
+      "ko": "좋은 하드웨어와 알고리즘이 있어서 AlphaGo나 ChatGPT 같은 좋은 모델을 얻었다고 합시다. 그럼 이 모델로 무엇을 해야 할까요? 머신러닝 서비스에서 사실 더 중요한 부분은 추론(inference)입니다 — 서비스 제공자가 사용자에게 서비스를 제공하는 단계죠. ChatGPT가 정확히 어떻게 훈련됐는지는 모르지만 어떤 방식으로든 훈련되었고, 그렇게 훈련된 모델이 우리에게 서비스로 제공됩니다 — OpenAI가 서비스를 제공해서 우리가 모델의 출력을 받는 것이죠. 이 부분을 추론, 혹은 테스트/서비스/배포 단계라고 부릅니다."
+    },
+    {
+      "t": 600,
+      "en": "After training finishes, we don't train the model anymore — we serve it, or receive service from it, using new data the model hasn't seen during training. The goal of training is to build a model that performs well on this unseen data. This whole part is inference. In this course, we'll clearly distinguish between the training process, where we build a model, and the inference process, where the model is served to users.",
+      "ko": "훈련이 끝나면 더 이상 모델을 훈련시키지 않습니다. 대신 그 모델을 가지고 서비스를 제공하거나 서비스를 받습니다. 이때는 훈련 과정에서 본 적 없는 새로운 데이터를 다루게 되죠. 훈련의 목표는 이런 미지의 데이터에서도 잘 동작하는 모델을 만드는 것이고, 이 전체 과정을 추론이라고 부릅니다. 이 수업에서는 모델을 만드는 훈련 과정과, 그 모델이 사용자에게 서비스되는 추론 과정을 명확히 구분해서 다룰 것입니다."
+    },
+    {
+      "t": 650,
+      "en": "There's one term I want to introduce before we start: foundation model. All the models we just saw are tailored to a specific task. But nowadays there's a huge amount of data on the internet — text, images, speech, and other signals — and the term 'foundation model' has emerged, defined in a well-known paper as any model trained on broad data that can be adapted, or fine-tuned, to a wide range of downstream tasks.",
+      "ko": "수업을 시작하기 전에 한 가지 용어를 소개하고 싶은데, 바로 파운데이션 모델(foundation model)입니다. 지금까지 본 모델들은 모두 특정 과제에 맞춰져 있습니다. 하지만 요즘은 텍스트, 이미지, 음성 등 다양한 신호를 포함해 인터넷에 방대한 데이터가 존재하고, '파운데이션 모델'이라는 용어가 등장했는데, 유명한 논문에서는 이를 '넓은 범위의 데이터로 학습되어 다양한 다운스트림 과제에 적용(파인튜닝)될 수 있는 모델'로 정의합니다."
+    },
+    {
+      "t": 700,
+      "en": "Foundation models are built by many companies — including OpenAI, DeepSeek, and Meta — using their own training algorithms, which we call pre-training, to build a good foundation model. This part happens mostly in industry. Once the model is built, it can be fine-tuned for specific, personalized tasks, and that part can be done by users or researchers in both industry and academia. Pre-training needs a lot more hardware, since it takes more time and more data; fine-tuning still needs hardware, but it's much less computationally heavy.",
+      "ko": "파운데이션 모델은 OpenAI, DeepSeek, Meta 같은 여러 기업들이 자체 학습 알고리즘 — 이를 프리트레이닝(pre-training)이라고 부릅니다 — 을 이용해 만듭니다. 이 부분은 주로 산업계에서 이루어집니다. 모델이 만들어지고 나면, 특정하고 개인화된 과제에 맞게 파인튜닝할 수 있는데, 이 부분은 산업계와 학계 양쪽의 사용자·연구자 모두가 할 수 있습니다. 프리트레이닝은 시간과 데이터가 많이 필요해서 훨씬 많은 하드웨어가 필요하고, 파인튜닝도 하드웨어가 필요하긴 하지만 연산 부담은 훨씬 적습니다."
+    },
+    {
+      "t": 760,
+      "en": "We just talked at a high level about what training and inference are, what the current state of AI looks like, and how pre-training and fine-tuning work — but that's not really the focus of this course. We won't go deep into specific algorithms. Instead we'll focus on the engineering issues around this: GPU memory, computation, and delay issues, caused first by large-scale datasets — imagine billions of data samples, and handling all of that on a single machine would take a very long time — and second by large-scale models, where a single machine simply doesn't have the capacity.",
+      "ko": "지금까지 훈련과 추론이 무엇인지, AI의 현재 상황, 프리트레이닝과 파인튜닝이 어떻게 이루어지는지를 개괄적으로 이야기했는데, 사실 이건 이 수업의 초점이 아닙니다. 우리는 특정 알고리즘 자체를 깊이 다루지는 않을 겁니다. 대신 이와 관련된 공학적 이슈들을 다룰 텐데, GPU 메모리, 연산, 지연(delay) 문제들입니다. 첫 번째 원인은 대규모 데이터셋입니다 — 수십억 개의 데이터 샘플을 상상해 보세요. 이걸 단일 머신으로 처리한다면 굉장히 오래 걸릴 겁니다. 두 번째 원인은 대규모 모델입니다 — 모델 크기가 매우 큰데 단일 머신은 그만한 용량이 없다는 것이죠."
+    },
+    {
+      "t": 830,
+      "en": "So one of our key questions throughout this course is: how can we efficiently train large-scale models using large-scale datasets, and how should we implement and deploy the trained models to serve users efficiently? The first part is about training, the second is about inference, and the issues in between are what we'll solve using distributed learning and inference — that's why the course is called Distributed Learning and Inference. We need distributed approaches because we're dealing with large-scale models and large-scale datasets.",
+      "ko": "그래서 이 수업 전체를 관통하는 핵심 질문 중 하나는, 대규모 데이터셋을 이용해 대규모 모델을 어떻게 효율적으로 훈련시킬 것인가, 그리고 훈련된 모델을 사용자에게 효율적으로 서비스하려면 어떻게 구현·배포해야 하는가입니다. 앞부분은 훈련에 대한 것이고, 뒷부분은 추론에 대한 것이며, 그 사이의 이슈들을 '분산'이라는 개념으로 풀어나갈 것입니다. 그래서 이 수업의 제목이 '분산 학습 및 추론'입니다. 대규모 모델과 대규모 데이터셋을 다뤄야 하기 때문에 분산 방식이 필요한 것이죠."
+    },
+    {
+      "t": 880,
+      "en": "Let's look at this at a high level. Centralized training is what you're probably already imagining: a single machine, with a model and data both on that machine, trained with some algorithm. But as I mentioned, large model size and large dataset size cause memory and computation problems. The natural solution is to introduce multiple machines, and split either the dataset or the model across them.",
+      "ko": "높은 수준에서 어떻게 하는지 살펴봅시다. 중앙집중식 훈련(centralized training)은 여러분이 이미 떠올리고 있을 방식입니다 — 단일 머신에 모델과 데이터가 모두 있고, 그걸로 훈련하는 것이죠. 하지만 앞서 말했듯 모델 크기가 크고 데이터셋이 크면 메모리와 연산 문제가 생깁니다. 자연스러운 해결책은 여러 머신을 도입해서 데이터셋이나 모델을 여러 머신에 나누는 것입니다."
+    },
+    {
+      "t": 930,
+      "en": "If you split the data samples across different machines, that's called data parallelism — we'll cover the details throughout the course, but for now this is just the high-level picture, so you can decide whether to take this course.",
+      "ko": "데이터 샘플을 여러 머신에 나누어 학습시키는 방식을 데이터 병렬화(data parallelism)라고 합니다. 자세한 내용은 수업 전반에 걸쳐 다룰 텐데, 지금은 이 수업을 들을지 결정할 수 있도록 개괄적인 그림만 보여드리는 것입니다."
+    },
+    {
+      "t": 970,
+      "en": "Even with data parallelism, the model itself might still be too large for a single machine. In that case, you can split the model across multiple GPUs — one way is layer by layer, allocating the first few layers to the first GPU, the next few to the second, and so on. That's one way to implement model parallelism, but there are also other types, like tensor parallelism and pipeline parallelism, which we'll also cover. This whole approach — multiple machines applying data or model parallelism to train efficiently — is what we call Type 1 distributed learning.",
+      "ko": "데이터 병렬화를 적용하더라도 모델 자체가 단일 머신에서 훈련하기엔 여전히 너무 클 수 있습니다. 이럴 때는 모델을 여러 GPU에 나눌 수 있는데, 한 가지 방법은 레이어 단위로 나누는 것입니다 — 앞쪽 몇 개 레이어는 첫 번째 GPU에, 다음 몇 개는 두 번째 GPU에 배치하는 식이죠. 이것도 모델 병렬화(model parallelism)를 구현하는 한 방법이고, 이외에도 텐서 병렬화(tensor parallelism), 파이프라인 병렬화(pipeline parallelism) 같은 다양한 유형이 있으며 이것들도 수업에서 다룰 것입니다. 이렇게 여러 머신이 데이터 병렬화나 모델 병렬화를 적용해 효율적으로 훈련하는 방식 전체를 '유형 1(Type 1) 분산 학습'이라고 부릅니다."
+    },
+    {
+      "t": 1050,
+      "en": "These multiple GPUs could exist on a cloud server, in a data center, or in each lab's own GPU server — wherever they are, if you understand the concepts of distributed learning, you can train these models. That's one distributed learning strategy. We'll also briefly cover another type, called multi-user learning, or federated learning. Here, there are many users in the system, and the goal is for them to collaboratively train a single model, or multiple models, through collaboration.",
+      "ko": "이 여러 GPU들은 클라우드 서버에 있을 수도 있고, 데이터센터, 혹은 각 연구실의 GPU 서버에 있을 수도 있습니다. GPU가 어디에 있든, 분산 학습의 개념을 이해하면 이런 모델들을 훈련시킬 수 있습니다. 이것이 하나의 분산 학습 전략입니다. 또 다른 유형인 다중 사용자 학습, 즉 연합학습(federated learning)도 간단히 다룰 것입니다. 여기서는 시스템 안에 여러 사용자가 존재하고, 이들이 협력해서 하나 혹은 여러 개의 모델을 함께 훈련시키는 것이 목표입니다."
+    },
+    {
+      "t": 1150,
+      "en": "For example, some people might have images related to mountains and the sea, others might have images of people. Or, in a more specific example like disease diagnosis, one hospital might have data about a certain disease and normal cases, while another has different images — the data samples are naturally distributed across different users.",
+      "ko": "예를 들어 어떤 사람들은 산이나 바다 관련 이미지를 가지고 있고, 다른 사람들은 인물 이미지를 가지고 있을 수 있습니다. 질병 진단 같은 좀 더 구체적인 예시로 보면, 한 병원은 특정 질병과 정상 사례에 관한 데이터를 가지고 있고, 다른 병원은 다른 이미지를 가지고 있을 수 있습니다 — 이렇게 데이터 샘플이 여러 사용자에게 자연스럽게 분산되어 있는 것입니다."
+    },
+    {
+      "t": 1220,
+      "en": "So the question is: how should these users efficiently and effectively collaborate to build a good model? This is Type 2 distributed training. In the first type, we intentionally distribute data or split the model for efficient training even though we technically have it all in one place. In the second type, the data is already naturally distributed across users. These are the two types of distributed learning we'll cover throughout the course. Now we have a rough idea of why distributed learning is needed. But remember, the title of this course is Distributed Learning and Inference — so what about inference? Do we only need distributed approaches during training, or also during inference?",
+      "ko": "그렇다면 이 사용자들이 어떻게 효율적이고 효과적으로 협력해서 좋은 모델을 만들 수 있을까요? 이것이 바로 유형 2(Type 2) 분산 학습입니다. 첫 번째 유형에서는 데이터와 모델을 전부 가지고 있지만 효율적인 훈련을 위해 의도적으로 데이터나 모델을 나눕니다. 두 번째 유형에서는 데이터 샘플이 이미 여러 사용자에게 자연스럽게 분산되어 있습니다. 이렇게 분산 학습에는 두 가지 유형이 있고, 수업 전체에서 이 둘을 다룰 것입니다. 이제 왜 분산 학습이 실무에서 필요한지 대략 감이 오셨을 텐데, 이 수업의 제목은 '분산 학습 및 추론'이라는 걸 기억하세요. 그럼 추론은 어떨까요? 훈련할 때만 분산이 필요할까요, 아니면 추론할 때도 분산이 필요할까요?"
+    },
+    {
+      "t": 1300,
+      "en": "The answer is: we also need distributed approaches during inference. Why? Think about ChatGPT — billions of users are making requests to OpenAI at the same time. So OpenAI has to keep many copies of the model, and a single GPU can't handle inference for everyone efficiently on its own. So, just like in training, you can imagine splitting the model across multiple GPUs — intentionally splitting it to improve efficiency and speed — and keeping multiple copies to handle many users at once.",
+      "ko": "답은, 추론 과정에서도 분산이 필요하다는 것입니다. 왜냐고요? ChatGPT 서비스를 생각해 보세요. 수십억 명의 사용자가 동시에 OpenAI에 요청을 보냅니다. 그러니 OpenAI는 당연히 모델의 복사본을 여러 개 가지고 있어야 하고, 단일 GPU 하나로는 이 많은 추론을 효율적으로 처리할 수 없습니다. 그래서 훈련 때와 마찬가지로, 효율과 속도를 높이기 위해 모델을 의도적으로 여러 GPU에 나누고, 동시에 여러 사용자를 처리하기 위해 모델의 복사본을 여러 개 두는 것을 상상할 수 있습니다."
+    },
+    {
+      "t": 1400,
+      "en": "You can also imagine having your own local model, with a server model deployed on the cloud. Then the question becomes: where should the prediction happen? You could run inference on your own local device, or send your request to the cloud server and receive the predicted result back. This matters especially when there are many users in the system, because if everyone sends requests to the server, the server-side burden increases. So the point is: we also need to think about distributed approaches during inference.",
+      "ko": "또한 자신만의 로컬 모델을 가지고 있고, 클라우드 서버에는 서버 모델이 배포되어 있는 상황도 상상할 수 있습니다. 그럼 어디서 예측을 수행해야 할까요? 자신의 로컬 기기에서 추론을 실행할 수도 있고, 질의를 클라우드 서버로 보내서 예측 결과를 받아올 수도 있습니다. 이는 특히 시스템에 사용자가 많을 때 중요한 문제인데, 모두가 서버로 요청을 보내면 서버 쪽 부담이 커지기 때문입니다. 결국 요점은, 추론 과정에서도 분산 방식을 고려해야 한다는 것입니다."
+    },
+    {
+      "t": 1450,
+      "en": "So this is the key question we'll answer in this course: how should we train models under these different distributed settings, and how should we make predictions during inference? We'll talk about how efficiency can be improved by introducing multiple machines. This is the course agenda that ties everything together: for the first two weeks, we'll cover background studies — deep learning basics that I always present at the start of a course. If you already know machine learning well, this is a good recap opportunity; if not, it's a chance to study the basics.",
+      "ko": "그래서 이 수업에서 답하고자 하는 핵심 질문은, 이런 다양한 분산 환경에서 모델을 어떻게 훈련시킬 것인가, 그리고 추론 시 예측을 어떻게 수행할 것인가입니다. 여러 머신을 도입함으로써 효율성을 어떻게 높일 수 있는지 이야기할 것입니다. 이것이 지금까지 이야기한 내용을 통합한 수업 아젠다입니다. 처음 두 주 동안은 배경 지식을 다룰 텐데, 제가 수업 초반에 늘 다루는 딥러닝 기초 내용입니다. 머신러닝을 이미 잘 아신다면 좋은 복습 기회로 활용하시고, 배경 지식이 부족하다면 이 기회에 딥러닝과 머신러닝을 공부하시면 됩니다."
+    },
+    {
+      "t": 1550,
+      "en": "Then we'll cover issues in centralized training, and to address those, we'll move into distributed training — data parallelism and different types of model parallelism. One big issue in distributed training is that machines need to communicate with each other, so we can't avoid communication delay, and if some devices are malicious or trying to disrupt training, we need to think about safety and robustness too. After that, we'll cover Type 2 distributed training with multiple users, and finally inference strategies. The schedule might shift slightly depending on circumstances, but the high-level structure — deep learning basics, memory issues, parallelism strategies, communication efficiency, multi-user training, synchronous and asynchronous training, robustness, inference, and applications to recent topics — will stay the same. We'll also have a study week before the final exam.",
+      "ko": "그다음 중앙집중식 훈련의 문제점들을 다루고, 이를 해결하기 위해 분산 훈련 — 데이터 병렬화와 다양한 유형의 모델 병렬화 — 로 넘어갑니다. 분산 훈련의 큰 문제 중 하나는 여러 머신들이 서로 통신해야 한다는 점입니다. 그래서 통신 지연을 피할 수 없고, 일부 기기가 악의적이거나 훈련 과정을 방해하려 한다면 안전성과 견고성(robustness)도 반드시 고려해야 합니다. 그 후에는 여러 사용자가 존재하는 유형 2 분산 훈련을 다루고, 마지막으로 추론 전략을 다룹니다. 일정은 상황에 따라 조금씩 바뀔 수 있지만, 딥러닝 기초, 메모리 이슈, 여러 병렬화 전략, 통신 효율성, 다중 사용자 훈련, 동기·비동기 훈련, 견고성, 추론, 그리고 최신 응용 주제라는 큰 틀은 바뀌지 않습니다. 기말고사 전에는 스터디 주간도 있습니다."
+    },
+    {
+      "t": 1650,
+      "en": "As for logistics: if you have a basic understanding of machine learning, deep learning, Python, and linear algebra, you can take this course — but I believe an attitude of enjoying learning new things matters more than any of that.",
+      "ko": "운영 관련해서는, 머신러닝·딥러닝, 파이썬, 선형대수에 대한 기본적인 이해가 있다면 이 수업을 들을 수 있습니다. 하지만 그보다 새로운 것을 배우는 걸 즐기는 태도가 더 중요하다고 생각합니다."
+    },
+    {
+      "t": 1680,
+      "en": "As for lecture style, there's no good textbook for this field yet, since it's still emerging — some material will come from recent papers, but I won't teach it in a harsh, paper-style way. I convert papers into friendly slides and try to explain things as simply as possible. In each lecture I'll introduce new concepts using slides, and I'll provide links if you want to dig deeper into specific concepts. For some weeks, I'll also upload related code you can run through Google Colab, and I'll provide problem sets to help you prepare for the midterm and final exams.",
+      "ko": "강의 방식에 대해 말씀드리면, 이 분야는 아직 발전 중이라 좋은 교과서가 없습니다. 일부 자료는 최근 논문에서 가져올 텐데, 논문을 딱딱하게 그대로 가르치지는 않을 겁니다. 논문 내용을 친절한 슬라이드로 바꿔서 최대한 쉽게 설명하려고 합니다. 매 강의마다 슬라이드로 새로운 개념을 소개하고, 더 깊이 알고 싶은 개념에 대해서는 참고 링크도 제공하겠습니다. 몇몇 주차에는 Google Colab에서 실행할 수 있는 관련 코드도 올릴 것이고, 중간·기말고사 준비에 도움이 되도록 문제 세트도 제공하겠습니다."
+    },
+    {
+      "t": 1750,
+      "en": "As for grading, you can take a look at the breakdown yourselves. The midterm and final exam dates are already fixed, so there's no room to change them — please make sure there's no overlap with your other courses' schedules. There will also be two mini assignments.",
+      "ko": "성적 평가는 직접 확인해 보시면 됩니다. 중간고사와 기말고사 일정은 이미 확정되어 있어서 바꿀 수 없습니다 — 다른 수업 일정과 겹치지 않도록 미리 확인해 주세요. 미니 과제도 두 개 있습니다."
+    },
+    {
+      "t": 1800,
+      "en": "So, the goal of this first class was to explain what this course is about, and why this topic matters enough that you should learn it. Distributed training and inference methods are genuinely required in practice, because of large-scale data and large-scale model issues. We'll cover distributed training — including Type 1, data and model parallelism using multiple GPUs, and multi-user training such as federated learning — and we'll cover inference: how to efficiently serve users using multiple GPUs, and how inference can happen through collaboration between the cloud server and local GPUs.",
+      "ko": "오늘 첫 수업의 목표는 이 수업이 무엇에 관한 것인지, 그리고 왜 이 주제가 배울 만큼 중요한지를 설명하는 것이었습니다. 대규모 데이터와 대규모 모델 문제 때문에 분산 훈련·추론 기법은 실무에서 실제로 꼭 필요합니다. 이 수업에서는 유형 1 분산 훈련 — 여러 GPU를 이용한 데이터·모델 병렬화 — 과 연합학습 같은 다중 사용자 훈련을 다룰 것이고, 추론에 대해서도 다룰 텐데, 여러 GPU를 이용해 사용자에게 어떻게 효율적으로 서비스할지, 그리고 클라우드 서버와 로컬 GPU 간 협업을 통해 추론이 어떻게 이루어질 수 있는지를 이야기할 것입니다."
+    },
+    {
+      "t": 1820,
+      "en": "I'll stop here for today. Starting Friday, I'll begin with the basics of deep learning as a warm-up, and next week we'll get into the memory, computation, and delay issues that happen in centralized training, to motivate why we need distributed approaches. That's the end of today's lecture — if you have any questions, feel free to ask.",
+      "ko": "오늘은 여기까지 하겠습니다. 금요일부터는 워밍업으로 딥러닝 기초를 다룰 것이고, 다음 주에는 중앙집중식 훈련에서 발생하는 메모리, 연산, 지연 문제들을 다루면서 왜 분산 방식이 필요한지 동기를 부여하겠습니다. 오늘 강의는 여기서 마치겠습니다. 질문 있으시면 편하게 해주세요."
+    }
+  ]
+}

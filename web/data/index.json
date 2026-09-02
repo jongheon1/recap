@@ -1,6 +1,19 @@
 {
   "courses": [
     {
+      "id": "distributed-learning-and-inference",
+      "name": "Distributed Learning and Inference",
+      "files": [
+        {
+          "id": "2026-09-02-distributed-learning-and-inference-1",
+          "title": "Course Overview",
+          "date": "2026-09-02",
+          "duration_sec": 1832,
+          "paragraphs": 29
+        }
+      ]
+    },
+    {
       "id": "software-engineering",
       "name": "Software Engineering",
       "files": [
