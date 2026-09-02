@@ -16,7 +16,7 @@
 
 ```
 사용자: "이 녹음 처리해줘" ──▶ Claude Code
-  1. scripts/transcribe.sh  (ffmpeg 청크 → gpt-4o-transcribe)
+  1. scripts/transcribe.sh  (ffmpeg 청크 → whisper-1 verbose_json, 세그먼트별 실타임스탬프)
   2. 서브에이전트 병렬: 교정 + 문단 분할 + 한국어 번역
   3. web/data/results/<id>.json 생성, web/data/index.json 갱신
   4. git commit → wrangler pages deploy
@@ -29,6 +29,8 @@
 2. `cp .env.example .env` 후 키 입력:
    - `OPENAI_API_KEY` — 전사에 필수
    - `CLOUDFLARE_API_TOKEN` / `CLOUDFLARE_ACCOUNT_ID` — 배포에 필수
+   - `AUDIO_BASE_URL` — 오디오 재생(문단 클릭 이동) 기능에 필수. `infra/`를
+     최초 1회 apply한 뒤 `terraform output -raw audio_public_domain`으로 얻는다.
 3. 도구 확인: `ffmpeg`(필수, `brew install ffmpeg`), `node`+`npx`(배포용),
    `terraform`(인프라 변경 시에만)
 
@@ -44,12 +46,28 @@ set -a; source .env; set +a
 bash scripts/transcribe.sh "<오디오 파일>"
 ```
 
-- 산출물: 오디오 옆 `<파일명>.stt.txt`. `[[t=<초>]]` 마커가 10분 간격으로 있다.
+- 산출물: 오디오 옆 `<파일명>.stt.txt`. `[[t=<초>]]` 마커가 **whisper-1이 반환한
+  세그먼트마다** (보통 수 초 간격) 붙는다 — 실제 타임스탬프이지 어림값이 아니다.
+  gpt-4o-transcribe는 타임스탬프를 안 주기 때문에 이 스크립트는 whisper-1을 쓴다.
 - 오디오 파일과 `.stt.txt`는 **절대 커밋하지 않는다** (.gitignore에 있음).
 - 2시간 녹음 기준 약 12청크, 10분 내외 소요. `run_in_background`로 돌리고
   완료를 기다릴 것.
 
-### 2. 교정 + 문단 분할 + 번역 (서브에이전트 병렬)
+### 2. 오디오 업로드 (문단 클릭 이동 재생용)
+
+```bash
+set -a; source .env; set +a
+bash scripts/upload-audio.sh "<오디오 파일>" "<문서 id>"
+```
+
+- R2(`recap-audio` 버킷)에 업로드하고 공개 URL을 stdout으로 출력한다. 이
+  URL을 3단계에서 만들 결과 JSON의 `audio_url`에 넣는다.
+- `AUDIO_BASE_URL`이 `.env`에 없으면 실패한다 — 인프라 섹션 참고해 먼저
+  1회 `terraform apply` 필요.
+- 오디오 원본은 **git에는 여전히 커밋하지 않는다** (.gitignore). R2는
+  재생을 위한 별도 공개 스토리지이며 git 저장소가 아니다.
+
+### 3. 교정 + 문단 분할 + 번역 (서브에이전트 병렬)
 
 전사 텍스트를 **20~30분 분량(t 마커 기준 2~3청크)씩 나눠** 서브에이전트에게
 병렬로 맡긴다. 각 에이전트에게 직전 조각의 마지막 문단(영어)을 문맥으로 함께
@@ -65,6 +83,10 @@ bash scripts/transcribe.sh "<오디오 파일>"
   정리)이 단위가 되도록.
 - **번역**: 문단별 한국어 번역. 전공 용어는 한국 전공서 표준 역어 + 필요시
   원어 병기. 직역보다 강의 말투가 살아있는 자연스러운 한국어.
+- **타임스탬프**: 각 문단의 `t`는 그 문단이 **시작하는 첫 문장 바로 앞에 있는
+  `[[t=]]` 마커 값을 그대로 쓴다** (세그먼트가 촘촘하므로 문단 시작 문장 근처에
+  마커가 있다 — 청크 전체에 걸쳐 비례 배분하는 식으로 추정하지 않는다. 이게
+  문단-오디오 싱크 정확도의 핵심이다).
 - **출력**: 아래 JSON만 반환 (문단마다 해당 구간의 `[[t=]]` 마커 값 사용):
 
 ```json
@@ -74,7 +96,7 @@ bash scripts/transcribe.sh "<오디오 파일>"
 완료 후 조각들을 순서대로 합치고 검증한다: JSON 파싱 가능, 모든 문단에
 en/ko 존재, 문단 수가 원문 분량 대비 타당한지 (2시간 강의 ≈ 60~150문단).
 
-### 3. 결과 JSON 생성
+### 4. 결과 JSON 생성
 
 `web/data/results/<id>.json` — id는 `YYYY-MM-DD-<slug>` (예: `2026-07-10-os-scheduling`):
 
@@ -85,9 +107,13 @@ en/ko 존재, 문단 수가 원문 분량 대비 타당한지 (2시간 강의 �
   "title": "CPU Scheduling",
   "date": "2026-07-10",
   "duration_sec": 5400,
+  "audio_url": "https://pub-xxxx.r2.dev/2026-07-10-os-scheduling.m4a",
   "paragraphs": [{"t": 0, "en": "...", "ko": "..."}]
 }
 ```
+
+`audio_url`은 2단계 출력값. 오디오 업로드를 건너뛴 문서는 이 필드를
+생략한다 (웹에서 재생 UI 없이 텍스트만 표시됨 — 하위 호환).
 
 `web/data/index.json` 갱신 — 해당 코스의 `files` 맨 앞에 추가:
 
@@ -106,7 +132,7 @@ en/ko 존재, 문단 수가 원문 분량 대비 타당한지 (2시간 강의 �
 }
 ```
 
-### 4. 커밋 + 배포
+### 5. 커밋 + 배포
 
 ```bash
 git add web/data && git commit -m "<코스>: <제목> 추가"
@@ -119,7 +145,7 @@ npx wrangler pages deploy web --project-name recap --branch main --commit-dirty=
 
 ## 문서 관리 (제목 변경 · 코스 이동 · 삭제)
 
-사용자가 요청하면 아래처럼 정적 JSON을 수정하고 "커밋 + 배포"(위 4단계)를
+사용자가 요청하면 아래처럼 정적 JSON을 수정하고 "커밋 + 배포"(위 5단계)를
 다시 수행한다. 같은 값이 두 곳(문서 JSON + index.json)에 있으므로 반드시
 **둘 다** 고친다.
 
@@ -135,9 +161,11 @@ npx wrangler pages deploy web --project-name recap --branch main --commit-dirty=
 - `web/data/index.json` — 코스 목록. 각 코스: `{id, name, files[]}`,
   각 파일: `{id, title, date, duration_sec, paragraphs}`
 - `web/data/results/<id>.json` — 문서 본문. `{id, course, title, date,
-  duration_sec, paragraphs: [{t, en, ko}]}`
-- `t`는 문단이 시작되는 대략적 재생 위치(초). 지금은 화면에 안 쓰지만
-  나중에 오디오 점프 기능을 위해 유지한다.
+  duration_sec, audio_url?, paragraphs: [{t, en, ko}]}`
+- `t`는 문단이 시작되는 대략적 재생 위치(초). `audio_url`이 있으면 웹에서
+  문단 클릭 시 그 지점으로 오디오를 이동·재생하는 데 쓴다
+  (`web/app.js`의 `setupAudioSync`).
+- `audio_url`은 optional — 없는 문서는 오디오 없이 텍스트만 표시된다.
 
 ## 인프라 (Terraform)
 
@@ -152,8 +180,13 @@ TF_VAR_cloudflare_api_token=$CLOUDFLARE_API_TOKEN terraform init && terraform ap
 ```
 
 리소스: Pages 프로젝트(`recap`), DNS CNAME(`recap.jongheon.click` →
-Pages 서브도메인), Pages 커스텀 도메인 연결. zone(`jongheon.click`)은
+Pages 서브도메인), Pages 커스텀 도메인 연결, R2 버킷(`recap-audio`, 오디오
+재생용) + 그 Public Development URL(r2.dev). zone(`jongheon.click`)은
 listen-up 인프라가 소유하므로 여기서는 zone_id 변수로만 참조한다.
+
+⚠️ r2.dev 공개 URL은 **누구나 URL만 알면 접근 가능**하다 (인증 없음).
+강의 녹음이 저작권·프라이버시상 민감하면 오디오 업로드(2단계)를 건너뛰고
+텍스트만 배포하는 것도 선택지다.
 
 ## 보안 규칙 (절대 규칙)
 

@@ -7,102 +7,102 @@
   "audio_url": "https://pub-950a8b85c4a448b4b96d2942eec87d6b.r2.dev/2026-09-02-quantum-computer-programming-1.m4a",
   "paragraphs": [
     {
-      "t": 0,
+      "t": 50,
       "en": "Welcome to the Quantum Computer Programming course. I'm Bernd Burgstaller, a professor in the Department of Computer Science and Engineering, and I'll be your instructor. This is a three-credit course, and we'll meet twice a week — Mondays from 1 to 3, and Wednesdays, like today, from 2 to 3. Here's my email address — if you want to talk to me about something personal, career-related, or anything that doesn't fit the general Q&A board or the course inquiry address, just email me and we can set up an appointment. My office is on the 9th floor, room 910. We have four TAs for the course — you'll meet them in various roles: moderating the Q&A board, working with you on assignments, grading assignments and exams. Their email addresses are here if you want to reach them directly, and there's also a general course inquiry address for anything administrative — when's the exam, when's the next assignment coming out, late submissions, whatever you want to ask.",
       "ko": "양자 컴퓨터 프로그래밍 수업에 오신 걸 환영합니다. 저는 컴퓨터과학과 교수 Bernd Burgstaller이고, 이 수업을 맡게 됐습니다. 3학점 과목이고, 일주일에 두 번 만납니다 — 월요일 1시~3시, 그리고 오늘처럼 수요일은 2시~3시입니다. 여기 제 이메일 주소가 있는데, 개인적인 일이나 진로 관련, 또는 일반 Q&A 게시판이나 수업 문의 주소에 안 맞는 내용을 얘기하고 싶으면 이메일 주세요, 약속을 잡을 수 있습니다. 제 방은 9층 910호입니다. 이 수업에는 조교가 4명 있는데, 여러 역할로 만나게 될 겁니다 — Q&A 게시판 관리, 과제 관련 도움, 과제·시험 채점 등이요. 직접 연락하고 싶으면 여기 이메일 주소가 있고, 시험은 언제인지, 다음 과제는 언제 나오는지, 늦은 제출 등 행정적인 문의는 일반 수업 문의 주소로 하시면 됩니다."
     },
     {
-      "t": 90,
+      "t": 186,
       "en": "One thing I want to say right up front, because it's really important for your studies here — for the lectures and especially the lab assignments — is that you actually understand what you hand in. This is an introduction to quantum computing and programming, and sure, a large language model can produce something for it, but that's not the point — the point is building your own skills. If you just pull an answer from a generative AI model, you're not building anything. Think of it as a proficiency curve: you start at your current level, and with each lecture and lab, your proficiency should keep climbing toward the midterm, and then keep climbing through the second half toward the final. But if you just have your LLM do everything without understanding it, your proficiency stays flat — nothing, nothing, nothing — and you build up a gap. The first place that gap shows up is the midterm, which is a paper-and-pencil exam with real calculations you have to work out yourself. That's exactly why the midterm and final are paper-and-pencil, held right here in the classroom.",
       "ko": "맨 처음에 꼭 말씀드리고 싶은 게 있습니다 — 강의도 그렇지만 특히 랩 과제에서, 제출하는 걸 여러분이 실제로 이해하고 있어야 한다는 게 정말 중요하다는 겁니다. 이건 양자 컴퓨팅과 프로그래밍 입문 과목이라, 물론 거대언어모델(LLM)이 답을 만들어낼 수는 있지만, 그게 핵심이 아닙니다 — 핵심은 여러분 자신의 실력을 쌓는 거예요. 생성형 AI 모델에서 그냥 답을 뽑아내면, 아무것도 쌓이지 않습니다. 숙련도 곡선을 상상해보세요 — 지금 수준에서 시작해서, 매 강의·랩마다 숙련도가 올라가서 중간고사를 향해, 그리고 학기 후반부에는 기말고사를 향해 계속 올라가야 합니다. 하지만 이해 없이 LLM한테 다 시키면, 숙련도는 평평하게 — 아무것도, 아무것도, 아무것도 안 늘어나고 — 격차만 쌓입니다. 그 격차가 처음 드러나는 곳이 중간고사인데, 지필시험이라 실제로 직접 계산을 풀어야 합니다. 그래서 중간·기말고사가 지필시험이고, 이 강의실에서 직접 치르는 겁니다."
     },
     {
-      "t": 220,
+      "t": 311,
       "en": "By the way — that's not just me saying this. There's a paper from Google, \"What do professional software developers need to know to succeed in an age of artificial intelligence?\" I've put the link here — it's a big paper, but genuinely interesting, and I'm not condemning AI here, it's worth reading for how AI is changing the workforce. The paper talks about how the software engineer's role is being transformed by AI, and the outcome is that you actually need to be even better, work even harder to stay ahead of it — you must be the pilot, and AI is the co-pilot. They point out that even inside Google, if engineers get a task and don't actually solve it themselves, they're not upskilling — sometimes they're even de-skilling, becoming overly reliant on the AI. So in a nutshell: automating your assignments isn't going to work for you. You really have to solve them yourself, bang your head against it, figure out why something isn't working, make stepwise progress — that's how you actually build skill.",
       "ko": "그런데 이건 저만 하는 얘기가 아닙니다. 구글에서 나온 논문이 하나 있는데, \"AI 시대에 성공하려면 전문 소프트웨어 개발자는 무엇을 알아야 하는가?\"라는 제목입니다. 링크를 여기 달아뒀는데, 꽤 큰 논문이지만 정말 흥미롭고, AI를 비난하려는 게 아니라 AI가 노동 시장을 어떻게 바꾸고 있는지 읽어볼 가치가 있습니다. 이 논문은 소프트웨어 엔지니어의 역할이 AI로 인해 어떻게 바뀌고 있는지 얘기하는데, 결론은 오히려 여러분이 더 뛰어나야 하고, AI보다 앞서 있으려면 더 열심히 해야 한다는 겁니다 — 여러분이 조종사(pilot)가 되고, AI는 부조종사(co-pilot)여야 합니다. 구글 내부에서도, 엔지니어가 과제를 받고 스스로 풀지 않으면 실력이 안 늘고, 심지어 AI에 과도하게 의존하게 되면서 오히려 실력이 퇴화(de-skilling)한다고 지적합니다. 요약하자면: 과제를 자동화하면 여러분한테는 도움이 안 됩니다. 정말로 스스로 풀어야 하고, 머리를 싸매고, 왜 안 되는지 알아내고, 한 걸음씩 진전시켜야 — 그게 실력을 쌓는 방법입니다."
     },
     {
-      "t": 350,
+      "t": 470,
       "en": "So here's the AI policy for this course. For the lab assignments, you can use AI as a tool — for example, it's great for web search. But directly solving the assignment with it is not what I want you to do. And for the exams, since they're paper-and-pencil, there's no AI use allowed at all.",
       "ko": "그래서 이 수업의 AI 정책은 이렇습니다. 랩 과제에서는 AI를 도구로 쓰는 건 괜찮습니다 — 예를 들어 웹 검색용으로는 훌륭한 도구죠. 하지만 과제를 AI로 직접 풀어버리는 건 제가 원하는 게 아닙니다. 그리고 시험은 지필시험이니 AI 사용이 전혀 허용되지 않습니다."
     },
     {
-      "t": 400,
+      "t": 507,
       "en": "With that out of the way, let me introduce myself a little. I'm originally from Austria, in Europe. I got my MSc and PhD from the Vienna University of Technology — my PhD in 2005. After my master's, I worked for three years at Philips Consumer Electronics in Vienna, then I was a pre-doc — a paid PhD research position — back at the Vienna University of Technology, where I got my doctorate in 2005. After that I spent two years as a postdoc in Australia, at the University of Sydney, and since 2007 I've been here at Yonsei University, in the Computer Science Department. My original area was programming languages — my master's and PhD were both in static program analysis.",
       "ko": "이건 이 정도로 하고, 제 소개를 좀 드리겠습니다. 저는 원래 유럽 오스트리아 출신입니다. 석사와 박사는 빈 공과대학교(Vienna University of Technology)에서 했고, 박사는 2005년에 받았습니다. 석사 후에는 빈에 있는 Philips Consumer Electronics에서 3년 일했고, 그다음 빈 공과대학교로 돌아가서 프리독(pre-doc, 유급 박사연구직)으로 있으면서 2005년에 박사 학위를 받았습니다. 그 후 호주 시드니대학교에서 2년간 포닥을 했고, 2007년부터는 여기 연세대학교 컴퓨터과학과에 있습니다. 원래 제 전공 분야는 프로그래밍 언어였고, 석사·박사 모두 정적 프로그램 분석(static program analysis)을 했습니다."
     },
     {
-      "t": 500,
+      "t": 574,
       "en": "Static program analysis is a technique where you analyze software — without running it — to find bugs or properties of the software: is it using an uninitialized variable, is it using a dangling pointer, how long does it take to execute, and so on. The key idea, famously stated by Professor Dijkstra — a computer science professor in the Netherlands — is that testing can only prove the presence of errors, never their absence. You can run a program once and it works, run it again, run it three more times with different inputs, and it also works — but that doesn't mean there are no bugs left. Ship it to a customer, and eventually some input takes a code path your tests never reached, and a bug shows up. Testing alone can't make software provably bug-free — but static analysis, since it doesn't execute the program at all, analyzes it through other methods and can actually find bugs that way.",
       "ko": "정적 프로그램 분석은 소프트웨어를 실행하지 않고 분석해서 버그나 소프트웨어의 속성을 찾아내는 기법입니다 — 초기화 안 된 변수를 쓰고 있는지, 이미 해제된 포인터를 쓰고 있는지, 실행 시간이 얼마나 걸리는지 같은 것들이요. 유명한 아이디어인데, 네덜란드의 컴퓨터과학 교수인 Dijkstra 교수가 말한 것처럼, 테스트는 오류의 존재는 증명할 수 있지만 오류가 없다는 것은 절대 증명할 수 없습니다. 프로그램을 한 번 돌려서 잘 됐고, 다시 돌려도 잘 됐고, 다른 입력으로 세 번 더 돌려도 잘 됐다고 해서 버그가 없다는 뜻은 아닙니다. 고객에게 배포하면, 결국 테스트에서 도달하지 못했던 경로를 타는 입력이 나타나고 버그가 드러나죠. 테스트만으로는 소프트웨어가 버그 없다는 걸 증명할 수 없지만, 정적 분석은 프로그램을 아예 실행하지 않고 다른 방법으로 분석하기 때문에 그런 방식으로 버그를 찾아낼 수 있습니다."
     },
     {
-      "t": 620,
+      "t": 662,
       "en": "So I started out in programming languages. But around 2000, during my PhD in Vienna, Professor Zeilinger came to the university and gave a talk about his photon entanglement experiments — you couldn't quite trust the data on entanglement back then. And at that point, in 2000, this all felt very far away, because there was no real quantum computer yet — who knew when, or if, those would ever become real. But since about 2015, there are now commercial offerings — you can access real quantum computers in the cloud and actually start using them. That was a big shift, both in how academia and the public perceived this field — suddenly there were working quantum computers, and it made sense to start looking at them, using them, and understanding what they can and can't do.",
       "ko": "그렇게 저는 프로그래밍 언어로 시작했습니다. 그런데 2000년쯤, 빈에서 박사과정 중일 때 Zeilinger 교수가 학교에 와서 광자 얽힘(photon entanglement) 실험에 대한 강연을 했습니다 — 그때는 얽힘에 대한 데이터를 완전히 신뢰하기도 어려웠죠. 2000년 그 시점에는 이 모든 게 굉장히 먼 이야기처럼 느껴졌습니다, 아직 진짜 양자컴퓨터가 없었으니까요 — 그게 언제, 아니 정말 실현되기는 할지도 아무도 몰랐습니다. 하지만 2015년쯤부터 상용 서비스가 나오기 시작했고, 이제 클라우드로 실제 양자컴퓨터에 접근해서 실제로 써볼 수 있게 됐습니다. 그건 학계와 대중 인식 모두에서 큰 전환점이었습니다 — 갑자기 실제로 동작하는 양자컴퓨터가 생겼고, 그걸 들여다보고 써보고 뭘 할 수 있고 뭘 못 하는지 이해하는 게 의미 있는 일이 됐습니다."
     },
     {
-      "t": 720,
+      "t": 739,
       "en": "So I started relatively late with quantum computing myself. Here at Yonsei, around 2023, I taught the first seminar in quantum computing, and it grew close to this, and now it's become an undergraduate course. I'm genuinely happy it's now running as an undergrad course — you're the first ones taking it. So thank you for enrolling.",
       "ko": "그래서 저 자신도 양자 컴퓨팅을 상대적으로 늦게 시작한 편입니다. 여기 연세대에서 2023년쯤 양자 컴퓨팅 첫 세미나를 가르쳤고, 그게 점점 발전해서 이제 학부 정규 과목이 됐습니다. 이렇게 학부 과목으로 자리 잡은 게 정말 기쁘고, 여러분이 이 과목의 첫 수강생입니다. 수강해주셔서 감사합니다."
     },
     {
-      "t": 780,
+      "t": 770,
       "en": "You might ask why I don't teach in Korean, since I've already been here since 2007. There are two reasons. First, Korean is, of course, a complicated language, especially for someone coming from the European language space. When I came here, I started right away as an assistant professor, on the job — I took some language classes, but I just couldn't keep up with them alongside the demands of being faculty: research, preparing lectures, writing grant applications, working with students. I spent all my time on campus doing that. So, unfortunately, I'm not able to speak Korean, and the course language will be English — no safety nets, exams and assignments all in English.",
       "ko": "2007년부터 여기 있었으면서 왜 한국어로 가르치지 않는지 궁금하실 텐데요. 이유가 두 가지 있습니다. 첫째, 한국어는 당연히 어려운 언어이고, 특히 유럽 언어권 출신에게는 더 그렇습니다. 저는 여기 왔을 때 바로 조교수로 업무를 시작했는데, 어학 수업을 좀 듣긴 했지만 교수로서의 업무 — 연구, 강의 준비, 연구비 지원서 작성, 학생 지도 — 를 병행하면서 따라가기가 힘들었습니다. 캠퍼스에서 시간을 거의 다 그런 일에 썼거든요. 그래서 안타깝게도 한국어를 잘 못하고, 이 수업 언어는 영어입니다 — 안전망 없이, 시험과 과제도 전부 영어로 진행합니다."
     },
     {
-      "t": 850,
+      "t": 848,
       "en": "It would be ideal if you talk to the TAs in English so they can forward your emails to me directly if needed — but you can also talk to them in Korean, that's fine. Please don't worry about the language barrier — I want us to read between the lines. This isn't an English-writing contest, it's a quantum computer programming course. At the exam, if I see you drawing a diagram, doing a calculation, writing some code — that's all that's required. I'm not looking for perfectly correct sentences. Feel free to express yourself however you can, whether in an email, on the Q&A board, or in the exam.",
       "ko": "조교들과는 영어로 얘기해주시면 필요할 때 제게 이메일을 바로 전달할 수 있어서 이상적이긴 한데, 한국어로 얘기하셔도 괜찮습니다. 언어 장벽은 걱정하지 마세요 — 저는 행간을 읽으려고 노력합니다. 이건 영어 작문 대회가 아니라 양자 컴퓨터 프로그래밍 수업이니까요. 시험에서 여러분이 다이어그램을 그리고, 계산을 하고, 코드를 쓰는 걸 보면 그걸로 충분합니다. 완벽하게 맞는 문장을 요구하는 게 아닙니다. 이메일이든, Q&A 게시판이든, 시험이든 여러분이 표현할 수 있는 대로 자유롭게 표현하세요."
     },
     {
-      "t": 940,
+      "t": 912,
       "en": "During the lecture I try to speak slowly, but often I don't succeed — if something interests me I speed up more and more. If it's unclear, please feel free to say so — you're allowed to tell me I'm going too fast. Give yourselves some time to tune in to my accent — I'm from Austria, so it's a German accent, probably different from the American-English accent you're used to. As for questions: the best time to ask is right on the spot — just raise your hand. You can be sure that if you have a question, several of your colleagues probably have the same one, so don't worry about asking. You can also ask during the break, after the lecture, on the Q&A board, or by email — but asking right on the spot benefits everybody immediately. And you also get a bit of credit for it, in the form of participation points, which I'll explain a little later.",
       "ko": "강의 중에는 천천히 말하려고 하는데, 종종 잘 안 됩니다 — 뭔가에 흥미가 생기면 점점 빨라져요. 이해가 안 되면 편하게 말씀해주세요 — 너무 빠르다고 말씀하셔도 됩니다. 제 억양에 적응할 시간도 좀 필요할 텐데요 — 저는 오스트리아 출신이라 독일어 억양이고, 여러분이 익숙한 미국식 영어 억양과는 다를 겁니다. 질문에 대해서는, 가장 좋은 타이밍은 바로 그 자리에서 손을 드는 겁니다 — 여러분이 질문이 있다면 다른 동료들도 같은 질문을 갖고 있을 가능성이 큽니다, 그러니 질문하는 걸 걱정하지 마세요. 쉬는 시간이나 강의 후, Q&A 게시판, 이메일로 물어봐도 되지만, 그 자리에서 바로 물어보면 모두에게 즉각 도움이 됩니다. 그리고 참여점수(participation point) 형태로 약간의 점수도 받는데, 이건 나중에 좀 더 설명드리겠습니다."
     },
     {
-      "t": 1030,
+      "t": 1044,
       "en": "So how will the course actually run? I'll deliver lectures Mondays and Wednesdays, and at some point, in parallel, we'll have labs. We'll start with the Hilbert space — basically the state space a qubit lives in — to understand what a qubit even looks like, since that's the first part of working with a quantum computer. Then we move on to manipulating qubits with quantum gates, and then discuss our first protocol — using a single qubit to distribute cryptographic keys securely, and so on. A little behind each major part of the course, there'll be a lab assignment — some questions about the Hilbert space, then about quantum gates and quantum key distribution, and so on.",
       "ko": "그럼 실제로 수업이 어떻게 진행되는지 볼까요? 저는 월요일·수요일에 강의를 하고, 어느 시점부터는 병행해서 랩(실습)도 진행합니다. 먼저 힐베르트 공간(Hilbert space)부터 시작하는데, 이건 큐비트가 사는 상태 공간이라고 보면 됩니다 — 큐비트가 어떻게 생겼는지 이해하는 게 양자컴퓨터를 다루는 첫걸음이니까요. 그다음 양자 게이트로 큐비트를 조작하는 법으로 넘어가고, 그다음 첫 프로토콜을 다룹니다 — 큐비트 하나로 암호학적으로 안전하게 키를 분배하는 방법 같은 거죠. 각 주요 파트마다 조금 뒤따라서 랩 과제가 나옵니다 — 힐베르트 공간에 대한 문제들, 그다음 양자 게이트와 양자 키 분배에 대한 문제들, 이런 식으로요."
     },
     {
-      "t": 1120,
+      "t": 1110,
       "en": "Labs will typically be issued roughly every two weeks, so we'll have maybe six to eight labs over the semester. Once a lab is issued, you'll have about a week, maybe a bit more, to solve it — probably two to four hours of work — and there'll be a due date. Please don't submit late — late submissions just don't work. If I accept one late submission, the next person submits even later, and I have to accept that too, and it just keeps eroding. So everyone, please submit on time. If the whole class feels the workload is too much, you can contact me and I can push the deadline back — but an individual late submission doesn't work.",
       "ko": "랩은 보통 2주 간격 정도로 나갈 예정이라, 학기 동안 6~8개 정도 될 겁니다. 랩이 나오면 대략 일주일, 조금 더 걸릴 수도 있는데, 풀 시간을 드립니다 — 아마 2~4시간 정도 걸릴 거고요, 마감일이 정해져 있습니다. 늦게 제출하지 말아주세요 — 늦은 제출은 그냥 안 됩니다. 한 명의 늦은 제출을 받아주면, 다음 사람은 더 늦게 내고, 그것도 받아줘야 하고, 이런 식으로 계속 무너집니다. 그러니 다들 제때 제출해주세요. 반 전체가 부담이 너무 크다고 느끼면 저한테 연락하시면 마감을 늦출 수 있지만, 개인적으로 늦게 내는 건 안 됩니다."
     },
     {
-      "t": 1200,
+      "t": 1193,
       "en": "For the labs, you'll typically get a Jupyter notebook — an interactive environment, unlike a Python program you just run start to finish. With a notebook you execute one code snippet, then move to the next and execute that, so it's more interactive — you can fix things and try again. It's quite convenient for what you're doing here, though obviously not convenient for writing large software — but that's not the point. The quantum programs you'll write are called circuits, and they're not big at all — they're just very powerful. Understanding what a handful of gates are doing is the key point; writing the circuit itself takes just a couple of minutes.",
       "ko": "랩에서는 보통 Jupyter 노트북을 받게 되는데, 이건 대화형 환경이라 처음부터 끝까지 죽 실행하는 파이썬 프로그램과는 다릅니다. 노트북에서는 코드 조각 하나를 실행하고, 다음 조각으로 넘어가서 또 실행하는 식이라 더 대화형이고, 뭔가 고쳐서 다시 시도해볼 수 있습니다. 여러분이 하려는 작업에는 꽤 편리한데, 물론 큰 소프트웨어를 짜는 데는 편하지 않죠 — 하지만 그게 핵심이 아닙니다. 여러분이 짤 양자 프로그램은 회로(circuit)라고 부르는데, 전혀 크지 않습니다 — 그냥 아주 강력할 뿐이죠. 몇 개 안 되는 게이트들이 뭘 하는지 이해하는 게 핵심이고, 그걸 실제로 작성하는 건 몇 분이면 됩니다."
     },
     {
-      "t": 1260,
+      "t": 1247,
       "en": "As for materials — the main source is definitely the lecture slides. I'll put them on LearnUs ahead of every lecture, in the morning, so you can have them on your laptop or tablet and take notes. They should be very much self-contained. As for the textbooks I've listed as references, the key reason I picked those three specific ones — out of dozens I could have chosen — is that it's genuinely hard to find a textbook written by computer scientists, for computer scientists. Most quantum computing textbooks are written by physicists, for physicists, and computer scientists have a different curriculum — quantum mechanics usually isn't part of it. So we approach this from a computer science angle, starting from the Hilbert space and basic quantum mechanics — a physics student who already took quantum mechanics would know a lot of this already, but there's no such course in our case.",
       "ko": "자료 관련해서는, 가장 중요한 소스는 단연 강의 슬라이드입니다. 매 강의 전날 아침에 LearnUs에 올려드릴 테니, 노트북이나 태블릿에 받아서 필기하시면 됩니다. 슬라이드만으로도 충분히 자기완결적일 겁니다. 참고 도서로 올려둔 교재들 얘기를 하자면, 수십 권 중에 굳이 이 세 권을 고른 핵심 이유는, 컴퓨터과학자가 컴퓨터과학자를 위해 쓴 교재를 찾기가 정말 어렵기 때문입니다. 대부분의 양자 컴퓨팅 교재는 물리학자가 물리학자를 위해 쓴 것이고, 컴퓨터과학 전공은 커리큘럼이 다릅니다 — 보통 양자역학이 포함돼 있지 않죠. 그래서 우리는 컴퓨터과학 쪽 관점에서 접근해서, 힐베르트 공간과 기초 양자역학부터 시작합니다 — 이미 양자역학 수업을 들은 물리학과 학생이라면 이런 걸 이미 많이 알겠지만, 우리 쪽에는 그런 수업이 없으니까요."
     },
     {
-      "t": 1400,
+      "t": 1362,
       "en": "The first reference is written for computer scientists, it's available for free, and it's very deep and detailed — but it only covers the first part, pure quantum states. What I mean by pure states is you can't model a quantum state that's picked up some noise or an error — those are just the ideal states of a quantum computer, without noise or errors. It's about 700 pages, which I don't want to scare you with, but it's very nicely explained — I believe it came out of a free online course. The second one, Quantum Computing for Computer Scientists by Yanofsky and Mannucci, is also free and, as the title says, is one of the few textbooks specifically for computer scientists — the author is a computer scientist himself, and it works very well as a starting point. The third one is different — it's the standard reference in the field. Quantum computing started in physics, back in the 1980s, and this book is written by physicists, for physicists. It's about 800 pages, but it covers essentially everything, including error correction — so it's much denser and more compact than the first book, and doesn't spend much time on preliminaries, since it assumes you already have them. Not many textbooks are written by computer scientists for computer scientists, but whatever textbook you look at, there's always something to learn — including getting used to the terminology physicists use.",
       "ko": "첫 번째 참고서는 컴퓨터과학자를 위해 쓰였고, 무료로 볼 수 있고, 아주 깊고 자세합니다 — 다만 첫 번째 부분, 즉 pure quantum state만 다룹니다. pure state라는 게 무슨 뜻이냐면, 노이즈나 오류가 섞인 양자 상태는 이 책에서 다루지 않는다는 겁니다 — 노이즈나 오류가 없는 이상적인 양자컴퓨터의 상태만 다룹니다. 약 700쪽인데, 겁먹지 않으셨으면 좋겠지만, 아주 잘 설명돼 있습니다 — 원래 무료 온라인 강좌였던 걸로 알고 있습니다. 두 번째, Yanofsky와 Mannucci의 *Quantum Computing for Computer Scientists*도 무료이고, 제목 그대로 컴퓨터과학자를 위해 쓰인 몇 안 되는 교재 중 하나입니다 — 저자 본인이 컴퓨터과학자라서, 양자 컴퓨팅을 시작하기에 정말 좋습니다. 세 번째는 좀 다른데, 이 분야의 표준 레퍼런스입니다. 양자 컴퓨팅은 1980년대에 물리학에서 시작됐고, 이 책은 물리학자가 물리학자를 위해 쓴 겁니다. 약 800쪽이지만 오류 정정까지 포함해서 거의 모든 걸 다루기 때문에, 첫 번째 책보다 훨씬 밀도 있고 압축적이며, 이미 배경지식이 있다고 전제하기 때문에 사전 지식 설명에는 시간을 많이 안 씁니다. 컴퓨터과학자가 컴퓨터과학자를 위해 쓴 교재는 많지 않지만, 어떤 교재를 보든 배울 게 있습니다 — 물리학자들이 쓰는 용어에 익숙해지는 것도 포함해서요."
     },
     {
-      "t": 1560,
+      "t": 1551,
       "en": "Here's the lecture format. Starting next week, from Monday, we'll use the Yonsei Y-Attend service for attendance checks. Both Monday and Wednesday, the first three minutes are the attendance check, then the lecture. On Monday we have 47 minutes of lecture, then a 10-minute break, then another block. Wednesday follows the same attendance-check-then-lecture pattern. The attendance check itself really doesn't take long, so please try to be on time — I always try to start on time, and once we're all set, we begin.",
       "ko": "이제 강의 형식입니다. 다음 주 월요일부터 연세대 Y-Attend 서비스로 출석 체크를 합니다. 월요일과 수요일 모두 처음 3분은 출석 체크, 그다음 강의입니다. 월요일은 47분 강의를 하고, 10분 휴식, 그리고 또 한 블록이 이어집니다. 수요일도 똑같이 출석 체크 후 강의하는 방식입니다. 출석 체크 자체는 정말 오래 안 걸리니 제시간에 와주세요 — 저는 항상 제시간에 시작하려고 하고, 준비가 되면 바로 강의를 시작합니다."
     },
     {
-      "t": 1660,
+      "t": 1631,
       "en": "I recommend and expect you to attend the lectures, but if you don't, I personally don't penalize you — there's no minus-1% or anything like that from me. That said, you have to be careful, because the university sets an upper bound on how many classes you're allowed to miss — if you miss more than a third of the classes, the university will already assign an F. That has nothing to do with me, it's a university rule. So if you miss one or two lectures, don't worry, there's no penalty from me — just make sure you don't fall below that university bound.",
       "ko": "저는 여러분이 강의에 출석하길 권하고 기대하지만, 안 온다고 제가 개인적으로 감점하지는 않습니다 — 마이너스 1% 같은 건 없어요. 다만 조심하셔야 하는 게, 학교에서 결석할 수 있는 상한선을 정해놓았습니다 — 수업의 3분의 1을 넘게 결석하면 학교 규정상 자동으로 F가 나옵니다. 이건 저와는 상관없는, 학교 규정입니다. 그러니 한두 번 결석하는 건 걱정 마세요, 제 쪽에서 감점은 없으니까요 — 다만 그 학교 기준선 밑으로만 안 떨어지면 됩니다."
     },
     {
-      "t": 1740,
+      "t": 1679,
       "en": "There are also excusable absences — a hospital appointment, a fever, and so on, those are of course excusable. You can send supporting documents to our course inquiry email address, and your attendance will be checked accordingly. Or if you say you can't do an assignment because you're sick, you can get extra time — again, just send an email. The university has a rulebook you can look up covering things like doctoral appointments and military training as valid reasons. One thing I don't accept: if you start working for a company and say you can't attend lectures because of that, I don't accept that — in that case, you really shouldn't be taking this course.",
       "ko": "결석 사유 인정도 가능합니다 — 병원 진료, 발열 같은 건 당연히 인정됩니다. 수업 문의 이메일로 증빙서류를 보내주시면 그에 맞게 출석을 처리해드립니다. 아니면 아파서 과제를 못 하겠다고 하시면 기한 연장도 받을 수 있습니다 — 역시 이메일 보내주시면 됩니다. 학교에는 어떤 사유가 인정되는지 규정집이 있는데, 진료 예약, 군 훈련 같은 것들이 정당한 사유로 인정됩니다. 딱 하나 제가 인정하지 않는 건, 회사에 취업해서 그것 때문에 강의를 못 온다고 하는 경우입니다 — 그런 경우라면 사실 이 수업을 듣기 어렵다고 봐야 합니다."
     },
     {
-      "t": 1850,
+      "t": 1789,
       "en": "Coming Monday, please bring your smartphone or tablet with the Y-Attend app installed — it's available for Android and iOS. When the class starts at 1pm, I'll display a four-digit code, and you type it in to confirm your attendance. If you don't type it in, that means you haven't attended. There's no late attendance check and no other method — just this four-digit code, so please don't try to swipe some card instead.",
       "ko": "다가오는 월요일에는 Y-Attend 앱을 설치한 스마트폰이나 태블릿을 가져와 주세요 — 안드로이드와 iOS 모두 지원합니다. 수업이 1시에 시작하면 제가 4자리 코드를 화면에 띄울 텐데, 그걸 입력하면 출석이 확인됩니다. 입력하지 않으면 미출석으로 처리됩니다. 늦은 출석 체크나 다른 방법은 없습니다 — 오직 이 4자리 코드뿐이니, 카드를 태그하는 식으로 하지 말아주세요."
     },
@@ -112,12 +112,12 @@
       "ko": "한 가지 권장드리는 게 있는데, 가끔 정확한 이유는 모르겠지만 앱이 성공한 출석 체크를 다시 '미출석'으로 되돌리는 경우가 있습니다 — 지난 학기들에도 그런 일이 있었어요. 그러니 출석 체크하고 초록색 체크표시가 뜨면, 바로 스크린샷을 찍어두세요. 그걸 증거로 삼아 수업 문의 주소로 보내시면 됩니다. 분명히 말씀드리면 결석해도 감점은 없지만, 시스템이 너무 많이 되돌려버리면 학교의 3분의 1 규정에 걸릴 수 있습니다. 그런 스크린샷을 갖고 계시면, 학기 말에 출석이 부족한 경우 제가 보내주신 걸 보고 그때 기록을 바로잡아드립니다. 다만 학기 중에 되돌아간 기록 하나하나를 개별적으로 복구해드리지는 않습니다 — 정말 필요하시면 LearnUs 관리팀에 직접 문의하셔야 합니다."
     },
     {
-      "t": 2020,
+      "t": 1962,
       "en": "Now, about participation points — active classroom participation. If you ask a question in class, or I ask something and you answer it, or you take part in a discussion, I'll say thank you and give you a participation point. You then have to file it yourself: on your LearnUs account there's a personal, private board for in-class participation points, and you write down what you received the point for — one post per point, please, not three points bundled into one post. A sample format: title something like the course tag, and in the body, \"Professor Burgstaller, in today's lecture I answered a question about such-and-such, the answer was this-and-that, best regards, your name.\" That's how I track them, and at the end of the semester they get credited to your score.",
       "ko": "이제 참여점수(participation points) 얘기입니다 — 능동적인 수업 참여요. 수업 중에 질문을 하거나, 제가 뭔가 물었을 때 답을 하거나, 토론에 참여하면 제가 감사 인사를 하고 참여점수를 드립니다. 그러면 여러분이 직접 기록해야 하는데, LearnUs 계정에 개인적인, 비공개 참여점수 게시판이 있고, 거기에 무엇으로 점수를 받았는지 적으시면 됩니다 — 점수 하나당 게시글 하나씩이고, 세 개를 한 게시글에 몰아 쓰시면 안 됩니다. 예시 형식: 제목은 과목 태그 비슷하게, 본문에는 \"Burgstaller 교수님, 오늘 강의에서 ~에 대한 질문에 답했습니다, 답은 이러이러했습니다, 감사합니다, 이름\" 이런 식으로요. 이렇게 기록해두시면 제가 추적하고, 학기 말에 점수에 반영됩니다."
     },
     {
-      "t": 2130,
+      "t": 2111,
       "en": "The points are 4% of the entire course credit, so it's worthwhile — that's noticeable. But it's not that every point is worth a fixed 1% — what I typically do at the end of the semester is look at the highest scores, maybe two or three students with 10 or 12 points, and that becomes the full 4%. I make the curve very steep: if you have one participation point, you might already get 50%; two points, maybe 30-40% more; it levels off fast after that. So three, four, five points already gets you very close to the maximum, and the seventh, eighth, twentieth point usually doesn't add much more. So get one or two, and you already have a big slice of that cake — get three or four, and you're basically there.",
       "ko": "이 점수는 전체 과목 점수의 4%라서 노려볼 만합니다 — 체감이 되는 비중이에요. 다만 포인트 하나가 정확히 1%씩 고정으로 쳐지는 건 아닙니다 — 보통 학기 말에 최고 점수, 예를 들어 10점, 12점 받은 학생 두세 명을 보고 그걸 기준으로 4% 만점을 잡습니다. 곡선을 아주 가파르게 만드는데, 참여점수 1개면 이미 50% 정도, 2개면 30~40% 정도 더, 그 이후로는 빠르게 완만해집니다. 그래서 3개, 4개, 5개만 받아도 이미 만점에 아주 가까워지고, 7개, 8개, 20개째는 보통 별 차이가 없습니다. 그러니 한두 개만 받아도 이미 케이크의 큰 조각을 챙긴 거고, 서너 개 받으면 사실상 다 챙긴 겁니다."
     },
@@ -127,7 +127,7 @@
       "ko": "성적 항목은 이렇습니다: 중간고사와 기말고사 각 32%, 개인 랩 과제 32%, 능동적 수업 참여점수 4%. 이게 전체 목록이고, 다른 성적 항목은 없습니다 — 그러니 추가 리포트 같은 걸 쓰는 건 선택지가 아닙니다. 영어 강의라 절대평가를 쓰는데, 등급은 이렇습니다: 100~80점이 A, 80~70점이 B, 70~60점이 C, 60~50점이 D입니다."
     },
     {
-      "t": 2330,
+      "t": 2251,
       "en": "There's also a plagiarism rule I need to mention, particularly for the assignments. If you hand in something as your solution that isn't actually your own, that's plagiarism, and the rule for it is very harsh — the university requires an F for that course, plus a withdrawal grade for every other course whose exams haven't been finalized yet that semester. That's a very harsh rule, and I won't apply it the first time — there'll be a warning instead, with real consequences kicking in after a second, third, or fourth offense. The labs are individual assignments — you should solve them yourself. You're absolutely free to discuss and develop ideas with colleagues, and even code the same concept independently — that's totally fine, since I'm not checking whether concepts match. But if the code is line-by-line and comment-by-comment identical, that's hard to argue as coincidence, so please don't share code. One problem with plagiarism cases is that I can't tell who's the source and who's the copy — I just receive two identical submissions.",
       "ko": "특히 과제와 관련해서 언급해야 할 표절(plagiarism) 규정도 있습니다. 자신의 것이 아닌 걸 자기 풀이라고 제출하면 표절인데, 이에 대한 규정은 아주 엄격합니다 — 학칙상 해당 과목은 F, 그 학기에 아직 시험이 끝나지 않은 다른 모든 과목은 수강철회(W) 처리됩니다. 정말 가혹한 규정이라, 저는 처음 적발됐을 때는 이 규정을 바로 적용하지 않고 경고로 처리하고, 두 번째, 세 번째, 네 번째 적발부터 실제 조치가 들어갑니다. 랩 과제는 개인 과제라 스스로 풀어야 합니다. 동료와 아이디어를 논의하고 발전시키는 건 완전히 자유이고, 같은 개념을 각자 독립적으로 코딩하는 것도 전혀 문제없습니다 — 개념이 같은지는 제가 확인하지 않으니까요. 하지만 코드가 줄 단위, 주석 단위로 똑같다면 그게 우연이라고 하기는 어렵겠죠, 그러니 코드는 공유하지 말아주세요. 표절 문제의 어려운 점 하나는, 누가 원본이고 누가 베낀 건지 제가 알 수 없다는 겁니다 — 그냥 똑같은 제출물 두 개를 받게 되니까요."
     },
@@ -162,7 +162,7 @@
       "ko": "그래서 항상 실용적인 기반을 유지합니다 — 뭘 하든 결국 실제 양자컴퓨터에서 실행해보니까, 실제 결과, 여러분이 직접 확인할 수 있는 성과물이 있습니다. 이 말에 겁먹지 마세요 — 선형대수를 아주 깊이 파고들진 않지만, 확실히 이해는 해야 합니다, 그 뒤의 수학을 모르고 양자 알고리즘을 얘기하는 건 의미가 없으니까요. 우리는 중첩·얽힘·간섭을 갖춘 2상태 큐비트에 대한 확고한 이해가 필요합니다, 그게 정말 양자 컴퓨팅의 핵심이니까요 — 이 세 가지 효과가 없다면 고전 컴퓨터보다 나을 게 없을 겁니다. 그리고 고전적으로는 이걸 가질 수 없는 이유는, 이런 효과들이 오직 원자·아원자 수준 — 전자, 광자, 원자 — 에서만 일어나기 때문입니다. 일상적인, 거시적인 삶에서는 절대 마주치지 않죠."
     },
     {
-      "t": 3070,
+      "t": 3029,
       "en": "This is really about humanity opening a window into this microscopic world, to understand what's going on there and use it to our advantage — in chemistry, in materials science, in computing. This hasn't been known for very long — it emerged in the 1920s — and people are still working to understand it, because it's so new relative to all our experience, which comes from the macroscopic world, not the microscopic one. All right, I think that's the end of today's lecture. See you this coming Monday — please bring your laptop.",
       "ko": "이건 결국 인류가 이 미시 세계로 창문을 열어서, 거기서 무슨 일이 일어나는지 이해하고 화학, 재료과학, 컴퓨팅에서 우리에게 유리하게 활용하는 일입니다. 이게 알려진 지는 그리 오래되지 않았습니다 — 1920년대에 등장했고 — 사람들은 아직도 이걸 이해하려고 노력하고 있습니다, 우리의 모든 경험이 미시 세계가 아니라 거시 세계에서 온 것이라 그만큼 새로운 영역이기 때문입니다. 자, 오늘 강의는 여기까지인 것 같습니다. 다가오는 월요일에 뵙겠습니다 — 노트북 가져오세요."
     }

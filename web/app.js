@@ -67,17 +67,70 @@ async function renderDoc(docId) {
        <h1>${esc(doc.title)}</h1>
        <div class="crumb">${doc.date} · ${fmtDur(doc.duration_sec)}</div>
      </div>` +
+    (doc.audio_url ? `<div class="audio-bar"><audio id="audio" controls preload="none" src="${esc(doc.audio_url)}"></audio></div>` : "") +
     doc.paragraphs.map(p => `
-      <div class="para">
+      <div class="para" data-t="${p.t || 0}">
         <div class="t">${fmtT(p.t || 0)}</div>
         <div class="en">${esc(p.en)}</div>
         <div class="ko">${esc(p.ko)}</div>
       </div>`).join("");
   window.scrollTo(0, 0);
+
+  if (doc.audio_url) setupAudioSync();
+}
+
+const SEEK_SEC = 5;
+let audioKeyHandler = null;
+
+function setupAudioSync() {
+  const audio = document.getElementById("audio");
+  const bar = document.querySelector(".audio-bar");
+  const header = document.querySelector("header");
+  bar.style.top = header.offsetHeight + "px";
+
+  const paras = [...document.querySelectorAll(".para")];
+  paras.forEach(el => {
+    el.classList.add("clickable");
+    el.addEventListener("click", () => {
+      audio.currentTime = Number(el.dataset.t);
+      audio.play();
+    });
+  });
+
+  audio.addEventListener("timeupdate", () => {
+    const t = audio.currentTime;
+    let active = null;
+    for (const el of paras) {
+      if (Number(el.dataset.t) <= t) active = el; else break;
+    }
+    paras.forEach(el => el.classList.toggle("active", el === active));
+  });
+
+  removeAudioKeyHandler();
+  audioKeyHandler = (e) => {
+    const tag = document.activeElement && document.activeElement.tagName;
+    if (tag === "INPUT" || tag === "TEXTAREA") return;
+    if (e.key === "ArrowLeft") {
+      audio.currentTime = Math.max(0, audio.currentTime - SEEK_SEC);
+      e.preventDefault();
+    } else if (e.key === "ArrowRight") {
+      audio.currentTime = Math.min(audio.duration || Infinity, audio.currentTime + SEEK_SEC);
+      e.preventDefault();
+    }
+  };
+  document.addEventListener("keydown", audioKeyHandler);
+}
+
+function removeAudioKeyHandler() {
+  if (audioKeyHandler) {
+    document.removeEventListener("keydown", audioKeyHandler);
+    audioKeyHandler = null;
+  }
 }
 
 function route() {
   document.body.classList.remove("hide-ko");
+  removeAudioKeyHandler();
   const hash = location.hash || "#/";
   const mCourse = hash.match(/^#\/c\/(.+)$/);
   const mDoc = hash.match(/^#\/r\/(.+)$/);

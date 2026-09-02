@@ -8,6 +8,7 @@
 - 웹: https://recap.jongheon.click (Cloudflare Pages, 100% 정적)
 - STT: OpenAI `gpt-4o-transcribe` (ffmpeg 10분 청크)
 - 교정·문단화·번역: Claude Code 서브에이전트 (별도 API 키 불필요)
+- 오디오 재생: R2(recap-audio) 호스팅, 문단 클릭 시 그 지점으로 이동, ←/→ 방향키로 5초씩 이동
 - 인프라: Terraform (`infra/`)
 
 ## 빠른 시작

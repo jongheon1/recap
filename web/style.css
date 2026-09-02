@@ -88,6 +88,23 @@ button.toggle:hover { border-color: var(--accent); }
 body.hide-ko .para { grid-template-columns: 1fr; }
 body.hide-ko .para .ko { display: none; }
 
+/* audio playback */
+.audio-bar {
+  position: sticky;
+  z-index: 9;
+  background: var(--bg);
+  padding: 8px 0 14px;
+}
+.audio-bar audio { width: 100%; }
+.para.clickable { cursor: pointer; }
+.para.clickable:hover { background: var(--card); }
+.para.active {
+  background: var(--card);
+  border-left: 3px solid var(--accent);
+  padding-left: 12px;
+  margin-left: -15px;
+}
+
 @media (max-width: 760px) {
   .para { grid-template-columns: 1fr; gap: 8px; }
   .para .ko { font-size: 15px; }
