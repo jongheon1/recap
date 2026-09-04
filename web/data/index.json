@@ -18,6 +18,13 @@
       "name": "Algorithm Analysis",
       "files": [
         {
+          "id": "2026-09-04-algorithm-analysis-1",
+          "title": "Quiz Solutions, the Linear-Time MSS Algorithm, and Closest Pair",
+          "date": "2026-09-04",
+          "duration_sec": 6004,
+          "paragraphs": 46
+        },
+        {
           "id": "2026-09-02-algorithm-analysis-1",
           "title": "Maximum Subsequence Sum",
           "date": "2026-09-02",
