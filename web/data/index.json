@@ -38,6 +38,13 @@
       "name": "System Programming",
       "files": [
         {
+          "id": "2026-09-05-system-programming-1",
+          "title": "Linux Kernel Versions & Introduction to Processes",
+          "date": "2026-09-05",
+          "duration_sec": 5486,
+          "paragraphs": 51
+        },
+        {
           "id": "2026-09-02-system-programming-1",
           "title": "Introduction to Linux",
           "date": "2026-09-02",
