@@ -5,6 +5,13 @@
       "name": "Quantum Computer Programming",
       "files": [
         {
+          "id": "2026-09-07-quantum-computer-programming-1",
+          "title": "Quantum Computing Overview, Timeline, Hardware & Schrodinger's Cat",
+          "date": "2026-09-07",
+          "duration_sec": 6282,
+          "paragraphs": 97
+        },
+        {
           "id": "2026-09-02-quantum-computer-programming-1",
           "title": "Course Administration",
           "date": "2026-09-02",
