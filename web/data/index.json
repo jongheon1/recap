@@ -59,6 +59,13 @@
       "name": "System Programming",
       "files": [
         {
+          "id": "2026-09-09-system-programming-1",
+          "title": "Process Descriptor, Context Switching & Threads",
+          "date": "2026-09-09",
+          "duration_sec": 2790,
+          "paragraphs": 50
+        },
+        {
           "id": "2026-09-05-system-programming-1",
           "title": "Linux Kernel Versions & Introduction to Processes",
           "date": "2026-09-05",
