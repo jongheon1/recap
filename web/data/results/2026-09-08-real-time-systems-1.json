@@ -1,0 +1,510 @@
+{
+ "id": "2026-09-08-real-time-systems-1",
+ "course": "real-time-systems",
+ "title": "Basic Concepts of Real-Time Systems",
+ "date": "2026-09-08",
+ "duration_sec": 5800,
+ "audio_url": "https://pub-950a8b85c4a448b4b96d2942eec87d6b.r2.dev/2026-09-08-real-time-systems-1.m4a",
+ "paragraphs": [
+  {
+   "t": 0,
+   "en": "Okay, so usually, first thing, we will start from the essence of the exercise, okay? Let's go to the first slide. Every week, we have exercises. Exercise A is 2-3-0. It's a kind of practice or exercise where meditation comes in. And, yeah, usually, it was due yesterday. Usually, we keep up a regular weekly exercise — usually Monday to Friday — and then the next day it was closed. So, it took a little bit of time.",
+   "ko": "자, 보통 첫 번째로 Exercise A(연습 과제 A)의 핵심부터 시작하겠습니다, 알겠죠? 첫 슬라이드로 넘어가 볼게요. 매주 우리는 연습 과제(exercise)가 있습니다. Exercise A는 2-3-0입니다. 일종의 실습 또는 연습으로, 명상이 들어가는 방식입니다. 그리고, 음, 보통은 어제가 마감이었어요. 보통 매주 정기적으로 연습 과제를 진행하는데, 보통 월요일부터 금요일까지이고, 그다음 날에는 마감이 닫힙니다. 그래서 시간이 좀 걸렸습니다."
+  },
+  {
+   "t": 43,
+   "en": "Exercise A is about working with the system, or working from your point of view. Then, yeah, I want to put Exercise A up — we will present the plan. Once it passes, I will show it. If you go to the presentation, it's over. I already posted a few screenshots for Exercise A. This is a very good example because, as I mentioned, it's a valid effort. So, if you want to present your exercise, you can just write it this way. You can do it by the current number of your presentations. Most of you guys are now at zero, right?",
+   "ko": "Exercise A는 시스템을 다루는 것, 혹은 여러분의 관점에서 작업하는 것에 관한 것입니다. 그러고 나서, 음, Exercise A를 올리고 싶은데요 — 계획을 발표하게 될 겁니다. 통과되면 제가 보여드릴게요. 발표까지 가면 끝나는 겁니다. Exercise A에 대해서는 이미 스크린샷 몇 개를 올려놨습니다. 이건 아주 좋은 예시인데, 제가 말씀드렸듯이 유효한 노력(valid effort)이기 때문입니다. 그러니까 여러분의 연습 과제를 발표하고 싶다면 이런 식으로 작성하면 됩니다. 현재 여러분의 발표 횟수에 따라 순서가 정해집니다. 대부분은 지금 0번이죠?"
+  },
+  {
+   "t": 95,
+   "en": "And, yeah, unfortunately, Chang-Yi missed it because he wrote a post about it too early. And I think it's a good example, so I'm answering. Wait for just 10 o'clock — 10 o'clock again. So then it looks like here. I follow — I stick to my Tuesday values, so Tuesdays are lower. First-come, first-served within the same number of presentations. It looks like the test screen, and then this one — Bruno's presentation. But there's one mistake: Bruno presented it last week, right? Your number is one, not zero. So, yeah, Bruno is just stupidly lost.",
+   "ko": "그리고, 음, 안타깝게도 Chang-Yi는 놓쳤는데, 왜냐하면 너무 일찍 글을 올렸기 때문이에요. 그리고 제 생각엔 좋은 예시인 것 같아서 답을 드리는 거예요. 10시까지만 기다려 주세요 — 다시 10시요. 그러면 이렇게 되는 거죠. 저는 따르는데요 — 제 화요일 기준(Tuesday values)을 고수합니다, 그래서 화요일이 더 낮아요. 같은 발표 횟수 안에서는 선착순입니다. test screen처럼 보이고, 그다음이 이거네요 — Bruno의 발표입니다. 그런데 실수가 하나 있어요. Bruno는 지난주에 발표했었죠? 여러분의 숫자는 1이지 0이 아니에요. 그래서, 음, Bruno가 그냥 좀 헷갈렸나 봐요."
+  },
+  {
+   "t": 145,
+   "en": "So, yeah, today's presentation is test screen and timing. Do you understand the rules? I think the students do. All right, well, I'll go first. Your name is Nancy? Yeah, right. Nancy is not an official name, right? She's Ying Qing Wang, I think. So, by the way — Ying Qing Wang, Bruno, and then timing, that's it. That's one. So, as I mentioned, if you are here, you'll see something. And now, for example, I downloaded all the files. Well, I can just give you a few minutes. If you come here, then you can have a look. Bruno, there you go. He's not talking, though. That's awesome.",
+   "ko": "그래서, 음, 오늘 발표는 test screen과 timing입니다. 규칙 이해하셨나요? 학생들은 이해한 것 같네요. 좋아요, 제가 먼저 할게요. 이름이 Nancy 맞나요? 네, 맞아요. Nancy는 공식 이름은 아니죠? Ying Qing Wang일 거예요, 아마. 그나저나 Ying Qing Wang, Bruno, 그리고 timing, 그게 다예요. 그게 하나고요. 제가 말씀드렸듯이, 여기 계시면 뭔가 보이실 거예요. 그리고 예를 들어, 제가 파일을 전부 다운로드해 놨어요. 몇 분 드릴 수 있어요. 여기로 오시면 확인하실 수 있어요. Bruno, 여기요. 근데 말을 안 하네요. 멋지네요."
+  },
+  {
+   "t": 214,
+   "en": "Hi, I'm Catherine. So, I just looked up on Google, like, what's a real-time system and what's a thing in real-time. So, a real-time system is a system whose response must be guaranteed within a specific timeline.",
+   "ko": "안녕하세요, 저는 Catherine입니다. 그래서 저는 그냥 구글에서 실시간 시스템(real-time system)이 무엇인지, 그리고 실시간(real-time)이라는 게 뭔지 찾아봤어요. 실시간 시스템이란 응답이 특정한 시간 안에 보장되어야 하는 시스템입니다."
+  },
+  {
+   "t": 236,
+   "en": "So, why do we need real-time systems? It's because some systems need critical response times in order to operate correctly and safely. And this relates to hard real-time systems and soft real-time systems that we learned in class — in a hard real-time system, if the deadline is missed, it may cause serious or real-life disastrous consequences, whereas in soft real-time systems, an occasional missed deadline is acceptable, but the performance gradually decreases as the response time gets greater and greater.",
+   "ko": "그러면 왜 실시간 시스템이 필요할까요? 어떤 시스템들은 올바르고 안전하게 동작하기 위해 결정적으로 중요한 응답 시간(critical response time)이 필요하기 때문입니다. 이는 수업에서 배운 경성 실시간(hard real-time) 시스템과 연성 실시간(soft real-time) 시스템과 관련이 있는데요 — 경성 실시간 시스템에서는 마감시한(deadline)을 놓치면 심각하거나 실생활에서 재앙적인 결과를 초래할 수 있는 반면, 연성 실시간 시스템에서는 가끔 마감시한을 놓치는 것은 괜찮지만, 응답 시간이 점점 커질수록 성능이 점차 저하됩니다."
+  },
+  {
+   "t": 271,
+   "en": "Some examples are automatic emergency braking and self-driving cars — if that fails, you get injured or killed, so it's hard real-time. And then, like, control systems, kind of the same thing — if that goes wrong, people would die. And then, telephone systems, which are soft real-time.",
+   "ko": "예를 들면 자동 긴급 제동(automatic emergency braking)이나 자율주행차가 있는데요 — 이게 실패하면 다치거나 죽을 수 있으니 경성 실시간입니다. 그리고 제어 시스템(control systems)도 비슷한데요 — 잘못되면 사람이 죽을 수 있습니다. 그리고 전화 시스템 같은 것은 연성 실시간입니다."
+  },
+  {
+   "t": 295,
+   "en": "So, some of the pros of real-time systems are that it can automate complex tasks that were impossible or complex to do immediately. And it can reduce human error by automating tasks that require precision and consistency. It can also help reduce cost by minimizing significant human intervention and reducing the risk of human error. And it can be customized to meet specific requirements.",
+   "ko": "실시간 시스템의 장점 중 일부는, 즉각적으로 하기에는 불가능하거나 복잡했던 작업들을 자동화할 수 있다는 것입니다. 또한 정밀함과 일관성이 요구되는 작업을 자동화함으로써 인간의 실수를 줄일 수 있습니다. 상당한 사람의 개입을 최소화하고 인간 오류의 위험을 줄여 비용 절감에도 도움이 됩니다. 그리고 특정 요구사항에 맞게 맞춤화할 수 있습니다."
+  },
+  {
+   "t": 321,
+   "en": "And then, the cons of a real-time system are that it can be complex and require a lot of data and time. It can also be expensive to develop. And then, they're also typically less flexible, since they need to be safe and correct. And it can also be vulnerable to failures and anomalies, which can have serious consequences.",
+   "ko": "그리고 실시간 시스템의 단점은, 복잡할 수 있고 많은 데이터와 시간이 필요하다는 것입니다. 개발하는 데 비용이 많이 들 수도 있고요. 또한 안전하고 정확해야 하기 때문에 대체로 유연성이 떨어집니다. 그리고 실패(failure)나 이상 현상(anomaly)에 취약할 수 있는데, 이는 심각한 결과를 초래할 수 있습니다."
+  },
+  {
+   "t": 348,
+   "en": "And then, on the meaning of real-time in general, I found online that real-time means data is sent, received, or processed as events occur, rather than being stored and handled later. So, real-time doesn't mean as fast as possible — it means a predictable response within a certain deadline.",
+   "ko": "그리고 일반적인 의미의 실시간(real-time)에 대해서는, 온라인에서 찾아보니 실시간이란 데이터가 이벤트가 발생하는 즉시 전송·수신·처리되는 것이지, 나중에 저장해서 처리하는 것이 아니라고 합니다. 그러니까 실시간이란 무조건 빠른 것을 의미하는 게 아니라, 정해진 마감시한 안에서의 예측 가능한 응답을 의미합니다."
+  },
+  {
+   "t": 372,
+   "en": "And I found, like, a general example could be construction projects — it doesn't have much to do with computer science, but, like, if the cost of an activity is recorded after the activity is completed during a construction project, it's too late to make corrections. But the cost and progress are reported at the same time. And real-time, like dealing with nuclear weapons — they want it, so action can be taken to prevent problems or mistakes. And, in this sense, real-time is having a handle on trends in time to make adjustments, to enable you to stay on target but stay safe.",
+   "ko": "그리고 일반적인 예시로 건설 프로젝트를 찾았는데요 — 컴퓨터공학과는 크게 관련이 없지만, 예를 들어 건설 프로젝트에서 어떤 활동의 비용이 그 활동이 끝난 후에야 기록된다면, 수정하기엔 이미 늦은 것입니다. 하지만 비용과 진행 상황이 동시에 보고됩니다. 그리고 핵무기를 다루는 것과 같은 실시간 사례도 있는데요 — 그렇게 하기를 원하는 이유는, 문제나 실수를 방지하기 위해 조치를 취할 수 있기 때문입니다. 이런 의미에서 실시간이란, 목표를 유지하면서도 안전하게 있을 수 있도록 시간 안에 흐름을 파악해서 조정을 가하는 것입니다."
+  },
+  {
+   "t": 406,
+   "en": "The system should update at a rate that matches what it's monitoring. And the key idea is that real-time, in practice, depends on the time scale of the application — so, construction projects versus, say, an online self-driving car. And real-time information is available while the event is still in progress. Yeah, thank you. Thank you.",
+   "ko": "시스템은 감시 대상의 속도에 맞춰 갱신되어야 합니다. 그리고 핵심 아이디어는, 실제로 실시간이라는 것이 해당 애플리케이션의 시간 척도(time scale)에 달려 있다는 것입니다 — 그러니까 건설 프로젝트와, 예를 들어 온라인 자율주행차를 비교해 보면요. 그리고 실시간 정보란 이벤트가 아직 진행 중인 동안에 이용 가능한 정보를 말합니다. 네, 감사합니다. 감사합니다."
+  },
+  {
+   "t": 441,
+   "en": "Yeah, this is the track list, because we already discussed this. The next one, too, we will learn. So, what is the meaning of real-time? ... I want to see — what is a real-time system? A real-time system is a system where output is both correct and has time limits. So, it operates on a specified time limit, N1, and must ensure that a correct output is generated within that specific time limit. But this does not necessarily mean fast — it just means that a predefined time bound is required. For example, if a system has a designated time limit of 5 seconds, and it consistently generates output within 5 seconds, it still qualifies as a real-time system.",
+   "ko": "네, 이건 트랙 리스트(개요)인데, 이미 이 부분은 얘기했었죠. 다음 것도 배우게 될 거예요. 그러면 실시간(real-time)의 의미가 뭘까요? ... 한번 볼게요 — 실시간 시스템이란 무엇일까요? 실시간 시스템이란 출력이 정확하면서도(correct) 시간 제약(time limit)을 갖는 시스템입니다. 즉, 정해진 시간 한계 N1 안에서 동작하며, 그 특정 시간 한계 안에 올바른 출력이 생성되도록 보장해야 합니다. 하지만 이것이 반드시 '빠르다'는 것을 의미하지는 않습니다 — 그저 미리 정해진 시간 기준이 요구된다는 뜻입니다. 예를 들어 어떤 시스템의 지정된 시간 한계가 5초라면, 항상 5초 안에 결과를 낸다면 그 시스템은 여전히 실시간 시스템으로 인정됩니다."
+  },
+  {
+   "t": 544,
+   "en": "In the previous diagrams, there are three patterns for these real-time systems. The first is a hard real-time system, where failing to meet even a single deadline results in a complete, catastrophic system failure — an example of this would be shutdown systems. The second is a soft real-time system, where even if you fail to meet a response-time deadline, it does not cause total failure — it just degrades the user experience. The third is a firm real-time system, where missing a few deadlines is okay, and it doesn't mean you're competing with a perfect system.",
+   "ko": "앞선 그림들을 보면, 실시간 시스템에는 세 가지 패턴이 있습니다. 첫 번째는 경성 실시간(hard real-time) 시스템인데, 단 하나의 마감시한이라도 지키지 못하면 완전하고 치명적인 시스템 실패로 이어집니다 — 예를 들면 (비상) 정지 시스템(shutdown system) 같은 것입니다. 두 번째는 연성 실시간(soft real-time) 시스템으로, 응답 시간 마감시한을 지키지 못해도 전체 실패로 이어지지는 않고, 그저 사용자 경험이 저하될 뿐입니다. 세 번째는 강성 실시간(firm real-time) 시스템으로, 몇 번의 마감시한을 놓쳐도 괜찮으며, 완벽한 시스템을 목표로 경쟁하는 것은 아니라는 의미입니다."
+  },
+  {
+   "t": 590,
+   "en": "And how it operates depends on the scheduler, which lines up tasks in the task list. The scheduler decides which tasks run and which wait, allowing higher-priority tasks to take precedence, so that some critical deadlines are met. So, yeah, we'll learn — we'll learn this by category.",
+   "ko": "그리고 이것이 어떻게 동작하는지는 스케줄러(scheduler)에 달려 있는데, 스케줄러는 태스크 리스트(task list) 안의 작업들을 정렬합니다. 스케줄러는 어떤 태스크를 실행하고 어떤 태스크를 대기시킬지 결정해서, 우선순위가 더 높은 태스크가 먼저 처리되도록 하고, 그렇게 함으로써 일부 중요한 마감시한이 지켜지도록 합니다. 그래서, 음, 이걸 카테고리별로 배우게 될 거예요."
+  },
+  {
+   "t": 634,
+   "en": "And I'll show you a pretty short video clip. So let's say — issues, yeah, this is hardware. This is an airbag. And let's say it's slower than reality — let's say it's slowed down by, like, 100 times. And you can easily understand — that's not what's going on, but that's what happened to the human. Even 0.07 seconds. And we'll learn — second, actually, yeah, it's fine, it's not necessary in the last show, so it doesn't need to process it immediately. But I would say it's about time.",
+   "ko": "그리고 짧은 영상 클립을 하나 보여드릴게요. 자, 이건 [장비 관련 이슈]인데, 하드웨어입니다. 이게 에어백이에요. 그리고 이건 실제보다 느리게, 그러니까 한 100배 정도 느리게 재생한 거라고 해볼게요. 그러면 실제로 무슨 일이 일어나는지는 아니지만, 사람에게 어떤 일이 벌어졌는지는 쉽게 이해할 수 있습니다. 0.07초조차도요. 그리고 우리가 배우게 될 텐데 — 사실, 음, 괜찮아요, 마지막 장면에서는 꼭 필요한 건 아니라서 즉시 처리할 필요는 없어요. 하지만 시간이 중요하다고 말씀드리고 싶네요."
+  },
+  {
+   "t": 720,
+   "en": "And then — is your PC or laptop a real-time system? What do you think? [Student: No.] Any other opinions? Then what do you think about this — what is my claim? My claim is, any computer system could be a soft real-time system. Do you understand what a soft real-time system is? But eventually, we need some timing, which is a function of resources. The money you gain will decrease as time goes by.",
+   "ko": "그러면 — 여러분의 PC나 노트북은 실시간 시스템일까요? 어떻게 생각하세요? [학생: 아니요.] 다른 의견 있는 사람? 그러면 이건 어떻게 생각하세요 — 제 주장이 뭘까요? 제 주장은, 어떤 컴퓨터 시스템이든 연성 실시간(soft real-time) 시스템이 될 수 있다는 겁니다. 연성 실시간 시스템이 뭔지 이해되시나요? 하지만 결국 우리에게는 자원(resource)의 함수인 어떤 타이밍이 필요합니다. 시간이 지날수록 얻는 돈(이익)은 줄어듭니다."
+  },
+  {
+   "t": 758,
+   "en": "That's my claim. Do you like it or not? What do you think? Yeah, that's my claim, but, yeah, think about it. Let's look at your case — do you have any example? Suppose that you want to download a movie. That's kind of a good question, because now we can easily explain it: suppose that you want to download a file, and suppose that it takes one million years — even though it's functionally correct, it's not okay. Yeah, I think no one is okay with that, right? So, in that case, yeah, that's my claim. I'm not saying that is the truth, or that's the truth — my claim is, yes, every computer system needs to be considered a soft real-time system. It's smart.",
+   "ko": "그게 제 주장입니다. 마음에 드시나요, 아닌가요? 어떻게 생각하세요? 네, 그게 제 주장인데, 한번 생각해 보세요. 여러분의 사례를 한번 볼까요 — 예시가 있으신가요? 영화를 다운로드하고 싶다고 가정해 봅시다. 좋은 질문인데, 왜냐하면 이제 파일 다운로드로 쉽게 설명할 수 있거든요. 파일을 다운로드하고 싶은데, 그게 백만 년이 걸린다고 해봅시다 — 기능적으로는 맞더라도, 그건 괜찮지 않죠. 네, 아무도 그건 괜찮다고 생각하지 않을 거예요, 그렇죠? 그래서 그런 경우에, 네, 그게 제 주장입니다. 이게 진리다, 저게 진리다라고 말하는 게 아니라 — 제 주장은, 그렇습니다, 모든 컴퓨터 시스템은 연성 실시간 시스템으로 봐야 한다는 것입니다. 똑똑하죠."
+  },
+  {
+   "t": 833,
+   "en": "Then, yeah, there's a bit of a follow-up on how you do it — this. It's better for me to explain this one. It seems to me that it matters. By the way, he's a professor — but you'll want to see this. There's a paper related to this. Do you know what this means? So, once the alarm goes off, there's an alarm — four, fifteen; two states, three, fifteen. First, I'll check the attendance. You open the attendance. Only I check this time — after class, yeah, there was no late check allowed. Any late attendance check? No. If you don't know, please let me know. Please enter this number. So that's how it works. There's a problem — if you have any problems, please come here. Name and student ID, offline — I'll check later.",
+   "ko": "그럼, 음, 이걸 어떻게 하는지에 대한 후속 설명이 좀 있는데요 — 이겁니다. 제가 이걸 설명하는 게 낫겠네요. 저한테는 이게 중요해 보여요. 그나저나, 그분은 교수님인데 — 한번 보실 필요가 있어요. 이것과 관련된 논문이 하나 있습니다. 이게 무슨 뜻인지 아세요? 그러니까 알람이 울리면요 — 4, 15, 2단계, 3, 15. 먼저 출석(attendance)을 확인할게요. 출석을 여세요. 이번엔 저만 확인합니다 — 수업 끝나고는, 네, 지각 체크는 안 됐어요. 지각 출석 체크 있나요? 없어요. 모르겠으면 알려주세요. 이 번호를 입력해 주세요. 그렇게 동작하는 겁니다. 문제가 있으면 — 문제가 있으신 분은 여기로 와주세요. 이름과 학번은 오프라인으로 — 나중에 제가 확인할게요."
+  },
+  {
+   "t": 944,
+   "en": "Let's see — does it work? Please recheck whether your attendance is correctly marked. If there's a problem, please come here now. [The professor repeated this check several times while going around the room:] I did not accept any attendance after class ended — if you think you have a problem, please come here now; if you don't have a problem, you don't need to come up.",
+   "ko": "한번 볼까요 — 잘 되나요? 출석이 제대로 표시됐는지 다시 확인해 주세요. 문제가 있으면 지금 여기로 오세요. [교수님이 자리를 돌며 이 확인을 여러 차례 반복했습니다.] 수업이 끝난 뒤에는 어떤 출석도 받아주지 않았습니다 — 문제가 있다고 생각되면 지금 여기로 오시고, 문제가 없다면 올라오실 필요 없습니다."
+  },
+  {
+   "t": 1200,
+   "en": "So, this is why this article suggests the existence of a real-time resource algebra. And to support real-time AI, this inspiration comes from biology — humans can focus their limited cognitive resources, such as the eye or ear, on where they matter most. For example, current systems process all pixels of an input frame at the same priority, so this results in a significant amount of resources wasted if they don't need to be treated equally. So, real-time-AI resource-management problems include things like saliency estimation, which means estimating the importance of different parts of the scene.",
+   "ko": "그래서 이 논문은 실시간 자원 대수(real-time resource algebra)라는 개념을 제안합니다. 그리고 실시간 AI를 지원하기 위한 이 아이디어는 생물학적 특성에서 영감을 받았는데요 — 인간은 눈이나 귀 같은 제한된 인지 자원을 가장 중요한 곳에 집중시킬 수 있습니다. 예를 들어, 기존 시스템은 입력 프레임의 모든 픽셀을 동일한 우선순위로 처리하는데, 그럴 필요가 없다면 상당한 자원이 낭비되는 결과를 낳습니다. 그래서 실시간 AI의 자원 관리 문제에는 saliency 추정(saliency estimation), 즉 장면(scene)의 서로 다른 부분들의 중요도를 추정하는 문제 등이 있습니다."
+  },
+  {
+   "t": 1258,
+   "en": "So, for example, you can use a depth sensor to pay more attention to those surfaces and regions all around the scene. And current AI algorithms suffer from limited flexibility to reallocate resources. This means that context switching at the GPU level requires very heavy computational overhead, which is why real-time inference is difficult. So there are two factors: the first one is performance isolation, and this allows a fairly good mixture of both lower-priority processing and the input of higher-priority frames.",
+   "ko": "예를 들어 depth 센서를 사용해서 장면 곳곳의 특정 표면이나 영역에 더 주의를 기울일 수 있습니다. 그리고 현재의 AI 알고리즘은 자원을 재분배하는 유연성이 제한적입니다. 이는 GPU 수준에서의 컨텍스트 스위칭(context switching)이 매우 무거운 연산 오버헤드를 필요로 한다는 뜻이고, 그래서 실시간 추론(real-time inference)이 어려운 것입니다. 그래서 두 가지 요소가 있는데요, 첫 번째는 성능 격리(performance isolation)로, 이는 낮은 우선순위 처리와 더 높은 우선순위를 가진 프레임의 입력을 적절히 혼합할 수 있게 해줍니다."
+  },
+  {
+   "t": 1296,
+   "en": "And the second one is performance differentiation, which means that the less important parts of the scene are not processed with the same priority, resulting in lower performance for those regions. So, you can see that, compared to the traditional design, this time the architecture is adding a priority engine and the VGG network. So, overall, bringing in the concept of different AI models can enhance inference speed with limited GPUs. And this real-time architecture enables time-guaranteed computer-vision processing, which allows AI models...",
+   "ko": "두 번째는 성능 차별화(performance differentiation)인데, 이는 장면에서 덜 중요한 부분은 동일한 우선순위로 처리되지 않아서, 그 영역에서는 성능이 낮아지는 결과가 나온다는 뜻입니다. 그래서 기존 설계와 비교했을 때, 이번에는 priority engine과 VGG 네트워크를 추가한 것을 볼 수 있습니다. 전체적으로 보면, 서로 다른 AI 모델의 개념을 도입함으로써 제한된 GPU로도 추론 속도를 향상시킬 수 있습니다. 그리고 이 실시간 아키텍처는 시간이 보장되는(time-guaranteed) 컴퓨터 비전(computer vision) 처리를 가능하게 하고, 이를 통해 AI 모델들이..."
+  },
+  {
+   "t": 1366,
+   "en": "So, basically, instead of saying this is a good article, I just wanted to give a quick idea. For me, the article wants to explain why we need these advancements in AI systems, or concepts from real-time systems. And basically, the first part of the article identifies two different pressure zones. One is the advancements in sensors, which increase the amount of data systems receive. And on the other side, there's market pressure for cost optimization — a search for the best prices and the smallest optimization possible. Because in a billion-dollar industry, every optimization becomes like a million-dollar investment, a million-dollar saving.",
+   "ko": "그러니까 기본적으로, 이 논문이 좋다고 말하려는 게 아니라, 그냥 간단한 아이디어를 드리고 싶었던 거예요. 제가 보기엔 이 논문은 왜 AI 시스템에 이런 발전, 즉 실시간 시스템에서 나온 개념들이 필요한지를 설명하려는 것 같습니다. 기본적으로 논문의 첫 부분에서는 서로 다른 두 가지 압박 요인을 짚고 있는데요. 하나는 센서 기술의 발전으로, 이는 시스템이 받아들이는 데이터의 양을 늘립니다. 그리고 다른 한쪽에는 비용 최적화를 위한 시장 압박이 있는데요 — 가장 좋은 가격과 가능한 가장 작은 최적화까지 찾으려는 것입니다. 왜냐하면 수십억 달러 규모의 산업에서는, 최적화 하나하나가 수백만 달러의 투자이자 수백만 달러의 절감이 되기 때문입니다."
+  },
+  {
+   "t": 1420,
+   "en": "And that is exactly the kind of pressure environment that real-time systems thrive in — because they can manage the scarcity of resources well by managing the latency of the system. So, in the second part of the article, they explain what fields of research are currently being explored in order to implement real-time systems in the AI field.",
+   "ko": "그리고 바로 그런 압박 환경이야말로 실시간 시스템이 진가를 발휘하는 곳입니다 — 왜냐하면 시스템의 지연시간(latency)을 잘 관리함으로써 자원의 희소성을 효과적으로 다룰 수 있기 때문입니다. 그래서 논문의 두 번째 부분에서는, AI 분야에 실시간 시스템을 적용하기 위해 현재 탐구되고 있는 연구 분야들이 무엇인지 설명합니다."
+  },
+  {
+   "t": 1446,
+   "en": "And the most recognizable ones right now are anytime AI, but also input correctivation, like humans do, like explained by my colleague. So the advancements in anytime AI can always check, no matter how much time has passed, the current answer, and identify whether the calculation is useful or not, and drop it if it's not. So it's really lowering down the amount of inputs and misuse of inputs in the system.",
+   "ko": "지금 가장 잘 알려진 것은 애니타임(anytime) AI이고, 또한 인풋 커렉티베이션(정확히 알아듣기 어려운 부분)도 있는데, 이는 인간이 하는 것처럼, 제 동료가 설명했던 것과 같습니다. 애니타임 AI의 발전은 시간이 얼마나 지났든 상관없이 현재의 답을 항상 점검해서, 그 계산이 쓸모 있는지 없는지를 판단하고, 쓸모없으면 버릴 수 있습니다. 그래서 시스템에서 불필요한 입력의 양과 입력의 오용을 실제로 크게 줄여줍니다."
+  },
+  {
+   "t": 1485,
+   "en": "This is a really good paper to understand. It's not based on your paper — you see, I regard this as a kind of motivation. And I showed that with a paper. There was no other paper — it was just a discussion. There's no name. Interesting.",
+   "ko": "이건 이해하기에 정말 좋은 논문입니다. 여러분의 논문에 기반한 건 아니고, 저는 이걸 일종의 동기 부여로 생각합니다. 그리고 그걸 논문으로 보여드린 겁니다. 다른 논문은 없었고, 그냥 토론이었습니다. 이름은 없습니다. 흥미롭네요."
+  },
+  {
+   "t": 1533,
+   "en": "Hello, my name is Shani. I'm majoring in computer science, so I will talk about this video and my examples. First, in this video — without dragging out our lesson — right away it's really exciting: I want this class to be in university, so it kind of knows the vehicle to the very limits. At first I think it's a little bit slow, but after that it optimizes, optimizes, optimizes, and goes to the vehicle's limit. So it's related to a very tight deadline. Also, like an automatic emergency braking system, it calculates time to collision, so it must be a hard real-time system. And also, there's this vibration up front — there's a camera there. I've used these sensors before, and it's really hard to synchronize them.",
+   "ko": "안녕하세요, 제 이름은 샤니(Shani)이고 컴퓨터공학을 전공하고 있어서 이 영상과 제 예시들에 대해 이야기하겠습니다. 먼저 이 영상은 — 수업을 질질 끌지 않고 바로 말씀드리면 — 정말 흥미롭습니다. 이 수업이 대학에 있었으면 해서, 차량을 한계치까지 밀어붙이는 느낌입니다. 처음에는 조금 느리다고 생각했는데, 그 이후에는 계속 최적화(optimize)를 거듭하면서 차량의 한계치에 도달합니다. 그래서 이는 매우 촉박한 데드라인(deadline)과 관련이 있습니다. 또한 자동 긴급제동장치(automatic emergency braking system)처럼, 충돌까지 남은 시간(time to collision)을 계산해야 하므로 반드시 경성 실시간 시스템(hard real-time system)이어야 합니다. 그리고 앞쪽에 진동이 있는데, 거기에 카메라가 있습니다. 저도 예전에 이런 센서들을 써봤는데, 서로 동기화(synchronize)하기가 정말 어렵습니다."
+  },
+  {
+   "t": 1630,
+   "en": "And also, my first example is a CNC machine build. I think that in mechanical engineering, I really love to make robots. At my house, in my bedroom, I bought a CNC machine. I'm building it, and I'm doing it for myself. Usually, in big companies, people use a CNC controller — for example, Haas — and there are many companies that use that kind of controller, but unfortunately, I don't have that much money.",
+   "ko": "그리고 제 첫 번째 예시는 CNC 기계를 직접 만드는 것입니다. 저는 기계공학 쪽에서 로봇 만드는 걸 정말 좋아합니다. 제 방, 침실에 CNC 기계를 하나 샀습니다. 그걸 직접 만들고 있고, 저를 위해서 하는 작업입니다. 보통 대기업에서는 CNC 컨트롤러를 쓰는데, 예를 들면 하스(Haas) 같은 걸 씁니다. 그런 컨트롤러를 쓰는 회사들이 많은데, 안타깝게도 저는 그럴 만한 돈이 많지 않습니다."
+  },
+  {
+   "t": 1680,
+   "en": "So, I use money to use them. Sometimes — just sometimes — it freezes. Because of that, if the feed is running and you're cutting the material, it has to stop right at that point, but when it freezes, it just cools down instead. And, you know, end to end, it's kind of tricky — like an end-to-end braking issue. So because of this, sometimes it causes really bad, bad damage, so it really requires real-time control. It doesn't need to be fast, but all the tasks must be done before that deadline. So, that's my first example.",
+   "ko": "그래서 돈을 들여서 그것들을 사용합니다. 가끔, 정말 가끔 멈춰버립니다(freeze). 그것 때문에, 이송(feed)이 진행되면서 재료를 절삭하고 있는 도중 정확히 그 지점에서 멈춰야 하는데, 멈춰버리면 그냥 식어버립니다. 그리고 엔드투엔드(end-to-end)로 보면 좀 까다로운데, 일종의 엔드투엔드 제동(braking) 문제 같은 겁니다. 그래서 이 때문에 가끔 정말 심한 손상이 생기고, 그래서 실시간 제어(real-time control)가 꼭 필요합니다. 빠를 필요는 없지만, 모든 작업이 그 데드라인 이전에 끝나야 합니다. 이것이 제 첫 번째 예시입니다."
+  },
+  {
+   "t": 1724,
+   "en": "The second one is — I mean, one robot — so, as you can see, it doesn't look like much, but it is working. If I use this robot, it updates at about 100 Hz, and it's running on Linux Ubuntu. Behind the scenes, there's just JSON. And sometimes, when there's a deadline issue — at first it was a kind of bandwidth problem, communication with the motors, since it has 22 motors — sometimes that makes this problem better. So, this is my favorite one. I wanted to show the robot, so sorry about that, and that's all. Thank you. Thank you. Welcome. Thank you. Thank you. Thank you.",
+   "ko": "두 번째는, 그러니까 로봇 하나인데, 보시다시피 대단해 보이지는 않지만 실제로 작동은 합니다. 이 로봇을 쓰면 약 100Hz 주기로 업데이트되고, 리눅스 우분투(Linux Ubuntu) 위에서 동작합니다. 뒤에서는 그냥 JSON을 사용합니다. 그리고 가끔 데드라인 문제가 생기는데, 처음에는 일종의 대역폭(bandwidth) 문제였습니다. 모터가 22개나 있어서 모터들과의 통신 문제였는데, 가끔은 그게 오히려 문제를 개선시켜 주기도 합니다. 이게 제가 제일 좋아하는 프로젝트입니다. 로봇을 직접 보여드리고 싶었는데, 죄송하지만 이걸로 마치겠습니다. 감사합니다. 감사합니다. 천만에요. 감사합니다. 감사합니다. 감사합니다."
+  },
+  {
+   "t": 1800,
+   "en": "Okay, so hello everyone. I would like to present the video that you just saw, along with the build-up of the system. The video was about autonomous driving, and it explained that in order to drive, the car needs three main actions. First, it needs to perceive the environment; then it needs to plan what it's going to do; and then it needs to control the hardware in order to, for example, brake, turn, or accelerate. And so, we need it to be predictable, and we need to meet the deadline every time we look at the screen. For example, if an obstacle appears in front of the car, we have a small window to react, and if only one part of the pipeline takes too much time, we're going to hit the obstacle. For example, if we take too much time to perceive the environment, or if the planning takes too much time, or controlling the car takes too much time, then we could have, for example, a big accident — and that makes it a really hard deadline, because it's deadly. So it's not only about making the right decision, it's also about making the decision at the right moment.",
+   "ko": "안녕하세요 여러분. 방금 보신 영상과 그 시스템의 구성(build-up)을 소개해드리려고 합니다. 이 영상은 자율주행(autonomous driving)에 관한 것이었고, 운전을 하려면 자동차가 세 가지 주요 동작을 해야 한다고 설명했습니다. 먼저 환경을 인지(perceive)해야 하고, 그다음 무엇을 할지 계획(plan)해야 하고, 마지막으로 예를 들어 제동, 방향 전환, 가속 등을 위해 하드웨어를 제어(control)해야 합니다. 그래서 이 시스템은 예측 가능해야 하고, 화면을 볼 때마다 데드라인을 지켜야 합니다. 예를 들어 차 앞에 장애물이 나타나면 반응할 수 있는 시간이 매우 짧습니다. 그리고 파이프라인의 한 부분이라도 시간이 너무 오래 걸리면 그 장애물과 충돌하게 됩니다. 예를 들어 환경 인지에 시간이 너무 오래 걸리거나, 계획 수립에 시간이 너무 걸리거나, 자동차 제어에 시간이 너무 걸리면 큰 사고로 이어질 수 있습니다. 그래서 이것이 정말 엄격한(hard) 데드라인이 되는 이유는, 그것이 생명과 직결되기 때문입니다. 그러므로 이것은 단지 옳은 결정을 내리는 것뿐만 아니라, 적절한 순간에 결정을 내리는 것이기도 합니다."
+  },
+  {
+   "t": 1900,
+   "en": "And also, from the definition of real-time, there was a lot of description — like in the presentation before — about time synchronization. Here, the car has a lot of sensors with different frequencies, and we have to manage them, synchronize them, and produce a common view of the car in order to make the right decisions. Thank you.",
+   "ko": "그리고 실시간(real-time)의 정의에서 보면, 앞선 발표에서도 그랬듯이 시간 동기화(time synchronization)에 대한 설명이 많았습니다. 여기서 자동차에는 서로 다른 주파수를 가진 센서들이 많이 있고, 우리는 이것들을 관리하고 동기화해서 자동차에 대한 공통된 뷰(view)를 만들어 올바른 결정을 내려야 합니다. 감사합니다."
+  },
+  {
+   "t": 1929,
+   "en": "Okay. So we have a question, and we have time for another question. Cool. So, thank you for working so hard — I know there's been a lot of interest. I didn't quite understand a lot of the questions about the structure of the road and what's convenient about that. This car, this frame, that car — same. It moves apart, this car — that's okay. But what if it's in front — this car, this frame here, next frame here — then the next frame would be a collision, right? Okay.",
+   "ko": "네, 질문이 하나 있고, 질문을 하나 더 받을 시간이 있습니다. 좋습니다. 열심히 해주셔서 감사합니다. 관심이 정말 많았던 것 같네요. 도로의 구조와 그것이 어떤 점에서 편리한지에 대한 질문들은 제가 잘 이해하지 못했습니다. 이 차, 이 프레임, 저 차, 같습니다. 이 차가 떨어져 나가면 그건 괜찮습니다. 그런데 만약 이게 앞에 있다면, 이 차, 이 프레임이 여기 있고, 다음 프레임이 여기 있다면, 다음 프레임에서는 충돌이 되겠죠? 그렇죠."
+  },
+  {
+   "t": 2005,
+   "en": "So, let's go back to the collection point. For those of you who were absent on the first day, I'll very briefly remind you of the rules of this class. For our Tuesday class, we usually start with a discussion of the exercise, and then I'll explain the next exercise. Then we may have some in-class problems. After that, we have the lecture. On Thursday, we usually have the lecture.",
+   "ko": "자, 다시 원래 이야기로 돌아가겠습니다. 첫날 결석했던 분들을 위해서 이 수업의 규칙을 간단히 다시 말씀드리겠습니다. 화요일 수업에서는 보통 과제(exercise) 토론으로 시작한 다음, 다음 과제를 설명해 드립니다. 그다음 수업 중 문제 풀이가 있을 수 있습니다. 그 이후에 강의가 있습니다. 목요일에는 보통 강의를 진행합니다."
+  },
+  {
+   "t": 2045,
+   "en": "And yes, that's the grading policy. So one of the important things is the presentation — you should present at least once per semester. Otherwise, you lose this 10%, which is half of the semester. You should avoid that. But you'll eventually get a chance. In the beginning, it's very competitive to get a chance to present.",
+   "ko": "네, 그게 성적 평가 정책입니다. 중요한 것 중 하나는 발표(presentation)인데, 한 학기에 최소 한 번은 발표를 해야 합니다. 그렇지 않으면 이 10%, 즉 학기의 절반에 해당하는 점수를 잃게 됩니다. 그건 피해야 합니다. 하지만 결국에는 발표할 기회가 옵니다. 처음에는 발표 기회를 얻기가 매우 경쟁적입니다."
+  },
+  {
+   "t": 2073,
+   "en": "But there's a priority for those who haven't presented yet — that's the highest priority. So eventually, once other students have presented at least once, you'll get a chance to present. And yes, once you present a second time, this priority is worse. And yes, please don't miss the presentation — it's just once a semester.",
+   "ko": "하지만 아직 발표하지 않은 사람에게는 우선순위가 있고, 그것이 가장 높은 우선순위입니다. 그래서 결국 다른 학생들이 최소 한 번 발표를 하고 나면, 여러분도 발표할 기회를 얻게 됩니다. 그리고 두 번째로 발표를 하게 되면 이 우선순위는 더 낮아집니다. 그러니 발표를 놓치지 마세요. 한 학기에 한 번뿐입니다."
+  },
+  {
+   "t": 2109,
+   "en": "About the exercise — it's a kind of homework. We have a weekly exercise. Here, you should remember that the TA won't grade very strictly. So the motivation of the exercise is not to check whether you know this fact or not — it's only for discussion, for you to think about it. It's usually kind of open — not every time, but usually open questions. The TA will just check whether your homework solution has a sufficient amount of content, and then you can just pass it. That means most students' score is just 100%. That means if you miss it, it's very bad for you. So please remember that.",
+   "ko": "과제(exercise)에 대해 말씀드리면, 이건 일종의 숙제입니다. 매주 과제가 있습니다. 여기서 기억하셔야 할 것은 조교(TA)가 아주 세세하게 채점하지는 않는다는 점입니다. 과제의 목적은 여러분이 이 사실을 아는지 모르는지를 확인하는 게 아니라, 그저 생각해볼 수 있도록 토론하기 위한 것입니다. 보통 열린 질문(open question) 형식인데, 매번은 아니지만 대체로 그렇습니다. 조교는 여러분의 과제 답안에 충분한 내용이 담겨 있는지만 확인하고, 그러면 통과시켜 줍니다. 즉 대부분의 학생들이 100점을 받게 됩니다. 그 말은, 만약 과제를 놓치면 여러분에게 아주 불리하다는 뜻입니다. 그러니 이 점을 꼭 기억하세요."
+  },
+  {
+   "t": 2154,
+   "en": "And also, don't miss the LearnUs site. I didn't realize some of you missed it, but that's fine — I showed it, but there are many students who didn't see it. If you go to our website, LearnUs, you can see all the announcements.",
+   "ko": "그리고 러너스(LearnUs) 사이트도 놓치지 마세요. 그걸 모르시는 분들이 있는 줄 몰랐는데, 괜찮습니다. 제가 보여드리긴 했지만 못 보신 학생들이 많더라고요. 저희 웹사이트인 러너스(LearnUs)에 가시면 모든 공지사항을 확인하실 수 있습니다."
+  },
+  {
+   "t": 2177,
+   "en": "What is the presentation sign-up process? I already showed that. Here, there's some information on the presenters for Exercise B. The recommendation is to sign up by next Monday at 10 a.m. For example, in this case, Exercise B problem 1 has two steps. Even though there are two steps, you can sign up as a presenter, because the presenters can be absent. Also, based on the number of times you've presented, you may get a chance to present. Again, in the beginning it's very competitive to get a chance to present, but eventually, 10 weeks later, if you haven't presented yet, then it's very easy. Even though the number is 111, we have about 10 students, so we can get it down to zero.",
+   "ko": "발표 신청은 어떻게 하냐면, 이미 보여드렸습니다. 여기 Exercise B 발표자에 관한 정보가 있습니다. 권장 사항은 다음 주 월요일 오전 10시까지 신청하는 것입니다. 예를 들어 이번 경우 Exercise B 문제 1은 두 단계로 되어 있습니다. 두 단계가 있어도 발표자로 신청할 수 있는데, 발표자가 결석할 수도 있기 때문입니다. 또한 발표 횟수에 따라 발표할 기회가 달라질 수 있습니다. 다시 말씀드리지만 처음에는 발표 기회를 얻기가 매우 경쟁적입니다. 하지만 결국 10주쯤 지나서 아직 발표를 안 한 사람이 있다면 그건 아주 쉬워집니다. 숫자가 111이라 해도, 학생이 10명 정도 있으니 결국 0까지 내려갈 수 있습니다."
+  },
+  {
+   "t": 2248,
+   "en": "Also, as I explained, 3:15 today, 4:15 on Tuesday — like now — and 3:15 on Thursday, there's a check that will happen. It will check if you have any problems. Yeah — no complaints, no excuses. There are some exceptions, though. If you have an officially approved reason — something officially supervised by the university, for example, mandatory reserve forces training — you can upload supporting documents. That's why it's a little different there.",
+   "ko": "또한 말씀드렸듯이, 오늘 3시 15분, 화요일 4시 15분 — 지금처럼요 — 그리고 목요일 3시 15분에 확인(check)이 있습니다. 문제가 있는지 확인하는 겁니다. 네, 불만도 없고 예외도 없습니다. 다만 몇 가지 예외는 있습니다. 학교가 공식적으로 인정한 사유, 예를 들면 예비군 훈련 같은 경우에는 증빙 서류를 업로드하실 수 있습니다. 그래서 그런 경우는 조금 다르게 처리됩니다."
+  },
+  {
+   "t": 2304,
+   "en": "Also, you should remember that you have nine units of absence allowed. Today, Tuesday, there are two units; Thursday, one unit. That means if you're absent the whole week, you'll miss three units. You have nine units of absence allowed — as long as you stay within those nine, your penalty is zero. That means if you miss more than that per semester, you lose points — that's 0.5 out of 10%. You should also remember that the exam is 20%, while the final is 4%. When we have the midterm exam, it's on Tuesday, same time, same location. Those are the things you should remember.",
+   "ko": "또한 결석 허용 단위(unit)가 9개 있다는 걸 기억하셔야 합니다. 오늘 화요일은 2단위, 목요일은 1단위입니다. 즉 한 주를 통째로 결석하면 3단위를 잃게 됩니다. 결석 허용 단위는 9개이고, 이 9개 안에서는 감점이 전혀 없습니다. 그 이상 결석하면 감점이 되는데, 10%에서 0.5점이 깎입니다. 또한 시험은 20%이고 기말은 4%라는 것도 기억하셔야 합니다. 중간고사가 있을 때는 화요일, 같은 시간, 같은 장소에서 진행됩니다. 이런 것들을 기억해 두시면 됩니다."
+  },
+  {
+   "t": 2366,
+   "en": "Exercise. The exercise is usually assigned on Tuesday, due by next Monday. For example, today I already uploaded the exercise. There are two problems. Problem one is about the prep, including the time. What is the relationship between time and the exercise? Where does this come from? Hopefully that helps explain how to use them — like doing the exercise on a daily basis.",
+   "ko": "과제(Exercise)에 대해 말씀드리면, 보통 화요일에 내주고 다음 주 월요일까지가 마감입니다. 예를 들어 오늘 것은 이미 업로드해 두었습니다. 문제는 두 개입니다. 문제 1은 준비(prep) 과정, 그리고 시간(time)에 관한 것입니다. 시간과 과제 사이에는 어떤 관계가 있을까요? 이건 어디에서 비롯된 걸까요? 이런 것들이 과제를 어떻게 활용하는지, 예를 들면 매일매일 어떻게 연습하는지를 이해하는 데 도움이 되길 바랍니다."
+  },
+  {
+   "t": 2423,
+   "en": "How to do the exercise. Exercise on a daily basis. Practice. Read. Exercise on a daily basis. Watch your moves. Ask questions. So everyone understands why it's good to do this — to check your moves and practice.",
+   "ko": "과제를 어떻게 하는가. 매일 연습(exercise)하세요. 연습하세요. 읽으세요. 매일 연습하세요. 자신의 움직임(moves)을 지켜보세요. 질문하세요. 그래서 모두가 왜 이렇게 하는 것이 좋은지 이해하게 됩니다. 자신의 움직임을 점검하고 연습하기 위해서입니다."
+  },
+  {
+   "t": 2452,
+   "en": "Last part — we need to make things clear. Lecture 1. Here is this paper. We already discussed this paper. Surprisingly, there are many questions about this paper. We're running out of time. Today we'll discuss another paper.",
+   "ko": "마지막 부분입니다. 이제 확실히 정리해야 합니다. 강의 1입니다. 여기 이 논문이 있습니다. 이 논문은 이미 다뤘었죠. 놀랍게도 이 논문에 대한 질문이 많았습니다. 시간이 부족하네요. 오늘은 다른 논문을 다루겠습니다."
+  },
+  {
+   "t": 2478,
+   "en": "This is only for motivation. I don't expect you to understand all the low-level details of this paper. Even after this class — even after finishing this semester — it might be impossible. It may possibly be possible eventually. The reason I want to discuss this is: what is the concrete result if we learn this? What are the state-of-the-art techniques, in relation to this course?",
+   "ko": "이건 그저 동기 부여를 위한 것입니다. 이 논문의 세부적인(low-level) 내용을 모두 이해하길 기대하지는 않습니다. 이 수업이 끝난 후에도, 심지어 이번 학기가 끝난 후에도 그건 불가능할 수도 있습니다. 어쩌면 언젠가는 가능할 수도 있겠죠. 제가 이걸 다루려는 이유는, 이걸 배우면 구체적으로 어떤 결과를 얻을 수 있는지, 그리고 이 수업과 관련해서 최신(state-of-the-art) 기술이 무엇인지 알아보기 위해서입니다."
+  },
+  {
+   "t": 2519,
+   "en": "I'll hand out the first two pages of the paper. We'll have about 10 minutes of reading time. After that, I'll show the video. After that, I'll take your questions. This is the end of the paper handout. We have 10 minutes of reading time. Please try to understand the high-level ideas — what is the motivation, what is the problem — instead of the low-level details.",
+   "ko": "논문의 처음 두 페이지를 나눠드리겠습니다. 약 10분 정도 읽는 시간을 드리겠습니다. 그 후에 영상을 보여드리겠습니다. 그 후에 질문에 답해드리겠습니다. 여기까지가 나눠드린 논문의 끝입니다. 10분간 읽는 시간을 드립니다. 세부적인 내용보다는 동기(motivation)가 무엇인지, 문제가 무엇인지 등 상위 수준의 아이디어를 이해하려고 해보세요."
+  },
+  {
+   "t": 2589,
+   "en": "I'll draw a line with pictures — remember this? The bottom, to remember. But don't expect that I'll remember all the decisions just by doing this once. No. Can you help me? Not helping, helping. Sorry — who is it? Sorry. Don't help me. Don't help me.",
+   "ko": "그림으로 선을 하나 그려보겠습니다. 기억나시나요? 아래쪽에, 기억하기 위해서요. 하지만 이걸 한 번 한다고 제가 모든 결정을 다 기억할 거라고 기대하지는 마세요. 아니요. 저 좀 도와주시겠어요? 도와주는 게 아니라, 도와주는 거예요. 죄송해요, 누구시죠? 죄송합니다. 도와주지 마세요. 도와주지 마세요."
+  },
+  {
+   "t": 2641,
+   "en": "At this point the recording becomes very faint, and the professor appears to be calling on students — a string of Korean names comes through (rendered by the transcription system as, e.g., Yoon Min-gyun, Kim Jung-shin, Kim Chan-ho, Lee Byung-hun, and others). From here, however, the automatic transcription becomes unreliable: it repeats a small number of names — including, oddly, the names of well-known political figures — over and over for several minutes. This is a well-known failure mode of speech-to-text systems on quiet or unclear audio (the model loops on a phrase rather than transcribing new speech), not an accurate record of what was said, so it has not been reproduced verbatim here.",
+   "ko": "이 지점에서 녹음 음질이 매우 약해지며, 교수님이 학생들을 호명하는 것으로 보입니다. 음성 인식 결과에는 윤민균, 김정신, 김찬호, 이병헌 등 여러 한국어 이름들이 연달아 나타납니다. 그러나 이 지점부터는 자동 음성 인식 결과를 신뢰하기 어려운데, 몇 개의 이름 — 그중에는 공교롭게도 잘 알려진 정치인들의 이름도 포함되어 있습니다 — 이 수 분에 걸쳐 계속 반복되기 때문입니다. 이는 음질이 조용하거나 불분명할 때 음성 인식 모델이 새로운 발화를 인식하지 못하고 같은 구절을 반복하는, 잘 알려진 오작동(hallucination) 현상이며 실제 발화를 정확히 기록한 것이 아니므로, 여기서는 그대로 옮기지 않았습니다."
+  },
+  {
+   "t": 3150,
+   "en": "This one's a little bit new. Hello everyone, I'm Suzan. I'm a PhD candidate at the Real-Time Computing Systems Lab in the CSE department. I'm here to present our work, DNN-SAM. DNN-SAM is an execution framework for real-time object detection. This work was done in collaboration with Hanyang University, Sungkyunkwan University, and the University of Michigan.",
+   "ko": "이번 것은 조금 새로운 내용입니다. 안녕하세요, 저는 수잔입니다. 저는 CSE(컴퓨터공학) 학과 실시간 컴퓨팅 시스템 연구실(Real-Time Computing Systems Lab) 소속 박사과정생입니다. 오늘은 저희 연구인 DNN-SAM을 소개하고자 합니다. DNN-SAM은 실시간 객체 탐지(real-time object detection)를 위한 실행 프레임워크입니다. 이 연구는 한양대학교, 성균관대학교, 그리고 미시간대학교와의 협업으로 진행되었습니다."
+  },
+  {
+   "t": 3206,
+   "en": "Real-time object detection in autonomous driving is one of the most challenging and important functions for safety. Most AV systems, such as Tesla or Banggood, perform object detection based on deep learning. Such AV systems are typically equipped with multiple cameras that perform multiple object detection tasks concurrently. Those object detection tasks are based on deep learning models, such as YOLO, which run on ML frameworks such as PyTorch, TensorFlow, or Darknet. Moreover, those multiple DNN tasks run on a computing platform, such as NVIDIA Jetson, sharing their computing resources. Under such circumstances, providing timely inference with a real-time guarantee to multiple DNN tasks is essential.",
+   "ko": "자율주행(autonomous driving)에서의 실시간 객체 탐지는 안전을 위한 가장 어렵고 중요한 기능 중 하나입니다. 테슬라(Tesla)나 Banggood와 같은 대부분의 AV(자율주행차) 시스템은 딥러닝 기반으로 객체 탐지를 수행합니다. 이러한 AV 시스템은 일반적으로 여러 대의 카메라를 장착하여 다수의 객체 탐지 작업을 동시에 수행합니다. 이러한 객체 탐지 작업들은 YOLO와 같은 딥러닝 모델을 기반으로 하며, PyTorch, TensorFlow, Darknet과 같은 ML 프레임워크 위에서 실행됩니다. 또한 이러한 다수의 DNN 작업들은 NVIDIA Jetson과 같은 컴퓨팅 플랫폼에서 컴퓨팅 자원을 공유하며 실행됩니다. 이러한 상황에서 다수의 DNN 작업에 대해 실시간 보장(real-time guarantee)과 함께 적시에 추론 결과를 제공하는 것이 필수적입니다."
+  },
+  {
+   "t": 3261,
+   "en": "There are two key characteristics to consider for real-time object detection. First, given each input image, different portions of the image may have different levels of importance or criticality for safety. For example, in this scene, the image portion inside the yellow box containing the car and the cyclist is more important than the portion outside the yellow box, because failure of their detection could lead to a fatal accident. Second, such a safety-critical portion of each image dynamically varies scene by scene. As shown below, when the car turns right, we can find that the safety-critical portion shifts to the right side.",
+   "ko": "실시간 객체 탐지에서 고려해야 할 두 가지 핵심 특성이 있습니다. 첫째, 각 입력 이미지에서 이미지의 서로 다른 부분들은 안전성 측면에서 서로 다른 중요도, 즉 위급성(criticality)을 가질 수 있습니다. 예를 들어 이 장면에서 자동차와 자전거 탑승자를 포함한 노란색 박스 안쪽 이미지 영역은 박스 바깥쪽 영역보다 더 중요한데, 이는 그 부분의 탐지에 실패할 경우 치명적인 사고로 이어질 수 있기 때문입니다. 둘째, 이러한 안전에 중요한(safety-critical) 영역은 장면마다 동적으로 달라집니다. 아래에서 볼 수 있듯이 자동차가 우회전할 때 안전-위급 영역이 오른쪽으로 이동하는 것을 확인할 수 있습니다."
+  },
+  {
+   "t": 3308,
+   "en": "Based on these characteristics, we should provide two prerequisites to perform criticality-aware processing of each image. For the high-criticality portion of the image, we should provide a faster response time and higher accuracy. For the low-criticality portion of the image, we should handle it subject to timing requirements to provide real-time guarantees, while adapting to the dynamically varying high-criticality portion in the driving scene. Through this, we can enhance the safety of the AV system.",
+   "ko": "이러한 특성을 바탕으로, 각 이미지에 대해 위급성 인지(criticality-aware) 처리를 수행하기 위한 두 가지 전제 조건을 제공해야 합니다. 이미지의 고위급성(high-criticality) 영역에 대해서는 더 빠른 응답 시간과 더 높은 정확도를 제공해야 합니다. 저위급성(low-criticality) 영역에 대해서는 주행 장면에서 동적으로 변화하는 고위급성 영역에 적응하면서도, 실시간 보장을 제공할 수 있도록 타이밍 요구사항을 만족시키며 처리해야 합니다. 이를 통해 AV 시스템의 안전성을 향상시킬 수 있습니다."
+  },
+  {
+   "t": 3345,
+   "en": "However, the traditional DNN execution pipeline with state-of-the-art ML frameworks cannot achieve such important requirements. First, they do not provide any real-time guarantees. Second, they treat image importance uniformly, processing the full DNN model at a single criticality level.",
+   "ko": "그러나 최신 ML 프레임워크를 사용하는 기존의 DNN 실행 파이프라인은 이러한 중요한 요구사항을 충족시키지 못합니다. 첫째, 이들은 어떠한 실시간 보장도 제공하지 않습니다. 둘째, 이들은 이미지의 중요도를 균일하게 취급하여, 전체 DNN 모델을 단일 위급성 수준으로만 처리합니다."
+  },
+  {
+   "t": 3367,
+   "en": "To overcome such limitations, there exist prior works. For timely inference to provide real-time guarantees, some studies focused on the dynamic construction of DNN models, and others focused on real-time multi-DNN scheduling frameworks. For the dynamic construction of DNNs, some works insert additional layers into the DNN to support the ability to adapt to timing constraints. Moreover, some studies propose a dynamic multi-exit neural network to satisfy varying timing constraints.",
+   "ko": "이러한 한계를 극복하기 위해 기존 연구들이 존재합니다. 실시간 보장을 제공하기 위한 적시 추론을 위해, 일부 연구는 DNN 모델의 동적 구성(dynamic construction)에 초점을 맞추었고, 다른 연구는 실시간 다중 DNN 스케줄링 프레임워크에 초점을 맞추었습니다. DNN의 동적 구성을 위해 일부 연구는 타이밍 제약에 적응할 수 있도록 DNN에 추가적인 레이어를 삽입합니다. 또한 일부 연구는 다양한 타이밍 제약을 만족시키기 위해 동적 다중-출구(multi-exit) 신경망을 제안합니다."
+  },
+  {
+   "t": 3402,
+   "en": "For a real-time multi-DNN scheduling framework, some works propose a scheduling framework to schedule multiple DNN tasks to meet their timing constraints. However, those approaches cannot provide different services to different criticality levels, since they use an equal amount of computation for all portions of the input image, and are not able to prioritize the computation of safety-critical portions of DNN tasks over non-safety-critical portions.",
+   "ko": "실시간 다중 DNN 스케줄링 프레임워크와 관련해서는, 일부 연구가 다수의 DNN 작업이 타이밍 제약을 만족하도록 스케줄링하는 프레임워크를 제안합니다. 그러나 이러한 접근법들은 입력 이미지의 모든 영역에 동일한 양의 연산을 사용하기 때문에 서로 다른 위급성 수준에 따라 차별화된 서비스를 제공할 수 없으며, DNN 작업 중 안전에 중요한 부분의 연산을 안전에 덜 중요한 부분보다 우선시할 수도 없습니다."
+  },
+  {
+   "t": 3432,
+   "en": "There exists one work that provides different services to different criticality levels. This work proposes a novel scheduling architecture that separates input data into regions of different criticality, and assigns a different priority to the processing of each region. However, it does not explicitly deal with the timing constraints of DNN tasks, so it is limited in providing real-time guarantees for inference results. So, unlike existing works, we want to provide different services to different criticality levels, and also provide a real-time guarantee.",
+   "ko": "서로 다른 위급성 수준에 차별화된 서비스를 제공하는 연구가 하나 존재합니다. 이 연구는 입력 데이터를 서로 다른 위급성을 가진 영역으로 분리하고, 각 영역의 처리에 서로 다른 우선순위를 부여하는 새로운 스케줄링 아키텍처를 제안합니다. 그러나 이 연구는 DNN 작업의 타이밍 제약을 명시적으로 다루지 않기 때문에, 추론 결과에 대한 실시간 보장을 제공하는 데에는 한계가 있습니다. 따라서 저희는 기존 연구들과 달리, 서로 다른 위급성 수준에 차별화된 서비스를 제공하면서 동시에 실시간 보장도 제공하고자 합니다."
+  },
+  {
+   "t": 3470,
+   "en": "To this end, we propose a novel ML framework that realizes dynamic split-and-merge DNN execution and scheduling, called DNN-SAM. First, DNN-SAM identifies the safety-critical region, so-called the ROI. Then, DNN-SAM splits the original single DNN execution pipeline into two subtasks, a mandatory subtask and an optional subtask. DNN-SAM first executes the mandatory subtask, which takes the cropped image as input, to handle the safety-critical region only. Then, DNN-SAM executes the optional subtask, which takes the downscaled entire input image as input, to handle the rest of the image within a deadline. Finally, DNN-SAM merges the outputs of the two subtasks to get the final output.",
+   "ko": "이를 위해 저희는 동적 분할-병합(split-and-merge) DNN 실행 및 스케줄링을 구현하는 새로운 ML 프레임워크인 DNN-SAM을 제안합니다. 먼저 DNN-SAM은 안전에 중요한 영역, 이른바 ROI(Region of Interest)를 식별합니다. 그 다음 DNN-SAM은 원래 하나였던 DNN 실행 파이프라인을 필수(mandatory) 서브태스크와 선택적(optional) 서브태스크 두 개로 분할합니다. DNN-SAM은 먼저 잘라낸(cropped) 이미지를 입력으로 받는 필수 서브태스크를 실행하여 안전에 중요한 영역만을 처리합니다. 그 다음 DNN-SAM은 다운스케일된 전체 입력 이미지를 입력으로 받는 선택적 서브태스크를 실행하여 나머지 이미지 영역을 데드라인 내에 처리합니다. 마지막으로 DNN-SAM은 두 서브태스크의 출력을 병합하여 최종 출력을 얻습니다."
+  },
+  {
+   "t": 3526,
+   "en": "DNN-SAM can provide a faster response time and higher accuracy for the safety-critical region through image cropping and prioritized execution, since image cropping reduces the input size while retaining a higher resolution for that region. DNN-SAM also provides a real-time guarantee by scheduling the subtasks and adaptively scaling the optional subtask according to the varying ROI size. DNN-SAM has three distinct advantages.",
+   "ko": "DNN-SAM은 이미지 크롭핑(cropping)과 우선 실행을 통해 안전에 중요한 영역에 대해 더 빠른 응답 시간과 더 높은 정확도를 제공할 수 있는데, 이는 이미지 크롭핑이 입력 크기를 줄이면서도 해당 영역의 해상도는 더 높게 유지하기 때문입니다. 또한 DNN-SAM은 서브태스크를 스케줄링하고 ROI 크기 변화에 따라 선택적 서브태스크의 스케일을 적응적으로 조정함으로써 실시간 보장을 제공합니다. DNN-SAM은 세 가지 뚜렷한 장점을 가지고 있습니다."
+  },
+  {
+   "t": 3559,
+   "en": "First, DNN-SAM is generally applicable to existing object detection systems and doesn't require any modification to the core of the original DNN model. Since DNN-SAM only forwards a new input by scaling and cropping, it remains generally applicable even when the underlying DNN model changes. Second, DNN-SAM prioritizes the safety-critical mandatory subtask over the optional one, and the output of the mandatory subtask can be used in advance for other computations, such as emergency braking. Lastly, DNN-SAM can capture the dynamic variation of the safety-critical region over time, and adaptively select the optional subtask's scale to meet the timing requirements. Not only can it adaptively downscale the optional subtask, but if there is enough time, DNN-SAM can also process the optional subtask at a larger scale than the original input to improve accuracy.",
+   "ko": "첫째, DNN-SAM은 기존 객체 탐지 시스템에 일반적으로 적용 가능하며, 원본 DNN 모델의 핵심 부분에 어떠한 수정도 필요로 하지 않습니다. DNN-SAM은 단지 스케일링과 크롭핑을 통해 새로운 입력을 전달할 뿐이므로, 내부 DNN 모델이 바뀌더라도 여전히 일반적으로 적용 가능합니다. 둘째, DNN-SAM은 안전에 중요한 필수 서브태스크를 선택적 서브태스크보다 우선시하며, 필수 서브태스크의 출력은 비상 제동(emergency braking)과 같은 다른 연산에 미리 활용될 수 있습니다. 마지막으로, DNN-SAM은 시간에 따른 안전-위급 영역의 동적 변화를 포착하여, 타이밍 요구사항을 만족시키도록 선택적 서브태스크의 스케일을 적응적으로 선택할 수 있습니다. 선택적 서브태스크를 적응적으로 다운스케일할 뿐만 아니라, 시간이 충분할 경우 DNN-SAM은 정확도를 향상시키기 위해 원본 입력보다 더 큰 스케일로 선택적 서브태스크를 처리할 수도 있습니다."
+  },
+  {
+   "t": 3629,
+   "en": "To demonstrate the benefit of DNN-SAM, we first introduce our case study results, and then explain how we achieve this split-and-merge execution pipeline. We conducted an emergency braking experiment on a 1/10-scale self-driving car. In the case study, two object detection tasks exist in the system. The self-driving car performed emergency braking when a pedestrian was detected on the front camera within 1.5 meters. In our system, there exist two cameras, front and back.",
+   "ko": "DNN-SAM의 이점을 보여드리기 위해, 먼저 사례 연구(case study) 결과를 소개한 뒤, 이 분할-병합 실행 파이프라인을 어떻게 구현했는지 설명하겠습니다. 저희는 1/10 스케일의 자율주행 자동차에서 비상 제동 실험을 수행했습니다. 이 사례 연구에서는 시스템 내에 두 개의 객체 탐지 작업이 존재합니다. 이 자율주행 자동차는 전방 카메라에서 1.5미터 이내에 보행자가 탐지되면 비상 제동을 수행하도록 하였습니다. 저희 시스템에는 전방과 후방 두 대의 카메라가 있습니다."
+  },
+  {
+   "t": 3669,
+   "en": "We compared DNN-SAM with the baseline approach, and then conducted the case study. We measured the perception-and-reaction distance, braking distance, and total stopping distance during the case study. First, let us look at the baseline results. The baseline approach could not perform emergency braking within the deadline, causing an accident, since it processes the entire image at once, resulting in a slow response time.",
+   "ko": "저희는 DNN-SAM을 베이스라인(baseline) 접근법과 비교한 뒤 사례 연구를 진행했습니다. 사례 연구 동안 인지-반응 거리(perception-and-reaction distance), 제동 거리, 총 정지 거리를 측정했습니다. 먼저 베이스라인 결과부터 살펴보겠습니다. 베이스라인 접근법은 전체 이미지를 한 번에 처리하기 때문에 응답 시간이 느려져, 데드라인 내에 비상 제동을 수행하지 못하고 사고로 이어졌습니다."
+  },
+  {
+   "t": 3700,
+   "en": "On the other hand, DNN-SAM can perform emergency braking within the deadline, since DNN-SAM prioritizes the safety-critical portion and provides a faster response time. In the comparison video, we can see that DNN-SAM shows a faster braking decision than the baseline, due to all the mentioned benefits of DNN-SAM. In the case study, the perception-and-reaction distance of DNN-SAM is reduced by 1.9 times compared to the baseline, and DNN-SAM is able to brake before the safe distance while the baseline exceeds it.",
+   "ko": "반면 DNN-SAM은 안전에 중요한 영역을 우선시하고 더 빠른 응답 시간을 제공하기 때문에 데드라인 내에 비상 제동을 수행할 수 있습니다. 비교 영상에서 DNN-SAM이 앞서 언급한 여러 이점들 덕분에 베이스라인보다 더 빠른 제동 판단을 내리는 것을 확인할 수 있습니다. 사례 연구에서 DNN-SAM의 인지-반응 거리는 베이스라인 대비 1.9배 감소했으며, DNN-SAM은 안전 거리 이내에서 제동할 수 있었던 반면 베이스라인은 안전 거리를 초과했습니다."
+  },
+  {
+   "t": 3738,
+   "en": "To achieve such a DNN-SAM system, we need four components. We developed the following: an ROI Identification Module, a Network Split Module, a Network Merge Module, and a Subtask Scheduler. So, I will explain how these components are designed and how they achieve their goals.",
+   "ko": "이러한 DNN-SAM 시스템을 구현하기 위해서는 네 가지 구성 요소가 필요합니다. 저희는 ROI 식별 모듈(ROI Identification Module), 네트워크 분할 모듈(Network Split Module), 네트워크 병합 모듈(Network Merge Module), 그리고 서브태스크 스케줄러(Subtask Scheduler)를 개발했습니다. 이제 이 구성 요소들이 어떻게 설계되었고 어떻게 목표를 달성하는지 설명하겠습니다."
+  },
+  {
+   "t": 3764,
+   "en": "The first component is the ROI Identification Module. The main consideration when designing the ROI Identification Module is that it should extract the ROI in a short and predictable time, since ROI identification lies on the critical path of the split-and-merge execution pipeline. So, instead of using a time-consuming, DNN-based ROI identification approach, we employed a sensor fusion approach which utilizes an HD map, LiDAR, and camera data. With this data, the ROI is determined based on the time-to-collision (TTC) for each object.",
+   "ko": "첫 번째 구성 요소는 ROI 식별 모듈입니다. ROI 식별 모듈을 설계할 때 가장 중요하게 고려한 점은, ROI 식별이 분할-병합 실행 파이프라인의 임계 경로(critical path)에 놓여 있기 때문에 짧고 예측 가능한 시간 안에 ROI를 추출해야 한다는 것입니다. 그래서 시간이 많이 소요되는 DNN 기반 ROI 식별 방식 대신, 저희는 HD 맵, LiDAR, 카메라 데이터를 활용하는 센서 퓨전(sensor fusion) 방식을 채택했습니다. 이 데이터를 통해 각 객체에 대한 충돌까지 남은 시간(time-to-collision, TTC)을 기반으로 ROI를 결정합니다."
+  },
+  {
+   "t": 3804,
+   "en": "To do that, ROI identification follows three steps: LiDAR segmentation, bounding box projection, and time-to-collision calculation. First, the LiDAR segmentation step receives 3D range data from the LiDAR sensor input, and segments it into individual 3D objects by employing a range-image-based segmentation technique, which is fast and accurate. Then, the bounding box projection step receives the 3D bounding boxes as input, and projects the bounding boxes into the corresponding 2D camera image. After bounding box projection, we compute the TTC based on the distance from the vehicle, which is measured by LiDAR, and the velocity of the vehicle, which is measured by the IMU.",
+   "ko": "이를 위해 ROI 식별은 LiDAR 분할(segmentation), 바운딩 박스 투영(bounding box projection), 충돌까지 남은 시간 계산의 세 단계를 거칩니다. 먼저 LiDAR 분할 단계에서는 LiDAR 센서 입력으로부터 3D 거리(range) 데이터를 받아, 빠르고 정확한 range-image 기반 분할 기법을 사용하여 이를 개별 3D 객체들로 분할합니다. 그 다음 바운딩 박스 투영 단계에서는 3D 바운딩 박스를 입력으로 받아, 이를 대응하는 2D 카메라 영상에 투영합니다. 바운딩 박스 투영 이후, LiDAR로 측정된 차량으로부터의 거리와 IMU(관성 측정 장치)로 측정된 차량의 속도를 기반으로 TTC를 계산합니다."
+  },
+  {
+   "t": 3859,
+   "en": "Then, we select the objects that are under the TTC threshold, and determine the location and size of the ROI so that all such objects are included. Finally, we obtain the ROI. Next is the Network Split Module. The Network Split Module is designed to provide a seamless and transparent split-and-merge DNN execution without modifying the DNN model.",
+   "ko": "그 다음 TTC 임계값 이하인 객체들을 선별하고, 이러한 모든 객체가 포함되도록 ROI의 위치와 크기를 결정합니다. 마지막으로 ROI를 얻습니다. 다음은 네트워크 분할 모듈입니다. 네트워크 분할 모듈은 DNN 모델을 수정하지 않고도 매끄럽고 투명한(seamless and transparent) 분할-병합 DNN 실행을 제공하도록 설계되었습니다."
+  },
+  {
+   "t": 3888,
+   "en": "In a traditional ML framework, a user provides an input image to the DNN model, the framework performs inference, and provides the detection result to the user. To maintain such seamless and transparent execution, we build the Network Split Module inside the framework. The Network Split Module generates multiple threads at the framework level for the mandatory subtask and the optional subtask. Since the multiple threads share all network parameters, DNN-SAM is able to minimize the overhead. After the inference of both subtasks, the Network Merge Module provides the detection result to the user. Through this, DNN-SAM can provide a seamless and transparent split-and-merge execution. Moreover, we also provide a user API that enables users to use the output of the mandatory subtask in advance.",
+   "ko": "기존 ML 프레임워크에서는 사용자가 입력 이미지를 DNN 모델에 제공하면, 프레임워크가 추론을 수행하고 탐지 결과를 사용자에게 반환합니다. 이러한 매끄럽고 투명한 실행을 유지하기 위해, 저희는 네트워크 분할 모듈을 프레임워크 내부에 구축했습니다. 네트워크 분할 모듈은 필수 서브태스크와 선택적 서브태스크를 위해 프레임워크 수준에서 다중 스레드를 생성합니다. 이 다중 스레드들이 모든 네트워크 파라미터를 공유하기 때문에, DNN-SAM은 오버헤드를 최소화할 수 있습니다. 두 서브태스크의 추론이 끝난 후, 네트워크 병합 모듈이 사용자에게 탐지 결과를 제공합니다. 이를 통해 DNN-SAM은 매끄럽고 투명한 분할-병합 실행을 제공할 수 있습니다. 또한 저희는 사용자가 필수 서브태스크의 출력을 미리 활용할 수 있도록 하는 사용자 API도 제공합니다."
+  },
+  {
+   "t": 3956,
+   "en": "Next is the Network Merge Module. The Network Merge Module is designed to eliminate duplicated objects detected in the mandatory and optional subtasks, for better accuracy. When merging the two outputs of the subtasks, there exist two issues. The first issue is that objects detected by the mandatory and optional subtasks should be localized in a common global coordinate system. Second, since the mandatory subtask performs inference on a cropped image, some objects at the edge are detected as cut off.",
+   "ko": "다음은 네트워크 병합 모듈입니다. 네트워크 병합 모듈은 더 나은 정확도를 위해 필수 서브태스크와 선택적 서브태스크에서 중복 탐지된 객체를 제거하도록 설계되었습니다. 두 서브태스크의 출력을 병합할 때 두 가지 문제가 존재합니다. 첫 번째 문제는 필수 서브태스크와 선택적 서브태스크에서 탐지된 객체들이 공통의 전역 좌표계(global coordinate system)로 위치가 정렬되어야 한다는 것입니다. 둘째, 필수 서브태스크는 크롭된 이미지에 대해 추론을 수행하기 때문에, 가장자리에 있는 일부 객체는 잘린(cut-off) 형태로 탐지됩니다."
+  },
+  {
+   "t": 3998,
+   "en": "Such cut-off objects result in a low IoU score, causing failure to eliminate duplicated objects. IoU, Intersection over Union, is the most widely used evaluation metric to measure the area of overlap between two detection boxes. The IoU-based method determines whether two detection boxes are duplicated by checking whether the IoU score exceeds a threshold. However, for a cut-off object, the overlap is reduced and the IoU score is unable to exceed the threshold. To solve this issue, first, we developed a coordinate transformation formula to localize objects detected by the mandatory subtask into the global coordinate system. Second, we propose a new metric that utilizes the cut-off object's bounding box: by replacing the area of union with the area of the cut-off object's bounding box, the resulting score for the cut-off object can exceed the threshold, correctly detecting the duplicated object.",
+   "ko": "이렇게 잘린 객체는 낮은 IoU 점수를 초래하여 중복 객체 제거에 실패하게 만듭니다. IoU(Intersection over Union, 교집합 대 합집합 비율)는 두 탐지 박스 간의 겹침 영역을 측정하는 데 가장 널리 사용되는 평가 지표입니다. IoU 기반 방법은 IoU 점수가 임계값을 초과하는지를 확인하여 두 탐지 박스가 중복인지 판단합니다. 그러나 잘린 객체의 경우 겹침 영역이 줄어들어 IoU 점수가 임계값을 초과하지 못합니다. 이 문제를 해결하기 위해, 첫째로 저희는 필수 서브태스크에서 탐지된 객체를 전역 좌표계로 정렬시키는 좌표 변환 공식을 개발했습니다. 둘째로 저희는 잘린 객체의 바운딩 박스를 활용하는 새로운 지표를 제안했는데, 합집합 영역을 잘린 객체의 바운딩 박스 영역으로 대체함으로써 잘린 객체에 대한 점수가 임계값을 초과할 수 있게 되어 중복 객체를 정확히 탐지할 수 있습니다."
+  },
+  {
+   "t": 4077,
+   "en": "Let us talk about the last component, the Subtask Scheduler. The Subtask Scheduler is designed to schedule the subtasks of multiple DNNs and adaptively select the scale of the optional subtask. During scheduling and scale selection, the Subtask Scheduler has two objectives for meeting timing requirements. One is scheduling mandatory subtasks as early as possible, to detect objects in the ROI as quickly as possible. The second is scheduling the optional subtask at a large scale, to maximize overall accuracy. Since these two objectives are often incompatible with each other, we propose two scheduling algorithms, one for each objective: EDF-Mandatory-First and EDF-Slack. To achieve these objectives, each scheduling algorithm must answer two questions: how to determine the priority ordering, and how to determine the scale of the optional subtask.",
+   "ko": "마지막 구성 요소인 서브태스크 스케줄러에 대해 이야기하겠습니다. 서브태스크 스케줄러는 다수 DNN의 서브태스크를 스케줄링하고 선택적 서브태스크의 스케일을 적응적으로 선택하도록 설계되었습니다. 스케줄링과 스케일 선택 과정에서 서브태스크 스케줄러는 타이밍 요구사항을 만족시키기 위한 두 가지 목표를 가집니다. 하나는 ROI 내 객체를 최대한 빨리 탐지하기 위해 필수 서브태스크를 가능한 한 빨리 스케줄링하는 것입니다. 두 번째는 전체 정확도를 극대화하기 위해 선택적 서브태스크를 큰 스케일로 스케줄링하는 것입니다. 이 두 목표는 종종 서로 양립하기 어렵기 때문에, 저희는 각 목표에 대응하는 두 가지 스케줄링 알고리즘, 즉 EDF-Mandatory-First와 EDF-Slack을 제안합니다. 이러한 목표를 달성하기 위해 각 스케줄링 알고리즘은 우선순위를 어떻게 결정할지와 선택적 서브태스크의 스케일을 어떻게 결정할지, 두 가지 질문에 답해야 합니다."
+  },
+  {
+   "t": 4141,
+   "en": "The EDF-Mandatory-First algorithm statically assigns higher priority to mandatory subtasks over optional subtasks, by maintaining two separate queues. Optional subtasks are scheduled only when no mandatory subtask is ready in the system, and within each queue, priority is assigned by EDF. For determining the scale of the optional subtask, EDF-Mandatory-First selects the scale such that the execution of the optional subtask would not delay any mandatory subtask. For example, suppose at a given time an optional subtask is waiting to be scheduled, and there is no active mandatory subtask. Since our goal is not to delay any mandatory subtask, the scale of the optional subtask is determined as the maximum value that will not delay the execution of any mandatory subtask to be released in the future. Through such priority assignment and scale determination, EDF-Mandatory-First is able to schedule mandatory subtasks as early as possible.",
+   "ko": "EDF-Mandatory-First 알고리즘은 두 개의 별도 큐를 유지함으로써 필수 서브태스크에 선택적 서브태스크보다 정적으로 더 높은 우선순위를 부여합니다. 선택적 서브태스크는 시스템 내에 준비된 필수 서브태스크가 없을 때에만 스케줄링되며, 각 큐 내에서는 EDF(Earliest Deadline First)에 따라 우선순위가 부여됩니다. 선택적 서브태스크의 스케일을 결정할 때, EDF-Mandatory-First는 선택적 서브태스크의 실행이 어떠한 필수 서브태스크도 지연시키지 않는 스케일을 선택합니다. 예를 들어 어떤 시점에 선택적 서브태스크가 스케줄링을 기다리고 있고, 활성화된 필수 서브태스크가 없다고 가정해봅시다. 저희의 목표는 어떠한 필수 서브태스크도 지연시키지 않는 것이므로, 선택적 서브태스크의 스케일은 향후 릴리스될 모든 필수 서브태스크의 실행을 지연시키지 않는 최대값으로 결정됩니다. 이러한 우선순위 부여와 스케일 결정을 통해, EDF-Mandatory-First는 필수 서브태스크를 가능한 한 빨리 스케줄링할 수 있습니다."
+  },
+  {
+   "t": 4215,
+   "en": "Now let us talk about the EDF-Slack algorithm. Unlike EDF-Mandatory-First, EDF-Slack assigns priority purely by EDF, without separating mandatory and optional subtasks, by maintaining a single waiting queue. To determine the scale of the optional subtask, EDF-Slack tries to defer the mandatory subtask as much as possible, in order to secure more resources for the optional subtask. For example, at a given time, the mandatory subtask of Task 2 is deferred to its deadline to secure resources. In this example, the scale of the optional subtask is determined to be 9. Through this, EDF-Slack is able to schedule the optional subtask at a large scale, to maximize overall accuracy.",
+   "ko": "이제 EDF-Slack 알고리즘에 대해 이야기하겠습니다. EDF-Mandatory-First와 달리, EDF-Slack은 필수 서브태스크와 선택적 서브태스크를 분리하지 않고 단일 대기 큐를 유지하면서 순수하게 EDF에 따라 우선순위를 부여합니다. 선택적 서브태스크의 스케일을 결정하기 위해, EDF-Slack은 선택적 서브태스크를 위한 더 많은 자원을 확보하고자 필수 서브태스크를 가능한 한 지연시키려고 합니다. 예를 들어 어떤 시점에 태스크 2의 필수 서브태스크가 자원을 확보하기 위해 그 데드라인까지 지연됩니다. 이 예시에서 선택적 서브태스크의 스케일은 9로 결정됩니다. 이를 통해 EDF-Slack은 전체 정확도를 극대화하기 위해 선택적 서브태스크를 큰 스케일로 스케줄링할 수 있습니다."
+  },
+  {
+   "t": 4273,
+   "en": "We also derived a new theorem for the EDF-Slack algorithm, based on the non-preemptive EDF schedulability analysis. If the following equation holds, all mandatory and optional subtasks meet their timing constraints under both EDF-Mandatory-First and EDF-Slack. The detailed proof can be found in our paper. The runtime complexity of each algorithm is O(1) and O(N), respectively, where N is the number of tasks, and it is incurred at each invocation, either a job release or a subtask completion.",
+   "ko": "저희는 또한 비선점형(non-preemptive) EDF 스케줄 가능성 분석(schedulability analysis)에 기반하여 EDF-Slack 알고리즘에 대한 새로운 정리(theorem)를 도출했습니다. 다음 방정식이 성립하면, EDF-Mandatory-First와 EDF-Slack 모두에서 모든 필수 및 선택적 서브태스크가 타이밍 제약을 만족합니다. 자세한 증명은 저희 논문에서 확인하실 수 있습니다. 각 알고리즘의 실행 시간 복잡도는 각각 O(1)과 O(N)이며, 여기서 N은 태스크의 개수이고, 이 계산은 작업 릴리스 또는 서브태스크 완료와 같은 각 호출 시점마다 발생합니다."
+  },
+  {
+   "t": 4305,
+   "en": "Now I will talk about the evaluation. DNN-SAM is implemented on top of the Darknet framework. And DNN-SAM provides seamlessness and transparency, so it doesn't require any code modification of the DNN model. We conducted the evaluation on the NVIDIA Jetson AGX Xavier platform, and utilized the YOLOv3 object detection model. We tested YOLO with the KITTI benchmark, using 7,000 images. And for the ROI identification, we used Velodyne LiDAR point cloud data, which is provided by the KITTI benchmark.",
+   "ko": "이제 평가(evaluation) 결과에 대해 말씀드리겠습니다. DNN-SAM은 Darknet 프레임워크 위에 구현되었습니다. 그리고 DNN-SAM은 매끄러움과 투명성을 제공하므로 DNN 모델의 코드를 전혀 수정할 필요가 없습니다. 저희는 NVIDIA Jetson AGX Xavier 플랫폼에서 평가를 수행했으며, YOLOv3 객체 탐지 모델을 사용했습니다. 저희는 7,000장의 이미지로 구성된 KITTI 벤치마크로 YOLO를 테스트했습니다. 그리고 ROI 식별을 위해서는 KITTI 벤치마크에서 제공하는 Velodyne LiDAR 포인트 클라우드(point cloud) 데이터를 사용했습니다."
+  },
+  {
+   "t": 4349,
+   "en": "Along with the image, since IMU data isn't provided, we assume a constant vehicle forward speed. For evaluation, we use two different metrics: inference latency and inference accuracy. Inference accuracy is broken down into ROI (region of interest) accuracy and overall accuracy. We compare DNN-SAM with EDF-based methods — let me first show you the baseline. To demonstrate the effectiveness of our DNN-SAM, we conduct a set of experiments by varying the number of tasks from 1 to 6.",
+   "ko": "영상과 함께, IMU(관성측정장치, Inertial Measurement Unit) 데이터가 제공되지 않기 때문에 차량이 일정한 전진 속도로 움직인다고 가정합니다. 평가를 위해서는 두 가지 지표, 즉 추론 지연시간(inference latency)과 추론 정확도(inference accuracy)를 사용합니다. 추론 정확도는 ROI(관심 영역, Region of Interest) 정확도와 전체 정확도로 나누어 살펴봅니다. 저희는 DNN-SAM을 EDF 기반 방법들과 비교하는데, 먼저 베이스라인부터 보여드리겠습니다. DNN-SAM의 효과를 보이기 위해, 태스크 개수를 1개에서 6개까지 바꿔가며 일련의 실험을 진행합니다."
+  },
+  {
+   "t": 4391,
+   "en": "The average latency of each approach is shown as a bar, and the timing requirement is shown as the red dotted line. First, with the baseline approach, only the case with a single task can meet its FPS (frames per second) requirement, while cases with more than one task cannot. On the other hand, both DNN-SAM with EDF and DNN-SAM with EDF-Slack satisfy the FPS requirement in every case. As the number of tasks increases, the available slack for the optional sub-tasks also increases, and our algorithm adaptively assigns a smaller scale to the optional sub-tasks in order to meet the FPS requirement. In addition, EDF-Slack shows the highest average FPS result for most task counts among the compared approaches — this can be interpreted as the benefit of EDF-based methods statically giving a higher priority to the mandatory sub-tasks over the optional ones.",
+   "ko": "각 접근법의 평균 지연시간은 막대그래프로 표시되어 있고, 타이밍 요구사항은 빨간 점선으로 표시되어 있습니다. 먼저 베이스라인 방식에서는 태스크가 하나일 때만 FPS(초당 프레임 수) 요구사항을 만족할 수 있고, 태스크가 두 개 이상이면 만족하지 못합니다. 반면 EDF를 적용한 DNN-SAM과 EDF-Slack을 적용한 DNN-SAM은 모든 경우에 FPS 요구사항을 만족합니다. 태스크 수가 늘어날수록 선택적(optional) 서브태스크에 쓸 수 있는 여유 시간(slack)도 늘어나는데, 저희 알고리즘은 FPS 요구사항을 맞추기 위해 선택적 서브태스크에 적응적으로 더 작은 스케일을 할당합니다. 또한 EDF-Slack은 비교 대상 중 대부분의 태스크 개수 구간에서 가장 높은 평균 FPS 결과를 보이는데, 이는 EDF 기반 방법들이 필수(mandatory) 서브태스크에 정적으로 더 높은 우선순위를 부여하기 때문이라고 해석할 수 있습니다."
+  },
+  {
+   "t": 4456,
+   "en": "We also measure the ROI accuracy and the overall accuracy. The lower portion of each bar represents the ROI accuracy, and the taller, cumulative portion represents the overall accuracy. First, with the baseline approach, the ROI accuracy keeps decreasing, since it downscales the input image to meet the FPS requirement. However, unlike the baseline, even as the number of tasks increases, DNN-SAM with EDF and DNN-SAM with EDF-Slack exhibit consistently high ROI accuracy — 21.0% and 29.3% for cars and pedestrians, respectively. This ability to sustain high ROI accuracy regardless of the number of tasks reflects the benefit of split-and-merge execution, which makes it possible to process the safety-critical portion at its original high resolution. Moreover, EDF-Slack exhibits the highest overall accuracy among the approaches, which can be interpreted as the benefit of EDF-Slack securing more resources for the optional sub-tasks and efficiently scheduling both the mandatory and optional sub-tasks.",
+   "ko": "ROI 정확도와 전체 정확도도 함께 측정합니다. 막대그래프에서 아래쪽 부분은 ROI 정확도를, 위로 쌓인 전체 높이는 전체 정확도를 나타냅니다. 먼저 베이스라인 방식에서는 FPS 요구사항을 맞추기 위해 입력 영상을 다운스케일하기 때문에 ROI 정확도가 계속 떨어집니다. 그러나 베이스라인과 달리, 태스크 수가 늘어나도 EDF를 적용한 DNN-SAM과 EDF-Slack을 적용한 DNN-SAM은 각각 차량과 보행자에 대해 21.0%, 29.3%의 지속적으로 높은 ROI 정확도를 보입니다. 태스크 수와 무관하게 이렇게 높은 ROI 정확도를 유지할 수 있는 것은, 안전에 결정적인 부분을 원본 고해상도 그대로 처리할 수 있게 해주는 분할·병합(split-and-merge) 실행 방식의 이점이라고 볼 수 있습니다. 게다가 EDF-Slack은 다른 접근법들 중에서 가장 높은 전체 정확도를 보이는데, 이는 선택적 서브태스크에 더 많은 자원을 확보해주고 필수·선택 서브태스크의 실행을 효율적으로 스케줄링하는 EDF-Slack의 이점으로 해석할 수 있습니다."
+  },
+  {
+   "t": 4539,
+   "en": "In conclusion, our work focuses on the requirements of real-time systems, such as object detection in autonomous cars, which need faster response times and higher accuracy for safety-critical results, and which require real-time guarantees for vulnerable DNN tasks. To this end, we developed DNN-SAM to dynamically split and merge DNN execution within a real-time framework. It supports a split-and-merge interface that transparently decomposes the original DNN into two sub-tasks, and a lightweight real-time scheduler that prioritizes the mandatory sub-task over the optional one, while also adaptively adjusting the scale of the optional sub-task. The references for this presentation are as follows.",
+   "ko": "결론적으로, 저희 연구는 자율주행차의 객체 탐지처럼 더 빠른 응답 시간과 안전에 결정적인 결과에 대한 더 높은 정확도가 필요하고, 취약한(vulnerable) DNN 태스크에 대해 실시간 보장이 필요한 실시간 시스템의 요구사항에 초점을 맞추고 있습니다. 이를 위해 저희는 실시간 프레임워크 안에서 DNN 실행을 동적으로 분할·병합하는 DNN-SAM을 개발했습니다. DNN-SAM은 원래의 DNN을 두 개의 서브태스크로 투명하게 분해하는 분할·병합 인터페이스와, 필수 서브태스크를 선택적 서브태스크보다 우선시하면서 선택적 서브태스크의 스케일을 적응적으로 조정하는 경량 실시간 스케줄러를 지원합니다. 이번 발표의 참고문헌은 다음과 같습니다."
+  },
+  {
+   "t": 4608,
+   "en": "I have a couple of questions. First, think about the situation: how is it changing on the screen, and how could the situation be distinguished? Think about how the situation on the previous page relates to this one. Okay — nobody has answered this yet, so maybe somebody can tell me. More basically, think about this: we assumed six cameras, and six equals three times two. Take one camera as an example — this is a very important slide. Say we run it at 30 frames per second, over ten minutes, which is one divided by thirty seconds per frame, and we need a certain amount of resources for that — for example, say this is one GPU, shared by camera A and B.",
+   "ko": "질문을 몇 가지 드리겠습니다. 먼저 이 상황을 생각해보세요. 화면에서 상황이 어떻게 바뀌고 있나요, 그리고 그 상황을 어떻게 구분할 수 있을까요? 이전 페이지의 상황이 이 페이지와 어떻게 연결되는지 생각해보세요. 네, 아직 아무도 답을 안 하셨네요. 누가 말씀해 주실 수 있을까요? 좀 더 근본적으로 생각해봅시다. 저희는 카메라 6대를 가정했는데, 6은 3 곱하기 2입니다. 카메라 한 대를 예로 들어볼게요. 이 슬라이드가 아주 중요합니다. 예를 들어 초당 30프레임(30fps)으로, 10분 동안 실행한다고 하면, 이는 30분의 1초에 한 프레임씩이라는 뜻이고, 그만큼의 자원이 필요합니다. 예를 들어 이것을 GPU 하나라고 하고, 카메라 A와 B가 이 GPU를 공유한다고 해봅시다."
+  },
+  {
+   "t": 4689,
+   "en": "Okay, here it's similar, but not quite the same: the side camera is less important than the front camera, so let's say we run it at 15 frames per second instead, and then we can free up the difference — that camera now has some slack. This way, the situation becomes that we're running out of computing resources. Why? So suppose that, without this technique, we have one compute unit whose capacity is, say, ten units less than a Xavier, and another that's equivalent to two Xaviers. Then we'd be fine — we could combine the two, integrating B and C. But this time, we need more than that. What's wrong here?",
+   "ko": "여기는 비슷하지만 완전히 같지는 않습니다. 측면 카메라는 전방 카메라보다 덜 중요합니다. 그러니 이 카메라는 초당 15프레임으로 돌린다고 해봅시다. 그러면 그 차이만큼 여유를 확보할 수 있고, 그 카메라에는 이제 여유 시간(slack)이 생깁니다. 이런 식으로 하다 보면, 결국 컴퓨팅 자원이 부족한 상황이 됩니다. 왜일까요? 이 기술이 없다고 가정해봅시다. 예를 들어 한 컴퓨팅 유닛의 성능이 Xavier(엔비디아 젯슨 자비에)보다 어느 정도 낮고, 다른 하나는 Xavier 두 대에 해당한다고 해봅시다. 그러면 문제없죠, 이 두 개를 B와 C에 통합해서 쓰면 됩니다. 그런데 이번에는 그것보다 더 필요합니다. 무엇이 문제일까요?"
+  },
+  {
+   "t": 4759,
+   "en": "So, his answer is that the inference results from these two would end up different — and if that happens, there's a problem. Yes, but let's ignore that kind of situation for now, because this baseline treats the whole image the same way, even when some regions are more important, like ones containing a person. Yeah, that's also true — both students' answers are correct, but think a bit more about the fundamentals. Yes, similar — so, why do we have no money? We have limited money: suppose this is $100, and this is another $100, but the total budget is only $100, so they have to share it. This sounds like an odd way to put it, but it's true.",
+   "ko": "네, 이 학생의 답은 이 두 결과의 추론 결과가 서로 달라질 수 있다는 것이고, 그렇게 되면 문제가 된다는 것입니다. 맞습니다만, 일단 그런 상황은 제쳐두죠. 왜냐하면 이 베이스라인은 영상 전체를 똑같이 취급하기 때문입니다, 어떤 영역에는 사람이 있어서 더 중요한 경우에도 말이죠. 네, 그것도 맞는 말입니다. 두 학생의 답 모두 맞아요. 하지만 좀 더 근본적인 부분을 생각해봅시다. 네, 비슷한 맥락이네요. 그럼, 왜 우리에게 돈이 없을까요? 우리가 가진 돈은 한정되어 있습니다. 이게 100달러, 저게 또 다른 100달러라고 해봅시다. 그런데 전체 예산은 100달러뿐이라서, 이 둘이 나눠 써야 합니다. 좀 이상하게 들릴 수 있지만, 실제로 그렇습니다."
+  },
+  {
+   "t": 4822,
+   "en": "Think about autonomous cars: even reducing the cost by just a few cents, not dollars, is a critical concern at that scale. And it's not only about money — think about space too. You might think cars have plenty of room, but there isn't an infinite amount of memory either. There's also memory, communication latency, and heat — heat matters too — plus the physical space needed to fit all of this in. So I think in almost every situation, we need to reduce the chip capacity, reduce the cost, and reduce the number of computing units — or, if we can replace them with a cheaper GPU or CPU, we should do that. Computing resources are always limited.",
+   "ko": "자율주행차를 생각해보세요. 단돈 몇 달러가 아니라 몇 센트를 줄이려고 해도, 그것이 그 규모에서는 정말 중요한 문제가 됩니다. 그리고 이건 비용만의 문제가 아니라 공간의 문제이기도 합니다. 자동차에는 공간이 넉넉하다고 생각할 수 있지만, 메모리도 무한하지는 않습니다. 메모리, 통신 지연시간, 그리고 발열도 있죠 - 발열도 중요한 문제입니다. 게다가 이 모든 것을 수용할 물리적 공간도 필요합니다. 그래서 거의 모든 상황에서 우리는 칩의 용량을 줄이고, 비용을 줄이고, 컴퓨팅 유닛의 개수를 줄여야 합니다. 혹은 더 저렴한 GPU나 CPU로 대체할 수 있다면, 그렇게 해야 합니다. 컴퓨팅 자원은 항상 한정되어 있습니다."
+  },
+  {
+   "t": 4889,
+   "en": "So in this case — if we had sufficient resources to process everything, there would be no problem, we could just do that. But the problem is that we have limited resources, so it's impossible to process the images from all six cameras. So then, what's our solution? What did we learn in the previous class, right? Here, there's a GPU and there are some CPUs. Usually, for machine learning tasks or object detection, we use GPUs — but we also have more CPUs, so let's use those smartly too. That was the focus of the previous paper.",
+   "ko": "그래서 이 경우, 만약 모든 것을 처리할 충분한 자원이 있었다면 문제가 없었을 것이고, 그냥 그렇게 하면 됐을 것입니다. 하지만 문제는 우리 자원이 한정되어 있어서, 카메라 6대의 영상을 전부 처리하는 것이 불가능하다는 점입니다. 그럼 우리의 해법은 무엇일까요? 지난 시간에 배운 것은 무엇이었죠? 여기 GPU가 하나 있고, CPU도 몇 개 있습니다. 보통 머신러닝 태스크나 객체 탐지에는 GPU를 사용하지만, CPU도 더 있으니 그것도 똑똑하게 활용해봅시다. 그것이 이전 논문에서 다룬 주제였습니다."
+  },
+  {
+   "t": 4946,
+   "en": "This paper has a different issue. In the previous paper, an object detection task, or any machine learning task, was just treated as a single, uniform task — we didn't consider any criticality within it, because that wasn't discussed there. But in this case, you can understand, frankly, that some regions are more important than others — that's quite straightforward, right? Among the detected objects, there's a class that really matters, and there's another class that's less important, but still more important than the background.",
+   "ko": "이 논문은 다른 문제를 다룹니다. 이전 논문에서는 객체 탐지 태스크나 어떤 머신러닝 태스크든 그냥 하나의 균일한 태스크로 취급했습니다. 그 안에서 어떤 부분이 더 중요한지(criticality)는 고려하지 않았는데, 이전 논문에서는 그런 논의가 없었기 때문입니다. 하지만 이 경우에는, 솔직히 어떤 영역이 다른 영역보다 더 중요하다는 것을 이해할 수 있습니다 - 아주 당연한 얘기죠? 탐지된 객체들 중에는 정말 중요한 클래스가 있고, 덜 중요하지만 배경보다는 더 중요한 또 다른 클래스가 있습니다."
+  },
+  {
+   "t": 4992,
+   "en": "So then, why not give higher priority, or allocate more resources, to this so-called critical region — make the best use of it? To do that, what do we need? First, we need to identify and crop out what the critical region is. This paper doesn't propose a new technique for that part — it just uses existing techniques to find and crop that region. Then, the other thing we need is — well, once we have the cropped image, this paper doesn't just say crop the important area and process only that; that alone would be the baseline. We process the crop — the mandatory, important region — and then, if there's additional time left after that, we go on to process the whole image. If we don't have time, we use a downscaled image instead, which reduces the processing time; if there is additional time, we process the whole image at full resolution.",
+   "ko": "그렇다면 이 이른바 '결정적인 영역(critical region)'에 더 높은 우선순위, 더 많은 자원을 주지 않을 이유가 있을까요 - 최대한 활용해야죠. 그러려면 무엇이 필요할까요? 먼저 결정적인 영역이 무엇인지 찾아서 잘라내야(crop) 합니다. 이 논문은 그 부분에 새로운 기법을 제안하지는 않고, 이미 개발된 기존 기법을 이용해 그 영역을 찾아 잘라낼 뿐입니다. 그다음으로 필요한 것은, 일단 잘라낸 영상이 있으면, 이 논문은 단순히 중요한 영역만 잘라서 그것만 처리하자는 게 아니라는 겁니다 - 그것뿐이라면 그건 베이스라인이겠죠. 저희는 잘라낸, 즉 필수적이고 중요한 영역을 처리하고, 그 이후 시간이 남으면 전체 영상을 처리합니다. 시간이 없으면 대신 다운스케일된 영상을 사용해서 처리 시간을 줄이고, 추가 시간이 있으면 전체 영상을 원래 해상도로 처리합니다."
+  },
+  {
+   "t": 5079,
+   "en": "Within the system, we split things this way, and after the sub-tasks finish, we need to merge the results — one part comes from here, the other from here, and they overlap in this region. So the question is: how many processes are running, and how do we schedule this locally? The second issue is how to make sure this object detection task finishes within this frame, and this one within this frame, and this one within this frame — which one gets executed first? That's the second challenge: how to schedule them systematically so that no deadline is missed. With EDF, we have a certain amount of time, and within that time the work has to finish — how do we design that?",
+   "ko": "시스템 내부에서는 이런 식으로 작업을 분할하고, 서브태스크들이 끝나면 결과를 병합해야 합니다 - 한쪽은 여기서, 다른 한쪽은 여기서 나오고, 이 영역에서는 서로 겹칩니다. 그래서 문제는, 지금 몇 개의 프로세스가 돌고 있고, 이걸 어떻게 로컬에서 스케줄링할 것인가입니다. 두 번째 문제는 이 객체 탐지 태스크가 이 프레임 안에, 그리고 이것은 이 프레임 안에, 저것은 저 프레임 안에 끝나도록 어떻게 보장할 것인가, 그리고 어느 것을 먼저 실행할 것인가입니다. 이것이 두 번째 과제입니다 - 데드라인(deadline)을 놓치지 않도록 이들을 체계적으로 어떻게 스케줄링할 것인가. EDF에서는 정해진 시간이 있고, 그 시간 안에 작업이 끝나야 하는데, 이걸 어떻게 설계할 수 있을까요?"
+  },
+  {
+   "t": 5137,
+   "en": "That's part of the scheduling problem. So frankly speaking, in this course — and in my own research — I focus more on the scheduling side than the systems side, though of course a system works best when both are combined well. The key problem is how to provide theoretical timing guarantees for scheduling. That matters to me because, up until my PhD, my major was in this area. After I became a professor, I gradually moved toward this area, because it became more relevant to me.",
+   "ko": "그것이 스케줄링 문제의 일부입니다. 솔직히 말씀드리면, 이 수업에서도 그렇고 제 연구에서도, 저는 시스템 쪽보다는 스케줄링 쪽에 더 집중합니다. 물론 시스템은 이 둘이 잘 결합될 때 가장 잘 작동하죠. 핵심 문제는 스케줄링에 대해 어떻게 이론적인 타이밍 보장을 제공할 것인가입니다. 이것이 저에게 중요한 이유는, 박사과정까지는 제 전공이 바로 이 분야였기 때문입니다. 교수가 된 이후에는 점차 이 (DNN·실시간 시스템) 분야로 옮겨왔는데, 저에게 더 와닿는 분야가 되었기 때문입니다."
+  },
+  {
+   "t": 5177,
+   "en": "To summarize what I'd like to say: we split the image, then process the mandatory area — cropping out the full-resolution image for the mandatory network, while the optional network handles the rest — and run this across a distributed system. Also, if you remember the previous paper, we need a way to schedule and process each layer: the first layer on the GPU, the second also on the GPU — we have some options there. For instance, there's overhead in copying results back and forth between the CPU and the GPU, which is kind of wasteful. Likewise, in this system, that's the kind of thing we had to make work.",
+   "ko": "제가 말씀드리고 싶은 걸 요약하면 이렇습니다. 영상을 분할한 다음, 필수 영역을 처리합니다 - 필수 네트워크를 위해 원본 해상도 그대로 잘라낸 영상을 사용하고, 선택적 네트워크는 나머지를 처리하며, 이를 분산 시스템(distributed system) 전반에 걸쳐 실행합니다. 또한, 이전 논문을 기억하신다면, 각 레이어를 스케줄링하고 처리할 방법이 필요합니다 - 첫 번째 레이어는 GPU에서, 두 번째도 GPU에서, 여기에는 몇 가지 선택지가 있습니다. 예를 들어 CPU와 GPU 사이를 오가며 결과를 복사하는 오버헤드가 있는데, 이는 다소 낭비입니다. 마찬가지로, 이 시스템에서도 그런 부분을 잘 동작하도록 만들어야 했습니다."
+  },
+  {
+   "t": 5236,
+   "en": "We also need to decide how to prioritize and schedule each task — for example, camera 1 has a mandatory and an optional task, camera 2 has a mandatory and an optional task, and we need to decide which goes first, and how to guarantee the mandatory ones. One approach is to simply always prioritize mandatory tasks over optional tasks. In that case, it's easier to provide timing guarantees, because we only need to focus on the mandatory tasks — but then the responsiveness of the optional tasks suffers.",
+   "ko": "또한 각 태스크를 어떻게 우선순위를 매기고 스케줄링할지도 정해야 합니다 - 예를 들어 카메라 1에는 필수·선택 태스크가 있고, 카메라 2에도 필수·선택 태스크가 있는데, 어느 것을 먼저 실행할지, 그리고 필수 태스크를 어떻게 보장할지를 정해야 합니다. 한 가지 방법은 그냥 항상 필수 태스크를 선택적 태스크보다 우선시키는 것입니다. 이 경우에는 타이밍 보장을 제공하기가 더 쉬운데, 필수 태스크에만 집중하면 되기 때문입니다 - 하지만 그러면 선택적 태스크의 응답성이 떨어집니다."
+  },
+  {
+   "t": 5277,
+   "en": "So in this case, we developed something further: we still prioritize mandatory tasks over optional ones, but we also compute the slack — that is, we calculate how much time margin the mandatory tasks have. So even though we now execute the optional tasks first, we can still guarantee that the mandatory tasks eventually meet their deadlines. That's how we're able to run the optional tasks first whenever there's slack available. It's a new technique, and a bit complex — that's the second part of the scheduling design.",
+   "ko": "그래서 이 경우, 저희는 한 걸음 더 나아간 방법을 개발했습니다. 여전히 필수 태스크를 선택적 태스크보다 우선시하지만, 동시에 여유 시간(slack)도 계산합니다 - 즉, 필수 태스크가 얼마만큼의 시간 여유를 가지고 있는지를 계산하는 것입니다. 그래서 지금 선택적 태스크를 먼저 실행하더라도, 필수 태스크가 결국 데드라인을 지킬 수 있음을 보장할 수 있습니다. 이렇게 해서 여유 시간이 있을 때는 선택적 태스크를 먼저 실행할 수 있게 되는 것입니다. 이것이 새로운 기법이고, 조금 복잡합니다 - 이것이 스케줄링 설계의 두 번째 부분입니다."
+  },
+  {
+   "t": 5326,
+   "en": "That's all about the scheduling. Any questions about the scheduling? Is there one more thing? Yeah, usually we just have one optional network — we could select multiple at best, but not for the mandatory ones, obviously. But it could be extended: if that's needed, then all the components would need to be optimized for that possibility. I think that's it for me — let's see.",
+   "ko": "스케줄링에 대해서는 여기까지입니다. 스케줄링에 대해 질문 있으신가요? 하나 더 있나요? 네, 보통은 선택적 네트워크를 하나만 둡니다 - 잘해야 여러 개를 선택할 수는 있겠지만, 필수 쪽에는 당연히 그렇게 할 수 없습니다. 하지만 확장은 가능합니다. 만약 그런 방식이 필요하다면, 모든 구성 요소가 그 가능성에 맞춰 최적화되어야 할 것입니다. 제가 드릴 말씀은 여기까지인 것 같네요 - 한번 볼까요."
+  },
+  {
+   "t": 5361,
+   "en": "Let me see if I can play this... oh, there it is. Let's get the camera moving. Okay. [The video plays, and ends with:] Thank you for watching.",
+   "ko": "이게 재생이 되나 볼게요... 아, 됩니다. 카메라를 움직여 볼게요. 자. (영상이 재생되고, 마지막에) '시청해 주셔서 감사합니다'라는 문구로 끝납니다."
+  },
+  {
+   "t": 5400,
+   "en": "...the example about six cameras — each camera, as I mentioned, has a mandatory and an optional task. So when I explained this earlier: the front camera is more important than the rear camera. In that case, is there any criticality or type assignment between the two? My answer is no — in that case, we only care about the FPS of this one, say, ten higher. In this case, for example, we'd use the front camera more frequently, but the rear camera we'd use less often, and that's it. But yes, we could formalize this and determine which one is more important than the other — this is really all about which scheduling approach works best for us.",
+   "ko": "...카메라 6대에 대한 예시로 돌아오면, 앞서 말씀드렸듯이 각 카메라는 필수·선택 작업을 가지고 있습니다. 아까 설명드렸던 것처럼, 전방 카메라가 후방 카메라보다 더 중요합니다. 그렇다면 이 둘 사이에 어떤 결정적 등급(criticality)이나 유형 구분이 있을까요? 제 답은 '아니오'입니다 - 이 경우에는 그냥 이 카메라의 FPS를, 예를 들어 10 정도 더 높게 주는 것만 신경 씁니다. 이 경우 예를 들어 전방 카메라는 더 자주 사용하고, 후방 카메라는 덜 자주 사용하게 되는데, 그게 전부입니다. 하지만 물론, 이를 정식화해서 어느 쪽이 더 중요한지 판단할 수도 있습니다 - 결국 이것도 어떤 스케줄링 방식이 우리에게 더 좋은가의 문제입니다."
+  },
+  {
+   "t": 5464,
+   "en": "The question is: do you think, for example, Tesla's autonomous driving uses a similar approach, or is there a Tesla product for home security? My answer is, I don't know. If they made that information public, you might be able to find it on Google, but if you actually try to search for it, it's difficult to find — I think they keep it hidden. By the way, don't expect this course to teach you how to design autonomous driving systems — there's no such content here. This is just one example of a technology, in this case, one that powers real-time autonomous driving. I'm not going into autonomous driving itself or other such topics, but as we've examined this paper, we can treat it as one example application.",
+   "ko": "이 질문은, 예를 들어 테슬라의 자율주행이 비슷한 방식을 쓰는지, 아니면 테슬라의 홈 시큐리티 제품이 있는지에 대한 것입니다. 제 답은, 저는 잘 모릅니다. 만약 그들이 그 정보를 공개했다면 구글에서 찾을 수 있겠지만, 실제로 검색해보면 찾기 어렵습니다 - 아마 숨기고 있는 것 같습니다. 그런데 이 수업이 자율주행 시스템을 설계하는 법을 가르쳐줄 거라고 기대하지는 마세요 - 그런 내용은 없습니다. 이건 그냥 하나의 기술 예시일 뿐입니다, 이 경우에는 실시간 자율주행을 가능하게 하는 기술이죠. 저는 자율주행 자체나 다른 그런 주제로 들어가려는 게 아니지만, 이 논문을 살펴본 만큼 이걸 하나의 응용 예시로 다룰 수 있습니다."
+  },
+  {
+   "t": 5530,
+   "en": "I think it's a bit hard to understand why we need two separate versions. Yes — why do we need two? The question is why we need two separate versions, mandatory-first and select. In this case, it comes down to strategy — you plan first, and then select. There are two options: if you want to make the mandatory tasks more responsive, you just use the mandatory-first approach.",
+   "ko": "왜 두 가지 버전이 필요한지 이해하기가 좀 어려운 것 같습니다. 네, 맞아요 - 왜 두 개가 필요할까요? 이 질문은 왜 필수-우선(mandatory-first)과 선택(select), 이렇게 두 가지 버전이 필요한가에 대한 것입니다. 이건 결국 전략의 문제입니다 - 먼저 계획하고, 그다음 선택하는 것이죠. 두 가지 옵션이 있습니다. 필수 태스크의 응답성을 더 높이고 싶다면, 그냥 필수-우선 방식을 쓰면 됩니다."
+  },
+  {
+   "t": 5569,
+   "en": "Or, if you look here, doing the mandatory tasks first works very well on its own. But if you look at the select-based results, mandatory-first gets you strong performance on the mandatory tasks, while select gives more balanced performance across mandatory and optional tasks — the difference there is a bit smaller. So if your system needs to focus on particular critical things, you'd choose mandatory-first; if you need some kind of average performance across everything, you'd choose select. So we just provide two options — we're not saying one is always better than the other. It depends.",
+   "ko": "아니면, 여기를 보시면, 필수 태스크를 먼저 처리하는 것만으로도 아주 잘 동작합니다. 하지만 선택 기반 결과를 보면, 필수-우선은 필수 태스크에서 강한 성능을 주고, 선택은 필수·선택 태스크 전반에 걸쳐 더 균형 잡힌 성능을 주는데, 이때 차이는 좀 더 작습니다. 그래서 여러분의 시스템이 특정한 결정적 요소에 집중해야 한다면 필수-우선을 선택하면 되고, 전체적으로 평균적인 성능이 필요하다면 선택 방식을 고르면 됩니다. 그래서 저희는 그냥 두 가지 옵션을 제공하는 것이고, 하나가 항상 다른 하나보다 낫다고 말하는 게 아닙니다. 상황에 따라 다릅니다."
+  },
+  {
+   "t": 5640,
+   "en": "Yeah, this is the last slide for this research topic. Can you explain what's next? So now we'll wrap up this part of the lecture. As I mentioned, for this lecture I wanted to give some motivation: what is a real-time system, what can we do if we learn about real-time systems, what are its applications, what is the motivation — that's what I wanted to give you today.",
+   "ko": "네, 이게 이 연구 주제에 대한 마지막 슬라이드입니다. 다음은 무엇인지 설명해 주시겠어요? 이제 이 부분 강의를 마무리하겠습니다. 말씀드렸듯이, 이번 강의에서는 동기부여를 좀 드리고 싶었습니다 - 실시간 시스템이 무엇인지, 실시간 시스템을 배우면 무엇을 할 수 있는지, 그 응용 분야는 무엇인지, 그 동기는 무엇인지 - 오늘 이런 것들을 전해드리고 싶었습니다."
+  },
+  {
+   "t": 5681,
+   "en": "As you can see, we learned the basic concepts of real-time systems — formally, what a real-time system is, its definition. By the way, I think most of you already knew that. What is a real-time system? This presenter already explained it well — it comes down to deadlines, that kind of thing. We also looked at the relationship between embedded systems, cyber-physical systems, and real-time systems, and what the research topics in real-time systems are — that's what today's lecture covered. Any questions about today's content, or anything else? Okay, good.",
+   "ko": "보시다시피, 우리는 실시간 시스템의 기본 개념을 배웠습니다 - 공식적으로, 실시간 시스템이 무엇인지, 그 정의는 무엇인지를요. 그런데 대부분은 이미 알고 계셨을 것 같습니다. 실시간 시스템이란 무엇일까요? 이 발표자가 이미 잘 설명해주셨죠 - 결국 데드라인, 그런 것에 관한 것입니다. 또한 임베디드 시스템(embedded system), 사이버물리시스템(cyber-physical system, CPS), 그리고 실시간 시스템 사이의 관계와, 실시간 시스템의 연구 주제가 무엇인지도 살펴봤는데, 그것이 오늘 강의의 내용이었습니다. 오늘 내용이나 다른 것에 대해 질문 있으신가요? 네, 좋습니다."
+  },
+  {
+   "t": 5742,
+   "en": "Safety — so, his point was that the accuracy mentioned for safety here is only about 50%, which he argues is too low. Yes, it is too low, but our defense is that we used a certain reference model: suppose we had an ideal, unconstrained car — we could then measure its accuracy, and compare our result against that to judge whether it's good or not. The baseline itself is also very low, so achieving something close to that baseline, which approaches the unconstrained case, is our defense. So, yeah — actually, if you want, this kind of system's accuracy could still be described as too low in absolute terms. That's fair. Do you mind if we stop here? If you have questions for the next topic, please let me know.",
+   "ko": "안전(safety) 이야기로, 그 학생의 지적은 여기서 언급된 정확도가 약 50%로 안전 기준으로는 너무 낮다는 것이었습니다. 네, 너무 낮은 게 맞습니다. 하지만 저희 쪽 논리는, 저희가 어떤 기준 모델을 사용했다는 것입니다 - 자원 제약이 전혀 없는 이상적인 자동차가 있다고 가정하면, 그 정확도를 측정할 수 있고, 저희 결과를 그것과 비교해서 좋은지 아닌지를 판단할 수 있습니다. 베이스라인 자체도 매우 낮기 때문에, 그 무제약 상황에 가까운 베이스라인 수준에 근접하는 것이 저희의 논리입니다. 그래서, 네 - 사실 원한다면 이 시스템의 정확도를 절대적으로는 여전히 너무 낮다고 표현할 수도 있습니다. 그것도 맞는 말입니다. 여기서 마무리해도 될까요? 다음 주제에 대해 질문 있으시면 말씀해 주세요."
+  }
+ ]
+}

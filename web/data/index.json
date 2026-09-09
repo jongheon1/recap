@@ -81,6 +81,19 @@
       ]
     },
     {
+      "id": "real-time-systems",
+      "name": "Real-Time Systems",
+      "files": [
+        {
+          "id": "2026-09-08-real-time-systems-1",
+          "title": "Basic Concepts of Real-Time Systems",
+          "date": "2026-09-08",
+          "duration_sec": 5800,
+          "paragraphs": 100
+        }
+      ]
+    },
+    {
       "id": "software-engineering",
       "name": "Software Engineering",
       "files": [
