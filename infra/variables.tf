@@ -25,3 +25,9 @@ variable "pages_project_name" {
   type    = string
   default = "recap"
 }
+
+variable "r2_bucket_name" {
+  type        = string
+  default     = "recap-audio"
+  description = "R2 bucket for lecture audio (playback source for the audio-jump feature)"
+}

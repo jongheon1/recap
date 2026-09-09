@@ -5,6 +5,13 @@
       "name": "Quantum Computer Programming",
       "files": [
         {
+          "id": "2026-09-09-quantum-computer-programming-1",
+          "title": "Quantum Circuits, Computing Models & the Church-Turing Thesis",
+          "date": "2026-09-09",
+          "duration_sec": 3144,
+          "paragraphs": 55
+        },
+        {
           "id": "2026-09-07-quantum-computer-programming-1",
           "title": "Quantum Computing Overview, Timeline, Hardware & Schrodinger's Cat",
           "date": "2026-09-07",
@@ -24,6 +31,13 @@
       "id": "algorithm-analysis",
       "name": "Algorithm Analysis",
       "files": [
+        {
+          "id": "2026-09-09-algorithm-analysis-1",
+          "title": "Closest Pair: Divide-and-Conquer Algorithm",
+          "date": "2026-09-09",
+          "duration_sec": 3019,
+          "paragraphs": 61
+        },
         {
           "id": "2026-09-04-algorithm-analysis-1",
           "title": "Quiz Solutions, the Linear-Time MSS Algorithm, and Closest Pair",
@@ -49,7 +63,7 @@
           "title": "Linux Kernel Versions & Introduction to Processes",
           "date": "2026-09-05",
           "duration_sec": 5486,
-          "paragraphs": 51
+          "paragraphs": 100
         },
         {
           "id": "2026-09-02-system-programming-1",
@@ -64,6 +78,13 @@
       "id": "distributed-learning-and-inference",
       "name": "Distributed Learning and Inference",
       "files": [
+        {
+          "id": "2026-09-09-distributed-learning-and-inference-1",
+          "title": "Backpropagation, Overfitting & Regularization",
+          "date": "2026-09-09",
+          "duration_sec": 3075,
+          "paragraphs": 61
+        },
         {
           "id": "2026-09-04-distributed-learning-and-inference-1",
           "title": "Basics of Deep Learning",

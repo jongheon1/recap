@@ -1,0 +1,315 @@
+{
+ "id": "2026-09-09-distributed-learning-and-inference-1",
+ "course": "distributed-learning-and-inference",
+ "title": "Backpropagation, Overfitting & Regularization",
+ "date": "2026-09-09",
+ "duration_sec": 3075,
+ "audio_url": "https://pub-950a8b85c4a448b4b96d2942eec87d6b.r2.dev/2026-09-09-distributed-learning-and-inference-1.m4a",
+ "paragraphs": [
+  {
+   "t": 120,
+   "en": "Yeah, this is the code for if you have any problems regarding the appendix.",
+   "ko": "네, 이건 부록(appendix)과 관련해서 문제가 있을 경우를 위한 코드입니다."
+  },
+  {
+   "t": 147,
+   "en": "Okay, so from last week, we will be continuously talking about basics of deep learning from the overall picture. We are currently at this level talking about the backgrounds of deep learning. And actually last week, we talked about most of the important things on how machine learning works. We talked about how the basic deep learning architecture looks like. And according to this architecture, there exists many, many parameters that we need to optimize. And optimizing these model parameters is actually model training. So the goal of model training is to optimize the model parameters, including the W parameters for multiplication and the bias parameters B.",
+   "ko": "자, 지난주에 이어서 딥러닝(deep learning)의 기초에 대해 전체적인 그림에서부터 계속 이야기하겠습니다. 우리는 지금 딥러닝의 배경(background)을 다루는 단계에 있습니다. 사실 지난주에 머신러닝(machine learning)이 어떻게 작동하는지에 대한 중요한 내용 대부분을 다뤘습니다. 기본적인 딥러닝 아키텍처(architecture)가 어떻게 생겼는지도 이야기했죠. 그리고 이 아키텍처에 따르면 우리가 최적화해야 할 파라미터(parameter)가 아주 많이 존재합니다. 이러한 모델 파라미터를 최적화하는 것이 바로 모델 학습(model training)입니다. 따라서 모델 학습의 목표는 곱셈에 사용되는 W 파라미터와 편향(bias) 파라미터 B를 포함한 모델 파라미터를 최적화하는 것입니다."
+  },
+  {
+   "t": 209,
+   "en": "And in order to do optimization, we always need a specific loss function that we would like to minimize. So we talked about a cross-entropy loss function, which is actually computed based on the training data. Once you have the training data, you can optimize the parameters to minimize this specific loss function. So we mainly talked about the cross-entropy loss, which is the very basic of deep learning loss functions. Once you understand this basic concept, then this idea can be utilized to define the loss functions of any model architectures for any tasks.",
+   "ko": "최적화(optimization)를 하려면 항상 우리가 최소화하고자 하는 특정한 손실 함수(loss function)가 필요합니다. 그래서 우리는 교차 엔트로피 손실 함수(cross-entropy loss function)에 대해 이야기했는데, 이는 실제로 학습 데이터(training data)를 기반으로 계산됩니다. 학습 데이터가 있으면 이 손실 함수를 최소화하도록 파라미터를 최적화할 수 있습니다. 우리는 주로 딥러닝 손실 함수의 가장 기본이 되는 교차 엔트로피 손실에 대해 이야기했습니다. 이 기본 개념을 이해하면, 이 아이디어는 어떤 모델 아키텍처나 어떤 태스크(task)에 대해서도 손실 함수를 정의하는 데 활용될 수 있습니다."
+  },
+  {
+   "t": 256,
+   "en": "So we talked about the model architecture, and then we talked about the loss function. And we further talked about how we can minimize the loss function, right? Because optimizing is a very complicated problem. So we also talked about an algorithm that enables us to minimize the loss function directly. So we talked about the concept of gradient descent, which is an approach that can minimize a specific loss function.",
+   "ko": "그래서 우리는 모델 아키텍처에 대해 이야기하고, 그 다음 손실 함수에 대해 이야기했습니다. 그리고 더 나아가 손실 함수를 어떻게 최소화할 수 있는지에 대해서도 이야기했죠. 왜냐하면 최적화는 매우 복잡한 문제이기 때문입니다. 그래서 손실 함수를 직접 최소화할 수 있게 해주는 알고리즘에 대해서도 이야기했습니다. 특정 손실 함수를 최소화할 수 있는 접근법인 경사 하강법(gradient descent)의 개념에 대해 이야기했습니다."
+  },
+  {
+   "t": 297,
+   "en": "So in order to do so, we could split the data set into multiple mini-batches. And then using the first mini-batch, we compute the gradient and then apply gradient descent to update the model. And then starting from that new model, we use the second mini-batch and then do the same thing. And we repeat this process until we process all the data samples. In this case, if you do three updates, we have processed all the data samples.",
+   "ko": "이를 위해 데이터셋(data set)을 여러 개의 미니배치(mini-batch)로 나눌 수 있습니다. 그런 다음 첫 번째 미니배치를 사용해 그래디언트(gradient)를 계산하고, 경사 하강법을 적용해 모델을 업데이트합니다. 그리고 그 새로운 모델에서 시작해 두 번째 미니배치를 사용해 같은 과정을 반복합니다. 모든 데이터 샘플을 처리할 때까지 이 과정을 반복합니다. 이 경우, 세 번 업데이트를 하면 모든 데이터 샘플을 처리한 것이 됩니다."
+  },
+  {
+   "t": 331,
+   "en": "And then next, we go through the data set again, right? So going through the overall data set once can be viewed as a single epoch. That's the definition of epoch. And then especially in this mini-batch SGD, we shuffle the data set again and then repeat the same thing. So we shuffle the data set and then do gradient descent with the first mini-batch, second mini-batch, third mini-batch, and then we shuffle the data set again and then repeat the process.",
+   "ko": "그 다음에는 데이터셋을 다시 한 번 처리합니다. 전체 데이터셋을 한 번 통과하는 것을 하나의 에폭(epoch)이라고 볼 수 있습니다. 그것이 에폭의 정의입니다. 특히 이 미니배치 확률적 경사 하강법(mini-batch SGD)에서는 데이터셋을 다시 섞은(shuffle) 다음 같은 과정을 반복합니다. 그래서 데이터셋을 섞고 첫 번째, 두 번째, 세 번째 미니배치로 경사 하강법을 수행한 다음, 다시 데이터셋을 섞고 그 과정을 반복합니다."
+  },
+  {
+   "t": 364,
+   "en": "So how many times we should repeat this process? We repeat this process until the model achieves a desired level of performance, which means that until the model achieves a good performance. So if you see on any machine learning papers or documents, they specify the number of epochs, how many times they went through the overall data set. So for example, if they say the model is trained with 100 epochs, this means that we went through the overall data set 100 times. So each sample is observed 100 times before the model is getting provided.",
+   "ko": "그러면 이 과정을 몇 번이나 반복해야 할까요? 모델이 원하는 수준의 성능을 달성할 때까지, 즉 모델이 좋은 성능을 달성할 때까지 이 과정을 반복합니다. 어떤 머신러닝 논문이나 문서를 보더라도 에폭 수, 즉 전체 데이터셋을 몇 번 통과했는지를 명시합니다. 예를 들어 모델이 100 에폭으로 학습되었다고 하면, 이는 전체 데이터셋을 100번 통과했다는 뜻입니다. 즉 각 샘플이 모델에 제공되기까지 100번씩 관찰되는 것입니다."
+  },
+  {
+   "t": 412,
+   "en": "So this is the basic algorithm that is very commonly used. And even recent training algorithms rely on this gradient descent or stochastic gradient descent. So we can summarize this stochastic gradient descent or gradient descent using this single slide, actually using this single equation. There is a step size, you compute the gradient and then update the model based on this new model you do the same thing.",
+   "ko": "이것이 아주 흔히 사용되는 기본 알고리즘입니다. 최근의 학습 알고리즘들도 여전히 이 경사 하강법(gradient descent) 또는 확률적 경사 하강법(stochastic gradient descent)에 기반하고 있습니다. 그래서 이 확률적 경사 하강법 또는 경사 하강법을 이 한 장의 슬라이드, 즉 이 하나의 식으로 요약할 수 있습니다. 스텝 크기(step size)가 있고, 그래디언트를 계산한 다음 이를 바탕으로 모델을 업데이트하고, 그 새로운 모델을 가지고 같은 과정을 반복합니다."
+  },
+  {
+   "t": 447,
+   "en": "But there are also advanced algorithms that are trying to improve the performance of gradient descent. So we talked about approaches that are trying to modify this equation very slightly. So for example, we could introduce the concept of momentum. So that we consider the previous direction as well when updating the model.",
+   "ko": "하지만 경사 하강법의 성능을 개선하려는 더 발전된 알고리즘들도 있습니다. 우리는 이 식을 아주 조금씩 수정하려는 접근법들에 대해 이야기했습니다. 예를 들어 모멘텀(momentum)이라는 개념을 도입할 수 있습니다. 이렇게 하면 모델을 업데이트할 때 이전 방향(previous direction)도 함께 고려하게 됩니다."
+  },
+  {
+   "t": 478,
+   "en": "So instead of using this equation, you could replace this equation with this one by adding a single line. So in this case, you could imagine that the update direction changes more because they're the previous direction as well. So it is less, we are less aggressively changing the direction. So this is an approach that is introducing an additional momentum coefficient.",
+   "ko": "그래서 이 식을 사용하는 대신, 한 줄을 추가해서 이 식으로 바꿀 수 있습니다. 이 경우 이전 방향도 함께 고려되기 때문에 업데이트 방향이 달라진다고 생각할 수 있습니다. 즉 방향을 덜 공격적으로(aggressively) 바꾸게 됩니다. 이것이 추가적인 모멘텀 계수(momentum coefficient)를 도입하는 접근법입니다."
+  },
+  {
+   "t": 512,
+   "en": "And then we also talked about an approach called RMSProp, which is trying to adaptively change the learning rate. So we are keeping the gradients, we are not changing the gradients, but we are just changing this part, which is how much we will aggressively change the model according to the given gradients. So we talked about these things on Friday.",
+   "ko": "그리고 학습률(learning rate)을 적응적으로(adaptively) 바꾸려는 RMSProp이라는 접근법에 대해서도 이야기했습니다. 여기서는 그래디언트 자체는 그대로 유지하고 바꾸지 않지만, 주어진 그래디언트에 따라 모델을 얼마나 공격적으로 바꿀지를 결정하는 이 부분만 바꿉니다. 이 내용들을 지난 금요일에 이야기했습니다."
+  },
+  {
+   "t": 542,
+   "en": "And then there's also a very well-known strategy called Adam, which is an integration of SGD, momentum, and RMSProp. So here, we introduce the concept of momentum, but at the same time, we also adaptively change the learning rate. So now, you can actually easily use these optimizers on PyTorch. Now you can probably use these kinds of things with a clear understanding, at least you know the insight.",
+   "ko": "그리고 SGD, 모멘텀, RMSProp을 통합한 매우 잘 알려진 전략인 Adam도 있습니다. 여기서는 모멘텀 개념을 도입하는 동시에 학습률도 적응적으로 바꿉니다. 이제 여러분은 PyTorch에서 이러한 옵티마이저(optimizer)들을 쉽게 사용할 수 있습니다. 이제 적어도 그 통찰(insight)을 알고 있는 상태에서 이런 것들을 명확한 이해를 가지고 사용할 수 있을 것입니다."
+  },
+  {
+   "t": 588,
+   "en": "But in AI, there's always a big gap between theory and practice, right? So people have first observed that this kind of thing is working well based on some insights, but there also exists some theory that are trying to explain why Adam optimizer or other advanced optimizer is better than simple SGD. But even this year or last year you could also see papers that are trying to explain these algorithms based on some theory. But this is out of scope of our class. So this is the basic thing in fundamental components in machine learning that you will be learning if you take the machine learning courses or the deep learning courses.",
+   "ko": "하지만 AI 분야에서는 이론과 실제(practice) 사이에 항상 큰 간극(gap)이 있습니다. 사람들은 먼저 어떤 통찰에 기반해 이런 방법들이 잘 작동한다는 것을 관찰했지만, 왜 Adam 옵티마이저나 다른 발전된 옵티마이저가 단순한 SGD보다 더 나은지를 설명하려는 이론도 존재합니다. 심지어 올해나 작년에도 이러한 알고리즘들을 이론적으로 설명하려는 논문들을 볼 수 있습니다. 하지만 이는 우리 수업의 범위를 벗어납니다. 이것이 머신러닝 강의나 딥러닝 강의를 수강하면 배우게 될 머신러닝의 기본적인 핵심 구성 요소들입니다."
+  },
+  {
+   "t": 647,
+   "en": "So today we will be talking about back propagation. But why we should talk about back propagation and what is back propagation and why this is really needed. The very short answer is that we have to learn back propagation because the only thing that we didn't talk about so far is how we can obtain this gradient g_t which is actually utilized in all these equations so far. In this equation you need to know g_t, right, and in this equation you also need to know g_t. Here g_t is also required in the Adam optimizer, you also need to know about g_t which is the gradient. So if you go back to the definition of g_t in this slide, this is nothing but the average of the gradients that is computed for each data set.",
+   "ko": "오늘은 역전파(back propagation)에 대해 이야기하겠습니다. 그런데 왜 역전파에 대해 이야기해야 하는지, 역전파가 무엇인지, 그리고 왜 이것이 정말로 필요한지를 짚어봐야 합니다. 아주 짧게 답하자면, 우리가 지금까지 이야기하지 않은 유일한 것이 바로 지금까지의 모든 식에서 사용된 이 그래디언트 g_t를 어떻게 구할 수 있는가이기 때문에 역전파를 배워야 합니다. 이 식에서도 g_t를 알아야 하고, 이 식에서도 g_t를 알아야 합니다. 여기 Adam 옵티마이저에서도 그래디언트인 g_t를 알아야 합니다. 이 슬라이드에서 g_t의 정의로 돌아가 보면, 이는 각 데이터에 대해 계산된 그래디언트들의 평균에 불과합니다."
+  },
+  {
+   "t": 719,
+   "en": "So whenever you compute the gradient you always have to compute the gradient with respect to the model parameters that you would like to optimize. So let's take a look at this example, this is a simple two-layer neural network let's say. So here there is a first layer W1. You will define this W1 as the first layer that contains all the parameters here. So it can be viewed as a 784 by 800 matrix.",
+   "ko": "그래디언트를 계산할 때는 항상 최적화하고자 하는 모델 파라미터에 대해 그래디언트를 계산해야 합니다. 이 예시를 한번 살펴봅시다. 간단한 2층 신경망(two-layer neural network)이라고 합시다. 여기 첫 번째 레이어 W1이 있습니다. 이 W1을 모든 파라미터를 포함하는 첫 번째 레이어로 정의할 수 있는데, 784 by 800 행렬(matrix)로 볼 수 있습니다."
+  },
+  {
+   "t": 760,
+   "en": "And then there is another matrix here which contains all the model parameters here which can be viewed as a 9 by 800 matrix. So in this case you can see that there exists 784 multiplied by 800 parameters here and here there exists 800 multiplied by 9 parameters here. If you only consider these W's — if you consider the bias parameters there exists more. So the definition of the gradient is the derivative of the loss with respect to each of these parameters, each of these parameters. So to compute the gradient you can first imagine computing the loss function because this is the objective function that we would like to minimize. So you always have to compute the loss function first, which is our objective function that we would like to minimize.",
+   "ko": "그리고 여기 모든 모델 파라미터를 포함하는 또 다른 행렬이 있는데, 이는 9 by 800 행렬로 볼 수 있습니다. 이 경우 여기에는 784 곱하기 800개의 파라미터가 있고, 여기에는 800 곱하기 9개의 파라미터가 있는 것을 볼 수 있습니다. 이는 W들만 고려한 것이고, 편향(bias) 파라미터까지 고려하면 더 많이 존재합니다. 그래디언트의 정의는 손실을 이 각각의 파라미터들에 대해 미분한 값입니다. 그래디언트를 계산하려면 먼저 손실 함수를 계산한다고 생각할 수 있는데, 이것이 바로 우리가 최소화하고자 하는 목적 함수(objective function)이기 때문입니다. 그래서 항상 먼저 우리의 목적 함수인 손실 함수를 계산해야 합니다."
+  },
+  {
+   "t": 834,
+   "en": "So whenever a specific sample is given you can compute the output of this layer by doing this kind of linear operation, then adding the bias, and then you obtain something called z. And then this z will go through the non-linear activation function here. So you will obtain a, and this a becomes the input of the next layer, right, W2. So you will obtain this one and then add the bias to obtain the results here, then you will get z2. And then this z2 will go through the softmax function which converts the output to probability values, and then according to those values you can compute the cross-entropy loss according to our previous slides.",
+   "ko": "특정 샘플이 주어지면, 이런 식의 선형 연산(linear operation)을 수행하고 편향을 더해서 이 레이어의 출력을 계산할 수 있으며, 이렇게 얻은 것을 z라고 부릅니다. 그 다음 이 z는 여기 있는 비선형 활성화 함수(non-linear activation function)를 거칩니다. 그러면 a를 얻게 되고, 이 a가 다음 레이어인 W2의 입력이 됩니다. 이렇게 얻은 값에 편향을 더해서 결과를 얻으면 z2를 얻게 됩니다. 그리고 이 z2는 소프트맥스 함수(softmax function)를 거쳐 출력을 확률 값(probability value)으로 변환하고, 그 값들에 따라 이전 슬라이드에서 다룬 대로 교차 엔트로피 손실을 계산할 수 있습니다."
+  },
+  {
+   "t": 896,
+   "en": "So the key question here is that now we know the loss function, but this loss function is also affected by all these model parameters — all these model parameters. And our goal here is to compute the derivative of the loss with respect to each parameter so that we can apply any of these optimization algorithms that we talked about. But the problem here is that this is a very difficult problem because how can you express this one as a function of this parameter or this parameter. There exists a non-linear activation function here, there exists another multiplication, there is a softmax function, and if you imagine stacking more layers, then directly expressing this loss function with respect to each parameter is very complicated. So directly computing the gradient is often infeasible.",
+   "ko": "여기서 핵심 질문은, 이제 우리가 손실 함수를 알고 있지만 이 손실 함수는 이 모든 모델 파라미터들의 영향을 받는다는 것입니다. 우리의 목표는 앞서 이야기한 최적화 알고리즘들을 적용할 수 있도록 각 파라미터에 대한 손실의 미분을 계산하는 것입니다. 하지만 문제는 이것을 특정 파라미터의 함수로 어떻게 표현할 수 있는가 하는 것이 매우 어려운 문제라는 점입니다. 여기에는 비선형 활성화 함수가 있고, 또 다른 곱셈 연산이 있고, 소프트맥스 함수가 있으며, 만약 레이어를 더 많이 쌓는다고 상상하면 이 손실 함수를 각 파라미터에 대해 직접 표현하는 것은 매우 복잡해집니다. 그래서 그래디언트를 직접 계산하는 것은 대체로 불가능합니다(infeasible)."
+  },
+  {
+   "t": 963,
+   "en": "But let's first take a look on how each of these gradients look like, how these gradients look like. So directly computing these values is non-trivial, but our goal — computing these things can be converted into this kind of form. So this is the thing that we would like to obtain. The blue parts here are our goals. We would like to compute these kind of things, but directly computing this is very difficult. But according to the chain rule — we will not go through the chain rule in detail, and we will not care about the dimensions or the multiplication order in detail, but at a very high level it works as follows.",
+   "ko": "먼저 이 그래디언트들이 각각 어떻게 생겼는지 한번 살펴봅시다. 이 값들을 직접 계산하는 것은 간단하지 않지만, 우리의 목표는 이것들을 이런 형태로 변환하는 것입니다. 이것이 바로 우리가 얻고자 하는 것입니다. 여기 파란색 부분들이 우리의 목표입니다. 우리는 이런 것들을 계산하고 싶지만, 이를 직접 계산하는 것은 매우 어렵습니다. 하지만 연쇄 법칙(chain rule)에 따르면 — 연쇄 법칙을 자세히 다루지는 않을 것이고 차원(dimension)이나 곱셈 순서도 자세히 신경 쓰지 않겠지만, 매우 높은 수준에서 보면 다음과 같이 작동합니다."
+  },
+  {
+   "t": 1011,
+   "en": "So here this one is equivalent to something like this according to the chain rule. But here we can probably compute this one because — I'll talk about this in more detail in the next slides — but here you could see the relationship between a, z1, and W1 in this equation. So if you take the derivative, probably this will disappear. This will also disappear. We will have something related to x here.",
+   "ko": "여기서 이것은 연쇄 법칙에 따라 이런 형태와 같습니다. 여기 이 부분은 아마 계산할 수 있는데, 다음 슬라이드에서 더 자세히 다루겠지만, 이 식에서 a, z1, W1 사이의 관계를 볼 수 있기 때문입니다. 그래서 미분을 취하면 아마 이 부분은 사라질 것입니다. 이 부분도 사라질 것입니다. 여기에는 x와 관련된 무언가가 남을 것입니다."
+  },
+  {
+   "t": 1050,
+   "en": "So we can compute this one according to the chain rule, but the remaining question is that we don't know how to compute this one — we don't know how to compute this one. So even if you use the chain rule here, we cannot directly compute this one.",
+   "ko": "그래서 이 부분은 연쇄 법칙에 따라 계산할 수 있지만, 남은 문제는 이 부분을 어떻게 계산해야 할지 모른다는 것입니다 — 이 부분을 어떻게 계산해야 할지 모릅니다. 그래서 여기서 연쇄 법칙을 사용하더라도 이 부분은 직접 계산할 수 없습니다."
+  },
+  {
+   "t": 1065,
+   "en": "But now let's take a look on how this looks like. So if you again use the chain rule you can convert this derivative as a multiplication of two different values. And you can see that this one and this one are the same values, so according to the chain rule we will obtain this one. But now what is this value? We will not go through in detail in this slide. We will talk about this in the next slide, but if according to this relationship we could probably compute this derivative. This is nothing but the derivative of this activation function.",
+   "ko": "이제 이것이 어떻게 생겼는지 한번 살펴봅시다. 다시 연쇄 법칙을 사용하면 이 미분을 서로 다른 두 값의 곱으로 변환할 수 있습니다. 그리고 이 값과 이 값이 같다는 것을 알 수 있으므로, 연쇄 법칙에 따라 이 값을 얻게 됩니다. 그런데 이 값은 무엇일까요? 이 슬라이드에서 자세히 다루지는 않겠습니다. 다음 슬라이드에서 이야기하겠지만, 이 관계에 따르면 이 미분을 계산할 수 있을 것입니다. 이는 바로 이 활성화 함수(activation function)의 미분에 불과합니다."
+  },
+  {
+   "t": 1116,
+   "en": "So assume that we know this one, but we still don't know what this value is. How can you compute the derivative of the loss with respect to this value? So again we repeat this process. We repeat this process and then apply the chain rule. We convert this value as a multiplication of these two values. We could probably compute this value, but we don't know this value. So we go back. We go back, and then if you arrive at the end, you could convert this one as a multiplication of these two, and we assume that we can compute this one according to this relationship. Then finally we have arrived here, which is the derivative of the loss with respect to this y, and what is y? y is the output of the softmax layer.",
+   "ko": "이 값을 알고 있다고 가정해봅시다. 하지만 우리는 여전히 이 값이 무엇인지 모릅니다. 이 값에 대한 손실의 미분은 어떻게 계산할 수 있을까요? 그래서 다시 이 과정을 반복합니다. 이 과정을 반복하고 연쇄 법칙을 적용합니다. 이 값을 두 값의 곱으로 변환합니다. 이 값은 아마 계산할 수 있지만, 이 값은 모릅니다. 그래서 다시 뒤로 갑니다. 다시 뒤로 가서 끝에 도달하면, 이것을 이 두 값의 곱으로 변환할 수 있고, 이 관계에 따라 이 값을 계산할 수 있다고 가정합니다. 그러면 마침내 여기, 즉 이 y에 대한 손실의 미분에 도달하게 됩니다. y는 무엇일까요? y는 소프트맥스 레이어의 출력입니다."
+  },
+  {
+   "t": 1170,
+   "en": "And you could now finally directly see y in the final equation. So according to the final form, the only thing that you can compute is this one, and based on this value you actually go through the backward direction to compute all these values. So this is why it is called back propagation.",
+   "ko": "그리고 이제 마침내 최종 식에서 y를 직접 볼 수 있습니다. 최종 형태에 따르면, 여러분이 계산할 수 있는 유일한 것은 바로 이 값이고, 이 값을 바탕으로 실제로 역방향으로 진행하면서 나머지 모든 값들을 계산하게 됩니다. 그래서 이것을 역전파(back propagation)라고 부르는 것입니다."
+  },
+  {
+   "t": 1197,
+   "en": "So in order to compute this value, which is the derivative of the loss with respect to the parameters in the first layer, you actually need to know this one, and in order to know this one you have to know this one. In order to know this one you have to know these values. So it is actually correlated, and you cannot compute this one before obtaining this one — you cannot compute this one before obtaining this one. So once you finish the forward propagation and then compute the loss, you actually need to go backward. Based on starting from this one we have to obtain this one, based on this one you have to obtain this one, and then finally you can obtain the gradients of the later layers, and then based on this value you can compute the gradients of the earlier layers. So it is a backward direction process.",
+   "ko": "첫 번째 레이어의 파라미터에 대한 손실의 미분인 이 값을 계산하려면, 이 값을 알아야 하고, 이 값을 알려면 또 이 값을 알아야 합니다. 이 값을 알려면 이 값들을 알아야 합니다. 즉 이 값들은 서로 상관되어(correlated) 있어서, 이것을 얻기 전에는 저것을 계산할 수 없고, 저것을 얻기 전에는 이것을 계산할 수 없습니다. 그래서 순전파(forward propagation)를 마치고 손실을 계산한 다음에는, 실제로 역방향으로 가야 합니다. 여기서 시작해서 이것을 얻고, 이것을 바탕으로 저것을 얻어서, 결국 나중 레이어들의 그래디언트를 얻고, 그 값을 바탕으로 앞쪽 레이어들의 그래디언트를 계산할 수 있습니다. 즉 이는 역방향(backward direction) 과정입니다."
+  },
+  {
+   "t": 1257,
+   "en": "So this back propagation is used in most of the machine learning training process — actually almost all machine learning training processes that you already know. So whenever you do training you do forward propagation first and then do back propagation. Back propagation is not the end of the training — once you compute these gradients based on back propagation you have to utilize some of the algorithms based on this g_t.",
+   "ko": "이 역전파는 대부분의 머신러닝 학습 과정에서 사용됩니다. 사실 여러분이 이미 알고 있는 거의 모든 머신러닝 학습 과정에서 사용되죠. 학습을 할 때는 항상 먼저 순전파를 하고 그 다음 역전파를 합니다. 역전파가 학습의 끝은 아닙니다. 역전파를 통해 이 그래디언트들을 계산하고 나면, 이 g_t를 기반으로 한 알고리즘 중 하나를 활용해야 합니다."
+  },
+  {
+   "t": 1304,
+   "en": "So if you go back to this kind of slide, there is a skipped message here — you compute the gradient — oh, I have already written here — so these gradients are computed via back propagation. So back propagation is a tool to compute this. So, any questions so far?",
+   "ko": "이런 슬라이드로 돌아가 보면, 여기 빠진 부분이 있는데 — 그래디언트를 계산한다 — 아, 이미 여기 적어놓았네요 — 이 그래디언트들은 역전파를 통해 계산됩니다. 즉 역전파는 이것을 계산하기 위한 도구(tool)입니다. 여기까지 질문 있으신가요?"
+  },
+  {
+   "t": 1346,
+   "en": "So this is about back propagation, but if you summarize this process in a single slide — now, this is also a single slide, but if you focus on a specific layer and more simplified, we can actually write down the back propagation steps in two steps. But let's focus on this kind of layer, let's focus on this L layer, and a_{L-1} is the input of this layer, a_{L-1} is the input of this layer, which enables us to obtain this one — here we are ignoring the bias parameters for simplicity — but we obtain z, and this z will go through the nonlinear activation function to obtain a, which is the output of this layer, and then this will be the input of the next layer.",
+   "ko": "지금까지 역전파에 대해 이야기했는데, 이 과정을 한 장의 슬라이드로 요약해보면 — 이것도 한 장의 슬라이드이긴 하지만, 특정 레이어에 집중해서 더 단순화하면 역전파 단계를 실제로 두 단계로 적어볼 수 있습니다. 이런 레이어에 집중해봅시다. 이 L번째 레이어에 집중해보면, a_{L-1}은 이 레이어의 입력입니다. a_{L-1}은 이 레이어의 입력이고, 이를 통해 이 값을 얻을 수 있습니다 — 여기서는 단순화를 위해 편향 파라미터는 무시하겠습니다 — 그렇게 해서 z를 얻고, 이 z는 비선형 활성화 함수를 거쳐 이 레이어의 출력인 a를 얻으며, 이것이 다음 레이어의 입력이 됩니다."
+  },
+  {
+   "t": 1419,
+   "en": "But let's focus on this kind of layer and use this notation, and this direction is called the forward propagation process. The back propagation process is going reversely, but the key signal in the back propagation process is this one, which is the derivative of the loss with respect to this a, which is the output of a specific layer. This gradient is given in the L layer, and then during the back propagation process you have to utilize this signal to directly compute the gradient. So as mentioned in the previous slide, our goal here is to compute this one, but according to the chain rule you can rewrite this one like this.",
+   "ko": "이런 레이어에 집중해서 이 표기법을 사용해봅시다. 이 방향을 순전파(forward propagation) 과정이라고 부릅니다. 역전파(back propagation) 과정은 반대 방향으로 진행되는데, 역전파 과정에서 핵심이 되는 신호(signal)는 특정 레이어의 출력인 이 a에 대한 손실의 미분입니다. 이 그래디언트는 L 레이어에서 주어지고, 역전파 과정에서는 이 신호를 활용해서 그래디언트를 직접 계산해야 합니다. 앞선 슬라이드에서 언급했듯이, 우리의 목표는 이 값을 계산하는 것인데, 연쇄 법칙에 따라 이것을 이렇게 다시 쓸 수 있습니다."
+  },
+  {
+   "t": 1477,
+   "en": "Here again we are ignoring the order of multiplication, we are ignoring the specific dimension or the transpose, but at a very high level we can write it in this one, and this one is sent from the layer L plus one. So assume that this one is given, but what are these two values? What are these two values?",
+   "ko": "여기서도 마찬가지로 곱셈 순서나 구체적인 차원, 전치(transpose)는 무시하겠지만, 아주 높은 수준에서는 이렇게 쓸 수 있고, 이 값은 L+1번째 레이어에서 전달됩니다. 이 값이 주어졌다고 가정하면, 이 두 값은 무엇일까요? 이 두 값은 무엇일까요?"
+  },
+  {
+   "t": 1504,
+   "en": "You can easily compute these two values because you know the relationship between z_L and W_L. What is the relationship? This is their relationship, this is the relationship — so ignore the transpose — this could be simply...",
+   "ko": "이 두 값은 쉽게 계산할 수 있는데, z_L과 W_L 사이의 관계를 알고 있기 때문입니다. 그 관계는 무엇일까요? 이것이 바로 그 관계입니다, 이것이 그 관계입니다 — 전치는 무시하면 — 이것은 단순히..."
+  },
+  {
+   "t": 1528,
+   "en": "This is written as a^(L−1). And what is this value? You also know the relationship between A^L and Z^L, right? This is simply based on the nonlinear activation function. If you take the derivative, you could easily imagine that this is nothing but the derivative of this nonlinear activation function. So this is how you obtain these two values — you know this value, you know this value, and this value is given from the previous layer. So that's how you compute the gradient of the L-th layer.",
+   "ko": "이것은 a^(L−1)로 표기됩니다. 그러면 이 값은 무엇일까요? 여러분은 A^L과 Z^L 사이의 관계도 이미 알고 있죠. 이는 단순히 비선형 활성화 함수(nonlinear activation function)에 기반한 것입니다. 미분을 취하면, 이것이 바로 이 비선형 활성화 함수의 도함수라는 것을 쉽게 알 수 있습니다. 그래서 이런 방식으로 이 두 값을 얻습니다 — 이 값도 알고, 이 값도 알고, 그리고 이 값은 이전 레이어에서 주어집니다. 이렇게 해서 L번째 레이어의 그레디언트(gradient)를 계산하는 것입니다."
+  },
+  {
+   "t": 1577,
+   "en": "And then, the first step of backpropagation is computing the gradient of layer L. But there is another important step in backpropagation, which is computing the next backpropagation signal for layer L−1. Because if this one is passed to layer L−1, you could repeat this same process in the earlier layer as well, following exactly the same procedure. So this is another important process in backpropagation.",
+   "ko": "그래서 역전파(backpropagation)의 첫 번째 단계는 레이어 L의 그레디언트를 계산하는 것입니다. 하지만 역전파에는 또 다른 중요한 단계가 있는데, 바로 레이어 L−1로 넘길 다음 역전파 신호를 계산하는 것입니다. 왜냐하면 이 값이 레이어 L−1로 전달되면, 이전 레이어에서도 정확히 동일한 절차를 따라 이 같은 과정을 반복할 수 있기 때문입니다. 그래서 이것이 역전파에서 중요한 또 하나의 과정입니다."
+  },
+  {
+   "t": 1622,
+   "en": "So, given this value, you can actually compute this one according to the chain rule again — according to the chain rule again. But you can also directly compute this one, right? Because the relationship between Z^L and A^(L−1) is given in this form, you could imagine that this value is related to the model parameters. And then, again, this one you could compute according to this relationship, which is the derivative of the nonlinear activation function.",
+   "ko": "그래서 이 값이 주어지면, 다시 연쇄 법칙(chain rule)에 따라 이 값을 계산할 수 있습니다 — 다시 연쇄 법칙에 따라서요. 하지만 이것도 직접 계산할 수 있죠? Z^L과 A^(L−1) 사이의 관계가 이런 형태로 주어지기 때문에, 이 값이 모델 파라미터와 관련되어 있다는 것을 알 수 있습니다. 그리고 다시, 이 값은 비선형 활성화 함수의 도함수인 이 관계식에 따라 계산할 수 있습니다."
+  },
+  {
+   "t": 1662,
+   "en": "So now, once this value is given, you can directly compute two signals simultaneously — our specific goal, and the signal to be passed to the previous layer. So this signal will go through layer L−1, and then you arrive here, and then you do the gradient computation in this process again. So this process is repeated starting from the last layer, and it's repeated until we arrive at the first layer. And once you arrive at the first layer, now you know all the gradient values, so you can finally apply the gradient descent process.",
+   "ko": "이제 이 값이 주어지면, 두 가지 신호를 동시에 직접 계산할 수 있습니다 — 우리의 목표가 되는 신호와, 이전 레이어로 전달할 신호입니다. 이 신호는 레이어 L−1을 거쳐 여기에 도달하고, 그러면 다시 이 과정에서 그레디언트 계산을 하게 됩니다. 그래서 이 과정은 마지막 레이어부터 시작해서, 첫 번째 레이어에 도달할 때까지 반복됩니다. 그리고 첫 번째 레이어에 도달하면 이제 모든 그레디언트 값을 알게 되므로, 마침내 경사하강법(gradient descent) 과정을 적용할 수 있습니다."
+  },
+  {
+   "t": 1707,
+   "en": "So now, actually — if you just want to train the model without understanding this kind of concept, it's definitely possible, and many students actually use PyTorch to implement training and backpropagation without understanding it. But in order to become a competitive engineer, it's always important to understand the fundamental concepts, and I'll talk about several examples of why, throughout our course. So for one example, if you have a clear understanding of these two different processes, you can also design a more efficient distributed training algorithm in the pipeline parallelism process that we'll be talking about in week four. But if you use the power of AI, even middle school students — or elementary school students — can train a model. So then what makes the difference between you and those kinds of students who are training the model without understanding it?",
+   "ko": "사실 지금, 이런 개념을 이해하지 못한 채로 그냥 모델을 학습시키고 싶다면 그것도 물론 가능하고, 실제로 많은 학생들이 학습과 역전파가 어떻게 작동하는지 이해하지 못한 채 PyTorch로 구현해서 사용하고 있습니다. 하지만 경쟁력 있는 엔지니어가 되려면 기본 개념을 이해하는 것이 항상 중요하며, 왜 그런지에 대한 여러 예시를 이번 학기 내내 이야기하겠습니다. 한 가지 예를 들면, 이 두 가지 서로 다른 과정을 명확히 이해하고 있다면, 4주차에 다룰 파이프라인 병렬화(pipeline parallelism) 과정에서 더 효율적인 분산 학습(distributed training) 알고리즘을 설계할 수도 있습니다. 하지만 AI의 힘을 빌리면 중학생, 심지어 초등학생도 모델을 학습시킬 수 있습니다. 그렇다면 이해하지 못한 채로 모델을 학습시키는 그런 학생들과 여러분 사이의 차이는 무엇일까요?"
+  },
+  {
+   "t": 1807,
+   "en": "There are many things you can do if you understand the fundamentals clearly. So, anyway, once the backpropagation is done and you obtain the gradient, this gradient is used to update your model according to SGD or other optimizers, including Momentum, RMSProp, and Adam. And then the same process is repeated — including forward propagation, loss computation, backpropagation, and gradient descent — in the next iteration, until we train the model for many, many epochs. So this approach with backpropagation is very standard for training neural networks. So, any questions so far?",
+   "ko": "기본 개념을 명확히 이해하고 있다면 할 수 있는 일이 많습니다. 아무튼, 역전파가 끝나고 그레디언트를 얻으면, 이 그레디언트는 SGD나 Momentum, RMSProp, Adam 등 다른 옵티마이저(optimizer)에 따라 모델을 업데이트하는 데 사용됩니다. 그리고 순전파, 손실 계산, 역전파, 경사하강법을 포함한 동일한 과정이 다음 반복(iteration)에서 다시 반복되며, 이를 아주 많은 에폭(epoch) 동안 계속해서 모델을 학습시킵니다. 그래서 이런 역전파 방식이 신경망을 학습시키는 매우 표준적인 방법입니다. 여기까지 질문 있나요?"
+  },
+  {
+   "t": 1865,
+   "en": "So we now talked about most of the things that are important in training the model. This is, you know, you can apply this training algorithm to any model. And now we assume that we obtained the model finally. We talked about the basics of deep learning in one week, and now, assume that we have a model.",
+   "ko": "이제 모델을 학습시키는 데 중요한 대부분의 내용을 이야기했습니다. 이 학습 알고리즘은 어떤 모델에든 적용할 수 있습니다. 그리고 이제 우리는 마침내 모델을 얻었다고 가정합니다. 딥러닝의 기초를 한 주 동안 다뤘고, 이제 우리에게 모델이 있다고 가정해 봅시다."
+  },
+  {
+   "t": 1891,
+   "en": "The one remaining question is, how should we evaluate the performance of this model? How can we define that this model is very good? How do research papers evaluate the performance of the model? There must be a guideline on how we can evaluate the performance of the model. So that's why we have to think about testing.",
+   "ko": "이제 남은 한 가지 질문은, 이 모델의 성능을 어떻게 평가해야 하느냐는 것입니다. 이 모델이 매우 좋다는 것을 어떻게 정의할 수 있을까요? 연구 논문들은 모델의 성능을 어떻게 평가할까요? 모델의 성능을 평가하는 방법에는 반드시 어떤 지침이 있어야 합니다. 그래서 우리가 테스트(testing)에 대해 생각해봐야 하는 것입니다."
+  },
+  {
+   "t": 1925,
+   "en": "So here's a simple example: the CIFAR-10 dataset, which contains 60,000 samples — but the same philosophy can be utilized for any other type of dataset. Here you will always be hearing about the training dataset and the testing dataset that is used for performance evaluation. So you always train the model using the training dataset.",
+   "ko": "여기 간단한 예시가 있습니다. 6만 개의 샘플을 담고 있는 CIFAR-10 데이터셋인데, 동일한 철학을 다른 어떤 종류의 데이터셋에도 적용할 수 있습니다. 여기서는 항상 훈련 데이터셋(training dataset)과, 성능 평가에 사용되는 테스트 데이터셋(testing dataset)이라는 용어를 듣게 될 것입니다. 그래서 항상 훈련 데이터셋을 사용해서 모델을 학습시킵니다."
+  },
+  {
+   "t": 1967,
+   "en": "Using this dataset, you can actually compute the cross-entropy loss, do the backpropagation, and then apply gradient descent to obtain the model. Then if you repeat this process for many, many epochs, you obtain the model. But the reason why we distinguish between the training dataset and the test dataset is that, in practice, there is no guarantee that you will always observe the data samples that you observed during the training process. You might have to make predictions that were unseen during training.",
+   "ko": "이 데이터셋을 사용해서 교차 엔트로피 손실(cross entropy loss)을 계산하고, 역전파를 수행한 다음 경사하강법을 적용해서 모델을 얻을 수 있습니다. 그러고 나서 이 과정을 아주 많은 에폭 동안 반복하면 모델을 얻게 됩니다. 하지만 훈련 데이터셋과 테스트 데이터셋을 구분하는 이유는, 실제로는 학습 과정에서 관찰했던 데이터 샘플들을 항상 다시 관찰할 것이라는 보장이 없기 때문입니다. 학습 중에는 보지 못했던 데이터에 대해서도 예측을 해야 할 수 있습니다."
+  },
+  {
+   "t": 2023,
+   "en": "So that's why you evaluate the performance using data samples that are not utilized during the training process, but that, you know, have the same distribution or a similar distribution. So you optimize the model so that it performs well on these data samples, and then evaluate the performance here using the trained model. And this performance is much more important than comparing the training loss of different strategies, because even though you made the training loss zero, there's no guarantee that the test performance will be 100%. So if people talk about accuracy, then typically we are talking about this test accuracy, although some people use the terms train accuracy and test accuracy. This performance is the most important thing.",
+   "ko": "그래서 학습 과정에서 사용되지 않았지만 동일하거나 비슷한 분포를 가진 데이터 샘플들을 이용해서 성능을 평가하는 것입니다. 그래서 모델이 이 데이터 샘플들에서 잘 동작하도록 최적화한 다음, 학습된 모델을 이용해 여기서 성능을 평가합니다. 그리고 이 성능이 서로 다른 전략들의 훈련 손실(training loss)을 비교하는 것보다 훨씬 더 중요한데, 왜냐하면 훈련 손실을 0으로 만들었다고 해도 테스트 성능이 100%가 될 것이라는 보장은 없기 때문입니다. 그래서 사람들이 정확도(accuracy)를 이야기할 때는, 일부는 훈련 정확도와 테스트 정확도라는 용어를 구분해 쓰기도 하지만, 보통 이 테스트 정확도(test accuracy)를 말하는 것입니다. 이 성능이 가장 중요한 것입니다."
+  },
+  {
+   "t": 2084,
+   "en": "So, on the left-hand side here, this part can be viewed as the process where the service provider is actually training the model — OpenAI designs their model, or a user constructs their own personalized model based on on-device training. The right-hand side here is a stage where, you know, clients are directly using the model. It is somewhat like expecting how the performance will be when the service gets started. But again, as I previously mentioned, is there a guarantee that making the training loss zero will always lead to a good test performance? And the answer to this question is definitely no.",
+   "ko": "그래서 여기 왼쪽 부분은 서비스 제공자가 실제로 모델을 학습시키는 과정이라고 볼 수 있습니다 — OpenAI가 자사의 모델을 설계하거나, 사용자가 온디바이스 학습(on-device training)을 기반으로 자신만의 개인화된 모델을 구축하는 것이죠. 여기 오른쪽 부분은 클라이언트들이 그 모델을 직접 사용하는 단계입니다. 이는 서비스가 시작되었을 때 성능이 어떨지 기대하는 것과 비슷합니다. 하지만 앞서 말씀드렸듯이, 훈련 손실을 0으로 만드는 것이 항상 좋은 테스트 성능으로 이어진다는 보장이 있을까요? 이 질문에 대한 답은 분명히 아니오입니다."
+  },
+  {
+   "t": 2146,
+   "en": "This problem might happen especially if you don't have enough data samples, or if the model size is too complicated compared to the number of data samples. So although the training loss becomes zero, there's no guarantee that the test accuracy is also very good, and this is especially due to overfitting. This is also a very key concept that you will learn if you take machine learning or deep learning courses. So I can provide several examples of why overfitting can happen.",
+   "ko": "이 문제는 특히 데이터 샘플이 충분하지 않거나, 데이터 샘플 수에 비해 모델 크기가 너무 복잡할 때 발생할 수 있습니다. 그래서 훈련 손실이 0이 되더라도 테스트 정확도까지 좋을 것이라는 보장은 없으며, 이는 특히 과적합(overfitting) 때문입니다. 이는 머신러닝이나 딥러닝 수업을 듣는다면 배우게 될 매우 핵심적인 개념이기도 합니다. 그래서 과적합이 왜 발생할 수 있는지 몇 가지 예시를 들어보겠습니다."
+  },
+  {
+   "t": 2188,
+   "en": "So overfitting is the case where the model is too complicated compared to the number of data samples. This is the thing that you can imagine with overfitting, right? Let's assume that these blue samples are the training data. So you fitted the model very precisely to the training data, but if a new test sample arrives, then probably this kind of thing could better approximate — or predict — the test sample rather than this kind of overfitted model.",
+   "ko": "과적합이란 데이터 샘플 수에 비해 모델이 너무 복잡한 경우를 말합니다. 과적합에 대해 이렇게 상상해볼 수 있습니다. 이 파란색 샘플들이 훈련 데이터라고 가정해 봅시다. 그래서 모델을 훈련 데이터에 매우 정밀하게 맞췄지만, 새로운 테스트 샘플이 들어오면 이런 과적합된 모델보다는 이런 형태의 모델이 테스트 샘플을 더 잘 근사하거나 예측할 수 있을 것입니다."
+  },
+  {
+   "t": 2238,
+   "en": "And then this provides insight into underfitting, where the model is too simple compared to the number of data samples. So if overfitting happens like this, it means that the model may not generalize well to unseen samples. This happens when we train complex neural networks with insufficient data, and this provides further examples. This is our goal, and underfitting is the case where we are using too simple a model, so the model cannot really learn the hidden patterns in the data.",
+   "ko": "그리고 이것은 과소적합(underfitting)에 대한 통찰도 제공하는데, 이는 데이터 샘플 수에 비해 모델이 너무 단순한 경우입니다. 이런 식으로 과적합이 발생하면, 모델이 보지 못한 샘플에 대해 잘 일반화하지 못한다는 것을 의미합니다. 이는 데이터가 충분하지 않은 상태에서 복잡한 신경망을 학습시킬 때 발생하며, 여기 더 많은 예시가 있습니다. 이것이 우리의 목표이고, 과소적합은 너무 단순한 모델을 사용해서 모델이 데이터 안의 숨겨진 패턴을 제대로 학습하지 못하는 경우입니다."
+  },
+  {
+   "t": 2290,
+   "en": "So here you can see the validation error — you can think of validation error as a test error in this example. In this case, both the training error and the validation error are very high. And in this other case, the training error is very low, which means the model is very precisely optimized to the training samples, but for unseen data samples it is not performing well. So overfitting is the case where the model is too ambitious — trying to learn everything in the data, including the noise in the training samples.",
+   "ko": "여기서 검증 오차(validation error)를 볼 수 있는데, 이 예시에서는 검증 오차를 테스트 오차로 생각하면 됩니다. 이 경우에는 훈련 오차와 검증 오차가 둘 다 매우 높습니다. 그리고 다른 경우에는 훈련 오차가 매우 낮은데, 이는 모델이 훈련 샘플에 매우 정밀하게 최적화되었지만 보지 못한 데이터 샘플에 대해서는 잘 동작하지 않는다는 것을 의미합니다. 그래서 과적합이란 모델이 지나치게 욕심을 부려서, 훈련 샘플에 포함된 노이즈까지 포함해 데이터의 모든 것을 학습하려는 경우입니다."
+  },
+  {
+   "t": 2331,
+   "en": "So people have studied many approaches to make this model look more like that model. So you can imagine collecting more data — collecting more data. If you collect more data, the training error could increase, because making the training loss zero becomes more difficult when you have more training data. But the model might perform better on unseen data samples during testing.",
+   "ko": "그래서 사람들은 이 모델을 저 모델처럼 만들기 위해 여러 접근법을 연구해 왔습니다. 가장 먼저 떠올릴 수 있는 것은 데이터를 더 많이 수집하는 것입니다. 데이터를 더 많이 수집하면, 훈련 데이터가 많아질수록 훈련 손실을 0으로 만들기가 더 어려워지기 때문에 오히려 훈련 오차는 증가할 수 있습니다. 하지만 테스트 시 보지 못한 데이터 샘플에 대해서는 모델이 더 잘 동작할 수 있습니다."
+  },
+  {
+   "t": 2384,
+   "en": "But collecting more data is often not very easy — it's often very difficult. So people can imagine generating new data using the given data. For an image example, you could generate more samples from the original data by rotating, flipping, scaling, or shifting, so that the model can better learn this kind of cat or any other images. And you can also generate text data — do augmentation for text data. And nowadays, this kind of data augmentation can be done using generative models — models that generate images, or using LLMs to generate new text. So once you have this kind of new data, the generalization performance can increase.",
+   "ko": "하지만 데이터를 더 많이 수집하는 것은 흔히 쉽지 않고, 종종 매우 어렵습니다. 그래서 사람들은 주어진 데이터를 이용해 새로운 데이터를 생성하는 것을 생각해볼 수 있습니다. 이미지의 예를 들면, 원본 데이터를 회전, 뒤집기, 크기 조정, 또는 이동시켜서 더 많은 샘플을 생성함으로써 모델이 이런 고양이나 다른 이미지들을 더 잘 학습하도록 할 수 있습니다. 그리고 텍스트 데이터도 증강(augmentation)할 수 있습니다. 요즘에는 이런 데이터 증강(data augmentation)을 이미지를 생성하는 생성 모델(generative model)이나, 새로운 텍스트를 생성하는 LLM을 이용해서도 할 수 있습니다. 이렇게 새로운 데이터를 얻으면 일반화 성능이 향상될 수 있습니다."
+  },
+  {
+   "t": 2460,
+   "en": "And then you might also have heard about L2 regularization, or weight decay. This is also sometimes implemented in many machine learning algorithms, and you might have heard about this kind of thing. And again, many people sometimes use this without having a clear understanding of it. But the intuition is not that difficult, actually.",
+   "ko": "그리고 L2 규제(L2 regularization), 즉 가중치 감쇠(weight decay)에 대해서도 들어봤을 것입니다. 이것도 많은 머신러닝 알고리즘에 종종 구현되어 있고, 이런 것에 대해 들어봤을 수 있습니다. 그리고 다시 말하지만, 많은 사람들이 명확한 이해 없이 이것을 사용하곤 합니다. 하지만 사실 그 직관은 그렇게 어렵지 않습니다."
+  },
+  {
+   "t": 2492,
+   "en": "This is the traditional loss that we are trying to optimize. But using only this original loss can lead to overfitting. So people have tried to utilize this kind of L2 norm. So, minimizing this one — in order to minimize this, we have to minimize not only this term, but also this term. And to minimize this term means that the norm of the model parameters should be minimized.",
+   "ko": "이것이 우리가 최적화하려는 전통적인 손실 함수(loss function)입니다. 하지만 이 원래의 손실만 사용하면 과적합으로 이어질 수 있습니다. 그래서 사람들은 이런 L2 노름(L2 norm)을 활용하려 했습니다. 이것을 최소화하려면, 이 항뿐만 아니라 이 항도 함께 최소화해야 합니다. 그리고 이 항을 최소화한다는 것은 모델 파라미터의 노름이 최소화되어야 한다는 것을 의미합니다."
+  },
+  {
+   "t": 2533,
+   "en": "And you can imagine that this will prevent the model parameters from getting extremely large. And why can this prevent overfitting? This is based on the intuition that these kinds of extreme cases could happen — extreme cases where the model can have a very large weight to get overfitted by learning everything, including the noise. So this is just trying to prevent the extreme cases — extreme cases where specific values become very large. So we are just bounding, bounding the norm.",
+   "ko": "그러면 이것이 모델 파라미터가 지나치게 커지는 것을 막아준다는 것을 짐작할 수 있습니다. 그런데 이것이 왜 과적합을 막아줄까요? 이는 노이즈를 포함해서 모든 것을 학습해 과적합되기 위해 모델이 매우 큰 가중치를 가질 수 있는, 그런 극단적인 경우가 발생할 수 있다는 직관에 기반합니다. 그래서 이것은 단지 특정 값들이 매우 커지는 그런 극단적인 경우를 막으려는 것입니다. 즉 우리는 그저 노름(norm)을 제한하고 있는 것입니다."
+  },
+  {
+   "t": 2588,
+   "en": "But of course, there is a trade-off, right? If you introduce this kind of lambda parameter, there is always a trade-off. If this value is zero, then this is the traditional loss function, so we could face overfitting. And if this value is very large, then the model will just try to make the norm zero instead of trying to minimize the original loss — so performance will not be very good, because the model parameters will not minimize the original loss. So there might be an appropriate lambda depending on the application, the dataset, and the model.",
+   "ko": "하지만 물론 여기에는 트레이드오프가 있습니다. 이런 람다(lambda) 파라미터를 도입하면 항상 트레이드오프가 존재합니다. 이 값이 0이면 전통적인 손실 함수와 같아지므로 과적합에 직면할 수 있습니다. 그리고 이 값이 매우 크면, 모델은 원래의 손실을 최소화하려 하기보다 그냥 노름을 0으로 만들려고 할 것이므로 — 모델 파라미터가 원래 손실을 최소화하지 못하기 때문에 성능이 그다지 좋지 않을 것입니다. 그래서 응용 분야, 데이터셋, 그리고 모델에 따라 적절한 람다 값이 존재할 수 있습니다."
+  },
+  {
+   "t": 2647,
+   "en": "So the intuition is very simple — we are just preventing the extreme case. And this is also a concept that you might have seen in many machine learning or deep learning books, or in lecture notes, and the intuition here is also somewhat similar to what we saw in that slide. So, the intuition is that if you directly train this standard neural network, overfitting can happen because some neurons, or some weights, become too dominant. So again, this philosophy is somewhat similar to that slide, where we were talking about extreme cases — there might be an extreme case where one neuron, or one model parameter, becomes too dominant.",
+   "ko": "그래서 직관은 매우 단순합니다 — 우리는 그저 극단적인 경우를 막고 있는 것입니다. 그리고 이것은 여러분이 머신러닝이나 딥러닝 책, 또는 강의 노트에서 봤을 법한 개념이기도 하며, 여기서의 직관도 앞서 본 슬라이드와 다소 비슷합니다. 즉, 이 표준적인 신경망을 그대로 학습시키면 일부 뉴런이나 가중치가 지나치게 지배적이 되어 과적합이 발생할 수 있다는 것이 그 직관입니다. 다시 말해 이 철학은 극단적인 경우에 대해 이야기했던 그 슬라이드와 비슷한데, 하나의 뉴런이나 하나의 모델 파라미터가 지나치게 지배적이 되는 극단적인 경우가 있을 수 있습니다."
+  },
+  {
+   "t": 2717,
+   "en": "It could be optimized in a very weird way, so that it performs very well on our training data, but doesn't perform well — it's not generalizable. So the idea is that we would like to make the model not rely on certain neurons — not rely on only a few neurons. So if you optimize this, according to gradient descent, we could get stuck in those kinds of local minima where specific neurons are very dominant. But the idea here is that, for each gradient descent update — or each epoch — you could actually randomly remove some of the neurons, or remove some of the weight parameters.",
+   "ko": "모델이 매우 이상한 방식으로 최적화되어서 훈련 데이터에서는 매우 잘 동작하지만, 일반화가 되지 않아 잘 동작하지 않을 수 있습니다. 그래서 우리가 원하는 것은 모델이 특정 뉴런들, 즉 소수의 뉴런에만 의존하지 않도록 만드는 것입니다. 이것을 경사하강법에 따라 그대로 최적화하면, 특정 뉴런들이 매우 지배적인 그런 국소 최솟값(local minima)에 갇힐 수 있습니다. 하지만 여기서의 아이디어는, 매 경사하강법 업데이트마다 — 또는 매 에폭마다 — 실제로 일부 뉴런이나 일부 가중치 파라미터를 무작위로 제거할 수 있다는 것입니다."
+  },
+  {
+   "t": 2779,
+   "en": "You randomly choose some of the neurons — so, in this example, you randomly choose these neurons to remove, and then apply gradient descent. So only these remaining model parameters get updated to minimize the cross-entropy loss function. In the next iteration, you randomly choose different neurons again, and then apply gradient descent.",
+   "ko": "일부 뉴런들을 무작위로 선택합니다. 이 예시에서는 제거할 이 뉴런들을 무작위로 선택한 다음 경사하강법을 적용합니다. 그러면 남아 있는 이 모델 파라미터들만 업데이트되어 교차 엔트로피 손실 함수를 최소화하게 됩니다. 다음 반복에서는 다시 다른 뉴런들을 무작위로 선택한 다음 경사하강법을 적용합니다."
+  },
+  {
+   "t": 2816,
+   "en": "And why are we doing this? If you do this kind of thing, the model, at the end, will not rely on certain neurons, because there is no neuron that you always saw throughout the training process. So even though, in this case, the model relied on this neuron a lot, after a few iterations — and according to the randomness — this neuron can get removed during updates. So in that iteration, the model will rely on different neurons. So you're actually having a different neural network for each update, making the model less dependent on certain neurons.",
+   "ko": "그런데 왜 이런 일을 할까요? 이렇게 하면, 학습 과정 내내 항상 존재하는 뉴런이 없기 때문에, 결국 모델은 특정 뉴런에 의존하지 않게 됩니다. 그래서 이 경우 모델이 이 뉴런에 크게 의존했다 하더라도, 몇 번의 반복 후에는 무작위성에 따라 이 뉴런이 업데이트 과정에서 제거될 수 있습니다. 그러면 그 반복에서는 모델이 다른 뉴런들에 의존하게 됩니다. 즉 실제로는 업데이트마다 서로 다른 신경망을 갖게 되는 셈이고, 이는 모델이 특정 뉴런에 덜 의존하도록 만듭니다."
+  },
+  {
+   "t": 2876,
+   "en": "So if you directly look at the performance between predictions with dropout and without dropout, you can see that dropout can lead to performance improvement by handling the effect of overfitting. So that's about overfitting. Any questions so far? Okay, so now we know how training works — everything. We know how to train the model, and we've also talked about what happens if you don't have enough data, or if the model is too complicated.",
+   "ko": "드롭아웃(dropout)을 적용한 예측과 적용하지 않은 예측의 성능을 직접 비교해보면, 드롭아웃이 과적합의 영향을 완화함으로써 성능 향상을 가져올 수 있다는 것을 알 수 있습니다. 이것이 과적합에 대한 내용입니다. 여기까지 질문 있나요? 좋습니다, 이제 우리는 학습이 어떻게 작동하는지, 모든 것을 알게 되었습니다. 모델을 어떻게 학습시키는지 알게 되었고, 데이터가 충분하지 않거나 모델이 너무 복잡할 때 어떤 일이 일어나는지도 이야기했습니다."
+  },
+  {
+   "t": 2947,
+   "en": "And then I will also upload — if you go to LearnUs, you can see how PyTorch works. The material that I've uploaded is this one, PyTorch Basics. But I will also upload one more material on training deep neural networks using PyTorch — you'll see how to define the neural network, how to use backpropagation in PyTorch, how to apply gradient descent in PyTorch, and how to apply the Adam optimizer in PyTorch. That kind of material will be uploaded next week.",
+   "ko": "그리고 자료도 업로드할 텐데, LearnUs에 가면 PyTorch가 어떻게 동작하는지 볼 수 있습니다. 지금까지 업로드한 자료는 이 PyTorch Basics입니다. 하지만 PyTorch를 이용해 심층 신경망(deep neural network)을 학습시키는 방법에 대한 자료도 하나 더 업로드할 예정인데, 여기서는 신경망을 어떻게 정의하는지, PyTorch에서 역전파를 어떻게 사용하는지, PyTorch에서 경사하강법을 어떻게 적용하는지, 그리고 PyTorch에서 Adam 옵티마이저를 어떻게 적용하는지 보게 될 것입니다. 그런 자료는 다음 주에 업로드하겠습니다."
+  },
+  {
+   "t": 3012,
+   "en": "And then on Friday, we'll be talking about a concept called batch normalization, briefly. This is another component that tries to improve the performance of the model. And then we will be talking about convolutional neural networks, briefly. And then on Friday, we will also talk about — based on the background we've covered so far — what issues arise when training neural networks, especially in terms of memory, and this will motivate distributed training.",
+   "ko": "그리고 금요일에는 배치 정규화(batch normalization)라는 개념에 대해 간단히 이야기하겠습니다. 이는 모델의 성능을 향상시키려는 또 다른 요소입니다. 그리고 합성곱 신경망(convolutional neural network, CNN)에 대해서도 간단히 이야기할 것입니다. 그리고 금요일에는 지금까지 다룬 배경을 바탕으로, 신경망을 학습시킬 때 특히 메모리 측면에서 어떤 문제가 발생하는지도 이야기할 것이며, 이것이 분산 학습(distributed training)에 대한 동기가 될 것입니다."
+  },
+  {
+   "t": 3057,
+   "en": "And then, from next week, we will be talking about the basics of distributed training algorithms, based on this background and motivation. Okay, so I'll stop at this point, and we'll keep talking about these concepts on Friday. Thank you very much.",
+   "ko": "그리고 다음 주부터는 이런 배경과 동기를 바탕으로 분산 학습 알고리즘의 기초에 대해 이야기하겠습니다. 자, 오늘은 여기서 마치고, 이 내용들은 금요일에 계속 이야기하겠습니다. 대단히 감사합니다."
+  }
+ ]
+}
