@@ -1,0 +1,265 @@
+{
+ "id": "2026-09-11-system-programming-1",
+ "course": "system-programming",
+ "title": "Threads, Process Creation & Destruction (L01 wrap-up)",
+ "date": "2026-09-11",
+ "duration_sec": 3249,
+ "audio_url": "https://pub-950a8b85c4a448b4b96d2942eec87d6b.r2.dev/2026-09-11-system-programming-1.m4a",
+ "paragraphs": [
+  {
+   "t": 0,
+   "en": "So, who is good at this, and what kind of tech do you use? Let's get started.",
+   "ko": "자, 이거 잘하는 사람 누구예요? 어떤 기술 쓰세요? 자, 시작합시다."
+  },
+  {
+   "t": 78,
+   "en": "So far, we were discussing the Linux processes, right? Let's quickly go over the things we discussed on Wednesday first. So, a kernel maintains two data structures. The first was the list, and the second one was the hash. So, the hash is used to query and search, and the list is used to scan the list, or traverse the list, or something. So, the kernel has two main data structures. The CPU has a run queue to deal with the runnable processes, and a wait queue to handle the blocked processes. They are related to this diagram. As you can see here, these runnable and running tasks are in the run queue, and these blocked processes are in the wait queue. So, these two data structures are important.",
+   "ko": "지금까지 우리는 리눅스 프로세스에 대해 이야기하고 있었죠? 먼저 지난 수요일에 다룬 내용을 빠르게 한번 짚고 넘어갑시다. 커널은 두 가지 자료구조를 유지합니다. 첫 번째는 리스트였고, 두 번째는 해시였습니다. 해시는 조회하고 검색하는 데 사용되고, 리스트는 리스트를 스캔하거나 순회하는 데 사용됩니다. 그래서 커널은 이 두 가지 주요 자료구조를 가지고 있습니다. CPU는 실행 가능한 프로세스들을 다루는 run queue와 블록된 프로세스들을 처리하는 wait queue를 가지고 있습니다. 이건 이 다이어그램과 관련이 있습니다. 보시다시피 여기 이 실행 가능하고 실행 중인 태스크들은 run queue에 있고, 블록된 프로세스들은 wait queue에 있습니다. 그래서 이 두 자료구조가 중요합니다."
+  },
+  {
+   "t": 184,
+   "en": "We also addressed this process switching. The process switching happens when these four events occur. The first one was when a process puts itself to sleep, and the second one was when a process exits, and the third and fourth are related to the system calls and the interrupt. When these things happen, the kernel does a process switch. When the kernel does the process switch, the important thing is that the kernel should save or restore the hardware context to somewhere. The first data structure was the thread_struct data structure, and also some information is saved in the kernel mode stack. I explained this process switching process step by step. There are several hardware contexts, including the stack pointer and instruction pointer. What this kernel function does is to save the hardware context to the kernel stack and this task descriptor. It is switching the hardware context from process 1 to process 2. I explained this process switching process last Wednesday.",
+   "ko": "또한 프로세스 스위칭에 대해서도 다뤘습니다. 프로세스 스위칭은 이 네 가지 이벤트가 발생할 때 일어납니다. 첫 번째는 프로세스가 스스로 잠들 때이고, 두 번째는 프로세스가 종료될 때이며, 세 번째와 네 번째는 시스템 콜과 인터럽트와 관련이 있습니다. 이런 일이 발생하면 커널은 프로세스 스위치를 수행합니다. 커널이 프로세스 스위치를 할 때 중요한 것은 커널이 하드웨어 컨텍스트를 어딘가에 저장하거나 복원해야 한다는 것입니다. 첫 번째 자료구조는 thread_struct 자료구조였고, 또 일부 정보는 커널 모드 스택에 저장됩니다. 이 프로세스 스위칭 과정을 단계별로 설명했었죠. 스택 포인터와 인스트럭션 포인터를 포함해서 여러 하드웨어 컨텍스트가 있습니다. 이 커널 함수가 하는 일은 하드웨어 컨텍스트를 커널 스택과 이 태스크 디스크립터에 저장하는 것입니다. 이건 프로세스 1에서 프로세스 2로 하드웨어 컨텍스트를 전환하는 것입니다. 이 프로세스 스위칭 과정은 지난 수요일에 설명했습니다."
+  },
+  {
+   "t": 302,
+   "en": "But without threads, when we just use only processes for some parallel execution, it is very inefficient. Because there is no shared data among processes, and to share information between processes, the operating system or the processes should use some features like inter-process communication, which is IPC or something. They are a bit difficult to use, and they are very inefficient. That's why the kernel developers wanted to employ these thread features. This is why threads have been employed in the Linux kernel.",
+   "ko": "그런데 스레드 없이 병렬 실행을 위해 프로세스만 사용하면 매우 비효율적입니다. 프로세스들 사이에는 공유되는 데이터가 없기 때문에, 프로세스 간에 정보를 공유하려면 운영체제나 프로세스가 IPC 같은 inter-process communication 기능을 사용해야 합니다. 이런 것들은 사용하기가 좀 어렵고 매우 비효율적입니다. 그래서 커널 개발자들이 이 스레드 기능을 도입하고 싶어 했던 것입니다. 이것이 리눅스 커널에 스레드가 도입된 이유입니다."
+  },
+  {
+   "t": 358,
+   "en": "Because threads can share resources, and within the threads, we don't need to use IPC or something. Also, one important thing is that the threads are scheduled individually. This is also an important thing in the Linux kernel. I mentioned this—there can be several ways to implement threads. The first idea is user-level threads, and the second idea was the kernel-level threads.",
+   "ko": "스레드는 자원을 공유할 수 있기 때문에, 스레드 안에서는 IPC 같은 걸 쓸 필요가 없습니다. 또한 중요한 점은 스레드가 개별적으로 스케줄링된다는 것입니다. 이것도 리눅스 커널에서 중요한 부분입니다. 제가 말씀드렸듯이, 스레드를 구현하는 방법에는 여러 가지가 있을 수 있습니다. 첫 번째 아이디어는 user-level 스레드이고, 두 번째 아이디어는 kernel-level 스레드였습니다."
+  },
+  {
+   "t": 395,
+   "en": "The user-level threads are something like... there can be one big while loop, and you can write some if statements, for example—if something is something, and if something is something, and within this if statement, you can run some specific functions or tests or something. But this is all about the user-level things. From the kernel's perspective, the kernel does see this program as a single-threaded program. Which means that if one thread, one user-level thread, should be blocked for some IO event or something, then, since the kernel just sees this program as a single thread, the remaining threads cannot be scheduled on the CPU. This is not a thing that Linux kernel developers wanted.",
+   "ko": "user-level 스레드는 이런 식입니다... 하나의 큰 while 루프가 있고, 예를 들어 if 문 몇 개를 작성할 수 있습니다. 어떤 조건이면 이렇게, 또 다른 조건이면 저렇게, 이 if 문 안에서 특정 함수나 테스트 같은 걸 실행할 수 있습니다. 하지만 이건 전부 user-level에서만 일어나는 일입니다. 커널의 관점에서 보면, 커널은 이 프로그램을 단일 스레드 프로그램으로 봅니다. 즉, 만약 하나의 user-level 스레드가 어떤 IO 이벤트 때문에 블록되어야 한다면, 커널은 이 프로그램을 그냥 단일 스레드로 보기 때문에 나머지 스레드들도 CPU에서 스케줄링될 수 없습니다. 이건 리눅스 커널 개발자들이 원했던 것이 아닙니다."
+  },
+  {
+   "t": 474,
+   "en": "The kernel-level threads means that the kernel can handle these multiple threads. So now, all of these threads are schedulable. So if one thread blocks for IO, then the remaining threads can run on the CPU. So this is the huge difference. So in the Linux kernel, the kernel selected this design choice.",
+   "ko": "kernel-level 스레드라는 것은 커널이 이 여러 스레드를 직접 다룰 수 있다는 뜻입니다. 그래서 이제 이 모든 스레드들이 스케줄링 가능해집니다. 그래서 만약 한 스레드가 IO 때문에 블록되어도 나머지 스레드들은 CPU에서 실행될 수 있습니다. 이게 바로 큰 차이점입니다. 그래서 리눅스 커널은 이 설계 방식을 선택했습니다."
+  },
+  {
+   "t": 515,
+   "en": "So let's think about how we can implement these threads. One way is to introduce a new data structure, or new structure, or new classes, or new functions for threads, in addition to processes. However, the kernel developers, in particular Linus Torvalds, decided against extending the Linux kernel with threads. So instead, processes were allowed to share resources. So the Linux kernel developers decided to reuse the data structure related to processes to implement threads.",
+   "ko": "자, 이 스레드를 어떻게 구현할 수 있을지 생각해봅시다. 한 가지 방법은 프로세스에 더해서 스레드를 위한 새로운 자료구조, 새로운 구조체, 새로운 클래스, 새로운 함수를 도입하는 것입니다. 하지만 커널 개발자들, 특히 리누스 토발즈는 리눅스 커널을 스레드로 확장하지 않기로 결정했습니다. 대신 프로세스들이 자원을 공유할 수 있도록 했습니다. 그래서 리눅스 커널 개발자들은 프로세스와 관련된 자료구조를 재사용해서 스레드를 구현하기로 결정했습니다."
+  },
+  {
+   "t": 562,
+   "en": "So there's no separate data structure for processes and threads. There's only a single data structure, and this data structure is used to implement both processes and threads. So the thing is that some resources are implemented to be able to be shared. So when a process is being created, the parent process can specify what resources to share with its child. Based on this configuration, the child can be a process or can be a thread. So we can also say a thread is a lightweight process, because some resources are shared, so the process is very lightweight. So in this sense, a thread is a lightweight process—this is what a lightweight process is. The reason it's called lightweight is that this lightweight process does not have the full resources and the full data structures that a process has.",
+   "ko": "그래서 프로세스와 스레드를 위한 별도의 자료구조는 없습니다. 오직 하나의 자료구조만 있고, 이 자료구조가 프로세스와 스레드를 구현하는 데 모두 사용됩니다. 그래서 핵심은 일부 자원들이 공유될 수 있도록 구현되어 있다는 것입니다. 프로세스가 생성될 때, 부모 프로세스는 자식과 어떤 자원을 공유할지 지정할 수 있습니다. 이 설정에 따라 자식은 프로세스가 될 수도 있고 스레드가 될 수도 있습니다. 그래서 우리는 스레드를 lightweight process라고도 부를 수 있습니다. 일부 자원이 공유되기 때문에 매우 가볍다는 뜻이죠. 그러니까 이런 의미에서 스레드는 lightweight process입니다. 이것이 바로 lightweight process가 무엇인지에 대한 설명입니다. lightweight라고 불리는 이유는 이 lightweight process가 일반 프로세스가 가진 전체 자원과 전체 자료구조를 다 가지고 있지 않기 때문입니다."
+  },
+  {
+   "t": 648,
+   "en": "So lightweight processes are organized in thread groups, and the first process in the group—for example, this green one—is the thread group leader, and its ID becomes the thread group ID. So these three threads are in the same group, and we can say they are threads. And when you take a look at these two threads, they are in different thread group IDs, so they don't share anything between each other.",
+   "ko": "lightweight process들은 thread group으로 조직됩니다. 그룹에서 첫 번째 프로세스, 예를 들어 이 초록색 프로세스가 thread group leader가 되고, 그 ID가 thread group ID가 됩니다. 그래서 이 세 개의 스레드는 같은 그룹에 속해 있고, 우리는 이것들을 스레드라고 부를 수 있습니다. 그리고 이 두 개의 스레드를 보면, 서로 다른 thread group ID를 가지고 있어서 서로 아무것도 공유하지 않습니다."
+  },
+  {
+   "t": 698,
+   "en": "So the lightweight process is how the Linux kernel implements threads. So this is an example: when you run Firefox—do you use Firefox as your web browser? No? Yeah? Oh, you're very unique. So anyway, the modern web browsers are basically multi-process, multi-threaded applications. When you run Firefox, some process has multiple threads, and as you can see here, they share the same thread group ID, which means that they are threads based on this lightweight process implementation.",
+   "ko": "그러니까 lightweight process가 바로 리눅스 커널이 스레드를 구현하는 방식입니다. 예를 들어 여러분이 Firefox를 실행할 때—혹시 웹 브라우저로 Firefox 쓰시나요? 안 써요? 써요? 오, 되게 특이하네요. 아무튼 요즘 웹 브라우저들은 기본적으로 multi-process, multi-threaded 애플리케이션입니다. Firefox를 실행하면 어떤 프로세스는 여러 개의 스레드를 가지고 있고, 보시다시피 이들은 같은 thread group ID를 공유하는데, 이는 이 lightweight process 구현 방식에 기반한 스레드라는 뜻입니다."
+  },
+  {
+   "t": 744,
+   "en": "So, okay—this clone function is a wrapper function defined in the C library, and this function is for creating a new process, a new thread. Actually, thread and process are pretty much the same, so anyway, this function is used to implement threads. Maybe these elements can be different in the current version of Linux or something, but anyway, the important thing is that it takes several parameters. This function parameter specifies the function to be executed when the new process starts, and the second parameter specifies the state, flag, and argument. This argument is for that function.",
+   "ko": "자, 이 clone 함수는 C 라이브러리에 정의된 wrapper 함수인데, 이 함수는 새로운 프로세스, 새로운 스레드를 생성하기 위한 것입니다. 사실 스레드와 프로세스는 거의 같은 것이라서, 아무튼 이 함수는 스레드를 구현하는 데 사용됩니다. 현재 버전의 리눅스에서는 이 요소들이 다를 수도 있지만, 아무튼 중요한 건 이 함수가 여러 파라미터를 받는다는 것입니다. 이 함수 파라미터는 새 프로세스가 시작될 때 실행될 함수를 지정하고, 두 번째 파라미터는 상태, 플래그, 인자를 지정합니다. 이 인자는 그 함수를 위한 것입니다."
+  },
+  {
+   "t": 825,
+   "en": "So the important point is that when we call this function, we can determine the degree of kernel context sharing. Threads share something between each other—for example, the virtual address space, file system information, and open file descriptors. So if we specify that a new process shares these things with the parent, then it's a thread. But if we specify that the new child process does not share this data with the parent, then it's a process. So the degree of sharing determines whether it's a process or a thread.",
+   "ko": "중요한 점은 이 함수를 호출할 때 커널 컨텍스트를 어느 정도까지 공유할지를 결정할 수 있다는 것입니다. 스레드들은 서로 뭔가를 공유하는데, 예를 들면 virtual address space, 파일 시스템 정보, 열린 파일 디스크립터 같은 것들입니다. 그래서 만약 새 프로세스가 부모와 이런 것들을 공유하도록 지정하면 그건 스레드가 됩니다. 하지만 새로운 자식 프로세스가 부모와 이 데이터를 공유하지 않도록 지정하면 그건 프로세스가 됩니다. 그러니까 공유하는 정도가 그것이 프로세스인지 스레드인지를 결정합니다."
+  },
+  {
+   "t": 875,
+   "en": "So this is also used to specify the signal-related thing, but actually, this is not for a thread, this is for a process. So let's take a look at how the wrapper function clone works. When the user program calls this clone function, it internally calls the system call in user address space. Since it's a system call, mode switching happens, and in kernel mode, it calls this clone function—the do_fork function, or something. So this is how the wrapper function clone works.",
+   "ko": "이건 signal과 관련된 것을 지정하는 데도 사용되는데, 사실 이건 스레드를 위한 게 아니라 프로세스를 위한 것입니다. 자, 그럼 wrapper 함수인 clone이 어떻게 동작하는지 봅시다. 사용자 프로그램이 이 clone 함수를 호출하면, 내부적으로 사용자 주소 공간에서 시스템 콜을 호출합니다. 시스템 콜이기 때문에 모드 전환이 일어나고, 커널 모드에서 이 clone 함수, 즉 do_fork 함수 같은 걸 호출합니다. 이게 바로 wrapper 함수 clone이 동작하는 방식입니다."
+  },
+  {
+   "t": 928,
+   "en": "And also, there are less lightweight processes. So usually there were processes, right? When it comes to processes, they don't share anything between each other. But now, when the Linux kernel implements threads, it implements these threads as lightweight processes, because they share something. But the kernel also introduces less lightweight processes—but this is for processes, not for threads. The reason they introduced less lightweight processes is for efficiency, because Linux kernel developers wanted to preserve some resources during process creation. So these two are an example.",
+   "ko": "그리고 less lightweight process라는 것도 있습니다. 원래 프로세스라는 게 있었죠? 프로세스는 서로 아무것도 공유하지 않습니다. 그런데 리눅스 커널이 스레드를 구현할 때는 이 스레드들을 lightweight process로 구현합니다. 뭔가를 공유하기 때문이죠. 하지만 커널은 less lightweight process라는 것도 도입했는데, 이건 스레드가 아니라 프로세스를 위한 것입니다. less lightweight process를 도입한 이유는 효율성 때문입니다. 리눅스 커널 개발자들이 프로세스 생성 과정에서 자원을 아끼고 싶어했기 때문입니다. 이 두 가지가 그 예시입니다."
+  },
+  {
+   "t": 989,
+   "en": "So, you may already know this system call, fork, because I think the operating systems course covers this system call first. This is used when you create a new process. But when a user program calls this fork system call... there is no reason to create a new virtual address, but we don't need to map this virtual address to physical memory. Because when the new process has been created— okay, sorry, it's quite difficult to explain. So, when this fork system call is called, the new process has been created, and it has its own virtual address space. But for that, this virtual memory should be mapped into physical memory, right? But we don't need to copy all the data from the parent to the child if it's not necessary, because at this moment, they may refer to the same data, code, or stack.",
+   "ko": "여러분은 이 fork라는 시스템 콜을 이미 알고 계실 텐데, 운영체제 수업에서 이 시스템 콜을 먼저 다루기 때문일 겁니다. 이건 새로운 프로세스를 생성할 때 사용됩니다. 그런데 사용자 프로그램이 이 fork 시스템 콜을 호출하면... 새로운 가상 주소를 만들 필요는 없는데, 이 가상 주소를 물리 메모리에 매핑할 필요는 없습니다. 왜냐하면 새로운 프로세스가 생성되면— 아, 죄송해요, 이거 설명하기가 좀 어렵네요. 그러니까 이 fork 시스템 콜이 호출되면, 새로운 프로세스가 생성되고 자기만의 가상 주소 공간을 가지게 됩니다. 그런데 이를 위해서는 이 가상 메모리가 물리 메모리에 매핑되어야 하잖아요? 하지만 굳이 필요하지 않다면 부모에서 자식으로 모든 데이터를 복사할 필요는 없습니다. 왜냐하면 이 시점에는 이들이 같은 데이터, 코드, 혹은 스택을 참조하고 있을 수도 있기 때문입니다."
+  },
+  {
+   "t": 1117,
+   "en": "So if the child process only reads the data from the parent process, then the child process may just refer to the same physical pages, because the child process will not write anything to this physical memory area—there's no data change. The child process just reads the data, so there's no reason to copy the data from the parent to the child. But whenever either one, meaning the parent or the child, tries to write something to this area, then the kernel copies this page into a new physical page. That's how the Linux kernel preserves memory resources during process creation—if there's no change to the physical memory, there's no reason to copy the data from the parent to the child. This is called copy-on-write: copying happens when a write operation happens. So in short, this is COW.",
+   "ko": "만약 자식 프로세스가 부모 프로세스로부터 데이터를 읽기만 한다면, 자식 프로세스는 그냥 같은 물리 페이지를 참조하면 됩니다. 자식 프로세스가 이 물리 메모리 영역에 아무것도 쓰지 않을 것이기 때문이죠. 데이터 변경이 없으니까요. 자식 프로세스는 그냥 데이터를 읽기만 하니까, 부모에서 자식으로 데이터를 복사할 이유가 없습니다. 하지만 부모든 자식이든 둘 중 하나가 이 영역에 뭔가를 쓰려고 하면, 그때 커널은 이 페이지를 새로운 물리 페이지로 복사합니다. 이게 바로 리눅스 커널이 프로세스 생성 시 메모리 자원을 아끼는 방법입니다. 물리 메모리에 변화가 없다면 부모에서 자식으로 데이터를 복사할 이유가 없는 거죠. 이걸 copy-on-write라고 부릅니다. 쓰기 작업이 일어날 때 복사가 일어난다는 뜻이죠. 줄여서 COW라고 합니다."
+  },
+  {
+   "t": 1200,
+   "en": "And also, there's another way to preserve resources during process creation—this is the vfork system call. This system call is used when the parent process calls fork followed by exec. So there can be two cases. The first is that the parent process just calls the fork system call only—then the parent process and the child process refer to the same program, because the parent process doesn't call the exec system call. But if the parent process calls the exec system call, then it means it runs a new program through exec. So vfork is used when the parent process calls fork followed by exec. Until the exec system call is called, the parent and child can share the memory address, because until a new program starts, there's no reason to copy the parent-related data.",
+   "ko": "그리고 프로세스 생성 시 자원을 아끼는 또 다른 방법이 있는데, 바로 vfork 시스템 콜입니다. 이 시스템 콜은 부모 프로세스가 fork를 호출한 다음 exec를 호출하는 경우에 사용됩니다. 여기에는 두 가지 경우가 있을 수 있습니다. 첫 번째는 부모 프로세스가 그냥 fork 시스템 콜만 호출하는 경우인데, 이 경우 부모 프로세스와 자식 프로세스는 같은 프로그램을 참조합니다. 부모 프로세스가 exec 시스템 콜을 호출하지 않기 때문이죠. 하지만 부모 프로세스가 exec 시스템 콜을 호출하면, 이건 exec를 통해 새로운 프로그램을 실행한다는 뜻입니다. 그래서 vfork는 부모 프로세스가 fork 다음에 exec를 호출하는 경우에 사용됩니다. exec 시스템 콜이 호출되기 전까지는 부모와 자식이 메모리 주소를 공유할 수 있는데, 새 프로그램이 시작되기 전까지는 부모 관련 데이터를 복사할 이유가 없기 때문입니다."
+  },
+  {
+   "t": 1298,
+   "en": "Because this data isn't useful for the child—why? The child is going to be a new program; it's not about the parent's program, so there's no reason to copy the parent-related data. When the parent calls this vfork system call, the parent's execution is blocked, because the parent is waiting for the exec system call. So it blocks until the child exits or executes a new program.",
+   "ko": "이 데이터는 자식에게 쓸모가 없기 때문입니다. 왜냐고요? 자식은 새로운 프로그램이 될 것이고, 부모의 프로그램과는 상관이 없으니까 부모 관련 데이터를 복사할 이유가 없는 거죠. 부모가 이 vfork 시스템 콜을 호출하면, 부모의 실행은 블록됩니다. 부모가 exec 시스템 콜을 기다리고 있기 때문이죠. 그래서 자식이 종료되거나 새로운 프로그램을 실행할 때까지 블록됩니다."
+  },
+  {
+   "t": 1332,
+   "en": "So these two system calls show how the Linux kernel preserves resources, and that's why they're also called less lightweight processes. This shows the implementation of fork and vfork. When it comes to fork, in detail, it passes these parameters to this kernel function, and vfork passes these parameters to the kernel function. So these two system calls, fork and vfork, are implemented with this kernel function. This kernel function was introduced to implement lightweight processes, but nowadays these fork and vfork system calls are also implemented using this kernel function as well, because they want to set the degree of sharing between the parent and the child.",
+   "ko": "이 두 시스템 콜은 리눅스 커널이 어떻게 자원을 아끼는지 보여주며, 그래서 이것들을 less lightweight process라고도 부릅니다. 이건 fork와 vfork의 구현을 보여줍니다. 자세히 보면, fork는 이 파라미터들을 이 커널 함수에 전달하고, vfork도 이 파라미터들을 이 커널 함수에 전달합니다. 그래서 fork와 vfork 이 두 시스템 콜은 모두 이 커널 함수로 구현됩니다. 이 커널 함수는 원래 lightweight process를 구현하기 위해 도입된 것이지만, 요즘은 fork와 vfork 시스템 콜도 부모와 자식 사이의 공유 정도를 설정하기 위해 이 커널 함수를 사용해서 구현됩니다."
+  },
+  {
+   "t": 1404,
+   "en": "So the highlight is that Linux implements threads in an elegant way, because threads are just processes that share the same kernel context. So, so far I've covered lightweight processes and less lightweight processes, and it's all about efficiency. The Linux kernel developers wanted to make the operating system efficient, and they don't want to waste resources when creating new processes or when generating a new thread or something. So they wanted to preserve some resources to meet the efficiency goal.",
+   "ko": "그래서 핵심은 리눅스가 스레드를 매우 우아한 방식으로 구현했다는 것입니다. 스레드는 그저 같은 커널 컨텍스트를 공유하는 프로세스일 뿐이니까요. 자, 지금까지 lightweight process와 less lightweight process를 다뤘는데, 이건 전부 효율성에 관한 이야기입니다. 리눅스 커널 개발자들은 운영체제를 효율적으로 만들고 싶어했고, 새로운 프로세스를 만들거나 새로운 스레드를 생성할 때 자원을 낭비하고 싶어하지 않았습니다. 그래서 효율성 목표를 달성하기 위해 자원을 아끼고자 했습니다."
+  },
+  {
+   "t": 1465,
+   "en": "So let's move on to this do_fork function. This function actually handles process creation. First, this function allocates a new process ID for the child, because the child needs a new ID. Then this function calls copy_process to copy the process descriptor, so now this child process needs its own process descriptor, which is task_struct.",
+   "ko": "자, 이제 do_fork 함수로 넘어가 봅시다. 이 함수가 실제로 프로세스 생성을 처리합니다. 먼저 이 함수는 자식을 위한 새로운 프로세스 ID를 할당하는데, 자식이 새로운 ID를 필요로 하기 때문입니다. 그 다음 이 함수는 copy_process를 호출해서 프로세스 디스크립터를 복사합니다. 그래서 이제 이 자식 프로세스는 자기만의 프로세스 디스크립터, 즉 task_struct가 필요합니다."
+  },
+  {
+   "t": 1510,
+   "en": "task_struct—each thread or each process has its own task_struct. That's why this do_fork function tries to copy the process descriptor from the parent to the child, because they may share some data between the parent and the child. So that's why this function copies the process descriptor. So instead of just a new thread_struct data structure, there's also a new kernel mode stack—as I said earlier, each thread has its own kernel mode stack. So this function sets up a new kernel mode stack for the new process, new task, or new thread.",
+   "ko": "task_struct는 각 스레드 또는 각 프로세스가 자기만의 것을 가지고 있습니다. 그래서 이 do_fork 함수는 부모에서 자식으로 프로세스 디스크립터를 복사하려고 하는데, 부모와 자식 사이에 일부 데이터를 공유할 수도 있기 때문입니다. 그래서 이 함수가 프로세스 디스크립터를 복사하는 것입니다. 그러니까 새로운 thread_struct 자료구조뿐만 아니라 새로운 커널 모드 스택도 설정됩니다. 앞서 말씀드렸듯이 각 스레드는 자기만의 커널 모드 스택을 가지고 있습니다. 그래서 이 함수는 새로운 프로세스, 새로운 태스크, 혹은 새로운 스레드를 위한 새로운 커널 모드 스택을 설정합니다."
+  },
+  {
+   "t": 1559,
+   "en": "It also checks whether the user exceeds their allowed number of processes, because if there are too many processes in the operating system, it can be a problem—so there's a limit in the operating system. But I don't think it happens a lot; this is a very rare case.",
+   "ko": "이 함수는 또한 사용자가 허용된 프로세스 개수를 초과하는지도 확인합니다. 운영체제에 프로세스가 너무 많으면 문제가 될 수 있기 때문에, 운영체제에는 한계가 있습니다. 하지만 이런 일이 자주 일어나지는 않는다고 생각합니다. 매우 드문 경우죠."
+  },
+  {
+   "t": 1586,
+   "en": "But this is just to keep the operating system very safe, because maybe some viruses or some malware tries to create a lot of processes to destroy the operating system. So this is just for safety.",
+   "ko": "하지만 이건 그냥 운영체제를 매우 안전하게 유지하기 위한 것입니다. 왜냐하면 어떤 바이러스나 악성코드가 운영체제를 망가뜨리려고 프로세스를 잔뜩 만들어내려고 할 수도 있기 때문이죠. 그래서 이건 그냥 안전을 위한 것입니다."
+  },
+  {
+   "t": 1604,
+   "en": "So anyway, this function copies file descriptors, page tables, and other things related to the process context, or program context, or kernel context. And then the child's state is set to TASK_RUNNING — what is TASK_RUNNING? It means the process is runnable, or ready. This function also sets the parent-child relationship, and the thread-group relationship as well. In the kernel, this hierarchy is important — each task_struct data structure has a pointer to its parent, siblings, and children. So this function sets up these relationships when creating a new process.",
+   "ko": "자, 아무튼 이 함수는 파일 디스크립터와 페이지 테이블, 그리고 프로세스 컨텍스트, 혹은 프로그램 컨텍스트, 커널 컨텍스트와 관련된 것들을 복사합니다. 그리고 나서 자식 프로세스의 상태를 TASK_RUNNING으로 설정합니다. TASK_RUNNING이 무엇일까요? 이는 실행 가능한, 즉 준비(ready) 상태의 프로세스라는 뜻입니다. 이 함수는 또한 부모-자식 관계와 스레드 그룹 관계도 설정합니다. 커널에서는 이런 계층 구조가 중요한데, 각 task_struct 데이터 구조체는 부모, 형제, 자식을 가리키는 포인터를 가지고 있습니다. 그래서 이 함수는 새 프로세스를 생성할 때 이런 관계들을 설정하는 것입니다."
+  },
+  {
+   "t": 1685,
+   "en": "So this second step is about initialization — now the new process descriptor has been generated. Then do_fork inserts this new process descriptor into one of the run queues. There can be multiple run queues, because there are several CPUs in the computer, and each CPU can maintain several run queues. But anyway, this function inserts the new child into one of the run queues.",
+   "ko": "그래서 이 두 번째 단계는 초기화에 관한 것입니다 — 이제 새 프로세스 디스크립터가 생성되었습니다. 그러면 do_fork는 이 새로운 프로세스 디스크립터를 여러 런큐(run queue) 중 하나에 삽입합니다. 컴퓨터에는 여러 개의 CPU가 있고 각 CPU가 여러 개의 런큐를 유지할 수 있기 때문에, 런큐는 여러 개 존재할 수 있습니다. 아무튼 이 함수는 새로 생긴 자식 프로세스를 런큐 중 하나에 삽입합니다."
+  },
+  {
+   "t": 1719,
+   "en": "And this CLONE_VFORK flag is related to the vfork() system call. If CLONE_VFORK is specified, the parent is put into a wait queue, because vfork() assumes that the child will be replaced by a new program — the child will start a new program which is different from the parent. So if this flag is specified, the parent is put in a wait queue, and after the child starts a new program, the parent goes back into the run queue. After this step is done, do_fork terminates by returning the process ID of the child. So that's how the do_fork function works.",
+   "ko": "그리고 이 CLONE_VFORK 플래그는 vfork() 시스템 콜과 관련이 있습니다. CLONE_VFORK가 지정되면 부모 프로세스는 대기 큐(wait queue)에 들어가는데, 이는 vfork()가 자식 프로세스가 새로운 프로그램으로 교체될 것이라고 가정하기 때문입니다 — 즉 자식이 부모와는 다른 새로운 프로그램을 실행하게 될 것이라는 것이죠. 그래서 이 플래그가 지정되면 부모는 대기 큐에 들어가고, 자식이 새 프로그램을 시작한 뒤에 부모는 다시 런큐로 돌아갑니다. 이 단계가 끝나면 do_fork는 자식의 프로세스 ID를 반환하면서 종료됩니다. 이것이 바로 do_fork 함수가 동작하는 방식입니다."
+  },
+  {
+   "t": 1793,
+   "en": "So I've covered how the Linux kernel implements lightweight processes. And in addition to the concept of lightweight processes, I also covered less-lightweight processes, which are for preserving resources while generating processes. And I also covered how the fork function works. So far, when it comes to processes, they've all been about the usual processes — like Firefox, or PowerPoint, or some reader program, or something. But the kernel, the operating system, also needs threads, because it also does things in the background, such as flushing disk caches and swapping out unused page frames. These are required to maintain some operating system functions or features, and they also take some time — so the kernel needs some threads to handle these kinds of things.",
+   "ko": "자, 지금까지 리눅스 커널이 경량 프로세스(lightweight process)를 어떻게 구현하는지 설명했습니다. 그리고 경량 프로세스 개념 외에도, 프로세스를 생성하면서 자원을 절약하기 위한 덜 경량화된(less-lightweight) 프로세스에 대해서도 다뤘습니다. 그리고 fork 함수가 어떻게 동작하는지도 설명했습니다. 지금까지 프로세스에 관해 이야기할 때는 모두 파이어폭스나 파워포인트, 어떤 리더 프로그램 같은 일반적인 프로세스에 관한 것이었습니다. 하지만 커널, 즉 운영체제도 스레드가 필요한데, 디스크 캐시 플러시나 사용하지 않는 페이지 프레임 스와핑 아웃 같은 백그라운드 작업을 해야 하기 때문입니다. 이런 것들은 운영체제의 기능이나 특성을 유지하기 위해 필요하고, 시간도 좀 걸립니다 — 그래서 커널도 이런 일들을 처리할 스레드가 필요한 것입니다."
+  },
+  {
+   "t": 1870,
+   "en": "So please don't confuse this concept, kernel threads, with kernel-level threads — they're very different. Kernel-level threads are one of the concepts used to implement threads, and they're usually related to the threads of a usual program. But these kernel threads I'm talking about now are not related to a usual program at all. So kernel-level threads and kernel threads are very different — kernel-level threads are related to the usual program, and that's why they're different. These kernel threads deal with practical kernel functions.",
+   "ko": "그러니 커널 스레드(kernel thread)라는 개념을 커널 수준 스레드(kernel-level thread)와 혼동하지 마세요 — 이 둘은 매우 다릅니다. 커널 수준 스레드는 스레드를 구현하는 방식 중 하나이고, 보통 일반 프로그램의 스레드와 관련이 있습니다. 하지만 지금 제가 말하는 커널 스레드는 일반 프로그램과는 전혀 관계가 없습니다. 그래서 커널 수준 스레드와 커널 스레드는 매우 다릅니다 — 커널 수준 스레드는 일반 프로그램과 관련이 있고, 그것이 이 둘이 다른 이유입니다. 이 커널 스레드들은 실질적인 커널 함수를 다룹니다."
+  },
+  {
+   "t": 1932,
+   "en": "But kernel threads are also implemented as a lightweight process, so they're also another kind of thread living in the operating system. A kernel thread has its own process descriptor, and it's also schedulable, because it's a lightweight process. But it doesn't have the usual user mode — that's a bit different from general, usual processes. Kernel threads run only in kernel mode, and they don't have a user-mode address space. They share the kernel address space with other kernel threads, and they share other kernel data structures among themselves, such as filesystems, file descriptors, and so on.",
+   "ko": "하지만 커널 스레드도 경량 프로세스로 구현됩니다. 그래서 이것도 운영체제 안에 존재하는 또 다른 종류의 스레드입니다. 커널 스레드는 자신만의 프로세스 디스크립터를 가지고 있고, 경량 프로세스이기 때문에 스케줄링도 가능합니다. 하지만 일반적인 유저 모드는 가지고 있지 않은데, 이 점이 일반적인 프로세스와 조금 다른 부분입니다. 커널 스레드는 오직 커널 모드에서만 실행되고, 유저 모드 주소 공간을 가지고 있지 않습니다. 다른 커널 스레드들과 커널 주소 공간을 공유하고, 파일 시스템이나 파일 디스크립터 같은 다른 커널 데이터 구조들도 서로 공유합니다."
+  },
+  {
+   "t": 1996,
+   "en": "So when I say regular processes, I mean the usual processes. There's quite a lot of difference between kernel threads and regular processes. Regular processes execute kernel functions only through system calls, but kernel threads execute a single, specific kernel C function.",
+   "ko": "그래서 제가 일반(regular) 프로세스라고 말할 때는 보통의 프로세스를 의미합니다. 커널 스레드와 일반 프로세스 사이에는 꽤 많은 차이가 있습니다. 일반 프로세스는 시스템 콜을 통해서만 커널 함수를 실행하지만, 커널 스레드는 특정한 하나의 커널 C 함수를 실행합니다."
+  },
+  {
+   "t": 2021,
+   "en": "So I explained mode switching, right? When a user program, or a user process, wants to do some operation that requires the operating system's help — such as a system call or a hardware interrupt — the user program switches mode into kernel mode. This kernel mode is on behalf of the user program. But when it comes to an interrupt, this interrupt may not be for the user program — but it's very urgent, so it takes a very short time. So anyway, kernel mode handles these kinds of things — dealing with a system call invoked by the user program, or dealing with an interrupt, which is very urgent.",
+   "ko": "제가 모드 전환(mode switch)에 대해 설명했었죠? 유저 프로그램, 즉 유저 프로세스가 시스템 콜이나 하드웨어 인터럽트처럼 운영체제의 도움이 필요한 작업을 하려고 할 때, 유저 프로그램은 커널 모드로 전환합니다. 이 커널 모드는 유저 프로그램을 대신해서 동작하는 것입니다. 하지만 인터럽트의 경우에는 이 인터럽트가 유저 프로그램을 위한 것이 아닐 수도 있습니다 — 다만 이는 매우 긴급한 것이어서 아주 짧은 시간만 걸립니다. 아무튼 커널 모드는 유저 프로그램이 호출한 시스템 콜을 처리하거나, 매우 긴급한 인터럽트를 처리하는 이런 일들을 담당합니다."
+  },
+  {
+   "t": 2086,
+   "en": "But what kernel threads do is some long-term kernel function, like swapping out unused page frames or flushing these caches — they're not related to the user processes. So we should distinguish between kernel mode and kernel thread. A kernel thread runs only in kernel mode, while a regular process runs in both kernel mode and user mode — it has both of these modes.",
+   "ko": "하지만 커널 스레드가 하는 일은 사용하지 않는 페이지 프레임을 스와핑 아웃하거나 캐시를 플러시하는 것과 같은 장기적인 커널 함수입니다 — 이는 유저 프로세스와는 관련이 없습니다. 그래서 우리는 커널 모드와 커널 스레드를 구분해야 합니다. 커널 스레드는 오직 커널 모드에서만 실행되는 반면, 일반 프로세스는 커널 모드와 유저 모드 둘 다에서 실행됩니다 — 즉 이 두 가지 모드를 모두 가지고 있습니다."
+  },
+  {
+   "t": 2122,
+   "en": "And kernel threads use only virtual addresses greater than PAGE_OFFSET. The virtual address space is 4 gigabytes on an x86 system — user mode uses 3 gigabytes, and kernel mode uses 1 gigabyte. But since kernel threads don't have a user mode, they only need the kernel-mode area. So that's what this description explains — kernel threads use only linear addresses greater than PAGE_OFFSET, while regular processes use the full 4 gigabytes of virtual address space, since they run in either user mode or kernel mode.",
+   "ko": "그리고 커널 스레드는 PAGE_OFFSET보다 큰 가상 주소만 사용합니다. x86 시스템에서 가상 주소 공간은 4기가바이트인데, 유저 모드가 3기가바이트를 사용하고 커널 모드가 1기가바이트를 사용합니다. 하지만 커널 스레드는 유저 모드가 없기 때문에 커널 모드 영역만 필요합니다. 그래서 이 설명이 말하는 바가 바로 이것입니다 — 커널 스레드는 PAGE_OFFSET보다 큰 리니어(선형) 주소만 사용하는 반면, 일반 프로세스는 유저 모드든 커널 모드든 둘 다에서 실행되기 때문에 4기가바이트 전체 가상 주소 공간을 사용합니다."
+  },
+  {
+   "t": 2174,
+   "en": "A typical operating system, or kernel, has many kernel threads, because the operating system has a lot of kernel functions. So this shows the difference between user processes and kernel threads — you can think of this in terms of virtual address space. Each user process has 4 gigabytes of virtual address space — 3 gigabytes used for user mode, and 1 gigabyte used for kernel mode. But since kernel threads don't have user mode, they only need this 1 gigabyte kernel-mode area.",
+   "ko": "일반적인 운영체제, 즉 커널에는 커널 함수가 매우 많기 때문에 커널 스레드도 많이 존재합니다. 이것이 유저 프로세스와 커널 스레드의 차이를 보여줍니다 — 이를 가상 주소 공간의 관점에서 생각해볼 수 있습니다. 각 유저 프로세스는 4기가바이트의 가상 주소 공간을 가지는데, 3기가바이트는 유저 모드에, 1기가바이트는 커널 모드에 사용됩니다. 하지만 커널 스레드는 유저 모드가 없기 때문에 이 1기가바이트의 커널 모드 영역만 필요합니다."
+  },
+  {
+   "t": 2225,
+   "en": "And please note that the operating system is not copied into each process — all processes share the operating system's data structures and code. So this kernel-mode area is virtually linked to the real operating system. Please don't get confused by this concept.",
+   "ko": "그리고 운영체제가 각 프로세스마다 복사되는 것이 아니라는 점을 유의하세요 — 모든 프로세스는 운영체제의 데이터 구조와 코드를 공유합니다. 그래서 이 커널 모드 영역은 실제 운영체제에 가상으로 연결되어 있는 것입니다. 이 개념에 대해 혼동하지 마세요."
+  },
+  {
+   "t": 2257,
+   "en": "So how can we distinguish whether something is a user process or a kernel thread? One way is to look at the task_struct data structure. As I explained on Wednesday, task_struct includes several important fields, such as mm and thread — this thread field, of type thread_struct, is for process switching, or context switching. This field stores hardware-dependent information, such as the stack pointer and so on.",
+   "ko": "그러면 어떤 것이 유저 프로세스인지 커널 스레드인지 어떻게 구분할 수 있을까요? 한 가지 방법은 task_struct 데이터 구조를 살펴보는 것입니다. 제가 수요일에 설명했듯이, task_struct는 mm과 thread 같은 몇 가지 중요한 필드를 포함하고 있습니다 — 이 thread 필드는 thread_struct 타입인데, 프로세스 전환, 즉 컨텍스트 스위칭을 위한 것입니다. 이 필드는 스택 포인터 같은 하드웨어에 의존적인 정보를 저장합니다."
+  },
+  {
+   "t": 2324,
+   "en": "And this mm field, or mm data structure, is used to describe the virtual address space, such as code, data, and stack — it's related to the user-mode area. So if our task is a kernel thread, this mm pointer is null — it's a null pointer, because kernel threads don't have a user-mode area. So that's how we can distinguish whether it's a general regular process or a kernel thread — if mm is a null pointer, then it means it's a kernel thread.",
+   "ko": "그리고 이 mm 필드, 즉 mm 데이터 구조는 코드, 데이터, 스택 같은 가상 주소 공간을 기술하는 데 사용됩니다 — 이는 유저 모드 영역과 관련된 것입니다. 그래서 만약 우리 태스크가 커널 스레드라면, 이 mm 포인터는 널(null)입니다 — 널 포인터인데, 이는 커널 스레드가 유저 모드 영역을 가지고 있지 않기 때문입니다. 그래서 이것이 바로 일반적인 프로세스인지 커널 스레드인지를 구분하는 방법입니다 — mm이 널 포인터라면 이는 커널 스레드라는 뜻입니다."
+  },
+  {
+   "t": 2395,
+   "en": "There are a lot of kernel threads in typical systems — for example, all of these are kernel threads. And two of these processes are the representative ones. The first process is called swapper — it's the ancestor of all processes, and it's created during the initial phase of Linux's initialization, by the start_kernel function. So when you boot the Linux operating system, this process is created during the initial phase of booting.",
+   "ko": "일반적인 시스템에는 커널 스레드가 아주 많습니다 — 예를 들어 이것들은 모두 커널 스레드입니다. 그리고 이 중 두 프로세스가 대표적인 것들입니다. 첫 번째 프로세스는 swapper라고 불리는데, 이는 모든 프로세스의 조상(ancestor)이며 리눅스 초기화 단계에서 start_kernel 함수에 의해 생성됩니다. 그래서 리눅스 운영체제를 부팅할 때 이 프로세스는 부팅 초기 단계에서 생성됩니다."
+  },
+  {
+   "t": 2441,
+   "en": "What this process does is initialize the data structures needed by the kernel — well, I don't think it's all the data structures, more practically I'd say it's some data structures. But anyway, it initializes some data structures needed by the kernel, enables some kernel features like interrupts, and creates another kernel thread — the init process. After creating the init process, this swapper process runs the cpu_idle function, repeatedly executing the HLT instruction. This is a very low-level instruction, but it means that when this process runs on the CPU, the CPU is in the idle state — so this process represents the idle state.",
+   "ko": "이 프로세스가 하는 일은 커널에 필요한 데이터 구조들을 초기화하는 것입니다 — 사실 모든 데이터 구조라기보다는, 더 정확히 말하면 일부 데이터 구조라고 해야 할 것 같습니다. 아무튼 커널에 필요한 일부 데이터 구조를 초기화하고, 인터럽트 같은 커널 기능을 활성화하고, 또 다른 커널 스레드인 init 프로세스를 생성합니다. init 프로세스를 생성한 뒤, 이 swapper 프로세스는 cpu_idle 함수를 실행하면서 HLT 명령어를 반복적으로 실행합니다. 이는 매우 저수준의 명령어인데, 이 프로세스가 CPU에서 실행되고 있다는 것은 곧 CPU가 유휴(idle) 상태에 있다는 뜻입니다 — 그래서 이 프로세스는 유휴 상태를 나타냅니다."
+  },
+  {
+   "t": 2501,
+   "en": "So when there's no running process on the CPU, the CPU should be in the idle state, and this process is used to represent that state. Process zero, swapper, is selected by the scheduler only when there are no other processes in the TASK_RUNNING state — that is, only in the idle state. On systems with multiple CPUs, there's a swapper process for each CPU, because each CPU can be idle — whenever a CPU is in the idle state, this process runs on that CPU.",
+   "ko": "그래서 CPU에서 실행 중인 프로세스가 없을 때, CPU는 유휴 상태에 있어야 하는데, 이 프로세스가 바로 그 상태를 나타내는 데 사용됩니다. 프로세스 0번인 swapper는 TASK_RUNNING 상태에 있는 다른 프로세스가 없을 때만, 즉 유휴 상태일 때만 스케줄러에 의해 선택됩니다. CPU가 여러 개인 시스템에서는 각 CPU가 유휴 상태가 될 수 있기 때문에 CPU마다 swapper 프로세스가 하나씩 존재합니다 — CPU가 유휴 상태가 될 때마다 이 프로세스가 그 CPU에서 실행됩니다."
+  },
+  {
+   "t": 2551,
+   "en": "So this process creates the next process, which is the init process, by executing the init function, which completes the initialization of the kernel. So the swapper process handles only the initial phase of Linux's initialization, and the init process completes the initialization of the kernel — for example, it initiates other kernel threads. You can see a lot of kernel threads in the operating system, in Linux — this init process initiates these kernel threads to handle memory cache swapping and so on, such as bdflush and other kernel threads. This init process never terminates, since it creates and monitors the activity of all the processes — it's always running, and it's a very important kernel thread in the Linux kernel.",
+   "ko": "그래서 이 프로세스는 init 함수를 실행함으로써 다음 프로세스인 init 프로세스를 생성하는데, 이것이 커널의 초기화를 완료시킵니다. 즉 swapper 프로세스는 리눅스 초기화의 초기 단계만을 담당하고, init 프로세스가 커널의 초기화를 완료합니다 — 예를 들어 다른 커널 스레드들을 생성합니다. 리눅스 운영체제에는 커널 스레드가 아주 많이 있는 것을 볼 수 있는데, 이 init 프로세스가 메모리 캐시 스와핑 같은 것을 처리하기 위해 bdflush를 비롯한 다른 커널 스레드들을 생성하는 것입니다. 이 init 프로세스는 모든 프로세스를 생성하고 그 활동을 모니터링하기 때문에 절대 종료되지 않습니다 — 항상 실행되고 있으며, 리눅스 커널에서 매우 중요한 커널 스레드입니다."
+  },
+  {
+   "t": 2634,
+   "en": "So now we're near the end of this lecture slide. I'd like to describe how the Linux kernel destroys processes. The general way to terminate a process is by calling the exit() function. However, sometimes you might have this kind of experience — you want to kill a specific process from the terminal, so you may want to call some kill operation, which sends a signal to the operating system. Upon receiving this signal, the Linux kernel tries to terminate that specific process. So to terminate a process, there are two ways to trigger termination, but the termination itself is done in two stages — the first stage is process termination, and the second stage is process removal, and they're different stages. The first thing is terminating the process with the exit() function.",
+   "ko": "자, 이제 이 강의 슬라이드의 거의 끝부분에 왔습니다. 리눅스 커널이 프로세스를 어떻게 소멸시키는지 설명하고 싶습니다. 프로세스를 종료하는 일반적인 방법은 exit() 함수를 호출하는 것입니다. 하지만 가끔 이런 경험이 있을 겁니다 — 터미널에서 특정 프로세스를 죽이고 싶을 때, kill 같은 연산을 호출해서 운영체제에 시그널을 보내는 것이죠. 이 시그널을 받으면 리눅스 커널은 그 특정 프로세스를 종료시키려고 합니다. 그래서 프로세스를 종료시키는 데는 두 가지 방법이 있지만, 종료 자체는 두 단계로 이루어집니다 — 첫 번째 단계는 프로세스 종료(termination)이고, 두 번째 단계는 프로세스 제거(removal)로, 서로 다른 단계입니다. 첫 번째는 exit() 함수로 프로세스를 종료시키는 것입니다."
+  },
+  {
+   "t": 2729,
+   "en": "In this stage, the kernel removes most — not all, but most — of the references to the terminating process from the kernel data structures, such as mm, which is related to the virtual address space, and also references related to open files, the filesystem, and signal handling. So the kernel removes the references to the terminating process, and then it updates the relationships — since this process is being removed, the kernel should update the relationships involving its parent, children, siblings, and so on. This process then becomes a zombie.",
+   "ko": "이 단계에서 커널은 종료되는 프로세스에 대한 참조들을 커널 데이터 구조에서 대부분 — 전부는 아니지만 대부분 — 제거합니다. 예를 들면 가상 주소 공간과 관련된 mm, 그리고 열린 파일, 파일 시스템, 시그널 처리와 관련된 참조들입니다. 그래서 커널은 종료되는 프로세스에 대한 참조들을 제거하고, 그 다음 관계를 갱신합니다 — 이 프로세스가 제거되고 있으므로, 커널은 그 부모, 자식, 형제 등에 관한 관계를 갱신해야 합니다. 이 프로세스는 그 후 좀비(zombie)가 됩니다."
+  },
+  {
+   "t": 2800,
+   "en": "So I think I should stop here, because I still have several things to describe — let's take a 10-minute break and then resume. Is that okay? Is it too long? I think, about the volume of this microphone, I don't want to change it. So, yeah, I was talking about how to destroy processes, and there are two stages to handling process destruction. The first one is process termination by the exit() function, and this function removes most references to the terminating process from the kernel data structures, and updates the relationships.",
+   "ko": "그래서 여기서 멈춰야 할 것 같습니다. 아직 설명할 것이 몇 가지 더 남아 있으니 10분 정도 쉬었다가 다시 진행하겠습니다. 괜찮을까요? 너무 긴가요? 이 마이크 볼륨에 대해서는, 바꾸고 싶지 않네요. 자, 그러니까 저는 프로세스를 소멸시키는 방법에 대해 이야기하고 있었고, 프로세스 소멸을 처리하는 데는 두 단계가 있습니다. 첫 번째는 exit() 함수에 의한 프로세스 종료인데, 이 함수는 종료되는 프로세스에 대한 참조들을 커널 데이터 구조에서 대부분 제거하고 관계를 갱신합니다."
+  },
+  {
+   "t": 2860,
+   "en": "This process may have some children — unfortunately, if this process is removed, its children no longer have a parent, right? So a parent's children become children of the init process. But actually, this doesn't happen regularly, because the parent process should wait until its children processes have ended. So this is a very rare case and shouldn't normally happen — but if it does, the parent's children become children of the init process. They're called orphan processes.",
+   "ko": "이 프로세스는 자식 프로세스를 가지고 있을 수도 있는데, 안타깝게도 이 프로세스가 제거되면 그 자식들은 더 이상 부모가 없게 되겠죠? 그래서 부모의 자식들은 init 프로세스의 자식이 됩니다. 하지만 실제로는 이런 일이 자주 일어나지 않는데, 부모 프로세스는 자식 프로세스들이 종료될 때까지 기다려야 하기 때문입니다. 그래서 이는 매우 드문 경우이고 일반적으로는 일어나지 않아야 하지만, 만약 일어난다면 부모의 자식들은 init 프로세스의 자식이 됩니다. 이들을 고아 프로세스(orphan process)라고 부릅니다."
+  },
+  {
+   "t": 2917,
+   "en": "But anyway, don't confuse this with the zombie process — the zombie is the terminating process itself, not the parent's children. So at this stage, for this terminating process, some of its data has already been removed, so it's actually kind of terminated, but it's still alive — that's why it's called a zombie. It's something like a zombie — a zombie is dead, but it's still alive, and that's why this process is called a zombie. This stage is actually very short, so a zombie is usually removed in a very short time. Personally, I really don't like zombies, so I don't watch zombie movies or anything — but do you like zombies? Yeah, I don't like scary or horrible things.",
+   "ko": "하지만 아무튼, 이것을 좀비 프로세스와 혼동하지 마세요 — 좀비는 종료되고 있는 프로세스 그 자체를 말하는 것이지, 부모의 자식들을 말하는 것이 아닙니다. 그래서 이 단계에서, 종료되는 이 프로세스는 이미 데이터의 일부가 제거된 상태입니다. 그래서 사실상 어느 정도는 종료된 것이지만, 여전히 살아있는 것이죠 — 그래서 이를 좀비라고 부릅니다. 좀비 같은 것입니다 — 좀비는 죽었지만 살아있잖아요, 그래서 이 프로세스를 좀비라고 부르는 것입니다. 이 단계는 사실 매우 짧아서, 좀비는 보통 아주 짧은 시간 안에 제거됩니다. 개인적으로 저는 좀비를 정말 좋아하지 않아서 좀비 영화 같은 것도 안 보는데, 여러분은 좀비를 좋아하나요? 네, 저는 무섭고 끔찍한 것들을 좋아하지 않습니다."
+  },
+  {
+   "t": 3000,
+   "en": "Anyway, after dealing with these things, this function calls the schedule function to select a new process to run, because this process has just terminated, so the CPU needs to select a new process. But this process is still kind of alive — it's a zombie — so we eventually need to remove all the zombies, because zombies can cause problems, so the operating system should remove the process — this is what the second stage is for. Unix kernels are not allowed to discard a process's data right after the process terminates, because the parent process may need some information about the terminating process — that's why there are two stages. So Unix kernels are not allowed to discard the data right after the process terminates, but only after the parent process has issued a wait()-like system call that refers to this terminated zombie process.",
+   "ko": "아무튼 이런 일들을 처리한 후, 이 함수는 schedule 함수를 호출해서 실행할 새 프로세스를 선택합니다. 왜냐하면 이 프로세스는 방금 종료되었기 때문에 CPU는 새로운 프로세스를 선택해야 하기 때문입니다. 하지만 이 프로세스는 아직 어느 정도 살아있는 상태, 즉 좀비이기 때문에 결국에는 모든 좀비를 제거해야 합니다 — 좀비는 문제를 일으킬 수 있기 때문에 운영체제가 이 프로세스를 제거해야 합니다. 이것이 바로 두 번째 단계가 하는 일입니다. 유닉스 커널은 프로세스가 종료된 직후 바로 그 데이터를 버리는 것이 허용되지 않는데, 이는 부모 프로세스가 종료되는 프로세스에 대한 정보를 필요로 할 수 있기 때문입니다 — 그래서 두 단계로 나뉘어 있는 것입니다. 그래서 유닉스 커널은 프로세스가 종료된 직후 곧바로 데이터를 버릴 수 없고, 오직 부모 프로세스가 이 종료된 좀비 프로세스를 참조하는 wait() 계열의 시스템 콜을 호출한 이후에만 그렇게 할 수 있습니다."
+  },
+  {
+   "t": 3098,
+   "en": "So this stage invokes release_task — the operating system releases the process descriptor, the task_struct, of the zombie process, since it's used to describe the process. Now the operating system assumes that this data is no longer needed, so the kernel removes, or releases, the data of the zombie process, and also releases its kernel-mode memory area. This 8 kilobytes is used to store some information about the process in kernel mode — I mentioned this 8 kilobytes earlier, yes, here — a single 8-kilobyte kernel memory area is allocated per process. Now that this process is a zombie, we should kick it out of this kernel-mode memory area. So the last operation is to release this memory area, and now the zombie is gone.",
+   "ko": "그래서 이 단계에서 release_task를 호출하는데, 운영체제는 좀비 프로세스의 프로세스 디스크립터, 즉 task_struct를 해제합니다. 이는 그 프로세스를 기술하는 데 사용되던 것이기 때문입니다. 이제 운영체제는 이 데이터가 더 이상 필요 없다고 판단하고, 커널은 좀비 프로세스의 데이터를 제거하거나 해제하며, 그 커널 모드 메모리 영역도 해제합니다. 이 8킬로바이트는 커널 모드에서 프로세스에 대한 정보를 저장하는 데 사용되는데, 이 8킬로바이트는 앞서 언급했었죠, 네, 여기서요 — 프로세스마다 하나의 8킬로바이트 커널 메모리 영역이 할당됩니다. 이제 이 프로세스는 좀비이므로, 이 커널 모드 메모리 영역에서 쫓아내야 합니다. 그래서 마지막 작업은 이 메모리 영역을 해제하는 것이고, 이제 이 좀비는 사라집니다."
+  },
+  {
+   "t": 3189,
+   "en": "So this is how the Linux kernel destroys processes — it terminates the process, but a little bit of information remains, because the parent might need this information, such as the child's ID or something. So if everything is handled correctly, the Linux kernel removes these two pieces of data from the kernel, and now the process is fully destroyed.",
+   "ko": "이것이 바로 리눅스 커널이 프로세스를 소멸시키는 방식입니다 — 프로세스를 종료시키지만, 부모가 자식의 ID 같은 정보를 필요로 할 수 있기 때문에 약간의 정보는 남아 있게 됩니다. 그래서 모든 것이 제대로 처리되면, 리눅스 커널은 이 두 가지 데이터를 커널에서 제거하고, 이제 프로세스는 완전히 소멸됩니다."
+  }
+ ]
+}

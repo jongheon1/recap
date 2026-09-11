@@ -32,6 +32,13 @@
       "name": "Algorithm Analysis",
       "files": [
         {
+          "id": "2026-09-11-algorithm-analysis-1",
+          "title": "Closest Pair Correctness & Running Time; Integer Multiplication",
+          "date": "2026-09-11",
+          "duration_sec": 5947,
+          "paragraphs": 100
+        },
+        {
           "id": "2026-09-09-algorithm-analysis-1",
           "title": "Closest Pair: Divide-and-Conquer Algorithm",
           "date": "2026-09-09",
@@ -58,6 +65,20 @@
       "id": "system-programming",
       "name": "System Programming",
       "files": [
+        {
+          "id": "2026-09-11-system-programming-2",
+          "title": "Process Scheduling (1)",
+          "date": "2026-09-11",
+          "duration_sec": 5754,
+          "paragraphs": 56
+        },
+        {
+          "id": "2026-09-11-system-programming-1",
+          "title": "Threads, Process Creation & Destruction (L01 wrap-up)",
+          "date": "2026-09-11",
+          "duration_sec": 3249,
+          "paragraphs": 51
+        },
         {
           "id": "2026-09-09-system-programming-1",
           "title": "Process Descriptor, Context Switching & Threads",
@@ -86,6 +107,20 @@
       "name": "Distributed Learning and Inference",
       "files": [
         {
+          "id": "2026-09-11-distributed-learning-and-inference-2",
+          "title": "Issues in Centralized Training",
+          "date": "2026-09-11",
+          "duration_sec": 5989,
+          "paragraphs": 67
+        },
+        {
+          "id": "2026-09-11-distributed-learning-and-inference-1",
+          "title": "Batch Normalization & Convolutional Neural Networks",
+          "date": "2026-09-11",
+          "duration_sec": 2195,
+          "paragraphs": 31
+        },
+        {
           "id": "2026-09-09-distributed-learning-and-inference-1",
           "title": "Backpropagation, Overfitting & Regularization",
           "date": "2026-09-09",
@@ -112,6 +147,13 @@
       "id": "real-time-systems",
       "name": "Real-Time Systems",
       "files": [
+        {
+          "id": "2026-09-10-real-time-systems-1",
+          "title": "Embedded Systems, CPS/IoT & Research Topics",
+          "date": "2026-09-10",
+          "duration_sec": 2855,
+          "paragraphs": 50
+        },
         {
           "id": "2026-09-08-real-time-systems-1",
           "title": "Basic Concepts of Real-Time Systems",

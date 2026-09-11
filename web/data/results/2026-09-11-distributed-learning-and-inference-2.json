@@ -1,0 +1,345 @@
+{
+ "id": "2026-09-11-distributed-learning-and-inference-2",
+ "course": "distributed-learning-and-inference",
+ "title": "Issues in Centralized Training",
+ "date": "2026-09-11",
+ "duration_sec": 5989,
+ "audio_url": "https://pub-950a8b85c4a448b4b96d2942eec87d6b.r2.dev/2026-09-11-distributed-learning-and-inference.m4a",
+ "paragraphs": [
+  {
+   "t": 2163,
+   "en": "Okay, so the title of this lecture note is Issues in Centralized Training, Issues in Centralized Training, and we are currently still at this stage.",
+   "ko": "자, 그래서 이 강의 노트의 제목은 'Issues in Centralized Training(중앙집중형 학습의 문제점)', Issues in Centralized Training이고, 우리는 지금 아직 이 단계에 있습니다."
+  },
+  {
+   "t": 2174,
+   "en": "So we are providing some background studies, and we'll be talking about this today. Then from next week, we will jump into this part based on the understanding that we have so far. So this is nothing but showing that current GPUs can cause out-of-memory issues, because the size of the model is getting very large compared to the size of the GPUs. So if you want to train a model in a single machine, training very large-scale models is very difficult, and sometimes impossible, if you consider really big models. And although this — you know, this is somewhat outdated — this gap is still true, right, this gap is still true. And another issue is that if you consider the dataset, a large-scale dataset, then that will also cause a large burden during the training process, in terms of not only the memory, but also the computation and delay. You can easily imagine that this kind of large model and large dataset will cause issues in centralized training, and distributed training is one approach, one direction, to fill this gap, right? You can introduce multiple machines and then train this kind of large model collaboratively. So the following slides are showing that although various capabilities of hardware are getting better, training requires a lot of burden.",
+   "ko": "오늘은 배경이 되는 내용들을 좀 다루고, 이 부분에 대해 이야기할 것입니다. 그리고 다음 주부터는 지금까지 우리가 이해한 내용을 바탕으로 이 부분으로 넘어가겠습니다. 이건 다름이 아니라, 현재의 GPU들이 out-of-memory를 일으킬 수 있다는 것을 보여주는 겁니다. 왜냐하면 모델의 크기가 GPU의 크기에 비해 굉장히 커지고 있기 때문입니다. 그래서 단일 머신에서 모델을 학습시키려고 하면, 아주 큰 규모의 모델을 학습시키는 것은 매우 어렵고, 정말 큰 모델을 생각하면 때로는 불가능하기도 합니다. 그리고 이게 좀 오래된 자료이긴 하지만, 이 격차는 여전히 사실입니다, 맞죠, 이 격차는 여전히 사실입니다. 또 다른 이슈는, 데이터셋을 생각해보면, 대규모 데이터셋을 생각하면, 그것도 학습 과정에서 메모리뿐만 아니라 계산량(computation)과 지연(delay) 측면에서도 큰 부담을 일으킨다는 것입니다. 이런 큰 모델과 큰 데이터셋이 centralized training에서 문제를 일으킬 것이라는 걸 쉽게 상상할 수 있고, distributed training이 바로 이 간극을 메우기 위한 하나의 접근법, 하나의 방향입니다, 맞죠? 여러 대의 머신을 도입해서 이런 큰 모델을 협력적으로 학습시킬 수 있는 겁니다. 그래서 다음 슬라이드들은, 하드웨어의 여러 성능이 좋아지고 있음에도 불구하고, 학습에는 여전히 큰 부담이 든다는 것을 보여줍니다."
+  },
+  {
+   "t": 2313,
+   "en": "Right, although the GPUs are getting better, we still need multiple GPUs if you really aim to train large-scale models, especially in the industry. If you want to build — if OpenAI aims to build, for example, the Sora model — they utilized many, many GPUs for training there. And then if you consider smaller AI hardware, then they have much less memory compared to this kind of expensive GPUs. So if you want to do on-device training especially, then it is a huge burden. So all of these examples are showing mobile AI hardware — for example, from Qualcomm or Apple — there's a huge gap between the model size and this kind of memory. So this will also cause significant memory, computation, and delay issues during both training and — training. So in this slide, it's also showing that if you want to do on-device training, this is much more difficult compared to how they are treated. So we can imagine, at a very high level, what the issue is. Training a large-scale model with a large-scale dataset is an issue, but we will see some technical aspects — technical aspects based on the background that we have learned.",
+   "ko": "맞습니다, GPU가 좋아지고 있어도, 정말로 대규모 모델을 학습시키려면 특히 산업계에서는 여전히 여러 개의 GPU가 필요합니다. 예를 들어 OpenAI가 Sora 모델 같은 것을 만들려고 한다면, 학습을 위해 아주 많은 GPU를 사용했습니다. 그리고 좀 더 작은 AI 하드웨어를 생각해보면, 이런 비싼 GPU들에 비해 메모리가 훨씬 적습니다. 그래서 특히 온디바이스(on-device) 학습을 하려고 하면 그것은 엄청난 부담이 됩니다. 그래서 이 모든 예시들은 모바일 AI 하드웨어를 보여주는 겁니다 — 예를 들어 퀄컴이나 애플의 하드웨어 — 모델 크기와 이런 메모리 사이에는 큰 격차가 있습니다. 그래서 이것도 학습 — 학습 과정에서 상당한 메모리, 계산, 지연 문제를 일으킬 것입니다. 그래서 이 슬라이드도, 온디바이스 학습을 하려고 하면 이게 다뤄지는 방식에 비해 훨씬 더 어렵다는 것을 보여줍니다. 그래서 아주 높은 수준에서 무엇이 문제인지 상상할 수 있습니다. 대규모 데이터셋으로 대규모 모델을 학습시키는 것은 이슈이지만, 우리는 우리가 배운 배경지식을 바탕으로 기술적인 측면들, 기술적인 측면들을 살펴볼 것입니다."
+  },
+  {
+   "t": 2404,
+   "en": "So what are the key metrics? What are the key metrics? As I've mentioned, the key metrics could be the memory, and then the delay, and some kind of computation. So we would like to see what metrics we should take a look at in the issue of centralized training. Definition of centralized training throughout this course will mainly be the case where we train the model using a single GPU or a single machine, which means that we have a model and we have a dataset in a single location — single location. This is what you typically do when training a model: we train the model using a single GPU. And what are the exact issues of this centralized training? This is the question that we would like to answer in the remaining time today.",
+   "ko": "그러면 핵심 지표(key metrics)는 무엇일까요? 핵심 지표가 무엇일까요? 제가 말씀드렸듯이, 핵심 지표는 메모리, 그리고 지연, 그리고 일종의 계산량이 될 수 있습니다. 그래서 centralized training의 문제에서 우리가 어떤 지표들을 살펴봐야 하는지 보고 싶습니다. 이 강의 전체에서 centralized training의 정의는 기본적으로 단일 GPU, 혹은 단일 머신을 이용해서 모델을 학습시키는 경우를 말합니다. 즉 모델과 데이터셋이 한 곳, 단일한 위치에 있다는 뜻입니다. 이게 여러분이 보통 모델을 학습시킬 때 하는 방식입니다. 단일 GPU로 모델을 학습시키는 거죠. 그러면 이 centralized training의 정확한 문제점은 무엇일까요? 이것이 오늘 남은 시간 동안 답하고 싶은 질문입니다."
+  },
+  {
+   "t": 2482,
+   "en": "Any questions so far? Regarding this slide, or — batch normalization, or CNNs? So the key question here — the question was, what is the answer to this question, the key metrics? And the key metrics are as follows: the memory, and computation, and delay. Those are very intuitive metrics. Thank you for the question. Any other questions? Okay, so, in terms of memory — so we will talk about these metrics — but in terms of memory, we will divide the memory into two different memories: parameter memory and activation memory. And I will explain those step by step, step by step. So let's first take a look at this parameter memory. You can imagine that if the GPU has 96 gigabytes of memory, but if you want to train a model with 120 gigabytes, you can imagine that this will cause out-of-memory.",
+   "ko": "지금까지 질문 있으신가요? 이 슬라이드에 관해서, 아니면 — batch normalization이나 CNN에 관한 건가요? 여기서 핵심 질문은, 이 질문에 대한 답, 즉 핵심 지표가 무엇이냐는 것이었죠. 핵심 지표는 다음과 같습니다. 메모리, 계산량, 그리고 지연입니다. 이것들은 매우 직관적인 지표들입니다. 질문 감사합니다. 다른 질문 있으신가요? 자, 메모리 측면에서 — 이 지표들에 대해 이야기할 텐데 — 메모리 측면에서는, 메모리를 두 가지 서로 다른 메모리로 나눌 겁니다. parameter memory와 activation memory입니다. 그리고 이것들을 하나씩, 단계별로 설명하겠습니다. 그럼 먼저 이 parameter memory부터 살펴봅시다. GPU가 96기가바이트의 메모리를 가지고 있는데, 120기가바이트 크기의 모델을 학습시키려 한다면, 이건 out-of-memory를 일으킬 것이라고 상상할 수 있습니다."
+  },
+  {
+   "t": 2586,
+   "en": "But what happens if you aim to train a model with 80 gigabytes? The model size now is smaller than the memory of the GPU, but in many cases it is impossible to train. And one specific reason is this kind of parameter memory. So memory appears not only simply due to the model size, but due to computing the gradients, and then introducing additional parameters when you consider different optimizers. So these optimizers — SGD, SGD with momentum, and Adam optimizer — these are the things that we saw in our previous lecture notes, right? And I described the intuitions behind these optimizers. But let's consider this simple SGD — simple SGD. Here you have a model, right, where we assume that the size of the model is m. But based on this model, we have to compute the gradient. And the number of elements in the gradient is exactly the same as the number of parameters of the model, if you decide to update the whole model parameters.",
+   "ko": "그런데 80기가바이트 크기의 모델을 학습시키려 한다면 어떻게 될까요? 이번엔 모델 크기가 GPU의 메모리보다 작지만, 많은 경우에 학습이 불가능합니다. 그리고 그 구체적인 이유 중 하나가 바로 이 parameter memory입니다. 즉 메모리는 단순히 모델 크기 때문에만 발생하는 게 아니라, gradient를 계산하는 것, 그리고 서로 다른 optimizer를 고려할 때 추가적인 파라미터가 도입되는 것 때문에도 발생합니다. 이 optimizer들 — SGD, momentum이 있는 SGD, 그리고 Adam optimizer — 이것들은 우리가 이전 강의 노트에서 봤던 것들이죠? 그리고 저는 이 optimizer들 뒤에 있는 직관을 설명드렸습니다. 그런데 이 간단한 SGD를 한번 생각해봅시다 — 단순한 SGD요. 여기 모델이 하나 있고, 이 모델의 크기가 m이라고 가정합시다. 그런데 이 모델을 기반으로 gradient를 계산해야 합니다. 그리고 gradient의 원소 개수는, 모델 전체 파라미터를 업데이트하기로 한다면, 모델의 파라미터 개수와 정확히 동일합니다."
+  },
+  {
+   "t": 2682,
+   "en": "So the gradient size is also m. So this means that you have a model, and then you compute the gradient, right? Which means that you actually need approximately 2m of memory, right, if you want to apply even the simplest gradient descent. And then what happens if you introduce SGD with momentum — SGD momentum? Now you have to consider the model, and you have to compute the gradient. At the same time, you have to store the previous momentum. And all these — gradient, model, momentum — have the same dimension, which means that you actually need more memory if you want to apply this kind of SGD momentum compared to the case with SGD. What happens if you try to utilize Adam, right? It'll require more memory, by computing this parameter that controls the learning rate.",
+   "ko": "그래서 gradient의 크기도 m입니다. 즉 모델이 있고, gradient를 계산한다는 뜻이죠? 그러면 가장 단순한 gradient descent를 적용하더라도 실제로는 대략 2m만큼의 메모리가 필요하다는 뜻입니다. 그러면 momentum이 있는 SGD, 즉 SGD momentum을 도입하면 어떻게 될까요? 이제 모델을 고려해야 하고, gradient도 계산해야 합니다. 동시에 이전 momentum도 저장해야 합니다. 그리고 이 gradient, model, momentum은 모두 같은 차원을 가지고 있는데, 이는 곧 SGD momentum을 적용하려면 그냥 SGD의 경우보다 실제로 더 많은 메모리가 필요하다는 뜻입니다. 그럼 Adam을 사용하려고 하면 어떻게 될까요? learning rate를 조절하는 이 파라미터를 계산함으로써 더 많은 메모리가 필요하게 됩니다."
+  },
+  {
+   "t": 2761,
+   "en": "So there are two key messages here. One: simply having a GPU that is larger than the model size actually does not guarantee training — does not facilitate training — because of the gradient, right, because of the gradient. Another key message here is that if you use a complicated optimizer, then the required memory could increase. That's why, in many cases, training is not possible using the Adam optimizer, but if you change the optimizer into SGD, it is working. So if you understand this kind of optimizer, then you will understand this is somewhat intuitive. That's why I've introduced these concepts in the previous slides. And lastly, I will define this memory as parameter memory, because if the parameter size increases, then the gradient size and the momentum dimension will also increase accordingly. So this is the memory that gets increased if you increase the model size, and it is somewhat proportional to the model size.",
+   "ko": "그래서 여기 핵심 메시지가 두 가지 있습니다. 첫째, 모델 크기보다 더 큰 GPU를 가지고 있다는 것만으로는 학습이 보장되지 않는다는 것 — 학습을 가능하게 하지 않는다는 것 — 바로 gradient 때문입니다, 맞습니다, gradient 때문이죠. 또 다른 핵심 메시지는, 복잡한 optimizer를 사용하면 필요한 메모리가 증가할 수 있다는 것입니다. 그래서 많은 경우에 Adam optimizer로는 학습이 불가능하지만, optimizer를 SGD로 바꾸면 학습이 되는 겁니다. 그래서 이런 optimizer를 이해하고 있다면, 이게 어느 정도 직관적이라는 걸 이해하실 겁니다. 그래서 제가 이전 슬라이드에서 이 개념들을 소개해드린 것입니다. 마지막으로, 저는 이 메모리를 parameter memory라고 정의하겠습니다. 왜냐하면 파라미터 크기가 증가하면 gradient 크기와 momentum의 차원도 그에 따라 증가하기 때문입니다. 그래서 이건 모델 크기를 늘리면 함께 증가하는 메모리이고, 어느 정도 모델 크기에 비례합니다."
+  },
+  {
+   "t": 2856,
+   "en": "So here I'd like to provide some very simple examples. If you consider a linear layer, you can compute the number of parameters like this. The number of parameters can be written like this, where ci is the input dimension, co is the output dimension. And this parameter memory is actually affected by the number of parameters — if you introduce more parameters, the model size will increase, and the parameter memory will also increase. If you consider convolutional neural networks, here this is the input of the convolutional layer, this is the number of filters — co is the number of filters. And then here you're seeing the example of three different filters. So the parameters in the filters are the number of parameters. So the number of parameters here is co multiplied by ci, kh, kw, where ci is the input channel size, and kh and kw are the filter height and width.",
+   "ko": "여기서 아주 간단한 예시들을 좀 들어보겠습니다. linear layer를 생각해보면, 파라미터 개수를 이렇게 계산할 수 있습니다. 파라미터 개수는 이렇게 쓸 수 있는데, 여기서 ci는 입력 차원, co는 출력 차원입니다. 그리고 이 parameter memory는 실제로 파라미터 개수에 의해 영향을 받습니다 — 파라미터를 더 많이 도입하면 모델 크기가 커지고, parameter memory도 커집니다. convolutional neural network를 생각해보면, 여기 이게 convolutional layer의 입력이고, 이게 필터의 개수입니다 — co가 필터의 개수입니다. 그리고 여기 세 개의 서로 다른 필터의 예시가 보입니다. 그러니까 필터 안에 있는 파라미터들이 바로 파라미터 개수인 거죠. 그래서 여기서 파라미터 개수는 co 곱하기 ci, kh, kw인데, ci는 입력 채널 크기이고, kh와 kw는 필터의 높이와 너비입니다."
+  },
+  {
+   "t": 2945,
+   "en": "So anyway, here I'm just trying to explain that you can count the number of parameters and then measure the model size. Or you can just directly measure the model size based on some tools in Python. So this is one example I'm trying to explain — trying to provide some insight. The model size could be written as the multiplication of the number of parameters and the bit width, where the bit width is what floating-point number you will use. So suppose that a certain neural network has 61 million parameters. And then if you assume that all the parameters are stored using 32-bit floating-point numbers, then you can simply convert the number of parameters to bytes or bits. If you use different floating-point numbers — let's say 8 bits, using quantization — then the total storage will get reduced. But it is still proportional to the number of parameters.",
+   "ko": "아무튼, 여기서 제가 설명하려는 건 파라미터 개수를 세서 모델 크기를 측정할 수 있다는 것입니다. 아니면 Python의 어떤 도구들을 이용해서 모델 크기를 직접 측정할 수도 있습니다. 이건 제가 설명하려고 드는 하나의 예시입니다 — 어떤 통찰을 드리려는 거죠. 모델 크기는 파라미터 개수와 bit width의 곱으로 쓸 수 있는데, 여기서 bit width는 여러분이 어떤 floating-point 숫자를 사용할 것인지를 말합니다. 어떤 신경망이 6100만 개의 파라미터를 가지고 있다고 합시다. 그리고 모든 파라미터가 32비트 floating-point 숫자로 저장된다고 가정하면, 파라미터 개수를 단순히 바이트나 비트로 변환할 수 있습니다. 만약 다른 floating-point 숫자를 사용한다면 — 예를 들어 quantization을 이용해서 8비트를 사용한다면 — 전체 저장 용량은 줄어들 것입니다. 하지만 여전히 파라미터 개수에 비례합니다."
+  },
+  {
+   "t": 3030,
+   "en": "And then, now let's say that you are training the model, and assuming that the gradient size and the momentum size are the same as the model size, then the required memory can be written as follows, following this philosophy here. And again, the point is the same — this is nothing but providing some examples. And the required memory is larger than we expect, and if you use a complicated optimizer, then the memory will also be reduced. So I think this kind of parameter memory is very intuitive — very intuitive — and everyone can understand it, if you know what I mean. Any questions so far? So the question is, should the gradient and the other optimizer states have different data types compared to the original model? The answer is definitely yes, you can do that. But typically, if you do traditional training using 32-bit floating-point numbers, you don't typically do that. Sorry, what is the question? 32-bit, do you mean 32-bit? 32-bit, yeah. Do we have to multiply more than two times?",
+   "ko": "그리고 이제 여러분이 모델을 학습시키고 있다고 하고, gradient 크기와 momentum 크기가 모델 크기와 같다고 가정하면, 필요한 메모리는 앞서 말한 이 원리를 따라서 다음과 같이 쓸 수 있습니다. 다시 말하지만 요점은 같습니다 — 이건 그저 몇 가지 예시를 드리는 것뿐입니다. 그리고 필요한 메모리는 우리가 예상하는 것보다 크며, 복잡한 optimizer를 사용하면 메모리도 줄어들게 됩니다. 그래서 이런 parameter memory는 매우 직관적이라고 생각합니다 — 매우 직관적이고 — 모두가 이해할 수 있을 겁니다, 무슨 말인지 아시겠죠. 지금까지 질문 있으신가요? 질문은, gradient나 다른 optimizer state들이 원래 모델과 다른 데이터 타입을 가져야 하느냐는 것이었죠? 답은 확실히 예스입니다, 그렇게 할 수 있습니다. 하지만 보통 32비트 floating-point 숫자를 사용하는 전통적인 학습을 한다면, 일반적으로 그렇게 하지는 않습니다. 죄송한데, 질문이 뭐였죠? 32비트라는 게 32비트를 말씀하시는 건가요? 32비트요, 네. 2배 이상 곱해야 하나요?"
+  },
+  {
+   "t": 3171,
+   "en": "Oh, so here, if you use 32-bit floating-point numbers, you can ignore this part — you can ignore this part. You mean you can ignore the 61, and then you can directly start from here. So which means that — this is the model size — and then if you use SGD, you will have 244 multiplied by 2. If you use SGD momentum, you will have 244 multiplied by 3, and then you will have 244 multiplied by 4, as you mentioned. Thank you for the question. Any other questions? All right, I always welcome questions, so feel free to ask it either in English or Korean. And then, so this is a very intuitive memory that you can imagine, but I would like to ask one question here. So is this parameter memory the only factor that affects the memory during training, or are there any other factors that you can imagine? Who thinks that there is another concept that we have to consider?",
+   "ko": "아, 그러니까 여기서, 32비트 floating-point 숫자를 사용한다면 이 부분은 무시할 수 있습니다 — 이 부분은 무시해도 됩니다. 61이라는 숫자는 무시하고, 바로 여기서부터 시작할 수 있다는 뜻이죠. 즉 — 이게 모델 크기인데 — SGD를 사용하면 244 곱하기 2가 됩니다. SGD momentum을 사용하면 244 곱하기 3이 되고, 말씀하신 대로 244 곱하기 4가 됩니다. 질문 감사합니다. 다른 질문 있으신가요? 네, 저는 언제나 질문을 환영하니, 영어로든 한국어로든 편하게 물어보세요. 자, 이건 여러분이 상상할 수 있는 매우 직관적인 메모리인데, 여기서 한 가지 질문을 드리고 싶습니다. 이 parameter memory가 학습 중 메모리에 영향을 주는 유일한 요인일까요, 아니면 여러분이 상상할 수 있는 다른 요인들이 있을까요? 우리가 고려해야 할 다른 개념이 있다고 생각하시는 분 계신가요?"
+  },
+  {
+   "t": 3268,
+   "en": "So I would like to introduce another concept called activation memory, which is sometimes less intuitive compared to the parameter memory — sometimes less intuitive compared to the parameter memory. And in order to understand the concept of activation memory, it is better to understand how back propagation is organized. So this is a memory that is affected not only by the model, but also affected by the dataset size, or the mini-batch size, that we are using to compute the gradient. So here, let's first define the number of activations. Suppose that we have a neural network like this, where the input size is 5, and then the output of the first layer is 4, the output of the second layer is 3, the output of the third layer is 2. Suppose that we are given a single sample, where the data sample size is a vector with five elements. Then if this vector goes through the layer, then you will have an output of 4. And then this will go through this layer, and then this layer, and so on.",
+   "ko": "그래서 저는 activation memory라는 또 다른 개념을 소개하고 싶은데, 이건 parameter memory에 비해 때로는 덜 직관적입니다 — parameter memory보다 때로는 덜 직관적이죠. 그리고 activation memory의 개념을 이해하려면, back propagation이 어떻게 구성되어 있는지 이해하는 게 좋습니다. 이건 모델뿐만 아니라, 데이터셋 크기나, gradient를 계산하는 데 사용하는 mini-batch 크기에도 영향을 받는 메모리입니다. 그럼 여기서 먼저 activation의 개수를 정의해봅시다. 이런 신경망이 있다고 합시다. 입력 크기는 5이고, 첫 번째 layer의 출력은 4, 두 번째 layer의 출력은 3, 세 번째 layer의 출력은 2입니다. 우리가 단일 샘플을 받았다고 합시다. 데이터 샘플 크기가 5개의 원소를 가진 벡터라고 하죠. 그러면 이 벡터가 layer를 통과하면 출력이 4가 됩니다. 그리고 이게 다시 이 layer를, 그다음 이 layer를 통과하고, 계속 그렇게 됩니다."
+  },
+  {
+   "t": 3381,
+   "en": "So here, we say that the number of activations here is 4, the number of activations here is 3, and the number of activations here is 2. This is the case where we input a single sample. But if you decide to apply mini-batch SGD — mini-batch update — then you typically update the model based on the tensor, by inserting multiple samples at the same time. So if you insert a single mini-batch now, which consists of n different samples, then you will observe more activations here, because now the input size is not simply 4, it's 4 by n, if you stack multiple data samples at the same time and build a tensor. So if you process n samples at the same time, the number of activations will become 4n, 3n, 2n, respectively.",
+   "ko": "그래서 여기서 activation의 개수는 4, 여기서는 3, 여기서는 2라고 말합니다. 이건 우리가 단일 샘플을 입력한 경우입니다. 하지만 mini-batch SGD — mini-batch update — 를 적용하기로 한다면, 보통 여러 샘플을 동시에 넣어서 tensor를 기반으로 모델을 업데이트합니다. 이제 n개의 서로 다른 샘플로 구성된 하나의 mini-batch를 넣으면, 여기서 더 많은 activation을 관찰하게 됩니다. 왜냐하면 이제 입력 크기가 단순히 4가 아니라, 여러 데이터 샘플을 동시에 쌓아서 tensor를 만들면 4 곱하기 n이 되기 때문입니다. 그래서 n개의 샘플을 동시에 처리하면, activation의 개수는 각각 4n, 3n, 2n이 됩니다."
+  },
+  {
+   "t": 3446,
+   "en": "So here you could see that the number of activations is proportional to the number of samples in the mini-batch, or the mini-batch size. We will just define it this way — we will just define it this way. If you are processing more data, then the activation will increase. This is an example with a convolutional layer, but this is nothing but the number of activations you will obtain if you consider a single sample: co multiplied by ho multiplied by wo. But if you consider more data samples, processing multiple samples at the same time — similar to this concept — let's say n is getting multiplied, where n is the number of samples in the batch. So the question is, why does the number of activations really matter? Why does the number of activations really matter, and why is this actually causing an issue? So the question is, now, why do the number of activations matter, and why is this causing a bottleneck during the training process?",
+   "ko": "그래서 여기서 activation의 개수는 mini-batch 안의 샘플 수, 즉 mini-batch 크기에 비례한다는 것을 알 수 있습니다. 그냥 이런 식으로 정의하겠습니다 — 그냥 이렇게 정의하겠습니다. 더 많은 데이터를 처리한다면 activation은 증가합니다. 이건 convolutional layer의 예시인데, 이것도 단일 샘플을 고려했을 때 얻게 되는 activation 개수일 뿐입니다. co 곱하기 ho 곱하기 wo이죠. 하지만 더 많은 데이터 샘플을 고려해서 여러 샘플을 동시에 처리한다면 — 이 개념과 비슷하게 — n이 곱해진다고 합시다. 여기서 n은 배치 안의 샘플 수입니다. 그럼 질문은, 왜 activation의 개수가 정말로 중요한가 하는 것입니다. 왜 activation의 개수가 정말로 중요하고, 왜 이게 실제로 문제를 일으키는가? 그래서 이제 질문은, 왜 activation의 개수가 중요하고, 왜 이게 학습 과정에서 병목(bottleneck)을 일으키는가 하는 것입니다."
+  },
+  {
+   "t": 3541,
+   "en": "So now, let's formally write down what is happening during the training process. But all these equations are the things that we already saw in the background of deep learning. So there is a(L-1), which is the activation from the previous layer, which is becoming the input of the current layer. There is a typo here. d_in is the input dimension of the layer, d_out is the output dimension of the layer. So the input dimension of this layer is 3, the output dimension of this layer is 4. This should become d_out, not d_in. So what is happening during forward propagation is that this a(L-1) will go through this — input dimension of the layer — W, where the W matrix is a d_out by d_in matrix. And then if we decide to apply the bias, then we will do this kind of summation, and then we will obtain z, and then this z will go through the activation function, and then we will obtain this a, and then this a will become the input of the next layer. So this is what we all know. And one important point here is that the dimension of this a(L-1) — this a(L-1) — is a matrix, if you consider multiple data samples at the same time.",
+   "ko": "그럼 이제 학습 과정에서 무슨 일이 일어나는지 formal하게 적어봅시다. 하지만 이 방정식들은 모두 우리가 딥러닝 배경 지식에서 이미 봤던 것들입니다. a(L-1)이 있는데, 이건 이전 layer의 activation이고, 이게 현재 layer의 입력이 됩니다. 여기 오타가 있네요. d_in은 layer의 입력 차원이고, d_out은 layer의 출력 차원입니다. 그래서 이 layer의 입력 차원은 3, 출력 차원은 4입니다. 이건 d_in이 아니라 d_out이 되어야 합니다. forward propagation 동안 일어나는 일은, 이 a(L-1)이 이 — layer의 입력 차원 — W를 통과한다는 것입니다. 여기서 W 행렬은 d_out 곱하기 d_in 행렬입니다. 그리고 bias를 적용하기로 한다면, 이런 식으로 합을 구하고, z를 얻은 다음, 이 z가 activation function을 통과해서 이 a를 얻고, 이 a가 다음 layer의 입력이 됩니다. 이건 우리가 다 아는 내용이죠. 여기서 한 가지 중요한 점은, 이 a(L-1)의 차원 — 이 a(L-1) — 이 여러 데이터 샘플을 동시에 고려한다면 행렬이 된다는 것입니다."
+  },
+  {
+   "t": 3648,
+   "en": "If the input of the neural network is a single vector, which means that we are considering a single sample, right, the input is also a single vector, right, d_in by one. But if you stack multiple data samples, and then this tensor goes through the neural network, then you will have a d_in by n matrix for this a. So which means that this a value — the dimension — is proportional to the mini-batch size, if you are processing more samples at the same time. This is what we actually all know, right — the only additional information I have provided here is that this a depends on the mini-batch size. But what I would like to say here is that if you do back propagation, right, if you do back propagation — and if you go back to our slides — then you will always see this a, right, this a, which is actually the activation, and the dimension here is actually proportional to the mini-batch size. So, for example, if you go back to our slides on back propagation, you will see, for example, this slide, right — this is the slide where I have summarized back propagation.",
+   "ko": "신경망의 입력이 단일 벡터라면, 즉 단일 샘플을 고려하고 있다는 뜻인데, 그러면 입력도 단일 벡터입니다, d_in 곱하기 1이죠. 하지만 여러 데이터 샘플을 쌓아서 이 tensor가 신경망을 통과한다면, 이 a는 d_in 곱하기 n 행렬이 됩니다. 즉 이 a 값의 차원은, 더 많은 샘플을 동시에 처리한다면 mini-batch 크기에 비례한다는 뜻입니다. 이건 사실 우리 모두가 아는 내용이고 — 제가 여기서 추가로 드린 정보는 이 a가 mini-batch 크기에 의존한다는 것뿐입니다. 하지만 여기서 제가 하고 싶은 말은, back propagation을 한다면, 맞습니다, back propagation을 한다면 — 그리고 우리 슬라이드로 돌아가 보면 — 항상 이 a를 보게 된다는 겁니다, 맞아요, 이 a는 실제로 activation이고, 여기서의 차원은 실제로 mini-batch 크기에 비례합니다. 예를 들어, back propagation에 관한 우리 슬라이드로 돌아가 보면, 예를 들어 이 슬라이드를 보게 될 겁니다 — 이게 제가 back propagation을 정리해 놓은 슬라이드입니다."
+  },
+  {
+   "t": 3747,
+   "en": "Here you can see that this is the gradient that you would like to compute, and this one is already given from the next layer. This one is nothing but the derivative of the non-linear activation function. This one here, you can see that the relationship between z and w is in this form. So if you take the derivative, you will see something like this, a(L-1), and this is exactly popping out in this equation — it is actually showing exactly the same equation, but this is given from the previous layer. This one is nothing but the derivative of the non-linear activation function. This one is obtained from this one, which comes from the chain rule. So what does this mean? What does this mean? This means that we have to store this value until we finish computing the gradient of a specific layer.",
+   "ko": "여기서 이게 우리가 계산하고 싶은 gradient이고, 이건 이미 다음 layer로부터 주어진 것을 볼 수 있습니다. 이건 다름이 아니라 비선형 activation function의 미분입니다. 여기 이건, z와 w 사이의 관계가 이런 형태로 되어 있다는 걸 볼 수 있습니다. 그래서 미분을 취하면, a(L-1) 같은 것이 나오는데, 이게 정확히 이 방정식에서 튀어나옵니다 — 사실 정확히 같은 방정식을 보여주고 있는데, 이건 이전 layer에서 주어진 것입니다. 이건 다름이 아니라 비선형 activation function의 미분입니다. 이건 이것으로부터 얻어지는데, 이건 chain rule에서 나온 것입니다. 그래서 이게 무슨 의미일까요? 이게 무슨 의미일까요? 이건 특정 layer의 gradient 계산을 끝낼 때까지 이 값을 저장해야 한다는 뜻입니다."
+  },
+  {
+   "t": 3832,
+   "en": "So these a values are naturally obtained during the forward propagation process, but we shouldn't discard these values before we compute the gradient, because these values should be directly utilized during the back propagation process, or computing the gradient. And then once you finish computing the gradient, then finally you can discard these values. So I'll provide some more intuition in the following slide, so don't worry even if you don't understand this slide. So let's see what is happening in forward propagation now. But you should know the definition of this a — this a is nothing but the input of the layer, or the output of the layer. So this is what is happening during the forward propagation process — these a values, which are the activation values, are naturally getting computed. Naturally getting computed, which means that — suppose that we have this a(L-2), which is the input of the (L-1) layer — then, and define these as the model parameters, then you will obtain the output of the layer based on multiplication and value summation, and then find the non-linear activation function, then you will have a(L-1). This will become the input of the next layer.",
+   "ko": "그러니까 이 a 값들은 forward propagation 과정 동안 자연스럽게 얻어지는 값들이지만, gradient를 계산하기 전에 이 값들을 버려서는 안 됩니다. 왜냐하면 이 값들은 back propagation 과정, 즉 gradient를 계산하는 과정에서 직접 사용되어야 하기 때문입니다. 그리고 gradient 계산을 다 끝내고 나면, 그제서야 비로소 이 값들을 버릴 수 있습니다. 다음 슬라이드에서 좀 더 직관을 드릴 테니, 이 슬라이드를 이해하지 못하셔도 걱정하지 마세요. 그럼 이제 forward propagation에서 무슨 일이 일어나는지 봅시다. 다만 이 a의 정의를 알고 계셔야 합니다 — 이 a는 다름이 아니라 layer의 입력, 혹은 layer의 출력입니다. 그래서 forward propagation 과정 동안 일어나는 일은 — 이 a 값들, 즉 activation 값들이 자연스럽게 계산되는 것입니다. 자연스럽게 계산된다는 것은 — 예를 들어, (L-1) layer의 입력인 a(L-2)가 있다고 하고 — 이것들을 모델 파라미터로 정의하면, 곱셈과 합산을 통해 layer의 출력을 얻고, 그다음 비선형 activation function을 적용하면 a(L-1)을 얻게 됩니다. 이게 다음 layer의 입력이 되는 거죠."
+  },
+  {
+   "t": 3938,
+   "en": "And then you will add bias, and then you apply the non-linear activation function — this will become the output of this layer, which will become the input of the next layer. So this is just a repeated forward propagation process, and all these activations are naturally computed during the forward propagation process. But if you do not consider training — if you do not consider training — and if you want to only do prediction during the inference stage, or the testing stage, you don't need to store this information. Because once you obtain, for example, this a(L-1), you don't need to store a(L-2) anymore, because what you only need is a(L-1) to compute the next output — you don't need this previous information anymore. Similarly, once you compute this a(L), right, you don't need a(L-1) or a(L-2) anymore, because what you need is just a(L), which should be utilized to compute the next output.",
+   "ko": "그리고 bias를 더하고, 비선형 activation function을 적용하면 — 이게 이 layer의 출력이 되고, 이건 다음 layer의 입력이 됩니다. 그러니까 이건 그저 반복되는 forward propagation 과정이고, 이 모든 activation들은 forward propagation 과정 동안 자연스럽게 계산됩니다. 하지만 학습을 고려하지 않는다면 — 학습을 고려하지 않는다면 — 그리고 inference 단계, 즉 테스트 단계에서 예측만 하고 싶다면, 이 정보를 저장할 필요가 없습니다. 왜냐하면 예를 들어 이 a(L-1)을 얻고 나면, a(L-2)는 더 이상 저장할 필요가 없기 때문입니다. 다음 출력을 계산하기 위해 필요한 건 오직 a(L-1)뿐이니까요 — 이전 정보는 더 이상 필요 없습니다. 마찬가지로, 이 a(L)을 계산하고 나면, a(L-1)이나 a(L-2)는 더 이상 필요 없습니다. 왜냐하면 필요한 건 오직 다음 출력을 계산하는 데 사용될 a(L)뿐이기 때문입니다."
+  },
+  {
+   "t": 4006,
+   "en": "This is the case where you only consider forward propagation, and you only consider the inference — during inference, we only need to compute the output of the model and make the prediction. So this is what I just talked about just before — if we do not consider back propagation, you can actually discard, or remove, a(L-1) once we obtain this a(L). You don't need the output of the previous layer anymore, because all the information is already included here. Similarly, you can discard a(L) once you obtain a(L+1), and then once you obtain the final output of the model, you don't need the previous intermediate activations anymore, because you already have the output — so based on the output, you can directly make the prediction. But what if — what if you consider training? What if you consider training?",
+   "ko": "이건 forward propagation만 고려하고, inference만 고려하는 경우입니다 — inference 동안에는 모델의 출력을 계산해서 예측만 하면 되니까요. 그래서 이게 제가 방금 전에 말씀드린 내용입니다 — back propagation을 고려하지 않는다면, 이 a(L)을 얻고 나면 a(L-1)을 실제로 버리거나 제거할 수 있습니다. 이전 layer의 출력은 더 이상 필요 없습니다, 왜냐하면 모든 정보가 이미 여기에 포함되어 있기 때문입니다. 마찬가지로, a(L+1)을 얻고 나면 a(L)을 버릴 수 있고, 모델의 최종 출력을 얻고 나면, 이전의 중간 activation들은 더 이상 필요 없습니다. 왜냐하면 이미 출력을 가지고 있으니까요 — 그래서 그 출력을 바탕으로 바로 예측을 할 수 있습니다. 하지만 만약 — 만약 학습을 고려한다면 어떻게 될까요? 학습을 고려한다면요?"
+  },
+  {
+   "t": 4094,
+   "en": "According to this equation, now you have to know the input activation of the layer, in order to compute the gradient — in order to compute the gradient — which means that, during the back propagation process, we actually need all these intermediate activations that were naturally computed during the forward propagation process. So again, this is nothing but the thing that I've rewritten — this equation is exactly the same thing, and this one and this one we saw here are exactly the same thing. All of them are equivalent things — I'm just repeatedly writing down these equations at different locations, in different slides. So this is not something new — this is the equation that we have been seeing for the past two weeks. So let's say that we would like to compute the gradient of this layer — we would like to compute the gradient of the loss with respect to this layer, during the back propagation process.",
+   "ko": "이 방정식에 따르면, 이제 gradient를 계산하기 위해 layer의 입력 activation을 알아야 합니다 — gradient를 계산하기 위해서요 — 즉 back propagation 과정 동안, forward propagation 과정에서 자연스럽게 계산되었던 이 모든 중간 activation들이 실제로 필요하다는 뜻입니다. 그래서 다시 말하지만, 이건 제가 다시 써놓은 것일 뿐입니다 — 이 방정식은 정확히 같은 것이고, 여기서 봤던 이것과 이것도 정확히 같은 것입니다. 이것들은 모두 동일한 것들이고 — 저는 그저 이 방정식들을 서로 다른 위치, 서로 다른 슬라이드에서 반복해서 적고 있을 뿐입니다. 그래서 이건 새로운 게 아니라 — 지난 2주 동안 우리가 계속 봐왔던 방정식입니다. 그럼 이 layer의 gradient를 계산하고 싶다고 합시다 — back propagation 과정에서, 이 layer에 대한 loss의 gradient를 계산하고 싶은 거죠."
+  },
+  {
+   "t": 4177,
+   "en": "And what we actually need is a(L), which is the input of this layer. And then, let's say that we'd like to do back propagation and compute the gradient of the loss with respect to the parameters here — then you need a(L-1), which is the input of this layer. Similarly, if you want to compute the gradient here, you will need this one. So this means that, although if you consider only forward propagation you don't need to store these intermediate activations, but if you consider training, and if you consider back propagation, these values should not be discarded, because they will be ultimately utilized when computing the gradient. So a natural solution that you can imagine is that, during the forward propagation, you store all this information — you do not discard all this information. You keep a(L-2), a(L-1), and a(L). And then you discard this value only when the back propagation of the corresponding layer is finished.",
+   "ko": "그리고 실제로 필요한 건 이 layer의 입력인 a(L)입니다. 그리고 back propagation을 해서 여기 파라미터에 대한 loss의 gradient를 계산하고 싶다면 — 이 layer의 입력인 a(L-1)이 필요합니다. 마찬가지로, 여기서 gradient를 계산하고 싶다면 이것이 필요합니다. 즉, forward propagation만 고려한다면 이 중간 activation들을 저장할 필요가 없지만, 학습을 고려하고 back propagation을 고려한다면, 이 값들은 버려서는 안 됩니다. 왜냐하면 결국 gradient를 계산할 때 사용될 것이기 때문입니다. 그래서 여러분이 상상할 수 있는 자연스러운 해결책은, forward propagation 동안 이 모든 정보를 저장하는 것입니다 — 이 모든 정보를 버리지 않는 거죠. a(L-2), a(L-1), a(L)을 모두 가지고 있는 겁니다. 그리고 해당 layer의 back propagation이 끝났을 때만 이 값을 버립니다."
+  },
+  {
+   "t": 4258,
+   "en": "So, for example, you store now all these values, but if the gradient computation of this layer is completed, now you can discard this value. And then, because this is the back propagation process, now you will compute the gradient of this layer, and then during that process you utilize this value. And then once this is completed, finally you discard this value. And then in the next step, you compute the gradient here, utilize this value, and then finally this one is discarded. This is why input activation is causing a bottleneck. So we need the input activation of each layer for computing the gradient. So if you plan to train the model, we shouldn't discard the activations that are naturally obtained during the forward propagation process — these activations are utilized to compute the gradient during the back propagation process.",
+   "ko": "예를 들어, 지금 이 모든 값들을 저장하고 있지만, 이 layer의 gradient 계산이 끝나면, 이제 이 값을 버릴 수 있습니다. 그리고 이건 back propagation 과정이니까, 이제 이 layer의 gradient를 계산할 것이고, 그 과정에서 이 값을 사용합니다. 그리고 이게 끝나면, 마침내 이 값을 버립니다. 그리고 다음 단계에서는, 여기서 gradient를 계산하고, 이 값을 사용한 다음, 마침내 이것도 버려집니다. 이게 바로 입력 activation이 병목(bottleneck)을 일으키는 이유입니다. 우리는 gradient를 계산하기 위해 각 layer의 입력 activation이 필요합니다. 그래서 모델을 학습시킬 계획이라면, forward propagation 과정에서 자연스럽게 얻어지는 activation들을 버려서는 안 됩니다 — 이 activation들은 back propagation 과정에서 gradient를 계산하는 데 사용됩니다."
+  },
+  {
+   "t": 4333,
+   "en": "So naturally, this a(L) will be discarded first, because it is the back propagation process. And then this one will get discarded, and then this one will get discarded as well. So the memory will naturally decrease. The point here is that this one is discarded first, and then this one will be discarded, and then this one will be discarded. And why is this causing a problem? Why is storing these a's causing a problem? Because, first, in the extreme case, you have to store all these a values when forward propagation is finished. So if the model has many layers, this means that you have to store many of these a's. And if there are many neurons in a single layer, then the dimension of a will increase.",
+   "ko": "그래서 자연스럽게, 이 a(L)이 가장 먼저 버려집니다, 왜냐하면 이건 back propagation 과정이니까요. 그다음 이게 버려지고, 그다음 이것도 버려집니다. 그래서 메모리는 자연스럽게 줄어듭니다. 여기서 요점은, 이게 가장 먼저 버려지고, 그다음 이게 버려지고, 그다음 이게 버려진다는 것입니다. 그런데 왜 이게 문제를 일으킬까요? 왜 이 a들을 저장하는 게 문제를 일으킬까요? 왜냐하면, 극단적인 경우에는, forward propagation이 끝났을 때 이 a 값들을 전부 저장해야 하기 때문입니다. 그래서 모델에 layer가 많다면, 이 a들을 많이 저장해야 한다는 뜻입니다. 그리고 하나의 layer 안에 뉴런이 많다면, a의 차원도 커질 것입니다."
+  },
+  {
+   "t": 4408,
+   "en": "So this a is affected by the number of neurons in each layer, and also the number of layers that you consider — it is a very huge burden. So if the model size increases, the memory for storing these activations will definitely increase. So this is a factor that is also affected by the model size. But what was another important factor that affects a? What was one important factor that affects a, that I've talked about? If you see this slide, the number of activations in each layer depends on the number of samples that you're processing, or the number of samples in the mini-batch. And then here, we also saw that if you process multiple samples at the same time, right, the dimension of this a will increase proportionally to the mini-batch size.",
+   "ko": "그래서 이 a는 각 layer의 뉴런 개수, 그리고 고려하는 layer의 개수에 영향을 받습니다 — 이건 아주 큰 부담입니다. 그래서 모델 크기가 커지면, 이 activation들을 저장하기 위한 메모리도 분명 커질 것입니다. 그래서 이것도 모델 크기에 영향을 받는 요인입니다. 그런데 a에 영향을 주는 또 다른 중요한 요인은 무엇이었을까요? 제가 말씀드렸던 a에 영향을 주는 또 다른 중요한 요인은 무엇이었죠? 이 슬라이드를 보시면, 각 layer의 activation 개수는 여러분이 처리하는 샘플의 개수, 즉 mini-batch 안의 샘플 개수에 의존합니다. 그리고 여기서 우리는 또한, 여러 샘플을 동시에 처리하면, 맞습니다, 이 a의 차원이 mini-batch 크기에 비례해서 커진다는 것도 봤습니다."
+  },
+  {
+   "t": 4465,
+   "en": "If you see this slide, the number of activations in each layer depends on the number of samples that you're processing, or the number of samples in the mini-batch. And then here, we also saw that if you process multiple samples at the same time, right, the dimension of this a will increase proportional to the mini-batch size. So this indicates that all these a values, right, all these a values are actually proportional to the mini-batch. So which means that if you use the mini-batch size of 1,000, then the dimension of this a will increase by 1,000 times compared to the case where you process only a single sample.",
+   "ko": "이 슬라이드를 보면, 각 레이어의 활성화(activation) 개수는 여러분이 처리하는 샘플 수, 즉 미니배치(mini-batch) 안의 샘플 수에 따라 달라집니다. 그리고 앞에서 봤듯이 여러 샘플을 동시에 처리하면 이 a의 차원이 미니배치 크기에 비례해서 커집니다. 그러니까 이 a 값들은 전부 미니배치 크기에 비례한다는 것을 알 수 있습니다. 즉 미니배치 크기를 1,000으로 사용하면, 샘플 하나만 처리할 때에 비해 이 a의 차원이 1,000배로 커진다는 뜻입니다."
+  },
+  {
+   "t": 4517,
+   "en": "So this one, this one, this a, right, this a, the dimension of this a is affected by the mini-batch size. So this part is the thing that is affected by the model size, right, the number of neurons in the layer. This one is the part that is affected by the mini-batch size. And then this is just for a single layer, but consider multiple layers, and you have to do the summation of all these values across all different layers.",
+   "ko": "그러니까 이거, 이 a 말인데요, 이 a의 차원은 미니배치 크기에 영향을 받습니다. 이 부분은 모델 크기, 즉 레이어의 뉴런 개수에 영향을 받는 부분이고요. 이 부분은 미니배치 크기에 영향을 받는 부분입니다. 그리고 이건 레이어 하나에 대한 것일 뿐이고, 여러 레이어를 고려하면 이 모든 값들을 모든 레이어에 걸쳐 다 합산해야 합니다."
+  },
+  {
+   "t": 4554,
+   "en": "So that's why the activation memory is affected by the model size and the mini-batch size simultaneously. And this is why training memory is much larger than inference. It's not only because of the parameter memory, but also because of the activation memory.",
+   "ko": "그래서 활성화 메모리(activation memory)는 모델 크기와 미니배치 크기 둘 다에 동시에 영향을 받는 겁니다. 그리고 이것이 바로 학습(training) 메모리가 추론(inference)보다 훨씬 더 큰 이유입니다. 이는 파라미터 메모리 때문만이 아니라 활성화 메모리 때문이기도 합니다."
+  },
+  {
+   "t": 4592,
+   "en": "From this perspective, you can imagine, and you might have experienced, many cases where training is not possible if you use the mini-batch size of 112, for example, but training can work if you use the mini-batch size of 8 or 16. So if you use a smaller mini-batch size, then there's a chance that you can avoid the out-of-memory compared to the case where you use a larger mini-batch. And the main reason is that you process multiple samples at the same time and have to store these intermediate activations, where all these intermediate activations are proportional to the mini-batch size.",
+   "ko": "이런 관점에서 보면, 예를 들어 미니배치 크기를 112로 사용하면 학습이 안 되는데 8이나 16으로 사용하면 학습이 되는 경우를 여러분도 경험해봤을 겁니다. 그러니까 더 작은 미니배치 크기를 사용하면, 더 큰 미니배치를 사용하는 경우에 비해 메모리 부족(out-of-memory)을 피할 수 있는 가능성이 생깁니다. 그 주된 이유는 여러 샘플을 동시에 처리하면서 이 중간 활성화 값들을 저장해야 하는데, 이 중간 활성화 값들이 전부 미니배치 크기에 비례하기 때문입니다."
+  },
+  {
+   "t": 4648,
+   "en": "So this is the concept that is less intuitive if you just do not think carefully. But if you understand how backpropagation is working and the fundamentals of backpropagation, you can understand why this is causing a bottleneck. And definitely you can imagine strategies to reduce the activation memory by doing some recomputation.",
+   "ko": "그러니까 이건 잘 생각해보지 않으면 직관적으로 이해하기 어려운 개념입니다. 하지만 역전파(backpropagation)가 어떻게 작동하는지, 그 기본 원리를 이해하면 왜 이것이 병목(bottleneck)이 되는지 이해할 수 있습니다. 그리고 당연히 재계산(recomputation)을 통해 활성화 메모리를 줄이는 전략도 생각해볼 수 있습니다."
+  },
+  {
+   "t": 4677,
+   "en": "So, for example, you only store, for example, AL minus 2 and AL plus 1 to save activation memory, and then you can do recomputation if you have to, if you need these values. In that case, you're actually trading off memory and computation. We will not talk about those in detail in our lecture, but you can imagine this kind of strategy.",
+   "ko": "예를 들어 활성화 메모리를 절약하기 위해 AL-2와 AL+1만 저장해두고, 필요할 때 이 값들을 재계산할 수 있습니다. 이 경우 사실상 메모리와 계산량을 맞바꾸는(trade-off) 것이죠. 우리 강의에서 이것을 자세히 다루지는 않겠지만, 이런 전략이 있다는 것 정도는 생각해볼 수 있습니다."
+  },
+  {
+   "t": 4718,
+   "en": "So this is one key message. The activation memory linearly increases with the mini-batch size. So these are the memory issues, right? We talked about parameter memory, which depends on the model size and the optimizer. But the parameter memory doesn't really depend on the mini-batch size or the data set size.",
+   "ko": "그래서 이게 하나의 핵심 메시지입니다. 활성화 메모리는 미니배치 크기에 선형적으로 비례해서 증가합니다. 지금까지 메모리 문제에 대해 이야기했죠. 파라미터 메모리는 모델 크기와 옵티마이저(optimizer)에 좌우된다고 했고요. 하지만 파라미터 메모리는 미니배치 크기나 데이터셋 크기에는 별로 좌우되지 않습니다."
+  },
+  {
+   "t": 4742,
+   "en": "Even though, if you consider activation memory, it depends not only on the model architecture, but also on the mini-batch size. And this might not always be an exact summation. But, again, I just wanted to explain that the memory is affected by both of these, but this might not be exactly the summation. Then there exist other memories that are required during the training process. But these are the two key bottlenecks that we can easily try to reduce.",
+   "ko": "그런데 활성화 메모리를 생각해보면, 이는 모델 아키텍처뿐만 아니라 미니배치 크기에도 좌우됩니다. 그리고 이게 항상 정확한 합(summation)은 아닐 수도 있습니다. 다시 말씀드리자면, 메모리는 이 둘 다에 영향을 받는다는 걸 설명하고 싶었던 것이고, 정확히 이 둘의 합은 아닐 수 있다는 겁니다. 그 외에도 학습 과정에서 필요한 다른 메모리들이 존재합니다. 하지만 이 두 가지가 우리가 쉽게 줄이려고 시도할 수 있는 핵심적인 병목입니다."
+  },
+  {
+   "t": 4783,
+   "en": "So when describing some distributed training algorithms, I will, in some cases, try to explain how that kind of distributed training algorithm is able to reduce either the parameter memory or the activation memory. I'll talk about those later, but if you imagine, for example, splitting the model into multiple chunks and then distributing them across different machines, then you can imagine that the number of parameters allocated to each machine will become smaller. So the parameter memory will decrease.",
+   "ko": "그래서 분산 학습(distributed training) 알고리즘들을 설명할 때, 경우에 따라 그 알고리즘이 파라미터 메모리 또는 활성화 메모리 중 어느 쪽을 줄이는지 설명하려고 합니다. 이건 나중에 다룰 텐데, 예를 들어 모델을 여러 조각으로 나눠서 서로 다른 머신에 분산시키는 것을 상상해보면, 각 머신에 할당되는 파라미터 개수가 줄어든다는 것을 상상할 수 있습니다. 그래서 파라미터 메모리가 줄어들게 됩니다."
+  },
+  {
+   "t": 4839,
+   "en": "But at the same time, the number of activations that will be stored in each machine will also decrease. So the activation memory will also decrease. If you consider splitting the dataset into multiple GPUs, then parameter memory will not decrease, but the activation memory will decrease. I'll talk about those in detail in later lectures.",
+   "ko": "하지만 동시에 각 머신에 저장해야 하는 활성화 개수도 줄어듭니다. 그래서 활성화 메모리도 줄어들게 됩니다. 반대로 데이터셋을 여러 GPU에 나누는 것을 생각해보면, 파라미터 메모리는 줄지 않지만 활성화 메모리는 줄어듭니다. 이 부분은 나중 강의에서 자세히 다루겠습니다."
+  },
+  {
+   "t": 4869,
+   "en": "But anyway, we talked about two key memories. And then in the following, I will talk about something about computation and something about delay, which is not that much difficult, okay? So this MAC operation, the flops, floating point operations, are the metrics that you can see in many machine learning papers, especially if they consider computational burden or efficiency. So this kind of MAC operation is nothing but multiply and accumulate operation. So this is an operation that is commonly conducted in neural network forward propagation. There is a multiplication process and there is an accumulation process.",
+   "ko": "아무튼 우리는 두 가지 핵심적인 메모리에 대해 이야기했습니다. 이어서 계산량(computation)과 지연시간(delay)에 대해서도 이야기하겠는데, 그렇게 어렵지는 않습니다, 괜찮죠? 이 MAC 연산과 플롭스(flops), 즉 부동소수점 연산(floating point operations)은 여러분이 많은 머신러닝 논문에서 볼 수 있는 지표인데, 특히 계산 부담이나 효율성을 다룰 때 쓰입니다. 이 MAC 연산이라는 것은 다름 아닌 곱셈-누산(multiply and accumulate) 연산입니다. 이것은 신경망의 순전파(forward propagation) 과정에서 흔히 수행되는 연산입니다. 곱셈 과정이 있고, 누산 과정이 있습니다."
+  },
+  {
+   "t": 4930,
+   "en": "So the number of MAC operations can be written as follows if you consider this kind of multiplication. And this kind of multiplication happens if you consider fully connected layers forward propagation. And this happens if you consider forward propagation using multiple samples, mini-batch size of K. This is the operation that is naturally happening in a neural network.",
+   "ko": "그러니까 이런 곱셈을 고려하면 MAC 연산의 개수를 이렇게 쓸 수 있습니다. 이런 곱셈은 완전연결층(fully connected layer)의 순전파를 고려할 때 일어납니다. 그리고 이것은 미니배치 크기 K로 여러 샘플을 사용해 순전파를 할 때 일어나는 것이고요. 이건 신경망에서 자연스럽게 일어나는 연산입니다."
+  },
+  {
+   "t": 4969,
+   "en": "Yeah, so this is the example. The input size is Ci, the output size is Co. And then the number of samples in the mini-batch is N. If N samples goes through this layer, then we need this amount of MAC operations. And if you consider more complicated CNNs, you might have to do more computations, but you don't really need to look at it in detail. If you just understand what a MAC operation is, then it is fine, right? You don't need to go through the CNN case in detail.",
+   "ko": "네, 이게 그 예시입니다. 입력 크기는 Ci, 출력 크기는 Co이고요. 미니배치 안의 샘플 수는 N입니다. N개의 샘플이 이 레이어를 통과하면 이만큼의 MAC 연산이 필요합니다. 더 복잡한 CNN을 고려하면 더 많은 계산이 필요할 수 있지만, 그걸 자세히 볼 필요는 없습니다. MAC 연산이 무엇인지만 이해하면 충분합니다, 그렇죠? CNN의 경우를 자세히 파고들 필요는 없습니다."
+  },
+  {
+   "t": 5013,
+   "en": "There's another very important metric called floating point operations. So for this one, it is more intuitive. It's the most simple metric that we can imagine. So it is like treating all the arithmetic operations the same, like addition, subtraction, multiplication, and division.",
+   "ko": "부동소수점 연산(floating point operations)이라는 또 다른 매우 중요한 지표가 있습니다. 이건 더 직관적입니다. 우리가 상상할 수 있는 가장 단순한 지표입니다. 덧셈, 뺄셈, 곱셈, 나눗셈 같은 모든 산술 연산을 동일하게 취급하는 것입니다."
+  },
+  {
+   "t": 5055,
+   "en": "So one multiplication also corresponds to one flop. One addition also corresponds to one floating point operation. So if you consider one multiplication and one accumulation at the same time, then this means that we have two floating point operations.",
+   "ko": "그러니까 곱셈 한 번도 플롭 하나에 해당하고, 덧셈 한 번도 부동소수점 연산 하나에 해당합니다. 그래서 곱셈 한 번과 누산 한 번을 동시에 고려하면, 부동소수점 연산이 두 번 있다는 뜻이 됩니다."
+  },
+  {
+   "t": 5084,
+   "en": "And then here, I have also added one link that is trying to explain the comparison between floating point operations. It is just trying to explain that the computational cost of back propagation is approximately twice that of forward propagation, but how should we define the computational burden, right? In order to define this kind of computational burden, that's why we are defining this kind of MAC operations and floating point operations.",
+   "ko": "그리고 여기에 부동소수점 연산 간의 비교를 설명하는 링크도 하나 추가해뒀습니다. 이는 역전파의 계산 비용이 순전파의 대략 두 배라는 것을 설명하려는 것인데, 그러면 계산 부담을 어떻게 정의해야 할까요? 이런 계산 부담을 정의하기 위해서 바로 이런 MAC 연산과 부동소수점 연산이라는 지표를 정의하는 것입니다."
+  },
+  {
+   "t": 5135,
+   "en": "So whenever you see some research papers that are trying to explain or talk about computational burden, right, people try to explain it based on this way, how many floating point operations are required to do that kind of training or inference. Of course, computing the floating point operations during training is more difficult.",
+   "ko": "그러니까 계산 부담을 설명하거나 다루는 연구 논문들을 보면, 사람들은 그런 학습이나 추론을 하는 데 부동소수점 연산이 얼마나 필요한지를 기준으로 설명하려고 합니다. 물론 학습 중의 부동소수점 연산을 계산하는 것은 더 어렵습니다."
+  },
+  {
+   "t": 5161,
+   "en": "And then another way to measure the computational burden is just measuring the delay for that computation based on some machine. So for example, people claim that their approach requires less computational burden by measuring the computational delay using the same GPU, but different algorithms. You measure the computational delay of algorithm one, and then you measure the computational delay of algorithm two using the same machine.",
+   "ko": "계산 부담을 측정하는 또 다른 방법은 어떤 머신을 기준으로 그 계산의 지연시간을 그냥 측정하는 것입니다. 예를 들어 사람들은 같은 GPU에서 다른 알고리즘들의 계산 지연시간을 측정해서 자신들의 방법이 계산 부담이 더 적다고 주장합니다. 알고리즘 1의 계산 지연시간을 측정하고, 같은 머신에서 알고리즘 2의 계산 지연시간을 측정하는 것이죠."
+  },
+  {
+   "t": 5199,
+   "en": "And then if algorithm one requires less delay, then you say that it's more computationally efficient. And that's an easier way to measure the computational burden compared to these flops, but these flops are more formal, because for this one, it really depends on which machine you use.",
+   "ko": "그리고 알고리즘 1이 지연시간이 더 적게 걸리면, 그것이 계산적으로 더 효율적이라고 말합니다. 이 방식이 플롭스에 비해 계산 부담을 측정하기 더 쉬운 방법이지만, 플롭스가 더 형식적(formal)인 방법입니다. 왜냐하면 지연시간 방식은 어떤 머신을 쓰느냐에 정말 많이 좌우되기 때문입니다."
+  },
+  {
+   "t": 5224,
+   "en": "If you use a very bad or slow machine, then the gap can become larger. If you use a very fast machine, then there might be no difference between these two. So measuring the computational burden using this kind of idea is a more formal way to define computational burden.",
+   "ko": "아주 나쁘거나 느린 머신을 사용하면 그 격차가 더 커질 수 있습니다. 아주 빠른 머신을 사용하면 둘 사이에 차이가 없을 수도 있고요. 그래서 이런 식으로 계산 부담을 측정하는 것이 계산 부담을 정의하는 더 형식적인 방법입니다."
+  },
+  {
+   "t": 5245,
+   "en": "And then regarding the latency, this is the thing that I've mentioned, right? And this latency really depends on what algorithm you use, and the number of neural network parameters, and what optimizer you use, and the hardware, what hardware you use for computation. So you don't need to deeply understand this equation. It is always difficult to formally model the delay during the training process. And it's sometimes not really necessary to formally model the delay. You just need to speed up the training process using multiple or a single machine.",
+   "ko": "그리고 지연시간(latency)에 관해서는, 이미 제가 언급했던 것처럼, 이 지연시간은 여러분이 어떤 알고리즘을 쓰는지, 신경망 파라미터의 개수, 어떤 옵티마이저를 쓰는지, 그리고 계산에 어떤 하드웨어를 쓰는지에 정말 많이 좌우됩니다. 그러니까 이 수식을 깊이 이해할 필요는 없습니다. 학습 과정 중의 지연시간을 형식적으로 모델링하는 것은 항상 어렵습니다. 그리고 지연시간을 형식적으로 모델링하는 것이 꼭 필요하지 않은 경우도 있습니다. 여러분은 그냥 여러 대의 머신 또는 한 대의 머신을 사용해서 학습 과정을 빠르게 만들면 됩니다."
+  },
+  {
+   "t": 5292,
+   "en": "But the point of this slide is that there are some neural network specific parts that affect the delay, including the neural network model size and the output activation size. And there exists some hardware specific parts, the number of operations that the processor can process per second, or the memory bandwidth of the processor, like that. So some people working on hardware try to do co-optimization of hardware and the algorithm.",
+   "ko": "하지만 이 슬라이드의 요점은, 지연시간에 영향을 주는 신경망 고유의 요소들이 있다는 것입니다. 신경망 모델 크기와 출력 활성화 크기 같은 것들이죠. 그리고 프로세서가 초당 처리할 수 있는 연산 수나 프로세서의 메모리 대역폭 같은 하드웨어 고유의 요소들도 있습니다. 그래서 하드웨어를 연구하는 어떤 사람들은 하드웨어와 알고리즘을 공동 최적화(co-optimization)하려고 합니다."
+  },
+  {
+   "t": 5351,
+   "en": "So similar to the memory issue, the required computation increases if you consider a larger model, and if the data set size or the mini-batch size is larger, so you will use more floating point operations and MAC operations. For example, if you use a larger mini-batch size, then you will have more floating point operations and MAC operations even during the forward computing process.",
+   "ko": "메모리 문제와 비슷하게, 더 큰 모델을 고려하거나 데이터셋 크기나 미니배치 크기가 더 크면 필요한 계산량이 늘어나서, 더 많은 부동소수점 연산과 MAC 연산을 쓰게 됩니다. 예를 들어 더 큰 미니배치 크기를 사용하면, 순전파 계산 과정에서도 더 많은 부동소수점 연산과 MAC 연산이 필요해집니다."
+  },
+  {
+   "t": 5386,
+   "en": "In a similar way, if you consider the latency, if you use a larger model and if you use a larger data set or a larger mini-batch size, latency will also increase. So, we talked about three different metrics, right? Memory, we talked about two different memories, parameter memory and activation memory. And then we briefly talked about computation and latency.",
+   "ko": "비슷하게 지연시간을 생각해보면, 더 큰 모델을 사용하거나 더 큰 데이터셋 또는 더 큰 미니배치 크기를 사용하면 지연시간도 증가합니다. 그러니까 우리는 세 가지 서로 다른 지표에 대해 이야기했습니다. 메모리에 대해서는 파라미터 메모리와 활성화 메모리라는 두 가지 메모리를 다뤘고요. 그리고 계산량과 지연시간에 대해서도 간단히 이야기했습니다."
+  },
+  {
+   "t": 5424,
+   "en": "But we can intuitively understand that all these metrics will increase if the size of the model is large and if the data set size is large. But we specifically, technically saw how these parameter memory and activation memory are affected by data set size and especially the mini-batch size and the model size. So, any questions regarding any of these concepts?",
+   "ko": "하지만 모델 크기가 크고 데이터셋 크기가 크면 이 모든 지표들이 증가한다는 것을 직관적으로 이해할 수 있습니다. 그리고 우리는 특히 이 파라미터 메모리와 활성화 메모리가 데이터셋 크기, 특히 미니배치 크기와 모델 크기에 어떻게 영향을 받는지 구체적이고 기술적으로 살펴봤습니다. 자, 이 개념들에 대해 질문 있으신가요?"
+  },
+  {
+   "t": 5458,
+   "en": "How large is the size of the model? I think it depends on what we do. Also, the question here is that how much, you know, what should be the idealistic model size, right? How much model size, like how much we should increase the model size? And it might depend on what application that you will be targeting.",
+   "ko": "모델 크기는 얼마나 커야 하나요? 이건 우리가 무엇을 하느냐에 달려있다고 생각합니다. 그리고 여기서 질문은, 이상적인 모델 크기가 어느 정도여야 하는지, 모델 크기를 얼마나 키워야 하는지에 관한 것인데요. 이는 여러분이 목표로 하는 애플리케이션이 무엇이냐에 따라 달라질 수 있습니다."
+  },
+  {
+   "t": 5492,
+   "en": "But if you consider a very strong foundation model that can do anything, right, people are trying to increase the model as much as possible. But sometimes, right, sometimes you will face cases where the performance will not increase, like not get better anymore. And that's because, although the data samples are getting generated nowadays, you cannot make the model size infinite because you might face some overfitting issues or the model may not perform well.",
+   "ko": "하지만 무엇이든 할 수 있는 아주 강력한 파운데이션 모델(foundation model)을 생각한다면, 사람들은 모델을 가능한 한 크게 키우려고 합니다. 하지만 가끔은 성능이 더 이상 좋아지지 않는, 즉 더 이상 개선되지 않는 경우도 마주하게 됩니다. 그 이유는, 요즘 데이터 샘플들이 계속 생성되고 있긴 하지만, 모델 크기를 무한히 키울 수는 없기 때문입니다. 과적합(overfitting) 문제가 생기거나 모델이 성능을 제대로 내지 못할 수 있기 때문이죠."
+  },
+  {
+   "t": 5531,
+   "en": "So, currently what is happening is that the model sizes are getting larger. You cannot directly make it infinite. Not only because of the memory or the computation issues, but also because of the number of data samples. The data samples are still getting generated, and OpenAI, for example, is actually collecting data from the users.",
+   "ko": "그래서 현재 일어나고 있는 일은 모델 크기가 점점 커지고 있다는 것입니다. 하지만 바로 무한히 키울 수는 없습니다. 메모리나 계산 문제 때문만이 아니라 데이터 샘플의 수 때문이기도 합니다. 데이터 샘플은 계속 생성되고 있는데, 예를 들어 OpenAI 같은 곳은 실제로 사용자들로부터 데이터를 수집하고 있습니다."
+  },
+  {
+   "t": 5560,
+   "en": "We don't know how they are using that exactly, but it is sure that they will use those data samples to improve their model further. So, the data samples are still getting collected. And if they achieve a good performance after increasing the model size, then they will increase it. But if the model performance stops increasing, they will stop. But if they collect more data, then they will increase it.",
+   "ko": "그들이 그 데이터를 정확히 어떻게 사용하는지는 알 수 없지만, 그 데이터 샘플들을 자신들의 모델을 더 개선하는 데 사용할 것이라는 건 확실합니다. 그래서 데이터 샘플은 계속 수집되고 있습니다. 그리고 모델 크기를 키운 뒤에 좋은 성능을 얻으면 계속 키울 것이고요. 하지만 모델 성능이 더 이상 좋아지지 않으면 멈출 것입니다. 하지만 데이터를 더 모으면 다시 키울 것입니다."
+  },
+  {
+   "t": 5590,
+   "en": "But if you consider a specific target task, which is not that much complicated compared to what OpenAI is developing, then you might not need an infinite size model. But you need to have your own experience on how the performance varies. Nowadays, the model size is important, but the model architecture is sometimes more important. Transformer-based architecture is helping. The answer is that it is hard to grow an infinite size model, but we are trying to grow it.",
+   "ko": "하지만 OpenAI가 개발하는 것에 비해 그렇게 복잡하지 않은 특정 목표 과제를 생각한다면, 무한한 크기의 모델이 필요하지 않을 수도 있습니다. 하지만 성능이 어떻게 달라지는지에 대한 여러분만의 경험이 필요합니다. 요즘은 모델 크기도 중요하지만, 모델 아키텍처가 때로는 더 중요합니다. 트랜스포머 기반 아키텍처가 도움이 되고 있고요. 결론적으로 무한한 크기의 모델을 키우는 것은 어렵지만, 우리는 계속 키우려고 노력하고 있습니다."
+  },
+  {
+   "t": 5642,
+   "en": "Any other questions? So, the question is, training requires a lot of memory, but how much memory do we need here compared to the model size if you want to facilitate training? It depends on, again, what mini-batch size you use and what algorithm you use.",
+   "ko": "다른 질문 있으신가요? 질문은, 학습에는 메모리가 많이 필요한데, 학습이 가능하려면 모델 크기 대비 메모리가 얼마나 필요하냐는 것입니다. 이건 또다시, 어떤 미니배치 크기를 쓰는지, 어떤 알고리즘을 쓰는지에 달려 있습니다."
+  },
+  {
+   "t": 5683,
+   "en": "Sometimes in our lab, we face challenges even if we use models like 20 gigabytes or like 10 gigabytes. But it depends on the mini-batch size and what optimizer you use. So, there is no universal answer. You just try and then see what happens and then do something.",
+   "ko": "저희 연구실에서도 20기가바이트나 10기가바이트 정도의 모델을 쓸 때도 어려움을 겪을 때가 있습니다. 하지만 이는 미니배치 크기와 어떤 옵티마이저를 쓰는지에 달려 있습니다. 그래서 보편적인 답은 없습니다. 그냥 시도해보고 어떻게 되는지 본 다음 뭔가를 조치하는 것이죠."
+  },
+  {
+   "t": 5717,
+   "en": "But when doing something, right, you can understand why, what you should do based on the things that we learned. You can reduce the mini-batch size, or you can reduce the model size, or you can use a simpler optimizer. So, if keeping the model size is very important in your task, then probably you can use a simpler optimizer and reduce the mini-batch size.",
+   "ko": "하지만 뭔가 조치를 할 때, 우리가 배운 것들을 바탕으로 무엇을 해야 하는지 그 이유를 이해할 수 있습니다. 미니배치 크기를 줄이거나, 모델 크기를 줄이거나, 더 단순한 옵티마이저를 쓸 수 있습니다. 그러니까 여러분의 과제에서 모델 크기를 유지하는 것이 매우 중요하다면, 아마 더 단순한 옵티마이저를 쓰고 미니배치 크기를 줄이면 됩니다."
+  },
+  {
+   "t": 5748,
+   "en": "If fixing the mini-batch size is more important, you can fix the mini-batch size, but use a simpler optimizer and make the model size smaller. Thank you for the question. Any other questions?",
+   "ko": "미니배치 크기를 고정하는 것이 더 중요하다면, 미니배치 크기는 고정하되 더 단순한 옵티마이저를 쓰고 모델 크기를 더 작게 만들면 됩니다. 질문해주셔서 감사합니다. 다른 질문 있으신가요?"
+  },
+  {
+   "t": 5768,
+   "en": "So, in many cases, there's no universal answer in machine learning, right? Many of the things are heuristic. Many of the things are based on experience. And nowadays, even nowadays, there exist different opinions on why batch normalization is working.",
+   "ko": "그러니까 많은 경우, 머신러닝에는 보편적인 답이 없습니다, 그렇죠? 많은 것들이 휴리스틱(heuristic)입니다. 많은 것들이 경험에 기반합니다. 그리고 요즘에도, 지금까지도, 왜 배치 정규화(batch normalization)가 효과가 있는지에 대해 서로 다른 의견들이 존재합니다."
+  },
+  {
+   "t": 5783,
+   "en": "And there exist some theories trying to explain why even Adam is doing well, right? People are still doing theoretical analysis. And you can actually, not all, but somewhat understand those things if you take courses related to mathematics plus machine learning in the department, right, in the School of Computing.",
+   "ko": "그리고 심지어 Adam이 왜 잘 작동하는지를 설명하려는 이론들도 존재합니다. 사람들은 여전히 이론적 분석을 하고 있고요. 그리고 여러분이 학과에서, 그러니까 컴퓨팅학과(School of Computing)에서 수학과 머신러닝이 결합된 과목들을 들으면, 전부는 아니더라도 어느 정도는 그런 것들을 이해할 수 있습니다."
+  },
+  {
+   "t": 5832,
+   "en": "Okay, so we saw that we have memory issues, computation issues, delay issues, when we do this kind of centralized training. The size of the data set is very large. The model size is very large. But we have limited memory, storage, computation time, right? And training a model in a single machine will cause this kind of issues.",
+   "ko": "자, 그러니까 우리는 이런 중앙집중식 학습(centralized training)을 할 때 메모리 문제, 계산 문제, 지연 문제가 있다는 것을 봤습니다. 데이터셋 크기는 매우 크고요. 모델 크기도 매우 큽니다. 하지만 우리에게는 제한된 메모리, 저장 공간, 계산 시간이 있죠. 그래서 하나의 머신에서 모델을 학습시키면 이런 문제들이 발생하게 됩니다."
+  },
+  {
+   "t": 5861,
+   "en": "So, what we would like to do from next week is that we will directly jump into distributed training methods to mitigate these problems. So next week, we will specifically talk about something called data parallelism, which is trying to do parallel computation of the data, but we don't split the model.",
+   "ko": "그래서 다음 주부터 하려는 것은, 이런 문제들을 완화하기 위한 분산 학습(distributed training) 방법론들로 바로 넘어가는 것입니다. 다음 주에는 구체적으로 데이터 병렬화(data parallelism)라는 것에 대해 이야기할 텐데, 이는 데이터에 대한 병렬 계산을 하려는 것이고 모델은 나누지 않습니다."
+  },
+  {
+   "t": 5888,
+   "en": "And then in week four, we will talk about strategies on splitting the model into different machines. And I will provide some examples regarding DeepSeek, where they use many distributed training strategies when training their DeepSeek model.",
+   "ko": "그리고 4주차에는 모델을 여러 머신으로 나누는 전략들에 대해 이야기하겠습니다. 그리고 DeepSeek 관련 예시들도 제공할 텐데, 그들은 DeepSeek 모델을 학습시킬 때 여러 분산 학습 전략들을 사용했습니다."
+  },
+  {
+   "t": 5909,
+   "en": "They have utilized data parallelism. They have utilized different model parallelisms to make their training possible, and speed up the training process with less memory issues. So, this is the goal of this course.",
+   "ko": "그들은 데이터 병렬화를 활용했습니다. 학습을 가능하게 하고 메모리 문제를 줄이면서 학습 과정을 빠르게 하기 위해 여러 다른 모델 병렬화 기법들도 활용했고요. 이것이 바로 이 과목의 목표입니다."
+  },
+  {
+   "t": 5929,
+   "en": "And if you understand these issues and the backgrounds on machine learning carefully, it could be easier to understand the later parts of the issue. So, any questions so far? Since we didn't take a break, we will stop at this point and hope everyone can have a good weekend. Thank you.",
+   "ko": "그리고 이런 문제들과 머신러닝의 배경 지식들을 잘 이해하면, 뒤에 나오는 내용들을 이해하기가 더 쉬워질 겁니다. 자, 지금까지 질문 있으신가요? 저희가 중간에 쉬는 시간을 갖지 않았으니, 여기서 마치도록 하겠습니다. 모두 좋은 주말 보내시길 바랍니다. 감사합니다."
+  }
+ ]
+}

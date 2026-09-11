@@ -1,0 +1,510 @@
+{
+ "id": "2026-09-11-algorithm-analysis-1",
+ "course": "algorithm-analysis",
+ "title": "Closest Pair Correctness & Running Time; Integer Multiplication",
+ "date": "2026-09-11",
+ "duration_sec": 5947,
+ "audio_url": "https://pub-950a8b85c4a448b4b96d2942eec87d6b.r2.dev/2026-09-11-algorithm-analysis-1.m4a",
+ "paragraphs": [
+  {
+   "t": 0,
+   "en": "In the last lecture, I claimed that my algorithm is going to be a little worse than the merge sort algorithm, but we didn't get there by hand. I've given out a summary handout, so if you haven't brought it, please bring it out. Let me just write down the theorem in the handout, or a summarized version of it.",
+   "ko": "지난 강의에서 저는 제 알고리즘이 merge sort 알고리즘보다 조금 더 나쁠 것이라고 주장했지만, 직접 손으로 증명해 보지는 않았습니다. 지난번에 요약 핸드아웃을 나눠드렸으니, 혹시 안 가져오셨다면 꺼내주시기 바랍니다. 핸드아웃에 있는 정리, 혹은 그 요약본을 칠판에 적어보겠습니다."
+  },
+  {
+   "t": 28,
+   "en": "So, a and b are constants such that a is at least 1 and b is greater than 1, and f(n) is a non-negative function. T(n) is a function defined on the non-negative integers by the recurrence relation $T(n) = aT(n/b) + f(n)$. And of course, in order to define this function T(n), you will have to provide the necessary base cases — so just assume that the base cases are somehow provided. The three cases of the theorem are the following.",
+   "ko": "먼저 a와 b는 상수인데, a는 1 이상이고 b는 1보다 크며, f(n)은 음이 아닌 함수입니다. T(n)은 음이 아닌 정수 위에서 정의된 함수로, 점화식 $T(n) = aT(n/b) + f(n)$으로 정의됩니다. 물론 이 함수 T(n)을 정의하려면 필요한 기저 사례(base case)들을 제공해야 하는데, 그 기저 사례들은 어떻게든 주어져 있다고 가정하겠습니다. 정리의 세 가지 경우는 다음과 같습니다."
+  },
+  {
+   "t": 83,
+   "en": "If $f(n) = O(n^{\\log_b a - \\epsilon})$ for some constant $\\epsilon > 0$, then $T(n) = \\Theta(n^{\\log_b a})$.",
+   "ko": "만약 어떤 상수 $\\epsilon > 0$에 대해 $f(n) = O(n^{\\log_b a - \\epsilon})$라면, $T(n) = \\Theta(n^{\\log_b a})$입니다."
+  },
+  {
+   "t": 105,
+   "en": "And the second case: if $f(n) = \\Theta(n^{\\log_b a} \\log^k n)$ for some constant $k \\geq 0$, then $T(n) = \\Theta(n^{\\log_b a} \\log^{k+1} n)$.",
+   "ko": "두 번째 경우는, 만약 어떤 상수 $k \\geq 0$에 대해 $f(n) = \\Theta(n^{\\log_b a} \\log^k n)$라면, $T(n) = \\Theta(n^{\\log_b a} \\log^{k+1} n)$입니다."
+  },
+  {
+   "t": 128,
+   "en": "And the third case: if $f(n) = \\Omega(n^{\\log_b a + \\epsilon})$ for some constant $\\epsilon > 0$, and there exists some constant $c < 1$ such that $a \\cdot f(n/b) \\leq c \\cdot f(n)$ for all sufficiently large n, then $T(n) = \\Theta(f(n))$.",
+   "ko": "세 번째 경우는, 만약 어떤 상수 $\\epsilon > 0$에 대해 $f(n) = \\Omega(n^{\\log_b a + \\epsilon})$이고, 동시에 어떤 상수 $c < 1$이 존재해서 충분히 큰 모든 n에 대해 $a \\cdot f(n/b) \\leq c \\cdot f(n)$을 만족한다면, $T(n) = \\Theta(f(n))$입니다."
+  },
+  {
+   "t": 164,
+   "en": "Okay, so you don't have to copy this because I already put it on the handout. And if you were absent in the last lecture, I'm going to upload the handout online — so in that case too, you don't have to copy this. Now, this T(n) is a function that is defined only on the non-negative integers, so the first thing we have to clarify is what it actually means to say $T(n) = aT(n/b)$, where n/b may or may not be an integer. And there already is the answer in the theorem's definition: when you interpret this recurrence relation, you're free to interpret n/b as either the ceiling of n/b or the floor of n/b, whichever way you want. Whichever way it is, if the recurrence relation can be written in this form with that understanding, then you can apply the master theorem.",
+   "ko": "자, 이건 이미 핸드아웃에 적어놨으니 굳이 받아 적지 않으셔도 됩니다. 그리고 지난 강의에 결석하신 분들을 위해 핸드아웃을 온라인에 올려드릴 테니, 그런 경우에도 받아 적지 않으셔도 됩니다. 그런데 이 T(n)은 음이 아닌 정수에서만 정의되는 함수이기 때문에, 먼저 명확히 해야 할 것은 n/b가 정수가 아닐 수도 있는 상황에서 $T(n) = aT(n/b)$라고 말하는 것이 정확히 무엇을 의미하는가입니다. 그리고 그 답은 이미 정리의 정의 안에 들어있습니다. 이 점화식을 해석할 때, n/b를 ceiling(n/b)으로 해석하든 floor(n/b)로 해석하든 원하는 대로 자유롭게 해석하셔도 됩니다. 어느 쪽으로 해석하든, 그런 이해 하에 점화식이 이 형태로 쓰일 수 있다면 마스터 정리(master theorem)를 적용할 수 있습니다."
+  },
+  {
+   "t": 223,
+   "en": "So, well, the whole point of the master theorem is that this is going to be a cookbook recipe type of theorem that you can use to analyze a recursive algorithm. When you have a recursive algorithm, it would be very natural to come up with a recurrence relation that says the running time of this function should be the running time of the same recursive function on some smaller inputs, plus whatever job you're doing outside of that. In our case, this $T(n/b)$ corresponds to the running time required by the two recursive calls we make within the function.",
+   "ko": "마스터 정리의 핵심은, 이것이 재귀 알고리즘을 분석할 때 쓸 수 있는 일종의 요리책 레시피 같은 정리라는 점입니다. 재귀 알고리즘이 있으면, 자연스럽게 '이 함수의 실행 시간은 더 작은 입력에 대한 동일한 재귀 함수의 실행 시간에, 그 외에 추가로 하는 작업 시간을 더한 것'이라는 형태의 점화식을 세우게 됩니다. 우리 경우에는 이 $T(n/b)$가 함수 내에서 수행하는 두 번의 재귀 호출에 필요한 실행 시간에 해당합니다."
+  },
+  {
+   "t": 264,
+   "en": "And then afterwards, we have to spend some additional time, and I already claimed that there is one specific step — where we prepare S(Y) — that dominates the running time of the remaining portion, which was $O(n \\log n)$ because we can invoke any $O(n \\log n)$-time sorting algorithm, such as merge sort or heap sort. So this portion corresponds to the running time required in addition to the recursive calls. So it would be very natural to write the running time as a recurrence relation like this, and then after writing it, the question you need to ask is: what is the asymptotic growth of this recursively defined function? The master theorem provides the answer.",
+   "ko": "그다음에는 추가로 시간을 좀 더 써야 하는데, 이미 말씀드렸듯이 S(Y)를 준비하는 특정 단계 하나가 재귀 호출을 제외한 나머지 부분의 실행 시간을 지배하며, 이는 $O(n \\log n)$입니다. merge sort나 heap sort 같은 $O(n \\log n)$ 시간 정렬 알고리즘을 아무거나 사용할 수 있기 때문이죠. 즉 이 부분이 재귀 호출 외에 추가로 필요한 실행 시간에 해당합니다. 그래서 자연스럽게 실행 시간을 이런 형태의 점화식으로 쓸 수 있고, 점화식을 쓴 다음에는 '이렇게 재귀적으로 정의된 함수의 점근적 증가율이 무엇인가'라는 질문을 던지게 됩니다. 마스터 정리가 바로 그 답을 제공합니다."
+  },
+  {
+   "t": 313,
+   "en": "Now, what I want to point out is that this is not an exhaustive theorem, in the sense that there might be a recurrence relation that doesn't really fit into these categories. It might be because the size of the smaller input is not in the form of n divided by some number — it might be something like $T(n-1)$ or $T(\\sqrt{n})$. In that case, you can still write the recurrence relation, it's just that the theorem is not going to help you solve it.",
+   "ko": "여기서 짚고 넘어가고 싶은 점은, 이 정리가 모든 경우를 다 포괄하지는 않는다는 것입니다. 즉 이 범주들에 맞지 않는 점화식이 있을 수 있습니다. 더 작은 입력의 크기가 n을 어떤 수로 나눈 형태가 아닐 수도 있는데, 예를 들면 $T(n-1)$이나 $T(\\sqrt{n})$ 같은 형태일 수 있습니다. 그런 경우에는 점화식 자체는 쓸 수 있지만, 이 정리가 그것을 풀어주지는 못합니다."
+  },
+  {
+   "t": 348,
+   "en": "And then, even if the recurrence relation is written in this form, afterward it might be the case that your f(n) does not fit into any of the three categories. For example, the first case says f(n) should be $O(n^{\\log_b a - \\epsilon})$. Let's say your $\\log_b a$ is, say, 2. Then if f(n) is, for example, something like $n^2$, that fits into the second category, because the second category says f(n) should be $\\Theta(n^{\\log_b a} \\log^k n)$, which here is $n^2 \\log^0 n$, and k can be taken as 0 since k is allowed to be any constant greater than or equal to 0. So in that case it fits the second category and the master theorem gives you the answer. But, for example, if the running time is something like $n^2 / \\log n$, then it does not fit into this category, because that would require $k = -1$.",
+   "ko": "그런데 점화식이 이 형태로 쓰여진다고 해도, 그 이후에 f(n)이 세 범주 중 어디에도 맞지 않는 경우가 있을 수 있습니다. 예를 들어 첫 번째 경우는 f(n)이 $O(n^{\\log_b a - \\epsilon})$이어야 한다고 말합니다. $\\log_b a$가 2라고 해봅시다. 이때 f(n)이 예를 들어 $n^2$이라면, 이는 두 번째 경우에 해당합니다. 두 번째 경우는 f(n)이 $\\Theta(n^{\\log_b a} \\log^k n)$, 즉 여기서는 $n^2 \\log^0 n$이어야 한다고 하는데, k는 0 이상인 임의의 상수를 취할 수 있으므로 k=0으로 두면 됩니다. 그러면 두 번째 경우에 맞아떨어지고 마스터 정리가 답을 줍니다. 하지만 예를 들어 실행 시간이 $n^2 / \\log n$ 같은 형태라면, 이는 k=-1을 필요로 하므로 이 범주에 맞지 않습니다."
+  },
+  {
+   "t": 417,
+   "en": "Now, you might be wondering, well, can I fit this function into the first category instead? But the answer is again no, because f(n) is supposed to be $O(n^{\\log_b a - \\epsilon})$ for some constant $\\epsilon > 0$. As soon as you take a function like $n^{\\log_b a - \\epsilon}$ for some very small constant $\\epsilon$, like $10^{-3}$, this function already grows strictly slower than $n^2/\\log n$ — so $f(n) = n^2/\\log n$ is not $O$ of that function. So in that case, the first category does not match, the second category does not match, and it's even easier to see that the third category doesn't match either, because f(n) here would actually have to grow much faster than $n^{\\log_b a}$ for that case. So, although the given recurrence relation matches the form the master theorem is expecting up to this point, the theorem is not going to give you the answer for this f(n).",
+   "ko": "그러면 이 함수를 대신 첫 번째 범주에 맞출 수는 없을까 궁금하실 수 있는데, 답은 역시 '아니오'입니다. f(n)은 어떤 상수 $\\epsilon > 0$에 대해 $O(n^{\\log_b a - \\epsilon})$이어야 하기 때문입니다. $\\epsilon$을 $10^{-3}$처럼 아주 작은 상수로 잡아 $n^{\\log_b a - \\epsilon}$ 형태의 함수를 생각해보면, 이 함수는 이미 $n^2/\\log n$보다 엄격히 느리게 증가합니다. 즉 $f(n) = n^2/\\log n$은 그 함수의 O가 아닙니다. 따라서 첫 번째 범주도 맞지 않고, 두 번째 범주도 맞지 않으며, 세 번째 범주는 더욱 쉽게 맞지 않음을 알 수 있는데, 그 경우 f(n)이 실제로는 $n^{\\log_b a}$보다 훨씬 빠르게 증가해야 하기 때문입니다. 따라서 주어진 점화식이 마스터 정리가 기대하는 형태까지는 맞더라도, 이 f(n)에 대해서는 정리가 답을 주지는 못합니다."
+  },
+  {
+   "t": 488,
+   "en": "One more thing: in the third case, there is one more condition you need to check. There has to exist some constant c strictly smaller than 1 that satisfies that regularity inequality, but this inequality only needs to be satisfied for sufficiently large n. In other words, if you can say this inequality holds for all $n \\geq 1{,}000{,}000$, that's sufficient. But actually, you'll find that as soon as the condition $f(n) = \\Omega(n^{\\log_b a + \\epsilon})$ is satisfied, the regularity condition usually holds too — so this is really only relevant for some pathological functions.",
+   "ko": "한 가지 더 말씀드리면, 세 번째 경우에는 확인해야 할 조건이 하나 더 있습니다. 1보다 엄격히 작은 어떤 상수 c가 존재해서 그 정규성 조건(regularity condition) 부등식을 만족해야 하는데, 이 부등식은 충분히 큰 n에 대해서만 성립하면 됩니다. 다시 말해, 이 부등식이 $n \\geq 1{,}000{,}000$인 모든 n에 대해 성립한다고 말할 수 있으면 그것으로 충분합니다. 하지만 실제로는 $f(n) = \\Omega(n^{\\log_b a + \\epsilon})$ 조건만 만족하면 이 정규성 조건도 보통 자동으로 성립합니다. 그래서 이건 정말 병적인(pathological) 몇몇 함수에나 해당하는 이야기입니다."
+  },
+  {
+   "t": 534,
+   "en": "Anyway, what I'm saying is that when you have a recursive algorithm, you would naturally want to write the running time as a recurrence relation, and then after writing it, you'll have to solve it. But in many cases, this theorem is going to help you. This is really just a cookbook recipe type of theorem, in the sense that you just look at what your recurrence relation is and try to fit it into one of the cases — and if it does, you have the answer.",
+   "ko": "어쨌든 제가 말씀드리고 싶은 것은, 재귀 알고리즘이 있으면 자연스럽게 실행 시간을 점화식으로 쓰고 싶어지고, 점화식을 쓴 다음에는 그것을 풀어야 한다는 것입니다. 하지만 많은 경우 이 정리가 도움이 될 것입니다. 이건 정말로 요리책 레시피 같은 정리인데, 여러분의 점화식이 어떤 형태인지 보고 세 경우 중 하나에 맞춰보기만 하면 되고, 맞아떨어지면 바로 답을 얻는 것이기 때문입니다."
+  },
+  {
+   "t": 570,
+   "en": "Now, what we need to do is recall our algorithm and see if it actually matches that theorem. So our algorithm was the following — let me write down the algorithm, but only the relevant parts. The first thing we do in the main body of the algorithm was to sort the points to get $P_X$, the list of points sorted by x-coordinate, and then we call the function on the entire input. In the function, if the input contains at most three points, we return the answer obtained by enumerating all possible solutions; otherwise, in the rest of the recursive function, the number of points is at least four.",
+   "ko": "이제 우리가 해야 할 일은 우리 알고리즘을 다시 떠올려서 그것이 실제로 이 정리와 맞는지 확인하는 것입니다. 우리 알고리즘은 다음과 같았습니다 — 알고리즘 전체를 적지는 않고 관련된 부분만 적어보겠습니다. 알고리즘 본체에서 가장 먼저 하는 일은 점들을 x좌표 기준으로 정렬해서 $P_X$를 얻는 것이었고, 그다음 전체 입력에 대해 함수를 호출합니다. 함수 안에서, 입력이 최대 3개의 점을 포함하면 모든 가능한 해를 나열(enumerate)해서 얻은 답을 반환합니다. 그렇지 않으면, 즉 재귀 함수의 나머지 부분에서는 점의 개수가 최소 4개입니다."
+  },
+  {
+   "t": 637,
+   "en": "$L_X$ was the first half of $P_X$ — the first $n/2$ points — and $R_X$ was the rest. And then $X^*$ was simply chosen as the maximum x-coordinate of a point in the left part, just to determine the x-coordinate of the boundary line. Then we make two recursive calls, on $L_X$ and $R_X$ each, and $\\delta$ was the minimum of the two distances obtained from the recursive calls.",
+   "ko": "$L_X$는 $P_X$의 앞쪽 절반, 즉 앞의 $n/2$개의 점들이었고, $R_X$는 나머지였습니다. 그리고 $X^*$는 단순히 왼쪽 부분(left part)에 있는 점들 중 x좌표의 최댓값으로 정했는데, 이는 경계선의 x좌표를 정하기 위한 것이었습니다. 그다음 $L_X$와 $R_X$ 각각에 대해 두 번의 재귀 호출을 하고, $\\delta$는 그 두 재귀 호출에서 얻은 두 거리 중 최솟값이었습니다."
+  },
+  {
+   "t": 703,
+   "en": "And then, S was the set of points in the narrow band, where the narrow band was defined as all the points in $P_X$ whose x-coordinate is strictly between $X^* - \\delta$ and $X^* + \\delta$. And then we prepared $S_Y$, which was the same set of points in S but sorted by the y-coordinate. Then for each point P in $S_Y$, we computed the distance between P and the next 11 points. Finally, we returned the best answer among the three alternatives: the first recursive call, the second recursive call, or the one found during this step.",
+   "ko": "그다음, S는 좁은 띠(narrow band) 안에 있는 점들의 집합이었는데, 이 좁은 띠는 $P_X$에 속한 점들 중 x좌표가 $X^* - \\delta$와 $X^* + \\delta$ 사이에 엄격하게 있는 모든 점들로 정의되었습니다. 그런 다음 $S_Y$를 준비했는데, 이는 S와 같은 점들의 집합이지만 y좌표 기준으로 정렬된 것이었습니다. 그리고 $S_Y$의 각 점 P에 대해, P와 그다음 11개의 점 사이의 거리를 계산했습니다. 마지막으로, 첫 번째 재귀 호출, 두 번째 재귀 호출, 혹은 이 단계에서 찾은 것, 이 세 가지 중 가장 좋은 답을 반환했습니다."
+  },
+  {
+   "t": 761,
+   "en": "So I'd like to remind you again that, when I analyze the running time, the step that really dominates the running time required by the rest of the function — other than the two recursive calls — is this step where we prepare $S_Y$, because there we want to run a sort, and that takes $O(n \\log n)$ time. I also want to remind you that regarding this particular number 11, I only explained the intuition for why there has to be some such number, but I didn't really justify the particular number 11 yet. I'm going to do that today. So, any questions on what our algorithm was?",
+   "ko": "다시 한 번 상기시켜드리자면, 실행 시간을 분석할 때 두 번의 재귀 호출을 제외한 함수의 나머지 부분에서 실행 시간을 실제로 지배하는 단계는 바로 이 $S_Y$를 준비하는 단계입니다. 여기서 정렬(sort)을 실행해야 하고, 이는 $O(n \\log n)$ 시간이 걸리기 때문입니다. 또한 이 특정 숫자 11에 대해서는, 왜 어떤 숫자가 있어야만 하는지에 대한 직관만 설명했을 뿐, 11이라는 특정 숫자 자체를 아직 정당화하지는 않았다는 것도 다시 말씀드리고 싶습니다. 오늘 그것을 하려고 합니다. 그럼, 우리 알고리즘에 대해 질문 있으신가요?"
+  },
+  {
+   "t": 812,
+   "en": "All right, so now we can write the running time as a recurrence relation. Let $T(n)$ be the worst-case number of basic operations performed by the recursive function when the input has n points. And we're again going to assume that the step where we prepare $S_Y$ is implemented using merge sort. Then, for some constants — let's say $C_1$ and $C_2$, both strictly positive — what we have is the following.",
+   "ko": "좋습니다, 이제 실행 시간을 점화식으로 써볼 수 있습니다. T(n)을 입력에 n개의 점이 있을 때 이 재귀 함수가 수행하는 최악의 경우 기본 연산(basic operation) 횟수라고 합시다. 그리고 다시 한 번, $S_Y$를 준비하는 단계는 merge sort를 사용해 구현한다고 가정하겠습니다. 그러면 어떤 상수들, 예를 들어 $C_1$과 $C_2$ (둘 다 엄격히 양수)에 대해 다음과 같은 식을 얻습니다."
+  },
+  {
+   "t": 890,
+   "en": "Well, if the number of points is at most 3, the particular number of basic operations we perform will depend on the number of points — $T(2)$ and $T(3)$ will basically be different, and it will also depend on the actual coordinates. With three points, a natural algorithm computes the distance between the first and second point, the first and third point, and the second and third point; each time, if the distance is smaller than the previous minimum, we do one more assignment to remember the new minimum. So the exact number of assignments depends on the actual coordinates of the points, but since we only care about asymptotics, I'm just going to give an upper bound: if the number of points is at most 3, depending on the coordinates, maybe the number of basic operations needed is 10, or 11, or 12 — I don't know. But what I do know is that there has to be some upper bound, say $C_1$, that is always greater than or equal to the number of basic operations.",
+   "ko": "점의 개수가 최대 3개인 경우, 수행하는 기본 연산의 정확한 횟수는 점의 개수에 따라 달라집니다. T(2)와 T(3)은 기본적으로 다를 것이고, 실제 좌표에 따라서도 달라집니다. 점이 3개인 경우, 자연스러운 알고리즘은 첫 번째와 두 번째 점, 첫 번째와 세 번째 점, 두 번째와 세 번째 점 사이의 거리를 계산합니다. 그리고 매번 그 거리가 이전 최솟값보다 작으면, 새로운 최솟값을 기억하기 위해 대입(assignment)을 한 번 더 수행합니다. 따라서 정확한 대입 횟수는 점들의 실제 좌표에 따라 달라지지만, 우리는 점근적 성질에만 관심이 있으므로 상한만 제시하겠습니다. 점의 개수가 최대 3개일 때, 좌표에 따라 필요한 기본 연산의 횟수가 10일 수도, 11일 수도, 12일 수도 있습니다 — 정확히는 모릅니다. 하지만 제가 아는 것은, 기본 연산의 횟수보다 항상 크거나 같은 어떤 상한, 이를 $C_1$이라 하면, 그런 상수가 반드시 존재한다는 것입니다."
+  },
+  {
+   "t": 967,
+   "en": "All right, how about if n is greater than or equal to 4? In that case, the number of operations we have to perform is: first, we make the recursive call on $L_X$, and $L_X$ has $\\lfloor n/2 \\rfloor$ points. And how many points are there in $R_X$? There will be $\\lceil n/2 \\rceil$ points. So to make the two recursive calls, we'd already be spending $T(\\lfloor n/2 \\rfloor) + T(\\lceil n/2 \\rceil)$ basic operations. But then we know what will happen afterward — we're eventually going to invoke the master theorem, and the master theorem is generous enough that we don't have to distinguish between the ceiling and the floor. So I'm simply going to write $2T(n/2)$, with the understanding that $n/2$ is to be interpreted as either the ceiling or the floor of $n/2$. That accounts for the basic operations needed to complete these two recursive calls.",
+   "ko": "자, 그러면 n이 4 이상인 경우는 어떨까요? 그 경우 수행해야 할 연산의 수는 이렇습니다. 먼저 $L_X$에 대해 재귀 호출을 하는데, $L_X$에는 $\\lfloor n/2 \\rfloor$개의 점이 있습니다. 그러면 $R_X$에는 몇 개의 점이 있을까요? $\\lceil n/2 \\rceil$개의 점이 있을 것입니다. 따라서 두 번의 재귀 호출을 하기 위해 이미 $T(\\lfloor n/2 \\rfloor) + T(\\lceil n/2 \\rceil)$만큼의 기본 연산을 쓰게 됩니다. 하지만 그 이후에 무슨 일이 일어날지는 이미 알고 있습니다. 결국 마스터 정리를 사용할 것인데, 마스터 정리는 충분히 관대해서 ceiling과 floor를 구분할 필요가 없습니다. 그래서 저는 그냥 $2T(n/2)$라고 쓰겠습니다. 여기서 $n/2$는 $n/2$의 ceiling이든 floor이든 둘 중 하나로 해석된다는 이해 하에서요. 이것으로 이 두 번의 재귀 호출을 완료하는 데 필요한 기본 연산 횟수를 설명했습니다."
+  },
+  {
+   "t": 1073,
+   "en": "But then, how about the other part? Well, in the last lecture I argued that when I look at each step in the remaining part of the recursive function, it's really dominated by the merge sort, which has time complexity $n \\log n$. So there will be some constant, say $C_2$, that gives a safe upper bound on the number of elementary operations, namely $C_2 \\cdot n \\log n$. And then I can say $T(n) \\leq 2T(n/2) + C_2 \\cdot n \\log n$ if $n \\geq 4$.",
+   "ko": "그러면 나머지 부분은 어떨까요? 지난 강의에서 저는 재귀 함수의 나머지 부분에 있는 각 단계를 살펴보면, 실제로는 시간 복잡도가 $n \\log n$인 merge sort가 지배한다고 주장했습니다. 따라서 어떤 상수, 이를 $C_2$라 하면, 기본 연산의 수에 대해 $C_2 \\cdot n \\log n$이라는 안전한 상한을 줄 수 있습니다. 그러면 $n \\geq 4$일 때 $T(n) \\leq 2T(n/2) + C_2 \\cdot n \\log n$이라고 말할 수 있습니다."
+  },
+  {
+   "t": 1118,
+   "en": "Any questions? [A student asks:] So $C_2 \\cdot n \\log n$ — what do you mean by $C_2 \\cdot n \\log n$? Well, it's because other than these two recursive calls, the running time of the rest of the recursive function is dominated by the merge sort. Any other questions? We covered that in the previous lecture. Otherwise — 'o.w.' stands for 'otherwise.' Anything else? All right. But then I cannot really invoke the master theorem yet, because this recurrence relation is in the form of an inequality, right?",
+   "ko": "질문 있으신가요? [학생 질문: $C_2 \\cdot n \\log n$이 무슨 뜻인가요?] 음, 이 두 번의 재귀 호출을 제외한 재귀 함수의 나머지 부분의 실행 시간이 merge sort에 의해 지배되기 때문입니다. 다른 질문 있으신가요? 그건 지난 강의에서 다뤘습니다. 그 외의 경우(otherwise) — 'o.w.'는 'otherwise'를 나타냅니다. 더 있으신가요? 좋습니다. 그런데 아직 마스터 정리를 바로 적용할 수는 없는데, 이 점화식이 부등식(inequality) 형태이기 때문입니다, 그렇죠?"
+  },
+  {
+   "t": 1159,
+   "en": "So what I'm going to say now is: well, we have $T(n) \\leq 2T(n/2) + C_2 \\cdot n \\log n$. It's easy to see that we can come up with some other function $T'(n)$ that gives an upper bound on $T(n)$, where $T'(n)$ satisfies more or less the same inequality, but with equality. Why is that? Because I can simply say $T'(n) = C_1$ if $n \\leq 3$, and $T'(n) = 2T'(n/2) + C_2 \\cdot n \\log n$ if $n \\geq 4$. Then it's very easy to show by induction that $T'(n)$ is always greater than or equal to $T(n)$. So by doing this, I can come up with another function that gives a safe upper bound on the running time, and this function $T'(n)$ satisfies the required form of the recurrence relation with equality — and now I can invoke the master theorem.",
+   "ko": "그래서 제가 지금 하려는 말은 이렇습니다. 우리는 $T(n) \\leq 2T(n/2) + C_2 \\cdot n \\log n$을 갖고 있습니다. T(n)에 대한 상한을 주는 또 다른 함수 $T'(n)$을 만들 수 있다는 것을 쉽게 알 수 있는데, 이 $T'(n)$은 거의 같은 부등식을 만족하지만 등호(equality)로 만족합니다. 왜 그럴까요? $T'(n) = C_1$ (단, $n \\leq 3$일 때), $T'(n) = 2T'(n/2) + C_2 \\cdot n \\log n$ (단, $n \\geq 4$일 때)로 정의하면 되기 때문입니다. 그러면 귀납법(induction)으로 $T'(n)$이 항상 $T(n)$보다 크거나 같다는 것을 아주 쉽게 보일 수 있습니다. 이렇게 함으로써 실행 시간에 대한 안전한 상한을 주는 또 다른 함수를 만들어낼 수 있고, 이 함수 $T'(n)$은 등호를 만족하는 필요한 형태의 점화식을 만족합니다. 이제 마스터 정리를 적용할 수 있습니다."
+  },
+  {
+   "t": 1267,
+   "en": "From the master theorem, we have that $T(n) = \\Theta(n \\log^2 n)$. Why? Well, look at this recursive function — in our case, $a$ is 2 and $b$ is 2, so $\\log_b a = 1$. Let's look at the second case of the master theorem: it requires $f(n) = \\Theta(n^{\\log_b a} \\log^k n)$. We already argued that this exponent portion is 1, and if I take $k = 1$, that exactly corresponds to $n \\log n$. And what does the master theorem say in that case? $T(n)$ should be $\\Theta(n^1 \\cdot \\log^2 n)$. So we know that $T(n) = \\Theta(n \\log^2 n)$. Any questions?",
+   "ko": "마스터 정리로부터 $T(n) = \\Theta(n \\log^2 n)$을 얻습니다. 왜 그럴까요? 이 재귀 함수를 보면, 우리 경우 $a=2$이고 $b=2$이므로 $\\log_b a = 1$입니다. 마스터 정리의 두 번째 경우를 보면, $f(n) = \\Theta(n^{\\log_b a} \\log^k n)$이어야 한다고 되어 있습니다. 이 지수 부분이 1이라는 것은 이미 확인했고, 여기서 $k=1$로 두면 정확히 $n \\log n$에 해당합니다. 그러면 이 경우 마스터 정리는 무엇을 말해줄까요? $T(n)$은 $\\Theta(n^1 \\cdot \\log^2 n)$이어야 합니다. 따라서 $T(n) = \\Theta(n \\log^2 n)$임을 알 수 있습니다. 질문 있으신가요?"
+  },
+  {
+   "t": 1342,
+   "en": "Oh, that's not really the end of the running time analysis, because we did not account for the pre-processing yet. How long does the pre-processing take? Well, if you use any $O(n \\log n)$ sorting algorithm, then there's this initial pre-processing that takes $O(n \\log n)$ time, and then the recursive function is going to be called on n points, and we've just shown that this running time is no worse than $n \\log^2 n$. So the overall running time: pre-processing takes $O(n \\log n)$, and the overall running time is up to $O(n \\log^2 n)$ — though technically I can't say $\\Theta$, because I only gave a safe upper bound. I argued that $T'(n)$ has asymptotic growth exactly $\\Theta(n \\log^2 n)$, but I didn't prove the exact order of growth for $T(n)$ itself, only an upper bound. So I'm simply going to say the running time is $O(n \\log^2 n)$, but in the worst case the algorithm actually does take as much as $\\Theta(n \\log^2 n)$ — I'm not going to prove that. Any questions about the running time analysis?",
+   "ko": "아, 이게 실행 시간 분석의 끝은 아닙니다. 왜냐하면 아직 전처리(pre-processing)를 반영하지 않았기 때문입니다. 전처리는 시간이 얼마나 걸릴까요? 아무 $O(n \\log n)$ 정렬 알고리즘을 사용한다면, 처음에 $O(n \\log n)$ 시간이 걸리는 전처리가 있고, 그다음 n개의 점에 대해 재귀 함수가 호출됩니다. 그리고 방금 이 재귀 함수의 실행 시간이 $n \\log^2 n$보다 나쁘지 않다는 것을 보였습니다. 따라서 전체 실행 시간은: 전처리는 $O(n \\log n)$이고, 전체 실행 시간은 최대 $O(n \\log^2 n)$입니다 — 다만 엄밀히 말하면 $\\Theta$라고는 말할 수 없는데, 안전한 상한만 제시했기 때문입니다. $T'(n)$의 점근적 증가율이 정확히 $\\Theta(n \\log^2 n)$이라는 것은 논증했지만, T(n) 자체의 정확한 증가 차수를 증명한 것은 아니고 상한만 제시했을 뿐입니다. 그래서 저는 그냥 실행 시간이 $O(n \\log^2 n)$이라고만 말하겠습니다. 하지만 최악의 경우 이 알고리즘은 실제로 $\\Theta(n \\log^2 n)$만큼 시간이 걸리는데, 이건 증명하지 않겠습니다. 실행 시간 분석에 대해 질문 있으신가요?"
+  },
+  {
+   "t": 1435,
+   "en": "[A student says:] Yes, I don't really understand — you said 'it is easy to see that...' — sorry, what is that bounded by? Oh — [T(n) is] bounded from above by $T'(n)$, sorry about that. Any other questions? [Another student asks:] Is that symbol — the long one, stretching between the two — [pointing at the board]? Oh yeah, that's 'log.' Yeah, that's a very badly written 'log.'",
+   "ko": "[학생 질문] 네, 잘 이해가 안 되는데요 — '이건 쉽게 알 수 있다'고 하셨는데, 죄송한데 그게 무엇에 의해 상한이 잡히는 건가요? 아, [T(n)이] $T'(n)$에 의해 위로 상한이 잡힌다는 뜻입니다, 죄송합니다. 다른 질문 있으신가요? [다른 학생 질문] 저 기호요 — 길게, 양 끝 사이에 걸쳐있는 저거요? [칠판을 가리키며] 아, 네, 그건 'log'입니다. 네, 제가 좀 지저분하게 쓴 'log'네요."
+  },
+  {
+   "t": 1476,
+   "en": "Any other questions? So, n log n comes from merge sort — or rather, from the recursive function, which is dominated by the merge sort step. Then you apply the Master Theorem, and that gives you the asymptotic bound for T'. T' is an upper bound on T, and therefore T is O(n log² n). Any other questions?",
+   "ko": "다른 질문 있나요? n log n은 병합 정렬(merge sort)에서 나오는 건데, 정확히는 재귀 함수의 시간이 병합 정렬 부분에 의해 지배되기 때문입니다. 그다음 마스터 정리(Master Theorem)를 적용하면 T'에 대한 점근적 형태를 얻고, T'는 T의 상한이므로 T는 O(n log² n)이 됩니다. 다른 질문 있나요?"
+  },
+  {
+   "t": 1518,
+   "en": "So if you were to just write it — just assume that some kind of a sorting algorithm is going to work on order-L elements — can you write that? When N is... is that really N, equal to two to the power of N? So, sorry — there is a little bit of practicality here, because the Master Theorem is still saying that f(n) needs to be some function. But the problem is that even if the sorting algorithm takes precisely as much time as Θ(n log n), you don't really have control over how many points are going to end up in the narrow band S — it might range anywhere from zero to n. So, yeah, you still have to give a number.",
+   "ko": "그러면 그냥 이렇게 쓴다고 할 때 — 어떤 정렬 알고리즘이 L개의 원소에 대해 order L 시간에 작동한다고 가정하면 — 그렇게 쓸 수 있나요? N이... 그게 정말 N이, 2의 N제곱과 같은 건가요? 그래서, 미안한데 — 여기엔 약간의 현실적인 문제가 있습니다. 왜냐하면 마스터 정리는 여전히 f(n)이 어떤 함수여야 한다고 말하고 있기 때문입니다. 그런데 문제는, 설령 정렬 알고리즘이 정확히 Θ(n log n) 시간이 걸린다 하더라도, 좁은 띠(narrow band) S 안에 몇 개의 점이 들어올지는 우리가 통제할 수 없다는 것입니다 — 0개부터 n개까지 어느 범위든 될 수 있습니다. 그래서 여전히 어떤 값을 정해줘야 합니다."
+  },
+  {
+   "t": 1573,
+   "en": "This also has to be bounded — T(n) by something like T'(n)? Let me use T' in the Master Theorem — so how do we know that the result on T'(n) carries over to T(n)? Oh, so that's what I really hid in the word 'easy.' What you really need to do is prove that T(n) ≤ T'(n) for all n, if you define T'(n) by this same recurrence but with the inequality replaced by equality. Then, for each value of n, by the induction hypothesis, for any smaller value of n, T(n) will be smaller than or equal to T'(n). And then the new value, T(n), is going to be less than or equal to twice T of... — sorry, I got confused between T and T'.",
+   "ko": "이것도 마찬가지로 경계를 지어야 하는 거죠 — T(n)을 T'(n) 같은 걸로요? 마스터 정리를 T'에 적용해볼게요 — 그러면 T'(n)에 대해 얻은 결과가 T(n)에도 그대로 적용된다는 걸 어떻게 아나요? 아, 그게 바로 제가 '쉽다'는 말 속에 숨겨놓은 부분입니다. 실제로 해야 할 일은, 이 점화식을 부등식이 아니라 등식으로 바꿔서 T'(n)을 정의했을 때, 모든 n에 대해 T(n) ≤ T'(n)임을 증명하는 것입니다. 그러면 각 n 값에 대해, 귀납법 가정에 의해 그보다 작은 n에 대해서는 T(n)이 T'(n)보다 작거나 같습니다. 그리고 새로운 값 T(n)은 T의 두 배... — 죄송해요, T랑 T'가 헷갈렸네요."
+  },
+  {
+   "t": 1654,
+   "en": "Yeah, so that's the series of inequalities, so I get T' ≥ T(n). But couldn't you have made T' arbitrarily large — some extremely large function that's also greater than T — then wouldn't I get a different result? How do you know that the result for T' also holds for T? That's because — oh, because I only need to give an upper bound here. My eventual goal is to show that it is O(n log² n), so I only wanted to give an upper bound; as long as it's a valid upper bound, I don't care. Any other questions? It would be like T'(n), then you can pick it up from there. Sorry about that. Any other questions? Oh, for those of you who missed this — this should be T' down there; what was applied in the theorem was T'. Any other questions?",
+   "ko": "네, 그래서 이런 일련의 부등식들을 통해 T' ≥ T(n)이라는 걸 얻습니다. 그런데 T'를 임의로, 예를 들어 T보다 훨씬 큰 함수로 잡을 수도 있지 않나요? 그러면 다른 결과가 나오지 않나요? T'에 대한 결과가 T에도 성립한다는 걸 어떻게 아나요? — 그건, 아, 저는 여기서 상한만 제시하면 되기 때문입니다. 제 최종 목표는 이게 O(n log² n)임을 보이는 것이므로 상한만 주면 됩니다. 그게 유효한 상한이기만 하면 저는 상관없습니다. 다른 질문 있나요? T'(n) 같은 형태가 되고, 거기서부터 이어받으면 됩니다. 죄송합니다. 다른 질문 있나요? 아, 이거 놓치신 분들을 위해 말씀드리면 — 저기 아래는 T'로 써야 합니다. 정리에 적용한 것은 T'였습니다. 다른 질문 있나요?"
+  },
+  {
+   "t": 1730,
+   "en": "So what I want to point out is that, already at this point, we have given a significant improvement on the running time — log n is a function that grows so much slower than n, so n log² n, despite the exponent 2, is still a function that grows much slower than n². But we're not really going to be satisfied with this — I would really like to give an O(n log n) algorithm. So let's see how we can improve the running time. For the next five minutes — well, usually I don't lie in my lectures, but for the next five minutes I'm going to lie, and your job is to spot where I'm lying. The reason I'm bothering to do that is because I'm actually going to show you a very common mistake that is made by students, so I'm going to explain why the running time can supposedly be improved to O(n log n).",
+   "ko": "제가 짚고 싶은 건, 이미 이 시점에서 우리가 실행 시간에 상당한 개선을 이뤄냈다는 겁니다 — log n은 n보다 훨씬 느리게 증가하는 함수이기 때문에, n log² n은 지수가 2이긴 해도 여전히 n²보다 훨씬 느리게 증가하는 함수입니다. 하지만 저는 이 정도로 만족하고 싶지 않습니다 — 정말로 O(n log n) 알고리즘을 제시하고 싶습니다. 그럼 실행 시간을 어떻게 개선할 수 있는지 봅시다. 앞으로 5분 동안은 — 평소 저는 강의에서 거짓말을 하지 않지만, 앞으로 5분 동안은 거짓말을 할 겁니다. 여러분의 임무는 제가 어디서 거짓말을 하는지 찾아내는 것입니다. 제가 굳이 이렇게 하는 이유는 학생들이 흔히 저지르는 실수를 실제로 보여드리기 위해서이고, 그래서 실행 시간이 어떻게 O(n log n)으로 개선될 수 있는지(라고 주장하는 설명을) 해보겠습니다."
+  },
+  {
+   "t": 1797,
+   "en": "So, the idea is that, at the beginning of the algorithm we are sorting the points by the x-coordinates, and this is a preprocessing step, so it's only done once — and we're anyway spending Θ(n log n) time here. So why don't we just spend another Θ(n log n) time and prepare another list, which we're going to call P_y? Let P_y be the list of the points sorted by y-coordinates. Again, this is done only at the beginning, so it's a safe operation, if my eventual goal is to come up with an O(n log n) algorithm.",
+   "ko": "아이디어는 이렇습니다. 알고리즘 맨 처음에 우리는 점들을 x좌표 기준으로 정렬하는데, 이것은 전처리 단계이므로 딱 한 번만 수행됩니다 — 그리고 어차피 여기서 Θ(n log n) 시간을 쓰고 있습니다. 그러면 여기서 Θ(n log n) 시간을 한 번 더 써서 다른 리스트를 하나 더 준비하면 어떨까요? 이걸 P_y라고 부르겠습니다. P_y를 y좌표 기준으로 정렬된 점들의 리스트라고 합시다. 이것도 마찬가지로 맨 처음에만 수행되므로, 최종 목표가 O(n log n) 알고리즘을 만드는 것이라면 이건 안전한 연산입니다."
+  },
+  {
+   "t": 1847,
+   "en": "Afterwards, what's nice about that is that now I don't need to sort anymore. Why? Well, S_y is the list of the same set of points as S, but sorted by y-coordinates. So here, instead of running merge sort again and spending another Θ(n log n) time, what I can do is the following: at the very beginning I have initialized this P_y — you can think of P_y as some sort of global variable. In P_y I have the same set of points that existed in the input, but sorted by the y-coordinates.",
+   "ko": "그다음에 좋은 점은, 이제 더 이상 정렬을 할 필요가 없다는 겁니다. 왜냐하면, S_y는 S와 같은 점들의 집합인데 y좌표로 정렬된 리스트이기 때문입니다. 그러니까 여기서 다시 병합 정렬을 돌려서 또 Θ(n log n) 시간을 쓰는 대신, 다음과 같이 할 수 있습니다. 맨 처음에 저는 이 P_y를 초기화해 두었는데, P_y를 일종의 전역 변수라고 생각하시면 됩니다. P_y 안에는 입력에 있던 것과 같은 점들의 집합이 y좌표 기준으로 정렬되어 들어 있습니다."
+  },
+  {
+   "t": 1888,
+   "en": "So what I'm going to do is take a look at each point in the order given by P_y, and for each point I can determine whether it's in S or not. If it's not in S, I move on to the next one. If it is in S, then in this new list I'm creating — which is initially empty — each time I see a point in S, I just copy it to the end of the list. By the time I'm done scanning, what points will be in S_y? Well, the same set of points as S, but in the order sorted by y-coordinates.",
+   "ko": "그래서 제가 할 일은, P_y가 준 순서대로 각 점을 하나씩 살펴보면서, 각 점이 S에 속하는지 아닌지를 판단하는 겁니다. S에 속하지 않으면 다음 점으로 넘어갑니다. S에 속하면, 지금 만들고 있는 이 새 리스트 — 처음에는 비어 있는 — 의 끝에 그 점을 복사해 넣습니다. 스캔이 끝났을 때 S_y에는 어떤 점들이 있을까요? S와 같은 점들의 집합인데, y좌표로 정렬된 순서로 들어 있습니다."
+  },
+  {
+   "t": 1943,
+   "en": "How much time did I spend? Well, there are n points to start with, and each time I spend a constant amount of time, because I'm simply creating a new list — which can be an array — and copying at most one element to the end. So overall, I've spent O(n) time. That would allow us to replace this f(n) by Θ(n), not Θ(n log n), and that decreases k by one — k is actually allowed to be zero — so the overall running time is going to be n log n.",
+   "ko": "시간이 얼마나 걸렸을까요? 처음에 n개의 점이 있고, 매번 상수 시간만 씁니다. 왜냐하면 여기서는 그냥 새 리스트(배열이어도 됩니다)를 만들면서 많아야 원소 하나를 끝에 복사하는 것뿐이기 때문입니다. 그러니까 전체적으로 O(n) 시간을 쓴 셈입니다. 그러면 이 f(n)을 Θ(n log n)이 아니라 Θ(n)으로 바꿀 수 있게 되고, 그러면 k가 하나 줄어듭니다 — k는 0이 될 수도 있으니까요 — 그래서 전체 실행 시간은 n log n이 됩니다."
+  },
+  {
+   "t": 1982,
+   "en": "Where did I lie? So, at the beginning I created a single list that contains the same points as the input, sorted by the y-coordinates. And each time I need S_y, because I already have access to S, I can scan through the list P_y and determine which points are in S, and create a sub-list of P_y which is then the same set of points as S. Where did I lie?",
+   "ko": "제가 어디서 거짓말을 했을까요? 처음에 저는 입력과 같은 점들을 y좌표 기준으로 정렬한 리스트 하나를 만들었습니다. 그리고 S_y가 필요할 때마다, 저는 이미 S에 접근할 수 있으니 리스트 P_y를 훑으면서 어떤 점이 S에 속하는지 판단하고, P_y의 부분 리스트를 만들면 그게 곧 S와 같은 점들의 집합이 됩니다. 제가 어디서 거짓말을 했을까요?"
+  },
+  {
+   "t": 2054,
+   "en": "When you say 'this step is over there,' that's like a different item, right? Did everyone get that? I tricked you by calling two different things by n. One is the number of points in P_x, which is given as the input to the recursive function. The other n — the one I was referring to when I said 'there are n points in P_y' — is just the number of points in the entire input.",
+   "ko": "'이 단계는 저기서'라고 하실 때, 그건 사실 다른 항목 아닌가요? — 다들 이해하셨나요? 제가 서로 다른 두 가지를 똑같이 n이라고 불러서 여러분을 속인 겁니다. 하나는 재귀 함수에 입력으로 주어지는 P_x 안의 점의 개수이고, 다른 하나는 — 제가 'P_y에는 n개의 점이 있다'고 말했을 때 가리켰던 n — 은 전체 입력에 있는 점의 개수일 뿐입니다."
+  },
+  {
+   "t": 2085,
+   "en": "So what would be the total recursive call structure of the algorithm? At the beginning, the algorithm is called on the entire list, and then in each of the recursive calls we're given an L list and a P list, and so on. So, for example, in this recursive call, n in the recurrence relation is the number of points given to that specific invocation of the recursive function — that's very small. And then, how many points will there be in S? Something even smaller than that.",
+   "ko": "그러면 이 알고리즘의 전체 재귀 호출 구조는 어떻게 될까요? 맨 처음에는 전체 리스트에 대해 알고리즘이 호출되고, 그다음 각 재귀 호출에서는 L 리스트와 P 리스트 등이 주어집니다. 예를 들어 이 재귀 호출에서, 점화식의 n은 그 특정 재귀 호출에 주어진 점의 개수인데, 그건 아주 작은 값입니다. 그러면 S에는 몇 개의 점이 있을까요? 그것보다도 더 작은 값입니다."
+  },
+  {
+   "t": 2126,
+   "en": "And then, to prepare S_y, the maximum amount of time I'm allowed to spend, if I want the running time to be O(n), is proportional to the number of points in the input parameter of the recursive function — not the entire input. So what this actually tells us is that in each of these recursive calls, I end up spending time proportional to the entire input. And, in fact, in the entire structure of this algorithm, the total number of recursive calls ever made is proportional to the number of points, and each time I'm spending O(n) — so the running time will end up being something like quadratic. So that's where I lied, and this is a pitfall that students commonly fall into, because we tend to use n to refer to both the original input size and the recursive function's input size, and then some of you get really confused. In this simple example, this may look like a mistake you wouldn't make yourself, but believe me, many students do make this mistake — all right. Any questions?",
+   "ko": "그리고 S_y를 준비하는 데 제가 쓸 수 있는 최대 시간은, 실행 시간을 O(n)으로 만들고 싶다면, 재귀 함수의 입력 매개변수에 있는 점의 개수에 비례해야 합니다 — 전체 입력이 아니라요. 그런데 실제로 벌어지는 일은, 각 재귀 호출에서 전체 입력 크기에 비례하는 시간을 쓰게 된다는 겁니다. 그리고 사실 이 알고리즘 전체 구조에서 만들어지는 재귀 호출의 총 개수는 점의 개수에 비례하고, 매번 O(n) 시간을 쓰니까, 실행 시간은 결국 이차 시간(quadratic) 정도가 되어버립니다. 그게 바로 제가 거짓말을 한 부분이고, 학생들이 흔히 빠지는 함정입니다. 왜냐하면 우리는 원래 입력 크기와 재귀 함수의 입력 크기를 둘 다 n이라고 부르는 경향이 있고, 그러면 몇몇 분들은 정말 헷갈리게 되기 때문입니다. 이 단순한 예에서는 여러분이 절대 하지 않을 실수처럼 보일 수 있지만, 정말로 많은 학생들이 이 실수를 저지릅니다 — 자, 질문 있나요?"
+  },
+  {
+   "t": 2210,
+   "en": "So although this was a faulty argument that doesn't give an improvement, it actually does contain a useful idea, which is: if I have a list of points that is already sorted and contains all the points I may be interested in, then by scanning through this list — in linear time proportional to the length of the list — I'll be able to come up with a sorted sub-list. So really, the problem was that in preparing S_y, I had to use P_y that was created during the preprocessing. But if I have the same set of points as P_x — the input to the recursive function — already sorted by the y-coordinates, then I can actually implement this step of preparing S_y to run in linear time.",
+   "ko": "그러니까 이건 개선을 주지 못하는 잘못된 논증이었지만, 실제로 유용한 아이디어를 하나 담고 있습니다. 바로, 이미 정렬되어 있고 제가 관심 있는 모든 점을 담고 있는 리스트가 있다면, 그 리스트의 길이에 비례하는 선형 시간으로 훑어보는 것만으로 정렬된 부분 리스트를 만들어낼 수 있다는 것입니다. 그러니까 진짜 문제는, S_y를 준비할 때 전처리 단계에서 만든 P_y를 사용해야 했다는 데 있었습니다. 하지만 만약 재귀 함수의 입력인 P_x와 같은 점들의 집합이 이미 y좌표로 정렬되어 있다면, S_y를 준비하는 이 단계를 선형 시간에 구현할 수 있습니다."
+  },
+  {
+   "t": 2259,
+   "en": "How do I do that? Well, at least in the very first, initial recursive call, it's very clear what to do — I can just use the P_y that I prepared during preprocessing. To do that, I'm going to pass this as input, so P_y is now given as input. And then what I'd really like to maintain is the property that the P_y given to the recursive function is always going to be the same set of points as P_x — but this one sorted by x-coordinates, and this one sorted by y-coordinates.",
+   "ko": "어떻게 하면 될까요? 적어도 맨 처음, 초기 재귀 호출에서는 무엇을 해야 할지가 아주 명확합니다 — 전처리 과정에서 준비해둔 P_y를 그대로 쓰면 됩니다. 그러기 위해서 저는 이걸 입력으로 넘겨줄 겁니다. 그러면 P_y가 이제 입력으로 주어집니다. 그리고 제가 정말 유지하고 싶은 성질은, 재귀 함수에 주어지는 P_y가 항상 P_x와 같은 점들의 집합이되, 하나는 x좌표로 정렬되어 있고 다른 하나는 y좌표로 정렬되어 있다는 것입니다."
+  },
+  {
+   "t": 2310,
+   "en": "In the initial call I can easily do that, but how can I maintain that property? Well, when I pass L_x and R_x, I'll also have to pass L_y and R_y, which contain the same set of points as L_x and R_x, but sorted by the y-coordinates. And I can actually prepare L_y and R_y in linear time too, because there must have been a P_y that was given to this specific recursive call. For example, within this entire input, if this was my P_x, then what I'm already given at this recursive call is the same set of points as P_x, but sorted by y-coordinates — P_y. Now, after determining L_x and R_x, I'm going to scan through the list of points in P_y and determine, for each point, whether it should be in the first half or the second half. If it's in the first half, I copy it to the first list, which I'm later going to call L_y; if it belongs to the second half, I copy it to the end of the second list, which I'll later call R_y. I do that for each of the points, and by the end of this scanning procedure, I'll have come up with L_y and R_y, which I then pass to the recursive function.",
+   "ko": "초기 호출에서는 이걸 쉽게 할 수 있는데, 그 성질을 어떻게 계속 유지할 수 있을까요? 제가 L_x와 R_x를 넘길 때, L_x와 R_x와 같은 점들의 집합이지만 y좌표로 정렬된 L_y와 R_y도 함께 넘겨줘야 합니다. 그리고 이 L_y와 R_y도 선형 시간에 준비할 수 있는데, 왜냐하면 이 특정 재귀 호출에는 이미 P_y가 주어져 있었을 것이기 때문입니다. 예를 들어, 전체 입력 안에서 이게 제 P_x였다면, 이 재귀 호출 시점에 이미 주어진 것은 P_x와 같은 점들의 집합이지만 y좌표로 정렬된 것, 즉 P_y입니다. 이제 L_x와 R_x를 정한 뒤, P_y에 있는 점들의 리스트를 훑으면서 각 점이 앞쪽 절반에 속하는지 뒤쪽 절반에 속하는지를 판단합니다. 앞쪽 절반에 속하면 나중에 L_y라고 부를 첫 번째 리스트에 복사하고, 뒤쪽 절반에 속하면 나중에 R_y라고 부를 두 번째 리스트의 끝에 복사합니다. 이 작업을 모든 점에 대해 수행하고 나면, 이 스캔 과정이 끝날 때쯤 L_y와 R_y가 만들어지고, 이걸 재귀 함수에 넘겨줍니다."
+  },
+  {
+   "t": 2406,
+   "en": "So here I need one more step to make this work. Let L_y and R_y respectively be the list of the points in L_x and R_x, sorted by y-coordinate. And then this step can also be implemented to run in O(n) time — or, to be more precise, O(|P_x|) time, where P_x is the input given to the recursive function. That's also the case here.",
+   "ko": "그래서 여기서 이걸 작동시키려면 한 단계가 더 필요합니다. L_y와 R_y를 각각 L_x와 R_x에 있는 점들을 y좌표로 정렬한 리스트라고 합시다. 그러면 이 단계도 O(n) 시간에, 더 정확히 말하면 재귀 함수에 주어진 입력 P_x의 크기, 즉 O(|P_x|) 시간에 구현할 수 있습니다. 여기서도 마찬가지입니다."
+  },
+  {
+   "t": 2453,
+   "en": "So then, here really f(n) is now going to become Θ(n), and T'(n) is going to become n log n, and the preprocessing still takes O(n log n) time. So the overall running time is going to become O(n log n), okay? Any questions?",
+   "ko": "그래서 여기서 정말로 f(n)이 Θ(n)이 되고, T'(n)은 n log n이 됩니다. 그리고 전처리는 여전히 O(n log n) 시간이 걸립니다. 그래서 전체 실행 시간은 O(n log n)이 됩니다, 아셨나요? 질문 있나요?"
+  },
+  {
+   "t": 2478,
+   "en": "Can you go over this again and compare L_y and R_y? Well, I wrote: let L_y and R_y respectively be the list of the points in L_x and R_x sorted by y-coordinate. The specific phrasing doesn't really matter too much — as long as you get the algorithm. Any other questions? So, in each recursive call, we will have to now provide P_x and P_y. P_x is sorted by x-coordinate, P_y is sorted by y-coordinate. And after splitting P_x into two pieces, I'll have to prepare L_y and R_y as well, which is done by scanning through the list. And then L_x and L_y will be given to the first recursive call, R_x and R_y given to the second recursive call.",
+   "ko": "이 부분 다시 한번 짚어주시고 L_y와 R_y를 비교해주실 수 있나요? — 제가 쓴 건, L_y와 R_y를 각각 L_x와 R_x에 있는 점들을 y좌표로 정렬한 리스트라고 정의한 겁니다. 정확한 표현 자체는 그렇게 중요하지 않고, 알고리즘만 이해하시면 됩니다. 다른 질문 있나요? 그러니까 이제 각 재귀 호출에서는 P_x와 P_y를 함께 넘겨줘야 합니다. P_x는 x좌표로 정렬되어 있고, P_y는 y좌표로 정렬되어 있습니다. 그리고 P_x를 두 부분으로 나눈 뒤에는, 리스트를 훑어서 L_y와 R_y도 준비해야 합니다. 그런 다음 L_x와 L_y는 첫 번째 재귀 호출에, R_x와 R_y는 두 번째 재귀 호출에 넘겨줍니다."
+  },
+  {
+   "t": 2559,
+   "en": "I'm just wondering about the small f in the recurrence — is that also appropriate for the S_y sorting? Well, here we don't do the sorting anymore — we do that scanning procedure. So, to prepare L_y, R_y, and S_y, all of them rely on that scanning procedure, and all of them take linear time each. That's the reason why f(n) is not n log n anymore. Essentially, we get the same result as what we would get if we performed the sort, but we don't do that because we don't need to — we already know how to get them sorted by the y-coordinate.",
+   "ko": "점화식에 있는 작은 f 말인데, 그게 S_y를 정렬하는 것에도 똑같이 적용되는 건가요? — 여기서는 더 이상 정렬을 하지 않습니다. 그 스캔 절차를 사용하는 거죠. 그러니까 L_y, R_y, S_y를 준비하는 것 모두 그 스캔 절차에 의존하고, 각각 선형 시간이 걸립니다. 그게 바로 f(n)이 더 이상 n log n이 아닌 이유입니다. 본질적으로는 정렬을 직접 수행했을 때와 같은 결과를 얻는 건데, 굳이 그렇게 하지 않는 이유는 그럴 필요가 없기 때문입니다 — 우리는 이미 y좌표로 정렬된 상태를 얻는 방법을 알고 있으니까요."
+  },
+  {
+   "t": 2619,
+   "en": "Anything else? Okay, so now we have an O(n log n) time algorithm. What I'd like to do now is prove the correctness of the algorithm formally, and during the process, we're also going to justify why the number 11 can be chosen — 11.",
+   "ko": "다른 건 없나요? 좋습니다, 이제 우리는 O(n log n) 시간 알고리즘을 갖게 되었습니다. 이제 제가 하고 싶은 것은 이 알고리즘의 정확성(correctness)을 형식적으로 증명하는 것이고, 그 과정에서 왜 11이라는 숫자를 선택할 수 있는지도 정당화해보겠습니다."
+  },
+  {
+   "t": 2679,
+   "en": "All right, so I'm going to start with a lemma that says: it actually suffices to consider only the points in the narrow band. We're going to later assemble these lemmas to show the correctness of the algorithm. But for the moment, the lemma just simply says that, if there exists some point from the left part and some point from the right part such that the distance between them is strictly smaller than δ — because that's what we care about — then the coordinates of the two points, x_i and x_j, must be in the open interval.",
+   "ko": "좋습니다, 이제 보조정리(lemma)로 시작하겠습니다. 이 보조정리는, 좁은 띠(narrow band) 안의 점들만 고려해도 충분하다는 것을 말합니다. 이 보조정리들을 나중에 조합해서 알고리즘의 정확성을 보일 겁니다. 하지만 일단 지금은, 이 보조정리가 단순히 말하는 것은: 만약 왼쪽 부분에서 어떤 점 하나와 오른쪽 부분에서 어떤 점 하나가 있어서 그 둘 사이의 거리가 δ보다 엄격히 작다면 — 우리가 관심 있는 건 바로 이 경우니까요 — 그러면 이 두 점의 좌표 x_i와 x_j가 어떤 열린 구간 안에 있어야 한다는 것입니다."
+  },
+  {
+   "t": 2753,
+   "en": "Well, because p_i and p_j each come from the left and the right, and x* was chosen as the coordinate of the boundary, we know that x_i ≤ x* and x* ≤ x_j. And also, we have that x* − x_i has to be less than or equal to x_j − x_i, right? Because we have this inequality. But then, x_j − x_i — by the way, this is a non-negative number — is less than or equal to the distance between the two points, and that has to be strictly smaller than δ, from the assumption. So what did I just show? I've just shown that x* − δ has to be strictly smaller than x_i. And I already know that x_i is less than or equal to x*, so I know that x_i has to be in this interval.",
+   "ko": "p_i와 p_j가 각각 왼쪽과 오른쪽에서 왔고, x*는 경계선의 좌표로 선택되었으므로, x_i ≤ x*이고 x* ≤ x_j임을 알 수 있습니다. 그리고 또한, x* − x_i는 x_j − x_i보다 작거나 같아야 합니다, 맞죠? 왜냐하면 이 부등식이 성립하기 때문입니다. 그런데 x_j − x_i는 — 참고로 이건 음이 아닌 수인데 — 두 점 사이의 거리보다 작거나 같습니다. 그리고 그 거리는 가정에 의해 δ보다 엄격히 작아야 합니다. 그러면 제가 방금 뭘 보인 걸까요? 저는 방금 x* − δ가 x_i보다 엄격히 작아야 함을 보였습니다. 그리고 저는 이미 x_i가 x*보다 작거나 같다는 걸 알고 있습니다. 그러니까 x_i는 이 구간 안에 있어야 합니다."
+  },
+  {
+   "t": 2839,
+   "en": "And of course, the remaining part is the symmetric case for x_j: x_j − x* is less than or equal to x_j − x_i, which is less than or equal to this distance, which is smaller than δ. Thank you. Any questions? All right. Okay, that's all for today, right? Yeah, so before I start Lemma 2, perhaps it's a good point to have a 10-minute break — so we're going to have a 10-minute break, and we'll continue at 1:59.",
+   "ko": "그리고 물론, 나머지 부분은 x_j에 대한 대칭적인 경우입니다: x_j − x*는 x_j − x_i보다 작거나 같고, 이는 다시 이 거리보다 작거나 같으며, 이 거리는 δ보다 작습니다. 감사합니다. 질문 있나요? 좋습니다. 자, 오늘은 여기까지죠? 네, 그러면 보조정리 2를 시작하기 전에, 여기서 10분 정도 쉬는 시간을 갖는 게 좋겠네요. 10분간 휴식하고, 1시 59분에 다시 시작하겠습니다."
+  },
+  {
+   "t": 2897,
+   "en": "...has to be closer than δ. So, the points we've found so far from the recursive calls — if their distance is smaller than δ, they have to be in the narrow band. The second lemma is that they have to be, in particular, within 11 positions in the list sorted by the y-coordinates. So, if you have two points in S_y such that their distance is smaller than δ, then for every such pair, they must be within 11 positions in that list. Okay, so how do we prove that?",
+   "ko": "(휴식 후 이어서) ...δ보다 더 가까워야 합니다. 그러니까 지금까지 재귀 호출로부터 찾은 점들 중, 거리가 δ보다 작다면 그것들은 반드시 좁은 띠 안에 있어야 합니다. 두 번째 보조정리는, 그 점들이 특히 y좌표로 정렬된 리스트에서 서로 11개 위치 이내에 있어야 한다는 것입니다. 그러니까 S_y 안에 두 점이 있고 그 거리가 δ보다 작다면, 그런 모든 쌍에 대해 그 리스트 안에서 서로 11개 위치 이내에 있어야 합니다. 자, 그러면 이걸 어떻게 증명할까요?"
+  },
+  {
+   "t": 2964,
+   "en": "So we're going to consider the narrow band, and imagine that we partition it into boxes like this. Let's say this is the boundary between the left half and the right half. The narrow band is the set of points whose x-coordinates lie between x* minus delta and x* plus delta.",
+   "ko": "이제 narrow band(좁은 띠 영역)를 생각해 보겠습니다. 그리고 이 영역을 이렇게 박스들로 분할한다고 상상해 봅시다. 이것이 왼쪽 절반과 오른쪽 절반의 경계선이라고 합시다. narrow band는 x좌표가 x* - delta와 x* + delta 사이에 있는 점들의 집합입니다."
+  },
+  {
+   "t": 3000,
+   "en": "Now I'm going to split this narrow band into squares like this, where each square has side length delta over 2 — this is just a complete tiling. So every point belongs to exactly one box. These boxes are squares with horizontal and vertical sides of length delta over 2. In particular, I'll call the set of four boxes that share the same y-coordinate range a row.",
+   "ko": "이제 이 narrow band를 이렇게 정사각형들로 나누겠습니다. 각 정사각형의 한 변의 길이는 delta/2이고, 이는 완전한 타일링(tiling)입니다. 따라서 모든 점은 정확히 하나의 박스에 속하게 됩니다. 이 박스들은 가로, 세로 변의 길이가 모두 delta/2인 정사각형입니다. 특히, 같은 y좌표 범위를 공유하는 네 개의 박스로 이루어진 집합을 row(행)라고 부르겠습니다."
+  },
+  {
+   "t": 3101,
+   "en": "So let's consider such a partitioning. Before this partitioning, some points were outside the narrow band and some were inside it. As a result of this partitioning, every point that lies in the narrow band will now belong to some box. But if you take the box's point of view, each box contains at most one point of S. Why is that?",
+   "ko": "이런 분할을 생각해 봅시다. 이 분할 이전에는 어떤 점들은 narrow band 밖에, 어떤 점들은 그 안에 있었습니다. 이 분할의 결과로, narrow band 안에 있는 모든 점은 이제 어떤 박스에 속하게 됩니다. 그런데 박스의 관점에서 보면, 각 박스는 S에 속한 점을 최대 하나만 포함합니다. 왜 그럴까요?"
+  },
+  {
+   "t": 3145,
+   "en": "Within a square, what's the maximum distance you can get by choosing two points? That would be if you choose two points on the diagonal — and what would the distance between them be? It would be delta over square root of 2, which is strictly smaller than delta. But by construction of the algorithm, we know that if you take two points from the same half, they have to be at least delta apart. So if you look at each box, it cannot contain two points at the same time.",
+   "ko": "정사각형 안에서 두 점을 선택했을 때 얻을 수 있는 최대 거리는 얼마일까요? 그것은 대각선 위의 두 점을 선택할 때이고, 그 거리는 delta/√2로, 이는 delta보다 엄격히 작습니다. 그런데 알고리즘의 구성상, 같은 절반(half)에서 나온 두 점은 적어도 delta만큼 떨어져 있어야 한다는 것을 알고 있습니다. 따라서 각 박스는 동시에 두 점을 포함할 수 없습니다."
+  },
+  {
+   "t": 3222,
+   "en": "This is because of the way we partitioned the narrow band into boxes: each box lies either completely on the left or completely on the right. For example, if we had drawn the boxes so that some box contained a point from the left and a point from the right, those two points could be quite close to each other, since they aren't from the same half. But the point is that we partition the band into boxes so that each box is entirely on the left or entirely on the right, so a box cannot end up containing two points that both come from the same half. So that's the tricky part — there's one subtlety in this argument.",
+   "ko": "이는 narrow band를 박스로 나누는 방식 때문입니다. 각 박스는 완전히 왼쪽에 있거나 완전히 오른쪽에 있습니다. 예를 들어 만약 어떤 박스가 왼쪽의 점 하나와 오른쪽의 점 하나를 동시에 포함하도록 박스를 그렸다면, 이 두 점은 서로 같은 절반 출신이 아니므로 상당히 가까울 수 있습니다. 하지만 핵심은, 우리가 band를 박스로 나눌 때 각 박스가 완전히 왼쪽이거나 완전히 오른쪽에 있도록 나눈다는 것이고, 그래서 한 박스가 같은 절반에서 온 두 점을 동시에 담는 일은 생기지 않는다는 것입니다. 그래서 까다로운 부분이 하나 있는데, 이 논증에는 한 가지 미묘한 지점이 있습니다."
+  },
+  {
+   "t": 3266,
+   "en": "What if two points have exactly the same x-coordinate? According to the algorithm, when we divide the set of points into left and right, we simply take the first n/2 points as the left half and the rest as the right half. For example, if there are 16 points, it might happen that the 8th and 9th points have the same x-coordinate, equal to x*. In that case, I'll simply declare that the point belonging to the left half is considered to be in the box on the left, and the point belonging to the right half is considered to be in the box on the right. Even if you considered such a point as belonging to both boxes, nothing would actually be wrong in the argument, but there's no need to make life unnecessarily complicated. So for every such box on the border, I'll just put each point into exactly one box in an arbitrary way — the only thing we need to make sure of is that, on this boundary between left and right, points from the left half are considered to belong to the box on the left, and points from the right half to the box on the right.",
+   "ko": "만약 두 점의 x좌표가 정확히 같다면 어떻게 될까요? 알고리즘에 따르면, 점들의 집합을 왼쪽과 오른쪽으로 나눌 때 우리는 단순히 앞의 n/2개의 점을 왼쪽 절반으로, 나머지를 오른쪽 절반으로 취합니다. 예를 들어 점이 16개라면, 8번째 점과 9번째 점의 x좌표가 같고 그 값이 x*일 수 있습니다. 이 경우 저는 그냥, 왼쪽 절반에 속한 점은 왼쪽 박스에 속하는 것으로, 오른쪽 절반에 속한 점은 오른쪽 박스에 속하는 것으로 선언하겠습니다. 사실 이런 점을 두 박스 모두에 속하는 것으로 간주해도 논증 자체에는 문제가 없지만, 굳이 삶을 복잡하게 만들 필요는 없습니다. 그래서 경계에 있는 모든 박스에 대해, 각 점을 임의의 방식으로 정확히 하나의 박스에만 넣겠습니다. 우리가 확인해야 할 유일한 것은, 왼쪽과 오른쪽의 경계에서 왼쪽 절반의 점들은 왼쪽 박스에, 오른쪽 절반의 점들은 오른쪽 박스에 속하는 것으로 간주된다는 점입니다."
+  },
+  {
+   "t": 3370,
+   "en": "Any other questions? [Student question.] The reason why these two points can have close y-coordinates is that one is from the left half and the other is from the right half. If two points come from the same half, their distance has to be at least delta. Any other questions?",
+   "ko": "다른 질문 있나요? [학생 질문.] 이 두 점이 가까운 y좌표를 가질 수 있는 이유는, 하나는 왼쪽에서 오고 다른 하나는 오른쪽에서 오기 때문입니다. 만약 두 점이 같은 절반에서 온다면, 그 거리는 적어도 delta 이상이어야 합니다. 다른 질문 있나요?"
+  },
+  {
+   "t": 3412,
+   "en": "Okay, so based on the fact that each box lies completely within one half of the input, and the fact that any two points within the same box are at distance delta over square root of 2 or smaller, we can deduce that each box contains at most one point.",
+   "ko": "좋습니다, 각 박스가 입력의 한쪽 절반 안에 완전히 들어 있다는 사실과, 같은 박스 안의 두 점은 그 거리가 delta/√2 이하라는 사실에 근거하여, 우리는 각 박스가 최대 한 개의 점만 포함한다는 것을 유도할 수 있습니다."
+  },
+  {
+   "t": 3437,
+   "en": "Now, without loss of generality, assume that p appears before q in S_y. Let me remind you that S_y is the same set of points as S, sorted by y-coordinate — so if p has a smaller y-coordinate than q, then p appears before q in this sorted list. I haven't specified which one is p and which is q; I'm simply saying that p is whichever one appears first in this sorted order. I'm going to call the box that contains p, b_p, and the box that contains q, b_q. For example, if this is q sitting right on a boundary, you're free to choose either box as b_q — whichever one it should be, it doesn't matter.",
+   "ko": "이제 일반성을 잃지 않고, p가 S_y에서 q보다 먼저 나온다고 가정하겠습니다. S_y는 S와 같은 점들의 집합을 y좌표로 정렬한 리스트라는 것을 다시 상기시켜 드립니다. 즉 p의 y좌표가 q의 y좌표보다 작다면, p가 이 정렬된 리스트에서 q보다 먼저 나옵니다. 저는 어느 것이 p이고 어느 것이 q인지 특정하지 않았습니다. 그냥 이 정렬된 순서에서 먼저 나오는 쪽을 p라고 부르는 것뿐입니다. p를 포함하는 박스를 b_p, q를 포함하는 박스를 b_q라고 부르겠습니다. 예를 들어 만약 이것이 경계에 걸쳐 있는 q라면, 이 박스든 저 박스든 b_q로 자유롭게 선택해도 상관없습니다."
+  },
+  {
+   "t": 3527,
+   "en": "Now suppose, for contradiction, that there exist p and q such that their distance is smaller than delta, and p and q are at least 12 positions away from each other in S_y. We want to show this leads to a contradiction by first proving that there have to be at least two rows between the row of b_p and the row of b_q. So here's the row of b_p, here's the row of b_q — suppose, in this picture, there's just one row in between. What I claim is that if p and q are at least 12 positions apart, there have to be at least two rows between the row of b_p and the row of b_q.",
+   "ko": "이제 귀류법을 위해, 어떤 p와 q가 존재해서 그 거리는 delta보다 작고, 동시에 p와 q는 S_y에서 서로 적어도 12개의 위치만큼 떨어져 있다고 가정해 봅시다. 먼저 b_p가 속한 row와 b_q가 속한 row 사이에 적어도 두 개의 row가 있음을 보임으로써 모순을 이끌어내려 합니다. 여기 b_p의 row가 있고, 여기 b_q의 row가 있는데, 이 그림에서는 그 사이에 row가 하나뿐이라고 해봅시다. 제가 주장하는 것은, 만약 p와 q가 적어도 12개의 위치만큼 떨어져 있다면, b_p의 row와 b_q의 row 사이에는 적어도 두 개의 row가 있어야 한다는 것입니다."
+  },
+  {
+   "t": 3604,
+   "en": "Why? Suppose otherwise — say the number of rows between them is just one, as in this picture. Given that p and q are at least 12 positions apart, if I take all the points in the list S_y that lie between p and q, and also include p and q themselves, how many points do I have in total? There are at least 13 points. And what are their y-coordinates like? They all lie between the y-coordinate of p and the y-coordinate of q — any other point between p and q must have its y-coordinate somewhere in that range; it can't, for example, be outside it.",
+   "ko": "왜 그럴까요? 그렇지 않다고, 즉 이 그림처럼 그 사이에 row가 하나뿐이라고 가정해 봅시다. p와 q가 적어도 12개의 위치만큼 떨어져 있다는 것을 감안하면, S_y 리스트에서 p와 q 사이에 있는 모든 점들에 p와 q 자신까지 포함해서 세면 총 몇 개의 점이 있을까요? 적어도 13개의 점이 있습니다. 그리고 이 점들의 y좌표는 어떨까요? 이들은 모두 p의 y좌표와 q의 y좌표 사이에 있습니다. p와 q 사이에 있는 다른 어떤 점이라도 그 y좌표는 반드시 이 범위 안에 있어야 하며, 예를 들어 그 범위 밖에 있을 수는 없습니다."
+  },
+  {
+   "t": 3684,
+   "en": "Let me explain it this way instead. If there's one row in between, how many boxes are there — the row of b_p, the row of b_q, and everything in between? There are 1, 2, 3, ..., 12 boxes (three rows of four boxes each). If there were at least two rows in between, we'd have more boxes than that. But if there are fewer than two rows, the maximum number of boxes between the row of b_p and the row of b_q, inclusive, is 12 — or even fewer, 8 or 4, if there are no rows in between at all.",
+   "ko": "다르게 설명해 보겠습니다. 만약 그 사이에 row가 하나 있다면, b_p의 row, b_q의 row, 그리고 그 사이의 모든 것을 합쳐 박스가 몇 개나 있을까요? 1, 2, 3, ... 해서 12개의 박스가 있습니다 (각각 4개의 박스로 이루어진 세 개의 row). 만약 사이에 row가 적어도 두 개 있었다면 이보다 더 많은 박스가 있었을 것입니다. 하지만 row가 두 개보다 적다면, b_p의 row와 b_q의 row 사이(양 끝 포함)에 있을 수 있는 최대 박스 수는 12개이고, 만약 사이에 row가 전혀 없다면 8개나 4개로 더 적을 수도 있습니다."
+  },
+  {
+   "t": 3722,
+   "en": "How many points are there? There have to be at least 13 points, and all these 13 points have to belong to these 12 boxes (or 8, or 4). What does that mean? By our earlier fact, some box would have to receive two points — but that's not possible. Therefore, there have to be at least two rows between the row of b_p and the row of b_q. To summarize this proof: suppose not; take p, q, and all the points between them in S_y — there are at least 13 such points, and they'd have to be contained in 12 or fewer boxes. That's a contradiction.",
+   "ko": "그렇다면 점은 몇 개나 있을까요? 적어도 13개의 점이 있어야 하고, 이 13개의 점 모두가 이 12개(혹은 8개, 4개)의 박스 중 하나에 속해야 합니다. 이것이 의미하는 바는 무엇일까요? 앞서 밝힌 사실에 의해, 어떤 박스는 두 개의 점을 받아야 하는데, 이는 불가능합니다. 따라서 b_p의 row와 b_q의 row 사이에는 적어도 두 개의 row가 있어야 합니다. 이 증명을 요약하면, 그렇지 않다고 가정하고 p, q, 그리고 S_y에서 그 사이에 있는 모든 점을 취하면 적어도 13개의 점이 있는데, 이들은 12개 이하의 박스에 담겨야 하므로 모순이 발생한다는 것입니다."
+  },
+  {
+   "t": 3840,
+   "en": "So what does this imply? If I have a point p whose box is on this row, and a point q whose box is on this row, with at least two rows in between, what do their y-coordinates look like? This y-coordinate of p, as low as it could possibly be, is here; this y-coordinate of q, as high as it could possibly be, is here. Their y-coordinates are already at least delta apart, so their distance cannot be smaller than delta — a contradiction with our assumption that dist(p,q) < delta. And that proves the second lemma. So this algorithm finds the closest pair of points in P.",
+   "ko": "그렇다면 이것이 의미하는 바는 무엇일까요? p의 박스가 이 row에 있고, q의 박스가 이 row에 있으며 그 사이에 적어도 두 개의 row가 있다면, 이들의 y좌표는 어떤 모습일까요? p의 y좌표는 가능한 한 가장 낮게 잡아도 여기이고, q의 y좌표는 가능한 한 가장 높게 잡아도 여기입니다. 이들의 y좌표는 이미 최소한 delta만큼 떨어져 있으므로, 거리가 delta보다 작을 수 없는데, 이는 dist(p,q) < delta라는 가정과 모순됩니다. 이로써 두 번째 보조정리가 증명되었습니다. 따라서 이 알고리즘은 P에서 최근접 점 쌍을 찾아냅니다."
+  },
+  {
+   "t": 3948,
+   "en": "Okay, so now we're going to prove the correctness of the recursive function by induction on the number of points in the input. This is sufficient to prove the algorithm is correct, because the algorithm's main body simply calls this recursive function on the entire input. The base case is clear, because if the number of points is at most 3, we simply enumerate all pairs. Now let me show the inductive step — I'll assume the number of points is at least 4.",
+   "ko": "이제 입력 점의 개수에 대한 귀납법을 이용해 이 재귀 함수의 정확성(correctness)을 증명하겠습니다. 이것으로 충분한 이유는, 알고리즘의 본체가 결국 이 재귀 함수를 전체 입력에 대해 호출하는 것뿐이기 때문입니다. 기저 사례(base case)는 명확합니다. 점의 개수가 최대 3개라면 그냥 모든 쌍을 나열해 보면 되기 때문입니다. 이제 귀납 단계(inductive step)를 보이겠습니다. 점의 개수가 적어도 4개라고 가정하겠습니다."
+  },
+  {
+   "t": 4029,
+   "en": "Now, from the induction hypothesis, let p_{L,1}, p_{L,2} be a closest pair in L_x, and similarly let p_{R,1}, p_{R,2} be a closest pair in R_x. This follows from the induction hypothesis — and we're using strong induction here.",
+   "ko": "이제 귀납 가정으로부터, p_{L,1}, p_{L,2}를 L_x에서의 최근접 쌍이라 하고, 마찬가지로 p_{R,1}, p_{R,2}를 R_x에서의 최근접 쌍이라 합시다. 이는 귀납 가정으로부터 얻어지는 것이며, 여기서는 강한 귀납법(strong induction)을 사용하고 있습니다."
+  },
+  {
+   "t": 4082,
+   "en": "The sizes of L_x and R_x are strictly smaller than the size of P_x. They might actually be smaller than |P_x| minus 1, but we don't need to worry about that because we're using strong induction. And from the hypothesis, we know that p_{L,1}, p_{L,2} and p_{R,1}, p_{R,2} have to be the closest pair from each respective half.",
+   "ko": "L_x와 R_x의 크기는 P_x의 크기보다 엄격히 작습니다. 실제로는 |P_x| - 1보다도 작을 수 있지만, 강한 귀납법을 사용하고 있으므로 신경 쓸 필요가 없습니다. 그리고 귀납 가정으로부터, p_{L,1}, p_{L,2}와 p_{R,1}, p_{R,2}는 각각 자신이 속한 절반에서의 최근접 쌍이어야 한다는 것을 알고 있습니다."
+  },
+  {
+   "t": 4113,
+   "en": "Alright, let p''_1 and p''_2 be a closest pair of points in P_x. I say 'a' closest pair because there may exist more than one closest pair, so p''_1 and p''_2 is just any one of them. So although I said this is the pair we want to find, again, the algorithm doesn't have to find exactly this pair — it just needs to find some pair achieving the same distance, since any one of the closest pairs is just as good.",
+   "ko": "자, p''_1과 p''_2를 P_x에서의 최근접 쌍이라고 합시다. '하나의' 최근접 쌍이라고 말한 이유는 최근접 쌍이 여러 개 존재할 수도 있기 때문이고, 그래서 p''_1, p''_2는 그중 아무거나 하나입니다. 이것이 우리가 찾고자 하는 쌍이라고 말했지만, 다시 말하지만 알고리즘이 정확히 이 쌍을 찾아야 하는 것은 아닙니다. 같은 거리를 달성하는 어떤 쌍이든 찾기만 하면 되는데, 최근접 쌍 중 어느 것을 찾아도 마찬가지로 좋기 때문입니다."
+  },
+  {
+   "t": 4175,
+   "en": "And delta is just some distance — the distance between some pair of points — so delta has to be greater than or equal to the distance between the closest pair, of course. Okay, let me do a case analysis. Case 1: suppose delta is strictly greater than the distance between p''_1 and p''_2.",
+   "ko": "그리고 delta는 그저 어떤 거리, 즉 어떤 점 쌍 사이의 거리일 뿐이므로, delta는 당연히 최근접 쌍 사이의 거리보다 크거나 같아야 합니다. 좋습니다, 이제 경우를 나누어 보겠습니다. 경우 1: delta가 p''_1과 p''_2 사이의 거리보다 엄격히 크다고 가정합시다."
+  },
+  {
+   "t": 4215,
+   "en": "But from the induction hypothesis, we know that p_{L,1},p_{L,2} and p_{R,1},p_{R,2} are each the closest pair of points entirely within the left half or entirely within the right half. So this means this particular pair (p''_1, p''_2), whose distance is even smaller than delta, must consist of one point from the left half and one from the right half. Otherwise, this pair would already have to be the one given by the induction hypothesis for that half — a contradiction, since we assumed its distance is even smaller.",
+   "ko": "그런데 귀납 가정에 의해, p_{L,1}, p_{L,2}와 p_{R,1}, p_{R,2}는 각각 완전히 왼쪽 절반 안에서, 또는 완전히 오른쪽 절반 안에서의 최근접 점 쌍이라는 것을 알고 있습니다. 따라서 delta보다도 거리가 더 작은 이 특정한 쌍(p''_1, p''_2)은 왼쪽 절반의 한 점과 오른쪽 절반의 한 점으로 이루어져야 합니다. 그렇지 않다면, 이 쌍은 이미 해당 절반에 대한 귀납 가정이 주는 쌍이었어야 하는데, 우리는 그 거리가 더 작다고 가정했으므로 이는 모순입니다."
+  },
+  {
+   "t": 4286,
+   "en": "Now, from Lemmas 1 and 2 — what does Lemma 1 say? If two points come from different halves and their distance is smaller than delta, they have to be in the narrow band. So p''_1 and p''_2 are in the narrow band, in S. And since they're in S with distance smaller than delta, Lemma 2 says they have to be within 11 positions of each other in S_y.",
+   "ko": "이제 보조정리 1과 2로부터 살펴봅시다. 보조정리 1은 무엇을 말하나요? 만약 두 점이 서로 다른 절반에서 왔고 그 거리가 delta보다 작다면, 이들은 narrow band 안에 있어야 한다는 것입니다. 따라서 p''_1과 p''_2는 narrow band, 즉 S 안에 있습니다. 그리고 이들이 S 안에 있고 거리가 delta보다 작으므로, 보조정리 2에 의해 이들은 S_y에서 서로 11개 이내의 위치 차이를 가져야 합니다."
+  },
+  {
+   "t": 4330,
+   "en": "So the algorithm therefore finds some pair of points, call them p_{M,1} and p_{M,2}, such that the distance between this pair equals the distance between p''_1 and p''_2.",
+   "ko": "따라서 알고리즘은 어떤 점 쌍, p_{M,1}과 p_{M,2}를 찾아내는데, 이 쌍 사이의 거리는 p''_1과 p''_2 사이의 거리와 같습니다."
+  },
+  {
+   "t": 4364,
+   "en": "Why? Because when the algorithm scans through S_y, checking each point against the next 11 points, we know that p''_1 and p''_2 will for sure be considered, since they're in S and within 11 positions of each other. So the distance determined in this step is going to be less than or equal to the distance between these two points. But since p''_1, p''_2 is the closest pair, the one found by the algorithm must have exactly the same distance. So when the algorithm returns the best among the three candidate pairs, the correct one will be the one selected — that concludes Case 1.",
+   "ko": "왜 그럴까요? 알고리즘이 S_y를 훑으면서 각 점을 그 다음 11개의 점과 비교할 때, p''_1과 p''_2는 S 안에 있고 서로 11개 이내의 위치 차이를 가지므로 반드시 고려될 것이기 때문입니다. 따라서 이 단계에서 결정되는 거리는 이 두 점 사이의 거리 이하가 됩니다. 하지만 p''_1, p''_2가 최근접 쌍이므로, 알고리즘이 찾은 쌍도 정확히 같은 거리를 가져야만 합니다. 그래서 알고리즘이 세 개의 후보 쌍 중 가장 좋은 것을 반환할 때, 올바른 쌍이 선택되게 됩니다. 이것으로 경우 1이 끝납니다."
+  },
+  {
+   "t": 4421,
+   "en": "Case 2: suppose delta equals the distance between p''_1 and p''_2. In this case, that means one of the two recursive calls has already found the answer. So the only thing we need to argue is that the algorithm doesn't somehow go wrong in the rest of the algorithm.",
+   "ko": "경우 2: delta가 p''_1과 p''_2 사이의 거리와 같다고 가정합시다. 이 경우, 두 재귀 호출 중 하나가 이미 답을 찾은 것입니다. 따라서 우리가 논증해야 할 유일한 것은, 알고리즘의 나머지 부분에서 뭔가 잘못되지 않는다는 것뿐입니다."
+  },
+  {
+   "t": 4451,
+   "en": "So in this case — let me remind you of the notation we used. The first candidate was l, the second was r, and the third was m, the one obtained by comparing every point in S_y with the next 11 points. That pair may or may not be defined, but if it is, well, we know the algorithm isn't going to, for example, imagine some point that didn't exist in the input, or try to pair a point with itself. So in the algorithm, it goes through this somewhat complicated procedure to come up with S_y, but anyway, that's going to be a sublist of the given set of points, and it tries to pair some distinct points — so they may or may not be the closest pair, but it's just one of the possible options, a pair of two distinct points. Therefore, the best among the three candidates — which we already have — is what we call delta. Okay, any questions?",
+   "ko": "이번 경우에는 우리가 사용했던 표기법을 다시 상기시켜 드리겠습니다. 첫 번째 후보는 l, 두 번째는 r, 그리고 세 번째는 m이었는데, 이는 S_y의 모든 점을 그 다음 11개의 점과 비교해서 얻은 것입니다. 이 쌍은 정의되지 않을 수도 있지만, 정의된다면, 알고리즘이 예를 들어 입력에 존재하지 않았던 어떤 점을 상상해내거나 어떤 점을 자기 자신과 짝짓는 일은 없다는 것을 우리는 알고 있습니다. 그래서 알고리즘은 이 다소 복잡한 절차를 거쳐서 S_y를 만들어내지만, 어쨌든 그것은 주어진 점 집합의 부분 리스트가 될 것이고, 그 안에서 서로 다른 두 점을 짝짓게 됩니다. 그러니 그것이 최근접 쌍일 수도 있고 아닐 수도 있지만, 그냥 가능한 선택지 중 하나, 즉 서로 다른 두 점의 쌍일 뿐입니다. 따라서 이미 구한 세 후보 중 가장 좋은 것이 바로 우리가 delta라고 부르는 것입니다. 자, 질문 있나요?"
+  },
+  {
+   "t": 4582,
+   "en": "All right, now we need to analyze the running time. Let me erase this — actually, maybe that wasn't a great idea, but anyway. Let's call this algorithm 1. The running time of algorithm 1 is big-O of n log n. Let's call the step where we come up with L_y and R_y, and the step where we come up with S_y — these two steps can be implemented to run in linear time by scanning through P_y once.",
+   "ko": "자, 이제 실행 시간을 분석해야 합니다. 이걸 좀 지울게요 — 사실 지우는 게 좋은 생각이 아니었을 수도 있지만, 아무튼 계속하겠습니다. 이걸 알고리즘 1이라고 부르겠습니다. 알고리즘 1의 실행 시간은 big-O of n log n입니다. L_y와 R_y를 구하는 단계, 그리고 S_y를 구하는 단계 — 이 두 단계는 P_y를 한 번 훑는 것으로 선형 시간에 구현할 수 있습니다."
+  },
+  {
+   "t": 4697,
+   "en": "Okay, and what that implies is that the running time of the recursive function is bounded by some function T(n) satisfying T(n) = 2T(n/2) + f(n), where f(n) is Θ(n) — here interpreting n/2 with the floor function.",
+   "ko": "자, 그리고 이것이 의미하는 바는, 재귀 함수의 실행 시간이 T(n) = 2T(n/2) + f(n)을 만족하는 어떤 함수 T(n)으로 위로 유계라는 것입니다. 여기서 f(n)은 Θ(n)이고, n/2는 바닥 함수(floor)로 해석합니다."
+  },
+  {
+   "t": 4740,
+   "en": "So this follows from the master theorem, which we already covered — this falls into the second case, where k equals 0, and in that case T(n) is Θ(n log n). One more thing I need to mention: that only gives us a running time bound for what's required by the recursive function call itself. We also need to take the preprocessing into account — the preprocessing takes O(n log n) as well, so the overall running time is also O(n log n). Okay, any questions?",
+   "ko": "그래서 이것은 우리가 이미 다룬 master theorem으로부터 따라 나옵니다 — 이 경우는 두 번째 경우, 즉 k가 0인 경우에 해당하고, 그 경우 T(n)은 Θ(n log n)이 됩니다. 한 가지 더 언급해야 할 것은, 이것은 재귀 함수 호출 자체에 필요한 실행 시간에 대한 상한만 준다는 것입니다. 우리는 전처리(preprocessing) 과정도 고려해야 하는데, 전처리 역시 O(n log n) 시간이 걸리므로, 전체 실행 시간도 O(n log n)이 됩니다. 자, 질문 있나요?"
+  },
+  {
+   "t": 4817,
+   "en": "So we are almost done with the closest pair problem — just two remarks. One is that, well, we showed that the number 11 is a valid choice, but it's not the only possible one. We can actually choose a smaller number if we do a little more careful analysis, which would reduce that number, but we're not going to do that here.",
+   "ko": "자, 이제 최근접 쌍(closest pair) 문제는 거의 다 끝났습니다 — 두 가지만 더 언급하겠습니다. 하나는, 우리가 11이라는 숫자가 유효한 선택임을 보였지만, 그것이 유일하게 가능한 선택은 아니라는 것입니다. 조금 더 세심하게 분석하면 실제로 더 작은 숫자를 선택할 수 있고 그러면 그 숫자를 줄일 수 있지만, 여기서는 그렇게 하지 않겠습니다."
+  },
+  {
+   "t": 4837,
+   "en": "And another comment is that, well, after we had this O(n log n)-time algorithm, we used the idea of preparing a sorted list and splitting it into two in each recursive call to get an O(n log n)-time implementation. In some sense, this is a top-down approach, because before the initial call we prepared the list of all the points sorted by the y-coordinates. So essentially, in order to make the step where we prepare S_y run in linear time, what we need is the same set of points as P_x, but sorted by the y-coordinates. And the way we ensured that the recursive function has access to such a list was by preparing it and splitting it into the following recursive calls — in that sense, this is a top-down approach.",
+   "ko": "그리고 또 하나의 코멘트는, 이 O(n log n) 시간 알고리즘을 만든 후, 우리는 정렬된 리스트를 미리 준비해두고 각 재귀 호출에서 그것을 둘로 나누는 아이디어를 사용해서 O(n log n) 시간 구현을 얻었다는 것입니다. 어떤 의미에서 이것은 하향식(top-down) 접근이라고 할 수 있는데, 왜냐하면 최초 호출 이전에 우리가 이미 모든 점을 y좌표로 정렬한 리스트를 준비해두었기 때문입니다. 그래서 본질적으로, S_y를 준비하는 단계를 선형 시간에 만들기 위해 우리에게 필요한 것은 P_x와 같은 점 집합이지만 y좌표로 정렬된 것입니다. 그리고 재귀 함수가 그런 리스트에 접근할 수 있도록 보장한 방법은, 그것을 미리 준비해두고 이어지는 재귀 호출들로 나누어 전달하는 것이었습니다 — 그런 의미에서 이것은 하향식 접근입니다."
+  },
+  {
+   "t": 4900,
+   "en": "But we can also come up with a bottom-up approach. Rather than preparing a sorted list from the beginning, the observation we're going to rely on is that, well, this algorithm still has a structure that is more or less similar to merge sort. So why don't we run merge sort on the side, at the same time, while we're making all these recursive calls?",
+   "ko": "하지만 우리는 상향식(bottom-up) 접근도 생각해볼 수 있습니다. 처음부터 정렬된 리스트를 준비하는 대신, 우리가 의존할 관찰은 이 알고리즘이 여전히 merge sort와 어느 정도 비슷한 구조를 가지고 있다는 것입니다. 그러니 이 모든 재귀 호출을 만드는 동안 옆에서 merge sort를 같이 돌리면 어떨까요?"
+  },
+  {
+   "t": 4925,
+   "en": "So an alternative version we can come up with is the following. I'm not going to prepare P_y at the beginning, and I'm not going to be given P_y as input, because I did not prepare it. But what we're going to do instead is get L_y and R_y as a result of the recursive call.",
+   "ko": "그래서 우리가 생각해볼 수 있는 대안적인 버전은 다음과 같습니다. 처음부터 P_y를 준비하지 않을 것이고, 준비하지 않았으니 P_y를 입력으로 받지도 않을 것입니다. 대신 우리는 재귀 호출의 결과로 L_y와 R_y를 얻을 것입니다."
+  },
+  {
+   "t": 4983,
+   "en": "So from each call, the same set of points — for example, when I pass L_x — is going to be sorted by the y-coordinates and returned as an additional output. That's exactly what merge sort's recursive function does, right? We give an unsorted list and it gives a sorted list back. So because L_y and R_y are no longer required as input to the recursive function, we don't need that anymore, okay?",
+   "ko": "그래서 각 호출에서, 예를 들어 제가 L_x를 넘기면, 그 동일한 점 집합이 y좌표로 정렬되어 추가 출력으로 반환됩니다. 이건 정확히 merge sort의 재귀 함수가 하는 일이죠? 정렬되지 않은 리스트를 주면 정렬된 리스트를 돌려주는 것 말입니다. 그래서 L_y와 R_y가 더 이상 재귀 함수의 입력으로 필요하지 않기 때문에, 그건 이제 필요 없습니다, 그렇죠?"
+  },
+  {
+   "t": 5016,
+   "en": "But then, before we run the step where we prepare S_y, we'll need access to P_y, right? So here, after the two recursive calls, we merge L_y and R_y to obtain P_y, which is the same set of points as P_x but sorted by the y-coordinates. How do we do that? Well, that's exactly the merge sort algorithm again.",
+   "ko": "하지만 S_y를 준비하는 단계를 실행하기 전에, 우리는 P_y에 접근할 수 있어야 하죠? 그래서 여기서, 두 번의 재귀 호출 이후에, L_y와 R_y를 병합(merge)해서 P_y를 얻습니다. 이것은 P_x와 같은 점 집합이지만 y좌표로 정렬된 것입니다. 어떻게 그렇게 할까요? 바로 그게 다시 merge sort 알고리즘입니다."
+  },
+  {
+   "t": 5049,
+   "en": "The merge sort algorithm, when given the list of items you want to sort — in this case that's P_x — divides it into two pieces simply by taking indices. And if they're not sorted by the y-coordinates — say they just happen to be called L_x and R_x — then in each recursive call they get sorted, and as a result you get the sorted lists, which here we're calling L_y and R_y. Then, in the remaining part of the merge sort algorithm, we just merge these two sorted half-lists together to obtain a sorted list of the entire set of items — that's what we call P_y here.",
+   "ko": "merge sort 알고리즘은 정렬하고자 하는 항목들의 리스트 — 이 경우에는 P_x — 를 받으면, 단순히 인덱스를 기준으로 두 조각으로 나눕니다. 그리고 그것들이 y좌표로 정렬되어 있지 않다면 — 말하자면 그냥 L_x와 R_x라고 불린다면 — 각 재귀 호출에서 그것들이 정렬되고, 그 결과로 정렬된 리스트를 얻게 되는데, 여기서는 그것을 L_y와 R_y라고 부릅니다. 그런 다음 merge sort 알고리즘의 나머지 부분에서, 이 두 개의 정렬된 반쪽 리스트를 병합해서 전체 항목의 정렬된 리스트를 얻습니다 — 여기서 그것을 P_y라고 부르는 것입니다."
+  },
+  {
+   "t": 5097,
+   "en": "And once we have P_y, we can just run this step in the same way as before, because by this point we have the same set of points as P_x, sorted by the y-coordinates, and S_y can be prepared from that. So this is, in some sense, a bottom-up approach: we didn't provide a sorted list at the beginning, but built it up from the lower levels of the recursive call.",
+   "ko": "그리고 일단 P_y를 얻으면, 이전과 같은 방식으로 이 단계를 실행할 수 있습니다. 왜냐하면 이 시점에서 우리는 P_x와 같은 점 집합을 y좌표로 정렬된 상태로 가지고 있고, 거기서 S_y를 준비할 수 있기 때문입니다. 그러니 이것은 어떤 의미에서 상향식 접근입니다 — 처음부터 정렬된 리스트를 제공한 것이 아니라, 재귀 호출의 하위 레벨에서부터 쌓아 올린 것입니다."
+  },
+  {
+   "t": 5120,
+   "en": "One more thing — of course, at this step we return both the answer and P_y, and here too we return this answer and P_y. So in the base case, after enumerating all possible pairs among the three points, we also have to sort those three points by the y-coordinates and return that, because it has to serve as the base case for the merge sort as well.",
+   "ko": "한 가지 더 — 당연히 이 단계에서는 답과 P_y를 함께 반환하고, 여기에서도 마찬가지로 이 답과 P_y를 반환합니다. 그래서 기저 사례(base case)에서는, 세 점 사이의 가능한 모든 쌍을 나열한 후, 그 세 점을 y좌표로 정렬해서 반환해야 합니다. 왜냐하면 그것이 merge sort의 기저 사례 역할도 해야 하기 때문입니다."
+  },
+  {
+   "t": 5149,
+   "en": "And at the end of the function, after comparing the three candidate pairs and determining the closest pair, we'll also have to return the P_y we prepared to obtain S_y, as an additional part of the return value, so that the calls above can make use of it as well. So if you imagine the entire execution of the algorithm, you can see that the list P_x gets sorted by the y-coordinates from the bottom of the recursion all the way up, so that by the end of the algorithm, in addition to the closest pair, we're also sorting all the points by the y-coordinates. So that approach is also possible, and of course it also has an O(n log n) running time. Any other questions?",
+   "ko": "그리고 함수의 마지막에서, 세 후보 쌍을 비교해서 최근접 쌍을 결정한 후에는, S_y를 얻기 위해 준비했던 P_y도 반환값의 추가 부분으로 함께 반환해야, 위쪽 호출들에서도 그것을 활용할 수 있습니다. 그래서 알고리즘 전체 실행을 상상해보면, 리스트 P_x가 재귀의 맨 아래에서부터 위까지 올라가면서 y좌표로 정렬되는 것을 볼 수 있고, 그래서 알고리즘이 끝날 때쯤에는 최근접 쌍뿐만 아니라 모든 점을 y좌표로 정렬한 것도 함께 얻게 됩니다. 그러니 그런 접근도 가능하고, 물론 이것도 O(n log n) 실행 시간을 가집니다. 다른 질문 있나요?"
+  },
+  {
+   "t": 5209,
+   "en": "We still need to scan through P_y to obtain S_y either way — the only difference is in how we obtain P_y. In the top-down approach, we prepare P_y as the list of points sorted by y-coordinates for the entire input at the very beginning, and then in each recursive call we simply split that already-sorted list. But in the bottom-up approach, we don't prepare such a thing beforehand. As input we only give P_x, sorted by x-coordinates, and that same set of points comes back sorted by y-coordinates as an additional part of the return value. We then merge those to obtain the new P_y, but still, at the end of the day, to come up with S_y, we use that P_y in exactly the same manner. Any other questions? Okay.",
+   "ko": "어느 쪽이든 S_y를 얻으려면 여전히 P_y를 훑어야 합니다 — 유일한 차이는 P_y를 어떻게 얻느냐입니다. 하향식 접근에서는 맨 처음에 전체 입력에 대해 y좌표로 정렬된 점들의 리스트로 P_y를 준비해두고, 그다음 각 재귀 호출에서는 그 이미 정렬된 리스트를 그냥 나누기만 합니다. 하지만 상향식 접근에서는 그런 것을 미리 준비하지 않습니다. 입력으로는 x좌표로 정렬된 P_x만 주고, 같은 점 집합이 반환값의 추가 부분으로 y좌표로 정렬되어 돌아옵니다. 그러면 우리는 그것들을 병합해서 새로운 P_y를 얻는데, 그래도 결국 S_y를 만들기 위해서는 그 P_y를 완전히 똑같은 방식으로 사용합니다. 다른 질문 있나요? 좋습니다."
+  },
+  {
+   "t": 5279,
+   "en": "So, well, like I said at the beginning, in this course our goal is basically to see how these different algorithm design methodologies can be applied to different problems. I could try to give an abstract description of these methodologies, but until you see an actual example — and until you try to solve a problem using that approach — the explanation wouldn't really make much sense. But now that I've shown you an example, I can tell you that this is an example of an approach called divide-and-conquer. As the name suggests, the way we solved the problem was to divide a given problem into smaller problems and solve each piece separately — using recursion — and then use the solutions to the smaller pieces to come up with the answer for the larger piece.",
+   "ko": "자, 제가 처음에 말씀드렸듯이, 이 강좌의 목표는 기본적으로 이런 여러 알고리즘 설계 방법론들이 서로 다른 문제들에 어떻게 적용되는지를 보는 것입니다. 저는 이런 방법론들을 추상적으로 설명해볼 수도 있지만, 실제 예시를 보기 전까지는 — 그리고 그 방식으로 문제를 직접 풀어보기 전까지는 — 그 설명이 별로 와닿지 않을 것입니다. 하지만 이제 예시를 하나 보여드렸으니, 이것이 분할 정복(divide-and-conquer)이라고 불리는 접근법의 한 예라는 것을 말씀드릴 수 있습니다. 이름이 시사하듯이, 우리가 문제를 푼 방식은 주어진 문제를 더 작은 문제들로 나누고, 재귀를 이용해서 각 조각을 따로 해결한 다음, 그 작은 조각들에 대한 해를 이용해서 더 큰 조각에 대한 답을 얻는 것이었습니다."
+  },
+  {
+   "t": 5340,
+   "en": "In this approach, we usually divide a given problem into multiple subproblems, and — well, not always, but most of the time — the hallmark of the divide-and-conquer approach is that the sizes of the subproblems you consider are going to be approximately the same. So here, for example, you're given this problem, and you divide it into two pieces, L_x and R_x, and their sizes differ by at most one. That's typically the case. Then you recursively solve the problem, and usually the step that requires the most ingenuity is the step where you combine these two solutions to obtain the solution to the larger problem. What you have to do in the earlier part is more or less obvious from the framework — you'll recursively solve the problem — but the key part is how you use the solutions to the smaller subproblems to obtain the solution to the larger problem.",
+   "ko": "이 접근법에서는 보통 주어진 문제를 여러 개의 부분 문제로 나누는데, 항상 그런 것은 아니지만 대부분의 경우, 분할 정복 접근법의 특징은 우리가 고려하는 부분 문제들의 크기가 거의 같다는 것입니다. 예를 들어 여기서는 이 문제가 주어지면 그것을 두 조각 L_x와 R_x로 나누는데, 그 크기 차이는 기껏해야 1입니다. 이것이 전형적인 경우입니다. 그런 다음 그 문제를 재귀적으로 풀고, 보통 가장 많은 통찰력이 필요한 단계는 이 두 해를 결합해서 더 큰 문제의 해를 얻는 단계입니다. 앞부분에서 해야 할 일은 프레임워크상 대체로 명백합니다 — 그냥 재귀적으로 문제를 풀면 됩니다 — 하지만 핵심 부분은 작은 부분 문제들의 해를 어떻게 이용해서 더 큰 문제의 해를 얻어내느냐입니다."
+  },
+  {
+   "t": 5407,
+   "en": "So that's the divide-and-conquer approach, and because it's always going to be a recursive algorithm, the master theorem is going to be useful for analyzing the running time of any divide-and-conquer algorithm. So what we're going to do now is look at another example of the divide-and-conquer approach. But this time, since you've already seen what divide-and-conquer is and you have a sense of the methodology, try to keep that in mind and see how it's applied to this particular problem. By now you've actually seen three examples: the maximum subarray sum problem, the O(n log n)-time algorithm, and the closest pair problem. All right, so the problem we're going to consider now is integer multiplication.",
+   "ko": "그것이 바로 분할 정복 접근법이고, 이것은 항상 재귀 알고리즘이 될 것이기 때문에, master theorem은 어떤 분할 정복 알고리즘의 실행 시간을 분석하는 데도 유용할 것입니다. 그래서 이제 우리는 분할 정복 접근법의 또 다른 예를 살펴볼 것입니다. 하지만 이번에는 여러분이 이미 분할 정복이 무엇인지 보았고 그 방법론에 대한 감을 어느 정도 잡았을 테니, 그것을 염두에 두고 이 특정 문제에 그 방법론이 어떻게 적용되는지 살펴보시기 바랍니다. 지금까지 여러분은 사실 세 가지 예를 본 셈입니다: 최대 부분합(maximum subarray sum) 문제, O(n log n) 시간 알고리즘, 그리고 최근접 쌍 문제입니다. 자, 그러면 이제 우리가 다룰 문제는 정수 곱셈(integer multiplication)입니다."
+  },
+  {
+   "t": 5482,
+   "en": "So the problem is very simple: given two positive integers, multiply them. Any questions about the problem?",
+   "ko": "이 문제는 매우 간단합니다. 두 개의 양의 정수가 주어지면, 그것들을 곱하는 것입니다. 이 문제에 대해 질문 있나요?"
+  },
+  {
+   "t": 5520,
+   "en": "Actually, we sort of already have that condition — what does it even mean to say we need an algorithm to multiply these two integers? Wasn't that supposed to be an elementary operation you can perform in constant time? Well, the reason is that when we treat arithmetic operations such as addition, subtraction, multiplication, and division as constant-time operations, that's part of the assumption of a computation model called the random access machine model, or RAM model for short.",
+   "ko": "사실 우리는 이미 그런 조건을 어느 정도 가지고 있습니다 — 이 두 정수를 곱하는 알고리즘이 필요하다는 게 도대체 무슨 의미일까요? 그건 상수 시간에 수행할 수 있는 기본 연산이어야 하는 것 아닌가요? 음, 그 이유는 우리가 덧셈, 뺄셈, 곱셈, 나눗셈 같은 산술 연산을 상수 시간 연산으로 취급할 때, 그것이 random access machine 모델, 줄여서 RAM 모델이라고 불리는 계산 모델의 가정 중 하나이기 때문입니다."
+  },
+  {
+   "t": 5560,
+   "en": "In that model, the assumption is that basic arithmetic operations take constant time, and when you're given an address in memory, you can access that location and read from or write to it in constant time as well. Assignments and comparisons also take constant time. The reason we use that model is that it's a good approximation of the actual computers we have — if you've taken some computer hardware courses by now, you'll see that this is indeed a good approximation. If you issue an integer addition or multiplication instruction to the CPU, you get an answer after constant time, and no matter what memory address you give, the memory system returns the contents of that address in constant time as well. So that model is a good approximation of the actual computer we have.",
+   "ko": "그 모델에서는 기본 산술 연산이 상수 시간에 걸린다고 가정하고, 메모리 상의 어떤 주소가 주어지면 그 위치에 상수 시간에 접근해서 읽거나 쓸 수 있다고 가정합니다. 대입과 비교 연산도 상수 시간이 걸립니다. 우리가 이 모델을 사용하는 이유는 그것이 실제 우리가 가진 컴퓨터에 대한 좋은 근사이기 때문입니다 — 지금쯤 컴퓨터 하드웨어 수업을 들어보셨다면, 이것이 실제로 좋은 근사라는 것을 아실 겁니다. CPU에 정수 덧셈이나 곱셈 명령을 내리면 상수 시간 후에 답을 얻고, 어떤 메모리 주소를 주더라도 메모리 시스템은 상수 시간에 그 주소의 내용을 반환합니다. 그러니 그 모델은 우리가 가진 실제 컴퓨터에 대한 좋은 근사입니다."
+  },
+  {
+   "t": 5625,
+   "en": "But then, depending on the application, we might want to do arithmetic on really, really long integers — you might want to multiply, say, a 64k-bit integer by another 64k-bit integer. And what you also know about actual computer hardware is that there's usually a fixed word size — for example, if you're using a 64-bit processor, then by using the native addition or multiplication instruction you'll be able to perform arithmetic on 64-bit integers, but not on 64k-bit integers. So in that sense, it's not a good approximation anymore, because now what you'll need to do is make use of those elementary arithmetic operations on fixed-size integers to implement multiplication on much larger integers. And if that's the reality you have to deal with, then the RAM model is no longer a valid approximation of the hardware. That's the reason we're not going to treat integer multiplication as a constant-time operation anymore — we're actually going to look at what happens to compute the product and analyze the running time. So, well, let me show you a very simple algorithm.",
+   "ko": "하지만 응용에 따라서는 정말로 매우 긴 정수에 대해 산술 연산을 하고 싶을 수 있습니다 — 예를 들어 64k비트 정수를 또 다른 64k비트 정수와 곱하고 싶을 수도 있죠. 그리고 실제 컴퓨터 하드웨어에 대해 여러분이 알고 있는 또 다른 사실은, 보통 고정된 워드 크기(word size)가 있다는 것입니다 — 예를 들어 64비트 프로세서를 사용한다면, 네이티브 덧셈이나 곱셈 명령을 이용해서 64비트 정수에 대한 연산은 수행할 수 있지만, 64k비트 정수에 대해서는 그렇게 할 수 없습니다. 그런 의미에서 이제는 더 이상 좋은 근사가 아닌데, 왜냐하면 이제 고정 크기 정수에 대한 그런 기본 산술 연산들을 이용해서 훨씬 더 큰 정수에 대한 곱셈을 구현해야 하기 때문입니다. 그리고 그것이 우리가 다뤄야 할 현실이라면, RAM 모델은 더 이상 하드웨어에 대한 유효한 근사가 아닙니다. 그것이 우리가 이제 정수 곱셈을 더 이상 상수 시간 연산으로 취급하지 않을 이유입니다 — 우리는 실제로 곱을 계산할 때 무슨 일이 일어나는지 살펴보고 실행 시간을 분석할 것입니다. 자, 그러면 아주 간단한 알고리즘을 하나 보여드리겠습니다."
+  },
+  {
+   "t": 5714,
+   "en": "As input, you're given two positive integers, p and q, and here's the algorithm: the answer is initialized as zero; for i from 1 to p, and for a from 1 to q, increment the answer by one; and return the answer. Any questions about the correctness of this algorithm? Well, you can all see that this algorithm is correct, right? Hopefully — if you don't see that, then you don't have the prerequisites for this course. What's the running time, though? Write it in terms of p and q — what's the running time? Well, there's no n here... sorry.",
+   "ko": "입력으로 두 개의 양의 정수 p와 q가 주어지고, 알고리즘은 다음과 같습니다: 답을 0으로 초기화하고, i를 1부터 p까지, 그리고 a를 1부터 q까지 돌면서 답을 1씩 증가시키고, 마지막에 답을 반환합니다. 이 알고리즘의 정확성에 대해 질문 있나요? 다들 이 알고리즘이 맞다는 걸 아시겠죠? 바라건대요 — 만약 그게 안 보인다면, 이 수업을 들을 사전 지식이 부족한 겁니다. 그런데 실행 시간은 어떻게 될까요? p와 q로 표현해보세요 — 실행 시간이 뭘까요? 음, 여기엔 n이 없네요... 죄송합니다."
+  },
+  {
+   "t": 5790,
+   "en": "So it's big-O of what? p multiplied by q — does everyone agree? Any objections? Please. Well, I have an objection, but I'm not going to talk about it yet, because this is a good enough approximation of the running time that I can live with for now. So let's say the running time is O(p, q). The next question is — I told you the goal of this course is usually to come up with an efficient algorithm, and an efficient algorithm is a polynomial-time algorithm. Is this algorithm efficient? Well, the running time is given as a polynomial in terms of p and q — does that make the algorithm efficient? Okay, let me take a poll: how many of you think the algorithm is efficient, going by the definition? How many of you think it is not efficient?",
+   "ko": "그러니까 big-O of 무엇일까요? p 곱하기 q — 다들 동의하시나요? 이의 있으신 분? 네, 말씀하세요. — 음, 저도 이의가 있긴 한데, 아직은 그 얘기를 하지 않겠습니다. 왜냐하면 이건 지금은 제가 받아들일 수 있을 만큼 충분히 괜찮은 실행 시간 근사이기 때문입니다. 그러면 실행 시간을 O(p, q)라고 합시다. 다음 질문은 — 제가 이 수업의 목표가 보통 효율적인 알고리즘을 찾는 것이라고 말씀드렸었죠, 그리고 효율적인 알고리즘이란 다항 시간(polynomial-time) 알고리즘입니다. 이 알고리즘은 효율적일까요? 실행 시간이 p와 q에 대한 다항식으로 주어져 있는데, 그게 이 알고리즘을 효율적으로 만들어줄까요? 자, 여론 조사를 해보죠: 정의에 따르면 이 알고리즘이 효율적이라고 생각하시는 분 몇 분이나 되나요? 효율적이지 않다고 생각하시는 분은요?"
+  },
+  {
+   "t": 5887,
+   "en": "Okay, quite a few hands. So why isn't it efficient? Wasn't our definition that the running time has to be bounded by a polynomial? You might question how valid our definition is, but the running time is bounded by O(p, q) — doesn't that make the algorithm efficient? Okay, let's take a poll: how many of you think the algorithm is efficient? Well, the answer is no, even if you follow our definition — and I'll tell you why that's the case in the next lecture. Okay, that's it for today. Thank you, I'll see you next time.",
+   "ko": "네, 꽤 많은 분들이 손을 드셨네요. 그러면 왜 효율적이지 않을까요? 우리의 정의는 실행 시간이 다항식으로 유계여야 한다는 것 아니었나요? 우리 정의가 얼마나 타당한지는 의문을 가질 수 있지만, 실행 시간이 O(p, q)로 유계라면, 그게 이 알고리즘을 효율적으로 만들어주지 않나요? 자, 여론 조사를 해봅시다: 이 알고리즘이 효율적이라고 생각하시는 분이 몇 분이나 되나요? 음, 답은 '아니오'입니다, 우리의 정의를 따르더라도요 — 왜 그런지는 다음 강의에서 말씀드리겠습니다. 자, 오늘은 여기까지입니다. 감사합니다, 다음 시간에 뵙겠습니다."
+  }
+ ]
+}

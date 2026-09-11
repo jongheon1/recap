@@ -1,0 +1,260 @@
+{
+ "id": "2026-09-10-real-time-systems-1",
+ "course": "real-time-systems",
+ "title": "Embedded Systems, CPS/IoT & Research Topics",
+ "date": "2026-09-10",
+ "duration_sec": 2855,
+ "audio_url": "https://pub-950a8b85c4a448b4b96d2942eec87d6b.r2.dev/2026-09-10-real-time-systems-1.m4a",
+ "paragraphs": [
+  {
+   "t": 0,
+   "en": "Once — for a total of a number of cases, not that many — we perhaps have to have a group of CPS in the future. They don't get out of the equation. I hope that you understand why it's very important, why it's a very important thing, and why research is important. And yes, I hope to be able to learn more about it. It's kind of waiting for me. I don't want to waste time.",
+   "ko": "일단, 그렇게 많지는 않지만 전체적으로 몇 가지 경우에 대해, 우리는 아마도 앞으로 여러 CPS 그룹을 갖게 될 것 같습니다. 그것들은 이 방정식에서 빠지지 않습니다. 이것이 왜 매우 중요한지, 왜 매우 중요한 것인지, 그리고 왜 연구가 중요한지 여러분이 이해하시길 바랍니다. 그리고 네, 저도 이에 대해 더 배우고 싶습니다. 그건 저를 기다리고 있는 것 같네요. 저는 시간을 낭비하고 싶지 않습니다."
+  },
+  {
+   "t": 34,
+   "en": "We already have a lot of solutions for the definition. Why do we have a system that operates with time? It's very important for you to make sure research is important. Usually, the first step is to understand the mission of the system.",
+   "ko": "우리는 이미 그 정의에 대한 많은 해법을 가지고 있습니다. 왜 우리는 시간과 함께 동작하는 시스템을 가지고 있을까요? 연구가 중요하다는 것을 확실히 아는 것이 여러분에게 매우 중요합니다. 보통 첫 번째 단계는 그 시스템의 mission(임무)을 이해하는 것입니다."
+  },
+  {
+   "t": 56,
+   "en": "These are just a few words, or applications. Just think about the CPS examples — for example, autonomous vehicles, maybe in a medical device, in a hospital, in an ICU, or in a small drone. Even one to five years from now, I'd agree there will be that many CPS. The drones don't move at all.",
+   "ko": "이건 그냥 몇 가지 단어, 혹은 응용 사례일 뿐입니다. CPS의 예를 한번 생각해 보세요 — 예를 들어 자율주행차, 어쩌면 의료기기, 병원, 중환자실, 혹은 작은 드론 같은 것들이요. 지금부터 1~5년 안에도 그 정도로 많은 CPS가 있을 거라는 데 동의합니다. 드론들이 전혀 움직이지 않습니다."
+  },
+  {
+   "t": 90,
+   "en": "Next thing — the two stars in the middle, and this breaks it. Why? Because there's a little bit of delay. Suppose these drones should move right now, but there's a delay of 0.1 seconds, and another 0.1 seconds — that ends up being a meter and a half. That's what I mean by very consistent.",
+   "ko": "다음은, 가운데에 있는 두 별(대형)이 이걸 깨뜨리는 경우입니다. 왜일까요? 약간의 지연이 있기 때문입니다. 이 드론들이 지금 바로 움직여야 한다고 가정해 봅시다. 그런데 0.1초, 또 0.1초의 지연이 생기면 결국 1.5미터 정도의 오차가 생기게 됩니다. 이것이 제가 말하는 '매우 consistent(일관성 있음)'의 의미입니다."
+  },
+  {
+   "t": 113,
+   "en": "Or, instead of defense systems — it's actually a conveyor belt that's unboxing within some space-time. Space-time here is defined by when the conveyor belt moves.",
+   "ko": "또는, 국방 시스템 대신 실제로는 어떤 공간-시간 내에서 박스를 푸는(unboxing) 컨베이어 벨트의 경우를 생각해봅시다. 여기서 공간-시간은 컨베이어 벨트가 언제 움직이는지에 의해 정의됩니다."
+  },
+  {
+   "t": 133,
+   "en": "Let's give you an example — I already showed you this interesting video. This is a case where a person keeps time by listening to that sound, which is at 70 by 400. From this example, I think it makes sense.",
+   "ko": "예를 하나 들어보겠습니다 — 이미 보여드렸던 흥미로운 영상이 있었죠. 이건 어떤 사람이 그 소리를 들으면서 박자(시간)를 맞추는 경우인데, 70 대 400 정도입니다. 이 예시를 통해 이해가 되실 거라고 생각합니다."
+  },
+  {
+   "t": 165,
+   "en": "Another definition of the real-time system is that it has a temporal aspect as well as a functional aspect. Temporal means time. We usually call it a real-time system when the timing is right — when everybody feels it's good timing. In real-time systems, we should watch the time. For example, if we don't finish within this time, that's why the result is meaningless once the deadline has not been met. For example, hardware doesn't regard this result as valid, even though it is functionally correct.",
+   "ko": "실시간 시스템의 또 다른 정의는, functional aspect(기능적 측면)뿐만 아니라 temporal aspect(시간적 측면)도 가진다는 것입니다. temporal은 시간을 의미합니다. 보통 타이밍이 맞을 때, 즉 모두가 타이밍이 좋다고 느낄 때 이를 실시간 시스템이라고 부릅니다. 실시간 시스템에서는 시간을 지켜봐야 합니다. 예를 들어 이 시간 내에 끝내지 못하면, 데드라인을 지키지 못했을 때 그 결과는 의미가 없어지기 때문입니다. 예를 들어 결과가 기능적으로는 맞다 하더라도, 하드웨어(시스템)는 이를 유효한 결과로 인정하지 않습니다."
+  },
+  {
+   "t": 216,
+   "en": "So then, what are the performance measures? Usually, speed or average-case performance are universal metrics for general-purpose systems. Here, in real-time systems, we work with some time limits, so speed or average-case performance are less significant. The property I like is the term timeliness. How can we give some timeliness to the system? Any questions?",
+   "ko": "그렇다면 성능 측정 기준은 무엇일까요? 보통 속도나 average-case performance(평균 성능)가 범용 시스템의 보편적인 metric(지표)입니다. 하지만 여기 실시간 시스템에서는 일정한 시간 제한을 다루기 때문에, 속도나 평균 성능은 상대적으로 덜 중요합니다. 제가 좋아하는 용어는 timeliness(적시성)입니다. 어떻게 하면 시스템에 timeliness를 부여할 수 있을까요? 질문 있나요?"
+  },
+  {
+   "t": 260,
+   "en": "Let's take this example. Suppose the x-axis is the number of samples and the y-axis is the response time (delay). As you can see, in System A the average case is about 25 units per second, and the maximum is 1.5. In System B, the average is about 16, and the maximum is 15 — or maybe the maximum is 16.",
+   "ko": "이 예시를 한번 보겠습니다. x축은 샘플 수, y축은 응답 시간(지연)이라고 합시다. 보시다시피 System A는 평균이 초당 약 25 단위이고, 최댓값은 1.5입니다. System B는 평균이 약 16이고, 최댓값은 15 — 혹은 16 정도입니다."
+  },
+  {
+   "t": 294,
+   "en": "Then, which system is better in terms of real-time systems? What do you think? I think System B. Why? Because it's more predictable. You mean time-critical? Yes — somebody said that real-time systems are more time-critical.",
+   "ko": "그렇다면 실시간 시스템 관점에서 어떤 시스템이 더 좋을까요? 여러분 생각은 어떤가요? 저는 System B라고 생각합니다. 왜냐고요? 더 predictable(예측 가능)하기 때문입니다. time-critical하다는 말씀이신가요? 네 — 누군가 실시간 시스템은 더 time-critical하다고 말했습니다."
+  },
+  {
+   "t": 325,
+   "en": "Suppose the deadline of this object detection is, let's say, 70 units. In that case, the system is very bad — for many trials it's okay, but for just one trial, it's not okay. It can result in some catastrophic things for people's health. However, suppose the deadline is 150 here — in that case, both are okay in terms of meeting the deadline. Then, maybe the next measure for this system could be average performance, in which case the lower the better — System A. In general, I think this is more time-critical, but it depends on the system — there is no single right answer.",
+   "ko": "이 object detection(물체 인식)의 데드라인이, 예를 들어 70 단위라고 가정해봅시다. 이 경우 그 시스템은 매우 나쁩니다 — 여러 번의 시도에서는 괜찮을 수 있지만, 단 한 번의 시도에서 실패하면 괜찮지 않습니다. 사람의 건강에 치명적인(catastrophic) 결과를 초래할 수 있습니다. 하지만 데드라인이 150이라고 하면, 이 경우에는 둘 다 데드라인을 지키는 데는 문제가 없습니다. 그러면 다음 측정 기준은 아마 average performance(평균 성능)가 될 수 있는데, 이 경우엔 낮을수록 좋습니다 — System A가 낫겠죠. 일반적으로 저는 이게 더 time-critical하다고 생각하지만, 시스템에 따라 다릅니다 — 정답은 하나가 아닙니다."
+  },
+  {
+   "t": 387,
+   "en": "Then, in terms of real-time systems, that's fine — I'm not saying this group is more important. Suppose the car in front will stop, and there's a gap of two meters between us. Then, based on the current vehicle speed, we have only one second to stop the car. In that case, that physical situation could be a time constraint — we should stop this car within one second. Based on this situation, the speed and how far we are from the car is what I mean by a physical constraint. That's a real system and a real example — a very natural example.",
+   "ko": "그렇다면 실시간 시스템 관점에서 — 이 그룹이 더 중요하다는 뜻은 아닙니다. 앞차가 멈춘다고 가정하고, 우리와 그 차 사이의 거리가 2미터라고 합시다. 그러면 현재 차량 속도를 기준으로, 우리는 차를 멈추는 데 단 1초의 시간밖에 없습니다. 이 경우 그 물리적 상황이 time constraint(시간 제약)가 될 수 있습니다 — 우리는 이 차를 1초 이내에 멈춰야 합니다. 이 상황을 바탕으로, 속도와 그 차와의 거리가 바로 제가 말하는 physical constraint(물리적 제약)입니다. 이것이 실제 시스템이자 실제 예시입니다 — 매우 자연스러운 예시죠."
+  },
+  {
+   "t": 452,
+   "en": "Then, how do we implement the deadline? Once the object detection is done, the next step is — the object detector says there's an obstacle here and we should stop. When the deadline is met, the car will stop. We need this kind of loop.",
+   "ko": "그렇다면 이 데드라인을 어떻게 구현할까요? object detection이 끝나면, 다음 단계는 — 물체 인식기가 여기에 장애물이 있으니 멈춰야 한다고 알려주는 것입니다. 데드라인이 지켜지면 차가 멈추게 됩니다. 우리는 이런 형태의 loop(루프)가 필요합니다."
+  },
+  {
+   "t": 476,
+   "en": "For example, this car has many sensors. Usually, other autonomous vehicles can rely on radar or LIDAR sensors — there are many sensors. Based on the data from these sensors, we need some time. Sometimes we should reduce the speed; sometimes we should increase the speed and turn. We need some time.",
+   "ko": "예를 들어, 이 차에는 많은 센서가 있습니다. 보통 다른 자율주행차들은 radar(레이더)나 LIDAR(라이다) 센서에 의존할 수 있는데, 센서가 매우 많습니다. 이 센서들의 데이터를 바탕으로 어느 정도 시간이 필요합니다. 때로는 속도를 줄여야 하고, 때로는 속도를 높이고 방향을 틀어야(turn) 합니다. 시간이 필요합니다."
+  },
+  {
+   "t": 514,
+   "en": "After that, once planning is done, we should move the car based on this plan. Planning says we should stop right away — in the case of operating the brake pedal, we should stop. For steering, that should be released.",
+   "ko": "그 다음, planning(계획)이 끝나면 이 계획에 따라 차를 움직여야 합니다. planning에서 즉시 멈추라고 하면 — brake pedal(브레이크 페달)을 조작하는 경우에는 멈춰야 합니다. steering(조향)의 경우에는 그 동작이 풀려야(released) 합니다."
+  },
+  {
+   "t": 538,
+   "en": "Again, we should read all the sensor data, and planning includes localization and tracking. Once planning is done, we should move the car — we are a physical system. Based on this planning, we should move the car. Suppose this loop should run within one second — then planning should take less than one second, and this loop should be finished within one second. There is a timing constraint imposed by the physical world.",
+   "ko": "다시 말해, 우리는 모든 센서 데이터를 읽어야 하고, planning에는 localization(위치추정)과 tracking(추적)이 포함됩니다. planning이 끝나면 차를 움직여야 합니다 — 우리는 physical system(물리적 시스템)이니까요. 이 planning을 바탕으로 차를 움직여야 합니다. 이 loop가 1초 이내에 돌아야 한다고 가정하면, planning은 1초보다 짧게 걸려야 하고, 이 loop는 1초 이내에 끝나야 합니다. 이것이 바로 physical world(물리적 세계)에 의해 부과되는 timing constraint(시간 제약)입니다."
+  },
+  {
+   "t": 589,
+   "en": "There are some misconceptions that many of you had before taking this course — many of you think that if a system is very fast, it could be considered real-time, or that it could be said to be good. But I would say that's not true. Here's a very good example, kind of a metaphor: a man is swimming in a river with an average depth of 20 centimeters. If the exact depth of the river were 20 centimeters everywhere, it wouldn't make sense for the man to drown there. But the point here is that it's an average — the average depth is 20 centimeters, but the river is 20 meters long, and in that sense, the man could still drown.",
+   "ko": "이 강의를 듣기 전 많은 분들이 갖고 있던 오해가 있습니다 — 시스템이 매우 빠르면 실시간이라고 볼 수 있다거나, 그게 좋은 것이라고 생각하는 분들이 많습니다. 하지만 저는 그게 사실이 아니라고 말씀드리고 싶습니다. 여기 아주 좋은 예시, 일종의 비유가 있습니다: 어떤 사람이 평균 수심 20센티미터인 강에서 수영을 하고 있습니다. 만약 강의 실제 수심이 어디서나 정확히 20센티미터라면, 그 사람이 거기서 물에 빠진다는 건 말이 안 됩니다. 하지만 여기서 핵심은 그것이 '평균'이라는 점입니다 — 평균 수심은 20센티미터지만 강의 길이는 20미터이고, 그런 의미에서 그 사람은 여전히 물에 빠질 수 있습니다."
+  },
+  {
+   "t": 652,
+   "en": "Likewise, a real-time system is not fast on average — rather, it has predictability. If you go back 20 years and think about the system, we can guarantee that for every request, we can finish something within 60 time units. That's what I mean by time predictability. In other words, suppose the response time for every request is, let's say, two units on average — very, very fast.",
+   "ko": "마찬가지로, 실시간 시스템은 평균적으로 빠른 것이 아니라, predictability(예측 가능성)를 갖는 것입니다. 20년 전으로 돌아가서 그 시스템을 생각해보면, 모든 요청에 대해 60 시간 단위 이내에 작업을 끝낼 수 있다고 보장할 수 있습니다. 이것이 제가 말하는 time predictability(시간 예측 가능성)입니다. 다시 말해, 모든 요청의 response time(응답 시간)이 평균 2단위 정도로 매우, 매우 빠르다고 가정해봅시다."
+  },
+  {
+   "t": 690,
+   "en": "But the next point is — what happens sometimes? This is not what I want in a real-time system if it's not predictable. Sometimes we observe what happens in the worst case, even though the average is very short, like two. So in that sense, this is more about prediction. That's what I mean — a real-time system is not fast, rather, it's predictable. Predictable rather than fast. So again, I really like the term time predictability for real-time systems. Any questions? By the way, you can interrupt me if you want.",
+   "ko": "하지만 다음 포인트는 — 가끔 무슨 일이 일어나는가입니다. 만약 예측 가능하지 않다면, 이것은 제가 실시간 시스템에서 원하는 것이 아닙니다. 평균이 2처럼 매우 짧더라도, 때로는 worst case(최악의 경우)에 무슨 일이 벌어지는지를 봐야 합니다. 그런 의미에서 이것은 prediction(예측)에 더 가깝습니다. 제가 말하고자 하는 것은 — 실시간 시스템은 빠른 것이 아니라 예측 가능한 것이라는 겁니다. 빠른 것보다는 예측 가능한 것이죠. 그래서 다시 한번, 저는 실시간 시스템에 대해 time predictability라는 용어를 정말 좋아합니다. 질문 있나요? 그리고 언제든 편하게 끼어들어도 됩니다."
+  },
+  {
+   "t": 734,
+   "en": "Then, yeah, this was also shown in the presentation from two classes ago, right? So we have three concepts — I've already gone over them three times, so there's some mixture across all these systems. When I explain this real-time system as a firm real-time system, for example, it has a firm time constraint before the deadline. In that sense, yeah, it is not a hard real-time system. So in that sense, I explained the hard/firm boundary.",
+   "ko": "네, 이건 두 번 전 수업 발표에서도 보여드렸었죠? 그래서 우리는 세 가지 개념이 있습니다 — 이미 세 번이나 설명했기 때문에 여러 시스템들이 좀 섞여 있을 수 있습니다. 예를 들어 이 실시간 시스템을 firm real-time system이라고 설명하면, 이는 데드라인 이전에 firm time constraint를 가지는 것입니다. 그런 의미에서 이건 hard real-time system은 아닙니다. 그런 의미에서 저는 hard와 firm의 경계를 설명했습니다."
+  },
+  {
+   "t": 788,
+   "en": "Well, I don't know whether you remember or not — in the previous class, I asked a question about my claim that every system is self-predictable. I mentioned whether we agree with that or not. I would not say that this is a true claim, by the way. But with my claim, we should finish in time.",
+   "ko": "음, 여러분이 기억하시는지 모르겠는데, 지난 수업에서 저는 '모든 시스템은 self-predictable하다'는 제 주장에 대해 질문을 드렸었습니다. 우리가 그것에 동의하는지 아닌지 언급했었죠. 사실 이게 참인 주장이라고 말씀드리지는 않겠습니다. 하지만 제 주장대로라면, 우리는 제 시간에 끝내야 합니다."
+  },
+  {
+   "t": 811,
+   "en": "If we execute something for a very long time — say, it takes one year to execute something on your smartphone — I think it doesn't work, right? So you can regard any system as a real-time-related system in that sense. That means our utility, or gain, really decreases according to time, even though we basically almost never account for it. So true. So we never really have hard and firm real-time systems in an absolute sense — I don't know if that makes sense.",
+   "ko": "만약 어떤 작업을 아주 오랫동안 실행한다면 — 예를 들어 스마트폰에서 어떤 작업을 실행하는 데 1년이 걸린다면 — 그건 작동하지 않겠죠? 그런 의미에서 어떤 시스템이든 실시간과 관련된 시스템으로 볼 수 있습니다. 이는 우리의 utility(효용), 즉 이득이 시간에 따라 실제로 감소한다는 것을 의미합니다. 비록 우리가 기본적으로 이를 거의 고려하지 않더라도 말이죠. 정말 그렇습니다. 그래서 우리는 절대적인 의미에서의 순수한 hard 혹은 firm real-time system은 사실 갖고 있지 않습니다 — 이게 말이 되는지 모르겠네요."
+  },
+  {
+   "t": 844,
+   "en": "So we never really have hard and firm real-time systems as an absolute guarantee — I don't know if that makes sense. Let's check something on the electronic system.",
+   "ko": "그래서 우리는 절대적인 보장으로서의 hard 그리고 firm real-time system은 실제로는 갖고 있지 않습니다 — 이게 말이 되는지 모르겠네요. 전자 시스템에서 한번 확인해보겠습니다."
+  },
+  {
+   "t": 1200,
+   "en": "And in Korea, about 10 years ago, every research proposal included something like this kind of thing. I'll give you two minutes — please think about what the meaning of this is. If you need, you can look it up. Five, or three minutes.",
+   "ko": "그리고 한국에서는 약 10년 전, 모든 연구 제안서(research proposal)에 이런 종류의 것이 포함되어 있었습니다. 2분 드리겠습니다 — 이게 무슨 의미인지 한번 생각해보세요. 필요하면 찾아보셔도 됩니다. 5분, 아니 3분 드릴게요."
+  },
+  {
+   "t": 1322,
+   "en": "Have you heard of the real-time hypothesis? Do you know the term — hypothesis? We'd love to hear your thoughts. Do you know what a side effect is? I think it's one of the main terms in this research.",
+   "ko": "real-time hypothesis라는 용어를 들어본 적 있나요? hypothesis라는 용어를 아시나요? 여러분의 생각을 들어보고 싶습니다. side effect가 무엇인지 아시나요? 이건 이 연구의 주요 용어 중 하나라고 생각합니다."
+  },
+  {
+   "t": 1409,
+   "en": "I think it's a kind of embedded system — let's discuss this together. The first example is medicine: do you know its impact? Many embedded systems are found in medicine. So what would be the opposite, a different domain? A combination of a computer, a processor, memory, and other devices that has a dedicated function — there are many possible opposite examples. What would be the opposite one? I don't want to misspeak, so let me think about this for a moment.",
+   "ko": "일종의 임베디드 시스템이라고 생각합니다. 함께 논의해봅시다. 첫 번째 예시는 의료 분야입니다 — 그 영향을 아시나요? 많은 임베디드 시스템이 의료 분야에서 발견됩니다. 그렇다면 반대되는 것, 즉 다른 분야는 무엇일까요? 컴퓨터, 프로세서, 메모리, 그리고 다른 장치들이 결합되어 특정 기능을 수행하는 것입니다 — 반대되는 예시는 여러 가지가 있을 수 있습니다. 반대되는 것은 무엇일까요? 잘못 말하고 싶지 않으니 잠시 생각해 보겠습니다."
+  },
+  {
+   "t": 1800,
+   "en": "But then it just keeps vibrating and charging. And another thing about this mobile device — usually we expect this mobile to operate properly, and many people think that temperature doesn't matter. But I don't think so. Think about cold places like Alaska, or hot deserts like Africa, with big temperature swings — it should solve that kind of problem for the car.",
+   "ko": "그런데 그건 계속 진동하면서 충전만 하고 있습니다. 이 모바일 기기에 관한 또 다른 점은, 보통 이 모바일이 제대로 동작할 거라고 기대하는데, 많은 사람들이 온도는 상관없다고 생각한다는 것입니다. 하지만 저는 그렇게 생각하지 않습니다. 알래스카처럼 추운 곳이나 아프리카 사막처럼 더운 곳, 큰 온도 변화가 있는 곳을 생각해보세요 — 자동차의 경우 그런 문제를 해결해야 합니다."
+  },
+  {
+   "t": 1833,
+   "en": "More power, more charging stations — I think there are many, many cars running on this. Water, oceans — these are other domains too. Then another requirement is, and this isn't only for the United States, you actually need a safe vehicle. Fortunately, that part can be handled correctly, that's for sure.",
+   "ko": "더 많은 전력, 더 많은 충전소 — 그런 식으로 운행되는 자동차가 정말 많다고 생각합니다. 물, 바다 — 이런 것들도 다른 분야입니다. 그리고 또 다른 요구사항은, 이건 미국만의 얘기가 아니라, 실제로 안전한 차량이 필요하다는 것입니다. 다행히 그 부분은 확실히 잘 처리될 수 있습니다."
+  },
+  {
+   "t": 1857,
+   "en": "And the other important thing is about this — even a car company can save a penny, or five dollars, and that's very good, because the number of units is very large. If you imagine this controller can produce one million units per day, then decreasing just one cent per unit adds up to a lot of money. Cost really matters.",
+   "ko": "또 다른 중요한 점은 이것입니다 — 자동차 회사조차도 1센트, 혹은 5달러를 절약할 수 있는데, 이는 생산되는 유닛 수가 매우 많기 때문에 매우 좋은 일입니다. 이 컨트롤러가 하루에 백만 개를 생산한다고 상상해보면, 유닛당 단 1센트만 줄여도 엄청난 돈이 됩니다. 비용은 정말 중요합니다."
+  },
+  {
+   "t": 1891,
+   "en": "And because of these particular challenges, let's come back to computing a little bit. This is very simplified, but if you think about it, in general, a general-purpose computer can be simplified as follows: a computing unit, memory, outputs, and then caches. That's it — although simplified, it's meaningful.",
+   "ko": "이런 특별한 문제들 때문에, 컴퓨팅 쪽으로 다시 조금 돌아가 봅시다. 매우 단순화한 것이지만, 일반적으로 범용 컴퓨터는 다음과 같이 단순화할 수 있습니다: 연산 장치, 메모리, 출력, 그리고 캐시. 그게 전부입니다 — 단순화되었지만 의미가 있습니다."
+  },
+  {
+   "t": 1934,
+   "en": "But if you jump into the embedded system, we have another thing — we usually have some sensors. As I explained in the previous slide, we have an actuator, and between this actuator and the sensor we have the physical environment in between. Then we have our controller, and more sensors, usually, and an A/D converter, meaning we convert an analog signal — once we finish something, the results should be converted from analog to digital. So again, this is a simplified version of the general embedded system architecture.",
+   "ko": "그런데 임베디드 시스템으로 넘어가면 또 다른 요소가 있습니다 — 보통 센서들이 있습니다. 이전 슬라이드에서 설명했듯이 액추에이터가 있고, 이 액추에이터와 센서 사이에는 물리적 환경이 존재합니다. 그리고 우리의 컨트롤러가 있고, 보통 더 많은 센서들, 그리고 A/D 컨버터가 있습니다. 이는 아날로그 신호를 변환한다는 의미인데, 어떤 처리를 마치고 나면 그 결과가 아날로그에서 디지털로 변환되어야 하기 때문입니다. 다시 말하지만, 이것은 일반적인 임베디드 시스템 구조를 단순화한 버전입니다."
+  },
+  {
+   "t": 1980,
+   "en": "But the embedded system works the way it does because of constraints like power, size, and weight, and even timing — it has to be more efficient than other systems. So an embedded system should be designed within those constraints, something like that.",
+   "ko": "하지만 임베디드 시스템이 그런 식으로 동작하는 이유는 전력, 크기, 무게, 그리고 심지어 타이밍과 같은 제약 조건들 때문입니다 — 다른 시스템들보다 더 효율적이어야 합니다. 그래서 임베디드 시스템은 그런 제약 조건 안에서 설계되어야 한다는 것입니다."
+  },
+  {
+   "t": 2007,
+   "en": "This is about the embedded system, all the embedded sensors — so why do we deal with it like that? It looks like a fairly complicated embedded system. The answer is yes, and it becomes a real-time system. This is a real-time system, this is an embedded system, and this is a real-time embedded system. Why this term is popular is that, usually, most — not all, not every — most real-time systems are embedded systems.",
+   "ko": "이것은 임베디드 시스템, 즉 모든 임베디드 센서들에 관한 것입니다 — 그렇다면 왜 이런 식으로 다뤄야 할까요? 꽤 복잡한 임베디드 시스템처럼 보입니다. 답은 '그렇다'입니다 — 그리고 그것은 실시간 시스템이 됩니다. 이것은 실시간 시스템이고, 이것은 임베디드 시스템이며, 이것은 실시간 임베디드 시스템입니다. 이 용어가 왜 인기 있는가 하면, 보통 — 전부는 아니지만 대부분의 — 실시간 시스템이 임베디드 시스템이기 때문입니다."
+  },
+  {
+   "t": 2041,
+   "en": "What is an example? Let's go back to the slide. These are the examples I chose as real-time systems. Most of these systems — I'm not sure about this one, but except for this one — I think all the examples are not necessarily embedded. That's because an embedded system, typically, is embedded within the operation of a machine.",
+   "ko": "예시가 무엇일까요? 슬라이드로 다시 돌아가 봅시다. 이것들은 제가 실시간 시스템의 예시로 고른 것들입니다. 이 시스템들 대부분은 — 이것 하나는 잘 모르겠지만, 이것을 제외하면 — 모든 예시가 반드시 임베디드는 아니라고 생각합니다. 왜냐하면 임베디드 시스템은 일반적으로 어떤 기계의 동작 안에 내장되어 있는 것이기 때문입니다."
+  },
+  {
+   "t": 2082,
+   "en": "Embedded systems often have a real-time computing concept, or the other way around — a real-time system typically embeds something. So, real-time versus embedded is like this. Being real-time is optimized for more than just meeting functional correctness — it takes into account more than just the initial functional proof.",
+   "ko": "임베디드 시스템은 종종 실시간 컴퓨팅 개념을 포함하고 있고, 반대로 실시간 시스템도 보통 무언가를 내장하고 있습니다. 그래서 실시간 대 임베디드의 관계는 이런 식입니다. 실시간이라는 것은 단순히 기능적 정확성을 만족하는 것 이상으로 최적화되어 있습니다 — 초기의 기능적 증명 이상의 것을 고려합니다."
+  },
+  {
+   "t": 2125,
+   "en": "And, as you can see, as you can imagine, the embedded systems market is growing fast. This data is a little bit outdated, but I think it still holds now. Then, what companies work with real-time systems? I would say most computing, autonomous, or electronics companies would use a real-time system. In terms of a career in real-time systems, you can be hired by companies related to autonomous systems, telecommunications, consumer electronics, defense and weapons systems, software for manufacturing, aerospace, and venture companies — they can all hire embedded, real-time systems engineers. Okay, that's it for this part.",
+   "ko": "그리고 보시다시피, 짐작하시다시피, 임베디드 시스템 시장은 빠르게 성장하고 있습니다. 이 자료는 조금 오래된 것이지만, 지금도 여전히 맞다고 생각합니다. 그렇다면 실시간 시스템을 다루는 회사들은 어디일까요? 대부분의 컴퓨팅, 자율주행, 혹은 전자제품 회사들이 실시간 시스템을 사용한다고 말씀드릴 수 있습니다. 실시간 시스템 관련 커리어라는 측면에서는, 자율주행 시스템, 통신, 소비자 가전, 국방 및 무기 시스템, 제조업용 소프트웨어, 항공우주, 벤처 기업 등과 관련된 회사에 채용될 수 있습니다 — 이들 모두 임베디드, 실시간 시스템 엔지니어를 채용할 수 있습니다. 자, 이 부분은 여기까지입니다."
+  },
+  {
+   "t": 2192,
+   "en": "Then, what is cyber-physical systems? This is a little bit vague, because English isn't my first language. Somebody said that physical means a car, or a robot, or something like that — yeah, I agree. Then, what does cyber mean? We do know the English term 'cyber.' In that case, you regard cyber as computing power, or control, and physical means, naturally, the physical world — if you think about all the physical things, like cars, radars, sensors, that's the physical aspect.",
+   "ko": "그렇다면 사이버 물리 시스템이란 무엇일까요? 이건 조금 모호한데, 제가 영어가 모국어가 아니기 때문입니다. 누군가는 physical이 자동차나 로봇 같은 것을 의미한다고 했는데 — 네, 저도 동의합니다. 그럼 cyber는 무엇을 의미할까요? 우리는 영어 단어 'cyber'를 알고 있습니다. 이 경우 cyber는 컴퓨팅 파워, 즉 제어를 의미하는 것으로 볼 수 있고, physical은 말 그대로 물리적인 것을 의미합니다 — 자동차, 레이더, 센서와 같은 모든 물리적인 것들을 생각해보면, 그것이 physical 측면입니다."
+  },
+  {
+   "t": 2253,
+   "en": "Cyber, as a means of computing, planning, calculating — that's the gist. And, by the way, I think the CPS term originated in the US, about fifteen, a little more than fifteen years ago. Around that time, in Korea, another term was much more popular than CPS.",
+   "ko": "cyber는 컴퓨팅, 계획, 계산을 의미하는 것으로 — 그게 핵심입니다. 그리고 참고로, CPS라는 용어는 미국에서 약 15년, 15년이 조금 넘는 시간 전에 생겨났다고 생각합니다. 그 당시 한국에서는 CPS보다 다른 용어가 훨씬 더 인기가 있었습니다."
+  },
+  {
+   "t": 2281,
+   "en": "This term is more popular in the US — many, many research proposals in the US include this term: 'I'm a CPS guy,' or 'my work is CPS research,' something like that. At that time, in Korea, many people used a different term for related research. There's some relationship between these terms — I'll explain it after we discuss the CPS definition.",
+   "ko": "이 용어는 미국에서 더 인기가 있습니다 — 미국의 많은 연구 제안서들이 이 용어를 포함하고 있습니다: '저는 CPS 하는 사람입니다', '제 연구는 CPS 연구입니다' 같은 식으로요. 그 당시 한국에서는 많은 사람들이 관련 연구에 다른 용어를 사용했습니다. 이 용어들 사이에는 어떤 관계가 있는데, CPS의 정의를 논의한 뒤에 설명하겠습니다."
+  },
+  {
+   "t": 2313,
+   "en": "Then, let's read this — this is from Wikipedia, the definition. CPS is a system of correlated computational elements controlling physical elements. Today, a precursor generation of CPS can be found in areas as diverse as aerospace, automotive, chemical processes, civil infrastructure, energy, healthcare, manufacturing, transportation, entertainment, and consumer appliances.",
+   "ko": "그럼 이것을 읽어봅시다 — 위키피디아에 나온 정의입니다. CPS는 상호 연관된 계산 요소들이 물리적 요소들을 제어하는 시스템입니다. 오늘날 CPS의 초기 형태는 항공우주, 자동차, 화학 공정, 사회 기반 시설, 에너지, 의료, 제조업, 운송, 엔터테인먼트, 소비자 가전 등 매우 다양한 분야에서 찾아볼 수 있습니다."
+  },
+  {
+   "t": 2344,
+   "en": "It looks like every engineering or science field is included here. If you understand these two terms, every engineering or science can fit here. If you think about materials, that's physical — mechanical engineering people need some control for that stuff. So, yeah, it's kind of an interdisciplinary study.",
+   "ko": "여기에는 모든 공학이나 과학 분야가 포함되는 것처럼 보입니다. 이 두 용어를 이해하면, 어떤 공학이나 과학이든 여기에 들어맞을 수 있습니다. 재료를 생각해보면 — 그것은 physical에 해당하고 — 기계공학 하는 분들은 그것에 대한 제어가 필요합니다. 그래서, 네, 이것은 일종의 학제간 연구입니다."
+  },
+  {
+   "t": 2373,
+   "en": "So, regarding IoT, as a student mentioned, I think the key point is connection, right? If you think about the internet, that should be about connected networks. So, let me read this: IoT is a network of physical things, embedded with electronics, software, and sensors, that enable objects to exchange data with production, operators, and other connected devices.",
+   "ko": "그럼 IoT에 관해서는, 한 학생이 언급했듯이, 핵심은 연결(connection)이라고 생각합니다, 맞죠? 인터넷을 생각해보면, 그것은 연결된 네트워크에 관한 것이어야 합니다. 그럼 이것을 읽어보겠습니다: IoT는 전자장치, 소프트웨어, 센서가 내장된 물리적 사물들의 네트워크로, 사물들이 생산, 운영자, 그리고 다른 연결된 장치들과 데이터를 교환할 수 있게 해줍니다."
+  },
+  {
+   "t": 2408,
+   "en": "Based on the infrastructure. Here, if we compare this term with CPS, it's more about connectivity. However, if I explain the relationship between CPS and IoT, I think they're very similar and include many, many areas of science. But, as I mentioned, if we think about this term, IoT, it's focused more on connectivity, whereas CPS is more focused on the relationship between computing and the physical world — that's the key difference.",
+   "ko": "인프라를 기반으로 합니다. 여기서 이 용어를 CPS와 비교하면, 더 연결성(connectivity)에 초점이 맞춰져 있습니다. 하지만 CPS와 IoT의 관계를 설명하자면, 이 둘은 매우 비슷하고 많은 과학 분야를 포함한다고 생각합니다. 그런데 말씀드렸듯이, IoT라는 용어는 연결성에 더 초점이 맞춰져 있는 반면, CPS는 컴퓨팅과 물리 세계 간의 관계에 더 초점이 맞춰져 있습니다 — 그것이 핵심적인 차이점입니다."
+  },
+  {
+   "t": 2453,
+   "en": "Then, if we think about the relationship among these terms, that's the key point. What I mean is, CPS people argue, or claim, that IoT is kind of a subset of CPS — that's the CPS people's view. But I don't agree with that; I think it's more like an intersection than a strict subset. By the way, I'm a CPS researcher myself. Real-time systems are more closely related to CPS — the actual research community is close to CPS.",
+   "ko": "그럼 이 용어들 사이의 관계를 생각해보면 — 그게 핵심입니다. 제 말은, CPS를 하는 사람들은 IoT가 CPS의 부분집합이라고 주장하는데 — 그건 CPS 하는 사람들의 관점입니다. 하지만 저는 그렇게 생각하지 않고, 엄밀한 부분집합이라기보다는 교집합에 가깝다고 생각합니다. 참고로 저도 CPS 연구자입니다. 실시간 시스템은 CPS와 더 밀접한 관련이 있습니다 — 실제 연구 커뮤니티도 CPS와 가깝습니다."
+  },
+  {
+   "t": 2509,
+   "en": "Any questions so far? So far, we've discussed the definitions and related terms. The next topic is, what are real-time systems research topics? This is also my personal point of view — I think we can classify real-time systems research into a few topics. The first one is how to design a time-predictable design.",
+   "ko": "여기까지 질문 있으신가요? 지금까지는 정의와 관련 용어들을 다뤘습니다. 다음 주제는 실시간 시스템 연구 주제가 무엇인가입니다. 이것도 제 개인적인 관점인데, 실시간 시스템 연구를 몇 가지 주제로 분류할 수 있다고 생각합니다. 첫 번째는 시간 예측 가능한(time-predictable) 설계를 어떻게 할 것인가입니다."
+  },
+  {
+   "t": 2535,
+   "en": "I assume all of you have some background in the Department of Computer Science, or a computer science background in general. Then you know this, these layers. Often we have a picture of hardware, and then, for instance, the programming language, and the top layer is applications. There are many, many works in this area — for instance, developing applications here, or developing an efficient architecture in this area. So, how to design a time-predictable design, that's one area of research.",
+   "ko": "여러분 모두 컴퓨터공학과에 있거나, 컴퓨터공학 관련 배경이 있다고 가정하겠습니다. 그러면 이 계층 구조를 아실 겁니다. 보통 하드웨어의 그림을 보고, 예를 들어 프로그래밍 언어, 그리고 최상위 계층은 애플리케이션입니다. 이 영역에는 정말 많은 연구들이 있습니다 — 예를 들어 여기서 애플리케이션을 개발하거나, 이 영역에서 효율적인 아키텍처를 개발할 수 있습니다. 그래서 시간 예측 가능한 설계를 어떻게 할 것인가가 연구의 한 영역입니다."
+  },
+  {
+   "t": 2591,
+   "en": "Then the other research topic is, suppose somebody designs a system without considering timing at all, saying 'this is my system.' Then let's analyze this system in terms of time. For instance, how much time do we need to finish a given task? The general purpose here is that we're going to make real-time systems analyzable, so we can visualize this timing.",
+   "ko": "그리고 또 다른 연구 주제는, 누군가 타이밍을 전혀 고려하지 않고 '이게 제 시스템입니다'라고 시스템을 설계했다고 가정해봅시다. 그러면 이 시스템을 시간의 관점에서 분석해보는 것입니다. 예를 들어, 어떤 작업을 끝내는 데 얼마나 시간이 필요한가 하는 것입니다. 여기서 일반적인 목적은 실시간 시스템을 분석 가능하게 만들어서 이 타이밍을 가시화하는 것입니다."
+  },
+  {
+   "t": 2630,
+   "en": "That's an example. Maybe we don't have time today, but I think next Tuesday we'll discuss this. So, think about it — I think everybody knows what a cache is. Do you think a cache is good in terms of improving the average performance of a computing system? Very good answer — his answer is good for this part; maybe we'll still hear more answers on the next one. So, cache is well known to improve average performance — it's a well-known result. But you may wonder, is it also good for the worst case? As he mentioned, cache is good because accessing memory is much worse compared to accessing the cache — if you improve the hit rate of data in the cache, it improves average performance a lot, but what if it fails?",
+   "ko": "이것이 하나의 예시입니다. 오늘은 시간이 없을 수도 있지만, 다음 주 화요일에 이 부분을 다룰 것 같습니다. 그럼 생각해봅시다 — 캐시가 무엇인지는 모두 아실 거라 생각합니다. 컴퓨팅 시스템의 평균 성능을 개선한다는 측면에서 캐시가 좋다고 생각하시나요? 아주 좋은 답변입니다 — 이 부분에 대해 좋은 답변이었습니다. 다음 질문에 대해서도 답변을 더 들어볼 수 있을 것 같습니다. 캐시는 평균 성능을 향상시킨다고 잘 알려져 있습니다 — 이건 잘 알려진 결과입니다. 하지만 최악의 경우(worst case)에도 좋을지 궁금하실 수 있습니다. 그가 언급했듯이, 캐시가 좋은 이유는 메모리에 접근하는 것이 캐시에 접근하는 것보다 훨씬 느리기 때문입니다 — 캐시 안의 데이터 적중률(hit rate)을 높이면 평균 성능이 크게 향상됩니다. 하지만 만약 실패한다면(미스가 난다면) 어떻게 될까요?"
+  },
+  {
+   "t": 2750,
+   "en": "It's impossible to have one hundred percent cache hits every time — that's impossible for everyone. Actually, there will be some cases with misses — we access here, miss it, access here, miss it, and eventually we access the memory. And there are only certain cases, right? It's not surprising — if you connect this with the worst case for a computer, what if it's always like this? Then we might as well just remove the caches, since it will actually access the main memory anyway.",
+   "ko": "매번 100% 캐시 적중이 나는 것은 불가능합니다 — 누구에게나 불가능한 일입니다. 실제로는 미스가 나는 경우들이 있습니다 — 여기 접근했다가 미스, 저기 접근했다가 미스, 결국 메모리에 접근하게 됩니다. 그리고 그런 경우가 특정하게 존재하죠? 놀라운 일은 아닙니다 — 이걸 컴퓨터의 최악의 경우와 연결해보면, 만약 항상 이런 식이라면 어떨까요? 그렇다면 차라리 캐시를 그냥 없애버려도, 어차피 메인 메모리에 접근하게 될 것입니다."
+  },
+  {
+   "t": 2795,
+   "en": "That's something we didn't discuss today, but yeah — I think you can get some hints from this about what a time-predictable design is. I'm not saying let's remove all the caches — I'm not saying that, but you can have some intuition about what the research on this topic is about. We have some examples of systems that support this, but we don't have a lot of time, so let's finish here. Any remaining questions for today? Okay, yeah, see you next week.",
+   "ko": "이건 오늘 다루지 않은 내용이지만, 여러분은 이를 통해 시간 예측 가능한 설계가 무엇인지에 대한 힌트를 얻을 수 있다고 생각합니다. 캐시를 다 없애자는 말은 아닙니다 — 그런 뜻이 아니라, 이 주제에 대한 연구가 무엇에 관한 것인지 어느 정도 직관을 가질 수 있다는 것입니다. 이를 지원하는 시스템의 예시들도 있지만, 시간이 많지 않으니 여기서 마치겠습니다. 오늘 남은 질문 있으신가요? 네, 그럼 다음 주에 뵙겠습니다."
+  }
+ ]
+}
