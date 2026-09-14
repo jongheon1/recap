@@ -5,6 +5,13 @@
       "name": "Quantum Computer Programming",
       "files": [
         {
+          "id": "2026-09-14-quantum-computer-programming-1",
+          "title": "Qubit Gates, Entanglement & the Double-Slit Experiment",
+          "date": "2026-09-14",
+          "duration_sec": 6167,
+          "paragraphs": 151
+        },
+        {
           "id": "2026-09-09-quantum-computer-programming-1",
           "title": "Quantum Circuits, Computing Models & the Church-Turing Thesis",
           "date": "2026-09-09",
