@@ -5,6 +5,13 @@
       "name": "Quantum Computer Programming",
       "files": [
         {
+          "id": "2026-09-16-quantum-computer-programming-1",
+          "title": "Interference, Complex Phasors & Probability Amplitudes",
+          "date": "2026-09-16",
+          "duration_sec": 3116,
+          "paragraphs": 56
+        },
+        {
           "id": "2026-09-14-quantum-computer-programming-1",
           "title": "Qubit Gates, Entanglement & the Double-Slit Experiment",
           "date": "2026-09-14",
@@ -38,6 +45,13 @@
       "id": "algorithm-analysis",
       "name": "Algorithm Analysis",
       "files": [
+        {
+          "id": "2026-09-16-algorithm-analysis-1",
+          "title": "Integer Multiplication: Karatsuba-Style Divide-and-Conquer",
+          "date": "2026-09-16",
+          "duration_sec": 3106,
+          "paragraphs": 94
+        },
         {
           "id": "2026-09-11-algorithm-analysis-1",
           "title": "Closest Pair Correctness & Running Time; Integer Multiplication",
@@ -114,6 +128,13 @@
       "name": "Distributed Learning and Inference",
       "files": [
         {
+          "id": "2026-09-16-distributed-learning-and-inference-1",
+          "title": "Data Parallelism: Parameter Server & Gradient Synchronization",
+          "date": "2026-09-16",
+          "duration_sec": 2807,
+          "paragraphs": 72
+        },
+        {
           "id": "2026-09-11-distributed-learning-and-inference-2",
           "title": "Issues in Centralized Training",
           "date": "2026-09-11",
@@ -154,6 +175,13 @@
       "id": "real-time-systems",
       "name": "Real-Time Systems",
       "files": [
+        {
+          "id": "2026-09-15-real-time-systems-1",
+          "title": "Exercise B Discussion & Multi-DNN Memory Management (RT-MDM)",
+          "date": "2026-09-15",
+          "duration_sec": 5943,
+          "paragraphs": 122
+        },
         {
           "id": "2026-09-10-real-time-systems-1",
           "title": "Embedded Systems, CPS/IoT & Research Topics",
