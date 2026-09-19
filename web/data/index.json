@@ -87,6 +87,13 @@
       "name": "System Programming",
       "files": [
         {
+          "id": "2026-09-18-system-programming-1",
+          "title": "CFS, ULE & EEVDF: Fairness and the EDF Connection",
+          "date": "2026-09-18",
+          "duration_sec": 4559,
+          "paragraphs": 88
+        },
+        {
           "id": "2026-09-11-system-programming-2",
           "title": "Process Scheduling (1)",
           "date": "2026-09-11",
@@ -127,6 +134,13 @@
       "id": "distributed-learning-and-inference",
       "name": "Distributed Learning and Inference",
       "files": [
+        {
+          "id": "2026-09-18-distributed-learning-and-inference-1",
+          "title": "Data Parallelism: Optimizer Integration & Conclusion",
+          "date": "2026-09-18",
+          "duration_sec": 6154,
+          "paragraphs": 126
+        },
         {
           "id": "2026-09-16-distributed-learning-and-inference-1",
           "title": "Data Parallelism: Parameter Server & Gradient Synchronization",
@@ -175,6 +189,13 @@
       "id": "real-time-systems",
       "name": "Real-Time Systems",
       "files": [
+        {
+          "id": "2026-09-17-real-time-systems-1",
+          "title": "Periodic Task Scheduling: Deadlines & Feasibility Analysis",
+          "date": "2026-09-17",
+          "duration_sec": 1942,
+          "paragraphs": 59
+        },
         {
           "id": "2026-09-15-real-time-systems-1",
           "title": "Exercise B Discussion & Multi-DNN Memory Management (RT-MDM)",
