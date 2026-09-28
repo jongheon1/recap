@@ -5,6 +5,13 @@
       "name": "Quantum Computer Programming",
       "files": [
         {
+          "id": "2026-09-21-quantum-computer-programming-1",
+          "title": "Complex Numbers: Polar/Exponential Form & Intro to Vector Spaces",
+          "date": "2026-09-21",
+          "duration_sec": 3154,
+          "paragraphs": 92
+        },
+        {
           "id": "2026-09-16-quantum-computer-programming-1",
           "title": "Interference, Complex Phasors & Probability Amplitudes",
           "date": "2026-09-16",
@@ -87,6 +94,27 @@
       "name": "System Programming",
       "files": [
         {
+          "id": "2026-09-25-system-programming-2",
+          "title": "Makeup Video: L02-03 Review — O(1), CFS & EEVDF Schedulers",
+          "date": "2026-09-25",
+          "duration_sec": 2029,
+          "paragraphs": 49
+        },
+        {
+          "id": "2026-09-25-system-programming-1",
+          "title": "Makeup Video: L01 Review — Kernel Execution, Processes & Threads",
+          "date": "2026-09-25",
+          "duration_sec": 1778,
+          "paragraphs": 34
+        },
+        {
+          "id": "2026-09-23-system-programming-1",
+          "title": "CFS/EEVDF Review & Scheduling Classes (incl. sched_ext)",
+          "date": "2026-09-23",
+          "duration_sec": 2643,
+          "paragraphs": 44
+        },
+        {
           "id": "2026-09-18-system-programming-1",
           "title": "CFS, ULE & EEVDF: Fairness and the EDF Connection",
           "date": "2026-09-18",
@@ -134,6 +162,13 @@
       "id": "distributed-learning-and-inference",
       "name": "Distributed Learning and Inference",
       "files": [
+        {
+          "id": "2026-09-23-distributed-learning-and-inference-1",
+          "title": "Pipeline Parallelism: Naive Approach & GPipe",
+          "date": "2026-09-23",
+          "duration_sec": 2939,
+          "paragraphs": 70
+        },
         {
           "id": "2026-09-18-distributed-learning-and-inference-1",
           "title": "Data Parallelism: Optimizer Integration & Conclusion",
@@ -189,6 +224,20 @@
       "id": "real-time-systems",
       "name": "Real-Time Systems",
       "files": [
+        {
+          "id": "2026-09-24-real-time-systems-1",
+          "title": "Lecture Note 4: Modeling Real-Time Systems & Tasks",
+          "date": "2026-09-24",
+          "duration_sec": 2606,
+          "paragraphs": 86
+        },
+        {
+          "id": "2026-09-22-real-time-systems-1",
+          "title": "Student Presentations & Publication Venues in Computer Science",
+          "date": "2026-09-22",
+          "duration_sec": 4806,
+          "paragraphs": 119
+        },
         {
           "id": "2026-09-17-real-time-systems-1",
           "title": "Periodic Task Scheduling: Deadlines & Feasibility Analysis",
