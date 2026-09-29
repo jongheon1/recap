@@ -225,6 +225,13 @@
       "name": "Real-Time Systems",
       "files": [
         {
+          "id": "2026-09-29-real-time-systems-1",
+          "title": "Student Presentations & Scheduling Policies: FCFS, SJF, LLF",
+          "date": "2026-09-29",
+          "duration_sec": 5934,
+          "paragraphs": 143
+        },
+        {
           "id": "2026-09-24-real-time-systems-1",
           "title": "Lecture Note 4: Modeling Real-Time Systems & Tasks",
           "date": "2026-09-24",
