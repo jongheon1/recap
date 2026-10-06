@@ -108,6 +108,13 @@
       "name": "System Programming",
       "files": [
         {
+          "id": "2026-09-30-system-programming-1",
+          "title": "Multiprocessor Scheduling, Load Balancing & Energy-Aware Scheduling (EAS)",
+          "date": "2026-09-30",
+          "duration_sec": 2462,
+          "paragraphs": 39
+        },
+        {
           "id": "2026-09-25-system-programming-2",
           "title": "Makeup Video: L02-03 Review — O(1), CFS & EEVDF Schedulers",
           "date": "2026-09-25",
