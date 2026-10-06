@@ -163,6 +163,13 @@
       "name": "Distributed Learning and Inference",
       "files": [
         {
+          "id": "2026-09-30-distributed-learning-and-inference-1",
+          "title": "GPipe Deep Dive: Memory, Communication & Transition to 1F1B",
+          "date": "2026-09-30",
+          "duration_sec": 3035,
+          "paragraphs": 52
+        },
+        {
           "id": "2026-09-23-distributed-learning-and-inference-1",
           "title": "Pipeline Parallelism: Naive Approach & GPipe",
           "date": "2026-09-23",
