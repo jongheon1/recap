@@ -108,6 +108,13 @@
       "name": "System Programming",
       "files": [
         {
+          "id": "2026-10-02-system-programming-1",
+          "title": "EAS Research Papers & Preemptive vs. Non-Preemptive Kernel",
+          "date": "2026-10-02",
+          "duration_sec": 6206,
+          "paragraphs": 98
+        },
+        {
           "id": "2026-09-30-system-programming-1",
           "title": "Multiprocessor Scheduling, Load Balancing & Energy-Aware Scheduling (EAS)",
           "date": "2026-09-30",
