@@ -170,6 +170,13 @@
       "name": "Distributed Learning and Inference",
       "files": [
         {
+          "id": "2026-10-02-distributed-learning-and-inference-1",
+          "title": "Pipeline Parallelism Wrap-up (1F1B, ZBPP) & Tensor Parallelism Intro",
+          "date": "2026-10-02",
+          "duration_sec": 6004,
+          "paragraphs": 132
+        },
+        {
           "id": "2026-09-30-distributed-learning-and-inference-1",
           "title": "GPipe Deep Dive: Memory, Communication & Transition to 1F1B",
           "date": "2026-09-30",
