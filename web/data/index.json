@@ -60,6 +60,13 @@
       "name": "Algorithm Analysis",
       "files": [
         {
+          "id": "2026-10-02-algorithm-analysis-1",
+          "title": "Bellman-Ford Shortest Paths & Intro to Greedy Algorithms (Interval Scheduling)",
+          "date": "2026-10-02",
+          "duration_sec": 6549,
+          "paragraphs": 106
+        },
+        {
           "id": "2026-09-30-algorithm-analysis-1",
           "title": "RNA Secondary Structure (Nussinov) & Shortest Paths via Dynamic Programming",
           "date": "2026-09-30",
