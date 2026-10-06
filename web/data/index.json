@@ -60,6 +60,13 @@
       "name": "Algorithm Analysis",
       "files": [
         {
+          "id": "2026-09-30-algorithm-analysis-1",
+          "title": "RNA Secondary Structure (Nussinov) & Shortest Paths via Dynamic Programming",
+          "date": "2026-09-30",
+          "duration_sec": 2698,
+          "paragraphs": 45
+        },
+        {
           "id": "2026-09-16-algorithm-analysis-1",
           "title": "Integer Multiplication: Karatsuba-Style Divide-and-Conquer",
           "date": "2026-09-16",
