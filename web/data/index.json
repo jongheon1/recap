@@ -129,6 +129,20 @@
       "name": "System Programming",
       "files": [
         {
+          "id": "2026-10-07-system-programming-1",
+          "title": "Kernel Preemption Review: Spinlocks, Mutexes & Process/Interrupt Context",
+          "date": "2026-10-07",
+          "duration_sec": 2084,
+          "paragraphs": 34
+        },
+        {
+          "id": "2026-10-09-system-programming-1",
+          "title": "Interrupts & Exceptions: Context Restrictions, IRQs and the APIC Architecture",
+          "date": "2026-10-09",
+          "duration_sec": 4015,
+          "paragraphs": 88
+        },
+        {
           "id": "2026-10-02-system-programming-1",
           "title": "EAS Research Papers & Preemptive vs. Non-Preemptive Kernel",
           "date": "2026-10-02",

@@ -1,0 +1,180 @@
+{
+  "id": "2026-10-07-system-programming-1",
+  "course": "system-programming",
+  "title": "Kernel Preemption Review: Spinlocks, Mutexes & Process/Interrupt Context",
+  "date": "2026-10-07",
+  "duration_sec": 2084,
+  "audio_url": "https://pub-950a8b85c4a448b4b96d2942eec87d6b.r2.dev/2026-10-07-system-programming-1.m4a",
+  "paragraphs": [
+    {
+      "t": 0,
+      "en": "Hello everyone. How are you these days? Since we don't have any classes this week, I'm going to record some videos to make up the missing classes. So let's start — the first video will cover something about interrupts, because we were talking about interrupts last Friday.",
+      "ko": "여러분 안녕하세요. 요즘 어떻게 지내시나요? 이번 주에는 수업이 없어서, 보강을 위해 영상을 몇 개 녹화하려고 합니다. 그럼 시작하겠습니다. 첫 번째 영상에서는 인터럽트(interrupt)에 관한 내용을 다룰 텐데, 지난 금요일에 인터럽트에 대해 이야기하고 있었기 때문입니다."
+    },
+    {
+      "t": 33,
+      "en": "But before we go into the details, I'd like to quickly review the things we covered last Friday. So, last Friday we were talking about the energy-aware scheduler again, but we focused on the limitations of the energy-aware scheduler.",
+      "ko": "하지만 세부 내용으로 들어가기 전에, 지난 금요일에 다룬 내용을 간단히 복습하고 싶습니다. 지난 금요일에는 에너지 인지 스케줄러(EAS, energy-aware scheduler)에 대해 다시 이야기했는데, 이번에는 EAS의 한계점에 초점을 맞췄습니다."
+    },
+    {
+      "t": 55,
+      "en": "Yes, EAS is intended to optimize energy usage in mobile devices, or resource-constrained devices, based on heterogeneous processors. But the point is that when the energy-aware scheduler makes a decision, that decision is based on task utilization. And this task utilization is pretty much about tracking the running fraction of a task.",
+      "ko": "EAS는 이종(heterogeneous) 프로세서를 기반으로 모바일 기기나 자원이 제한된 기기에서 에너지 사용을 최적화하는 것이 목적입니다. 그런데 중요한 점은, 에너지 인지 스케줄러가 결정을 내릴 때 그 결정이 태스크 유틸라이제이션(task utilization, 작업 사용률)을 기준으로 이루어진다는 것입니다. 그리고 이 태스크 유틸라이제이션은 결국 태스크가 실행된 비율(running fraction)을 추적하는 것에 가깝습니다."
+    },
+    {
+      "t": 103,
+      "en": "This is an issue — why? For example, think of the graphics pipeline in smartphones, or any video application. We can think of its time constraint as 30 or 60 FPS, frames per second. That means the task related to graphics, video, or this kind of thing must be done within a specific time deadline, such as 33 milliseconds per frame for a 30 FPS application. However, since energy-aware scheduling is based on task utilization — a fraction of running time on the CPU — it does not take this deadline into account. So it leads to this kind of problem.",
+      "ko": "이게 왜 문제가 될까요? 예를 들어 스마트폰의 그래픽 파이프라인이나, 영상 관련 애플리케이션을 생각해 봅시다. 이런 작업은 30FPS나 60FPS(초당 프레임 수)라는 시간 제약을 가진다고 볼 수 있습니다. 즉 그래픽이나 영상과 관련된 태스크는 30FPS 애플리케이션이라면 프레임당 33밀리초처럼 정해진 시간 데드라인 안에 끝나야 한다는 뜻입니다. 하지만 에너지 인지 스케줄링은 CPU에서 실행된 시간의 비율인 태스크 유틸라이제이션을 기준으로 하기 때문에, 이 데드라인을 고려하지 않습니다. 그래서 바로 이런 문제가 생기게 됩니다."
+    },
+    {
+      "t": 180,
+      "en": "Let's say it's about 33 milliseconds here. Even though the device can lower the frequency — which leads to increased latency but also more energy efficiency — since the device is not aware of the specific time deadline, it will overutilize the higher frequency. So, for example, the task will finish much earlier than it can run, and that's a waste.",
+      "ko": "여기서 데드라인이 33밀리초쯤이라고 해봅시다. 기기가 주파수를 낮출 수는 있는데, 그러면 지연 시간(latency)은 늘어나지만 에너지 효율은 더 좋아집니다. 하지만 기기가 구체적인 시간 데드라인을 알지 못하기 때문에, 필요 이상으로 높은 주파수를 과도하게 사용하게 됩니다. 그래서 예를 들면 태스크가 필요한 것보다 훨씬 더 일찍 끝나버리는데, 이는 낭비입니다."
+    },
+    {
+      "t": 234,
+      "en": "So, if the device is aware of its deadline, then it can reduce the frequency and run as long as its latency doesn't exceed that deadline — then it can maximize energy efficiency. But in the current design, there's no way to do this. So this is a big limitation of energy-aware schedulers these days.",
+      "ko": "만약 기기가 자신의 데드라인을 알고 있다면, 주파수를 낮추고 지연 시간이 그 데드라인을 넘지 않는 한도 내에서 실행하면 에너지 효율을 최대화할 수 있습니다. 하지만 현재 설계에서는 이렇게 할 방법이 없습니다. 그래서 이것이 오늘날 에너지 인지 스케줄러의 큰 한계입니다."
+    },
+    {
+      "t": 279,
+      "en": "That's why a lot of researchers conduct a lot of research on energy efficiency for resource-constrained mobile devices — it can also be a server or cloud device. So what I want you to take away is: energy-aware scheduling is a good solution to minimize energy usage in computing devices, but it's not a perfect solution. This is something we discussed last Friday.",
+      "ko": "그래서 많은 연구자들이 자원이 제한된 모바일 기기, 혹은 서버나 클라우드 기기를 위한 에너지 효율 연구를 활발히 진행하고 있습니다. 제가 전달하고 싶은 핵심은, 에너지 인지 스케줄링이 컴퓨팅 기기의 에너지 사용을 줄이는 좋은 해법이긴 하지만 완벽한 해법은 아니라는 것입니다. 이 내용은 지난 금요일에 다뤘던 것입니다."
+    },
+    {
+      "t": 319,
+      "en": "And let's move on to the next thing: we covered kernel preemption. Some of the schedulers we covered are preemptive, but this is a bit different — this is about whether the kernel itself is preemptive or not. We covered this figure in detail last Friday. Anyway, we know there are two modes in the kernel: user mode and kernel mode, and in kernel mode we have two different contexts — process context and interrupt context. We covered this in the last lecture.",
+      "ko": "다음 내용으로 넘어가면, 커널 선점(kernel preemption)에 대해 다뤘습니다. 지금까지 다룬 스케줄러 중 일부는 선점형(preemptive)이었는데, 이번 건 조금 다릅니다. 이건 커널 자체가 선점형인지 아닌지에 대한 이야기입니다. 지난 금요일에 이 그림을 자세히 다뤘었죠. 아무튼 우리는 커널에 사용자 모드(user mode)와 커널 모드(kernel mode) 두 가지 모드가 있고, 커널 모드 안에는 프로세스 컨텍스트(process context)와 인터럽트 컨텍스트(interrupt context)라는 두 가지 다른 컨텍스트가 있다는 것을 알고 있습니다. 이건 지난 강의에서 다뤘습니다."
+    },
+    {
+      "t": 389,
+      "en": "So, for example, the system call handler — such as opening files, reading files, or writing files. We discussed these examples a lot. So anyway, when a user program wants to handle files, the operations for handling those files must be done in kernel mode, because this is something the kernel must handle. So the system call handler in kernel mode handles these operations related to reading or writing files. But this operation has something to do with the user process — that's why this is called process context.",
+      "ko": "예를 들면 시스템 콜 핸들러(system call handler)가 있죠. 파일을 열고, 읽고, 쓰는 것 같은 것들 말입니다. 이런 예시들을 많이 다뤘습니다. 아무튼 사용자 프로그램이 파일을 다루고 싶어 하면, 파일을 다루는 연산은 커널 모드에서 이루어져야 합니다. 왜냐하면 이건 커널이 처리해야 하는 일이기 때문입니다. 그래서 커널 모드의 시스템 콜 핸들러가 파일을 읽거나 쓰는 것과 관련된 이 연산들을 처리합니다. 그런데 이 연산은 어떤 사용자 프로세스와 관련이 있기 때문에, 이를 프로세스 컨텍스트라고 부르는 것입니다."
+    },
+    {
+      "t": 457,
+      "en": "So, process context is the context where kernel-mode operations run on behalf of the process. However, interrupt context is a bit different — the operations run on the CPU, and there's quite a lot of context switching and mode switching happening on the CPU. But in our computing devices, we also have several hardware devices, like I/O devices, network devices, printers, keyboards, and this kind of thing.",
+      "ko": "즉 프로세스 컨텍스트는 커널 모드 연산이 어떤 프로세스를 대신해서 실행되는 컨텍스트입니다. 반면 인터럽트 컨텍스트는 조금 다른데, 연산이 CPU 위에서 실행되고, CPU에서 컨텍스트 스위치(context switch)와 모드 스위치가 꽤 많이 일어납니다. 그런데 우리 컴퓨팅 기기에는 I/O 장치, 네트워크 장치, 프린터, 키보드 같은 여러 하드웨어 장치들도 있습니다."
+    },
+    {
+      "t": 511,
+      "en": "These hardware devices send a signal at arbitrary times. For example, you can press a key on your keyboard at any time, right? So this can happen anytime, and this event is not on behalf of any process — it's a separate thing, a separate event from the CPU. So that's what interrupt context is. We discussed these two contexts last Friday.",
+      "ko": "이런 하드웨어 장치들은 임의의 시점에 신호를 보냅니다. 예를 들어 키보드의 키는 아무 때나 누를 수 있잖아요? 그러니 이런 일은 언제든 일어날 수 있고, 이 이벤트는 어떤 프로세스를 대신하는 것이 아니라 CPU와는 별개의, 독립적인 이벤트입니다. 바로 이것이 인터럽트 컨텍스트입니다. 지난 금요일에 이 두 컨텍스트에 대해 이야기했습니다."
+    },
+    {
+      "t": 563,
+      "en": "Anyway, process context: in process context, kernel preemption can happen in a modern Linux kernel. But in interrupt context, kernel preemption is disabled. This is an assumption, and this is a design choice. We'll discuss why interrupt context must disable kernel preemption later in our course.",
+      "ko": "아무튼 프로세스 컨텍스트 이야기를 하면, 현대 리눅스 커널에서는 프로세스 컨텍스트에서 커널 선점이 일어날 수 있습니다. 하지만 인터럽트 컨텍스트에서는 커널 선점이 비활성화됩니다. 이건 하나의 전제이자 설계 방식입니다. 왜 인터럽트 컨텍스트에서 커널 선점을 비활성화해야 하는지는 이후 강의에서 다루겠습니다."
+    },
+    {
+      "t": 600,
+      "en": "But anyway, I just said process context allows kernel preemption. However, it depends on the kernel design — I mean, in a non-preemptive kernel, kernel preemption is still disabled even if the kernel is in process context. If the kernel is preemptive — when it comes to a preemptive kernel — that's when kernel preemption is allowed in process context. Okay? Then what does that mean? What does it mean by a preemptive kernel?",
+      "ko": "그런데 방금 제가 프로세스 컨텍스트에서는 커널 선점이 허용된다고 말했는데, 사실 이건 커널 설계에 따라 다릅니다. 즉 비선점형(non-preemptive) 커널에서는 프로세스 컨텍스트에 있더라도 커널 선점이 여전히 비활성화되어 있습니다. 커널이 선점형(preemptive)이라면, 즉 선점형 커널의 경우에는 프로세스 컨텍스트에서 커널 선점이 허용됩니다. 그럼 이게 무슨 뜻일까요? 선점형 커널이라는 게 무슨 의미일까요?"
+    },
+    {
+      "t": 648,
+      "en": "A preemptive kernel means — okay, when it comes to interrupts, kernel preemption is still disabled, but in process context, while the kernel is in process context, a process switch can happen. That's what a preemptive kernel is. However, in a non-preemptive kernel, this process switch is deferred. In a very early version of Linux, it was implemented this non-preemptive kernel way, because sometimes it can be dangerous to do a process switch in kernel mode.",
+      "ko": "선점형 커널이란, 인터럽트의 경우에는 여전히 커널 선점이 비활성화되지만, 프로세스 컨텍스트에서는 — 커널이 프로세스 컨텍스트에 있는 동안에는 — 프로세스 전환(process switch)이 일어날 수 있다는 뜻입니다. 이것이 선점형 커널입니다. 반면 비선점형 커널에서는 이 프로세스 전환이 지연(defer)됩니다. 리눅스의 아주 초기 버전은 이런 비선점형 커널 방식으로 구현되어 있었는데, 그 이유는 커널 모드에서 프로세스 전환을 하는 것이 때로는 위험할 수 있기 때문입니다."
+    },
+    {
+      "t": 702,
+      "en": "This is the case where the kernel is touching some very critical data structures, or this kind of thing. But if we can know the kernel is in a safe state, then we can do this immediate process switch. In this case, the responsiveness is very poor — but in this case, we can provide a very quick response to some processes. In modern Linux kernel, the kernel is designed to be preemptive. This is what we covered last Friday as well.",
+      "ko": "이건 커널이 아주 중요한(critical) 데이터 구조 같은 것을 다루고 있는 경우입니다. 하지만 커널이 안전한 상태에 있다는 것을 알 수 있다면, 즉시 프로세스 전환을 할 수 있습니다. 어떤 경우엔 응답성이 매우 떨어지지만, 다른 경우엔 일부 프로세스에게 매우 빠른 응답을 제공할 수 있습니다. 현대 리눅스 커널은 선점형으로 설계되어 있습니다. 이 내용도 지난 금요일에 다뤘습니다."
+    },
+    {
+      "t": 753,
+      "en": "However — I mentioned several times that interrupt context disables kernel preemption, but in process context, there's still a case where preemption is disabled. This is when the kernel is holding a lock. Please note that we're talking about the kernel mode here — yes, a user-mode program can also have a lock, but when we talk about kernel preemption, we don't care about the user-mode lock. We care about the kernel-mode lock.",
+      "ko": "그런데 제가 여러 번 말했듯, 인터럽트 컨텍스트에서는 커널 선점이 비활성화되지만, 프로세스 컨텍스트에서도 선점이 비활성화되는 경우가 있습니다. 바로 커널이 락(lock)을 잡고 있는 경우입니다. 여기서 말하는 건 커널 모드라는 점에 유의하세요. 물론 사용자 모드 프로그램도 락을 가질 수 있지만, 커널 선점을 이야기할 때는 사용자 모드 락은 신경 쓰지 않습니다. 우리가 신경 쓰는 건 커널 모드의 락입니다."
+    },
+    {
+      "t": 815,
+      "en": "So kernel code can also hold a lock. If the current kernel code is holding a lock, it can cause a problem when the kernel does a process switch. So we should think about what lock we're talking about, because there are several types of locks in the Linux kernel, but in general we can classify them into two key types: non-blocking and blocking. For example, the spin lock is a representative non-blocking lock mechanism, and the mutex is a representative blocking lock mechanism.",
+      "ko": "즉 커널 코드도 락을 잡을 수 있습니다. 현재 실행 중인 커널 코드가 락을 잡고 있는 상태에서 커널이 프로세스 전환을 하면 문제가 생길 수 있습니다. 그래서 우리가 어떤 락을 이야기하고 있는지 생각해봐야 하는데, 리눅스 커널에는 여러 종류의 락이 있지만 크게 두 가지 유형, 즉 논블로킹(non-blocking)과 블로킹(blocking)으로 분류할 수 있습니다. 예를 들어 스핀락(spin lock)은 대표적인 논블로킹 락 메커니즘이고, 뮤텍스(mutex)는 대표적인 블로킹 락 메커니즘입니다."
+    },
+    {
+      "t": 896,
+      "en": "And in this case, processes can be preempted in kernel mode as long as they do not hold a lock. That means this is about the non-blocking lock, such as a spin lock — this does not apply to a blocking lock, like a mutex. Okay, we should distinguish these carefully. Why? Why is kernel preemption disabled when the kernel code, or kernel mode, is holding a lock?",
+      "ko": "이 경우, 프로세스는 락을 잡고 있지 않는 한 커널 모드에서도 선점될 수 있습니다. 이건 스핀락 같은 논블로킹 락에 대한 이야기이고, 뮤텍스 같은 블로킹 락에는 해당하지 않습니다. 이 둘을 잘 구분해야 합니다. 왜 그럴까요? 커널 코드, 즉 커널 모드가 락을 잡고 있을 때 왜 커널 선점이 비활성화되는 걸까요?"
+    },
+    {
+      "t": 947,
+      "en": "So, in this video, I'd like to explain this in detail. I don't think I explained these details last Friday, so let's talk about this now. Actually, we'll cover locks and kernel synchronization issues in lecture seven, if I remember correctly. But anyway, I think I should explain this a little bit, because some of you may not have learned about locks before, and even if you already learned about them, you may have forgotten — so I'd like to kindly go over locks a little bit.",
+      "ko": "그래서 이번 영상에서는 이 내용을 자세히 설명하고 싶습니다. 지난 금요일에는 이 부분을 자세히 설명하지 않은 것 같으니, 지금 이야기해보겠습니다. 사실 락과 커널 동기화 문제는 제 기억이 맞다면 7강에서 다룰 내용입니다. 하지만 여러분 중 일부는 락을 아직 배우지 않았을 수도 있고, 이미 배웠더라도 잊어버렸을 수 있으니 간단히 설명하고 넘어가는 게 좋을 것 같습니다."
+    },
+    {
+      "t": 1003,
+      "en": "Okay, let's assume we have two tasks, or threads. And what we want to do is — okay, there's a shared variable called counter, and its current value is 10. What we want to do is increment the counter by one from task A, and also increment this counter value by one from task B.",
+      "ko": "자, 두 개의 태스크, 즉 스레드가 있다고 가정해봅시다. 그리고 counter라는 공유 변수가 있고, 현재 값은 10입니다. 우리가 하려는 것은 태스크 A에서 counter를 1 증가시키고, 태스크 B에서도 이 counter 값을 1 증가시키는 것입니다."
+    },
+    {
+      "t": 1052,
+      "en": "So, after running these codes, the value must be 12, right? But if it runs this way — let's look at the details. Okay, let's assume the preemption happens like this: step one, step two, step three, step four, for task A and task B. Okay — read counter here: read.",
+      "ko": "이 코드들을 실행하고 나면 값은 12가 되어야겠죠? 하지만 만약 이런 식으로 실행된다면, 자세히 살펴봅시다. 선점(preemption)이 다음과 같이 일어난다고 합시다. 1단계, 2단계, 3단계, 4단계, 태스크 A와 태스크 B에 대해서요. 자, 여기서 counter를 읽습니다. read."
+    },
+    {
+      "t": 1106,
+      "en": "And a process switch happens, so B also reads this counter value — A thinks the current value is 10, and B also thinks the current value is 10. And then the process switch happens again here, so the next operation is: increment the counter value by one. This is the write operation here, so now the counter is 11. However, in step four, the process switch happens again, and from B's point of view, the counter value is still 10, even though it has already been updated to 11.",
+      "ko": "그리고 프로세스 전환이 일어나서 B도 이 counter 값을 읽습니다. A는 현재 값이 10이라고 생각하고, B도 현재 값이 10이라고 생각합니다. 그리고 여기서 프로세스 전환이 또 일어나서, 다음 연산은 counter 값을 1 증가시키는 것입니다. 이건 쓰기(write) 연산이고, 이제 counter는 11이 됩니다. 그런데 4단계에서 프로세스 전환이 또 일어나는데, B의 입장에서는 counter 값이 이미 11로 업데이트되었는데도 여전히 10으로 알고 있습니다."
+    },
+    {
+      "t": 1177,
+      "en": "But the thing is, B read this value before A updated it — so this is the problem. So, anyway, B will write this value as 11 as well, because it's just plus one. So our intended outcome was 12, because we increment by 1 from A and by 1 from B — but here we run into a problem: the output is different from our intended output. So, to prevent this kind of thing, we should use a lock mechanism.",
+      "ko": "문제는 B가 이 값을 A가 업데이트하기 전에 읽었다는 것입니다. 바로 이게 문제입니다. 그래서 B도 그냥 1을 더해서 이 값을 11로 쓰게 됩니다. 원래 우리가 의도한 결과는 12였습니다. A에서 1 증가, B에서 1 증가니까요. 하지만 여기서 문제가 생겨서, 출력값이 우리가 의도한 결과와 달라지게 됩니다. 그래서 이런 문제를 막기 위해서는 락(lock) 메커니즘을 사용해야 합니다."
+    },
+    {
+      "t": 1222,
+      "en": "Okay, so this is a pseudocode, for example. We're talking about this counter value, so we have this value defined already. And we also use a lock — like this: define lock, it can be a spin lock or a mutex — but let's say this lock variable is L. And then, usually, we do this kind of thing: acquire(L), we run this code here, and then release(L). Okay, so then: one, two, three, four.",
+      "ko": "자, 이건 예시를 위한 수도코드(pseudocode)입니다. 우리가 이야기하고 있는 counter 값은 이미 정의되어 있습니다. 그리고 락도 이렇게 사용합니다. 락을 정의하는데, 스핀락일 수도 있고 뮤텍스일 수도 있습니다. 여기서는 이 락 변수를 L이라고 합시다. 그리고 보통 이런 식으로 합니다. acquire(L)로 락을 획득하고, 여기 이 코드를 실행한 다음, release(L)로 락을 해제합니다. 자, 그러면 1단계, 2단계, 3단계, 4단계가 있습니다."
+    },
+    {
+      "t": 1344,
+      "en": "So, same example here: before running this code, A holds this lock. So — read here, and the process switch may happen at this point, but B cannot read this counter value. What we can do is just wait for this lock to be released. So A can update this value — now it's 11 — and the lock is released, then B can read this counter value and update it, so the outcome will be 12. Okay, so this is a pseudocode for using lock mechanisms, and how to acquire a lock depends on the lock mechanism. I mentioned there are two ways of waiting for a lock to be released, in order to acquire it.",
+      "ko": "자, 같은 예시인데, 이번엔 이 코드를 실행하기 전에 A가 이 락을 잡고 있습니다. 여기서 읽고, 이 시점에 프로세스 전환이 일어날 수도 있지만, B는 이 counter 값을 읽을 수 없습니다. B가 할 수 있는 것은 그저 이 락이 해제되기를 기다리는 것뿐입니다. 그래서 A가 이 값을 업데이트해서 11이 되고, 락이 해제되면 B가 이 counter 값을 읽고 업데이트해서 결과는 12가 됩니다. 자, 이게 락 메커니즘을 사용하는 수도코드이고, 락을 획득하는 방식은 락 메커니즘에 따라 다릅니다. 앞서 말했듯 락이 해제되기를 기다리는 방식에는 두 가지가 있습니다."
+    },
+    {
+      "t": 1444,
+      "en": "So: non-blocking, and blocking, like mutex. Spin locks, as a non-blocking lock mechanism — what B does there is just wait; we call it busy waiting. This runs on the CPU and consumes CPU time until the lock is released, so yes, you can think of it as a bit of a waste of time. Now, with a blocking lock — this waiting task can block, I mean this task can sleep — so now the state of this task is not runnable.",
+      "ko": "바로 논블로킹(non-blocking)과 블로킹(blocking, 뮤텍스 같은 것) 방식입니다. 스핀락 같은 논블로킹 락 메커니즘에서는 B가 그냥 기다리는데, 이를 바쁜 대기(busy waiting)라고 부릅니다. 이건 CPU 위에서 실행되면서 락이 해제될 때까지 CPU 시간을 소모합니다. 그래서 어느 정도 시간 낭비라고 생각할 수 있습니다. 반면 블로킹 락에서는 기다리는 태스크가 블록(block)될 수 있는데, 즉 이 태스크는 잠들 수(sleep) 있어서 이제 이 태스크의 상태는 실행 가능(runnable) 상태가 아니게 됩니다."
+    },
+    {
+      "t": 1519,
+      "en": "So this task doesn't run on the CPU, or isn't in the run queue, because the state of this task is blocked — it's just waiting for a signal, and the signal is the lock being released. So if this lock is released, it will wake up this task, and then this task can acquire the lock. So, with this blocking lock mechanism, the waiting task doesn't need to consume CPU time — it can let other tasks run on the CPU. Okay, so we have two different lock mechanisms, and when we say processes can be preempted in kernel mode as long as they do not hold a lock, this is about the non-blocking lock.",
+      "ko": "그래서 이 태스크는 CPU에서 실행되지 않고, 실행 큐(run queue)에도 들어가지 않습니다. 이 태스크의 상태가 블록(blocked) 상태이기 때문입니다. 그냥 신호를 기다리고 있는 건데, 그 신호는 락이 해제되는 것입니다. 이 락이 해제되면 이 태스크를 깨우고(wake up), 그러면 이 태스크가 락을 획득할 수 있습니다. 이런 블로킹 락 메커니즘에서는 기다리는 태스크가 CPU 시간을 소모할 필요가 없어서, 다른 태스크가 CPU에서 실행되도록 양보할 수 있습니다. 자, 우리에겐 이렇게 두 가지 다른 락 메커니즘이 있고, '락을 잡고 있지 않는 한 커널 모드에서도 프로세스가 선점될 수 있다'고 할 때는 바로 이 논블로킹 락에 대한 이야기입니다."
+    },
+    {
+      "t": 1596,
+      "en": "And you may have this kind of question: okay, it looks like a blocking lock is more efficient — a blocking lock makes sense, and a non-blocking lock doesn't make sense, because it consumes CPU time and doesn't look very efficient. However, a blocking lock always leads to a context switch, and as I said several times, context switch has quite a lot of overhead. However, we call this kind of part the critical section, and if the critical section is very small, then a non-blocking lock mechanism can make sense, because it's very small and doesn't require a context switch.",
+      "ko": "그래서 이런 의문이 들 수 있습니다. 블로킹 락이 더 효율적인 것 같고, 블로킹 락은 말이 되는데 논블로킹 락은 CPU 시간을 소모하고 별로 효율적으로 보이지 않으니 말이 안 되는 것 같다는 생각이요. 하지만 블로킹 락은 항상 컨텍스트 스위치로 이어지고, 제가 여러 번 말했듯 컨텍스트 스위치는 꽤 많은 오버헤드를 가집니다. 그런데 우리는 이런 부분을 임계구역(critical section)이라고 부르는데, 만약 이 임계구역이 매우 작다면 논블로킹 락 메커니즘이 더 말이 됩니다. 왜냐하면 임계구역이 매우 작아서 컨텍스트 스위치가 필요 없기 때문입니다."
+    },
+    {
+      "t": 1675,
+      "en": "So there are some cases where non-blocking lock mechanisms are more efficient than blocking lock mechanisms, and also, when we consider multi-core or multi-CPU systems, non-blocking lock mechanisms can be very efficient anyway. Okay, so if the critical section is very small, we can think this can be done very quickly, so we should use a spin lock, or non-blocking lock, mechanism. However, to make this mechanism efficient, the kernel must disable kernel preemption — that's why kernel preemption is disabled in this case.",
+      "ko": "그래서 논블로킹 락 메커니즘이 블로킹 락 메커니즘보다 더 효율적인 경우들이 있고, 또한 멀티코어나 멀티 CPU 시스템을 고려할 때도 논블로킹 락 메커니즘이 매우 효율적일 수 있습니다. 자, 임계구역이 매우 작다면 이 작업이 매우 빠르게 끝날 수 있다고 생각할 수 있으니, 스핀락, 즉 논블로킹 락 메커니즘을 사용해야 합니다. 그런데 이 메커니즘을 효율적으로 만들기 위해서는 커널이 커널 선점을 비활성화해야 하는데, 바로 이것이 이 경우에 커널 선점이 비활성화되는 이유입니다."
+    },
+    {
+      "t": 1762,
+      "en": "Let's assume we only have one CPU in this device, and kernel preemption is disabled — A and B: whenever A acquires the lock here, it does all of the critical section, which must be very small, and releases it. While A is handling this critical section, since preemption is disabled, there's no worry about giving up the CPU to task B. And then B handles this critical section. However, if kernel preemption is not disabled, then although A acquires this lock, A gives up the CPU to B — then B can waste CPU time here, and sometimes it can be forever. So this can be a problem.",
+      "ko": "이 기기에 CPU가 하나만 있고 커널 선점이 비활성화되어 있다고 가정해봅시다. A와 B가 있을 때, A가 여기서 락을 획득하면 매우 작아야 하는 임계구역 전체를 실행하고 해제합니다. A가 이 임계구역을 처리하는 동안에는 선점이 비활성화되어 있기 때문에 CPU를 태스크 B에게 넘겨줄 걱정이 없습니다. 그리고 나서 B가 이 임계구역을 처리합니다. 하지만 만약 커널 선점이 비활성화되어 있지 않다면, A가 이 락을 획득했더라도 A가 CPU를 B에게 넘겨줄 수 있고, 그러면 B는 여기서 CPU 시간을 낭비하게 되는데 때로는 영원히 그럴 수도 있습니다. 그래서 이게 문제가 될 수 있습니다."
+    },
+    {
+      "t": 1857,
+      "en": "So we have two different lock mechanisms, and if the critical section is very small, the non-blocking lock mechanism can be more efficient. And to make these non-blocking lock mechanisms efficient — to make sure using them is meaningful — kernel preemption is disabled. Okay, so that's the point here. So, locks — actually, spin locks, or non-blocking locks, are used as markers of non-preemptability. With blocking locks, the waiting task is blocked, so it's okay to allow preemption there. So the key point here is: this is all about the non-blocking lock.",
+      "ko": "이렇게 우리는 두 가지 다른 락 메커니즘을 가지고 있고, 임계구역이 매우 작다면 논블로킹 락 메커니즘이 더 효율적일 수 있습니다. 그리고 이 논블로킹 락 메커니즘을 효율적으로 만들기 위해서, 즉 이 메커니즘을 사용하는 게 의미 있도록 하기 위해서 커널 선점이 비활성화됩니다. 바로 이게 핵심입니다. 그래서 실제로 스핀락, 즉 논블로킹 락은 비선점 가능성(non-preemptability)의 표시(marker)로 사용됩니다. 블로킹 락에서는 기다리는 태스크가 블록 상태이기 때문에 선점을 허용해도 괜찮습니다. 그러니 여기서 핵심은, 이 모든 이야기가 논블로킹 락에 관한 것이라는 점입니다."
+    },
+    {
+      "t": 1914,
+      "en": "So, yes, okay — let's revisit these three cases before wrapping up this lecture. In a preemptive kernel, it's very important to know whether the kernel is in a safe state or not, and this decision is based on these three cases. But I said that interrupt context must disable kernel preemption — I'll discuss this in the next lecture, because it's related to the characteristics of interrupt context. But anyway, the first two cases are related to interrupt context.",
+      "ko": "그럼 이 강의를 마무리하기 전에, 이 세 가지 경우를 다시 한번 짚어보겠습니다. 선점형 커널에서는 커널이 안전한 상태에 있는지 아닌지를 아는 것이 매우 중요한데, 이 판단은 이 세 가지 경우를 기준으로 이루어집니다. 그런데 제가 인터럽트 컨텍스트에서는 커널 선점을 비활성화해야 한다고 말씀드렸는데, 이건 인터럽트 컨텍스트의 특성과 관련이 있어서 다음 강의에서 다루도록 하겠습니다. 아무튼 앞의 두 경우는 인터럽트 컨텍스트와 관련이 있습니다."
+    },
+    {
+      "t": 1985,
+      "en": "And the last one is about process context — what does that mean? The context where the kernel is acting on behalf of the user process. So, interrupt context disables kernel preemption, and in process context, generally it allows kernel preemption. However, if the kernel holds this spin lock, or non-blocking lock, and if the process still allows kernel preemption in this case, then it can lead to a lot of inefficiency, and it can also lead to some deadlock problems. So that's why kernel preemption is disabled here. So, this field contains all these counters written here, and yeah, I already explained this preempt_count thing last Friday, so today I'll skip this.",
+      "ko": "마지막 세 번째 경우는 프로세스 컨텍스트에 관한 것인데, 이게 무슨 뜻일까요? 커널이 사용자 프로세스를 대신해서 동작하는 컨텍스트입니다. 즉 인터럽트 컨텍스트에서는 커널 선점이 비활성화되고, 프로세스 컨텍스트에서는 일반적으로 커널 선점이 허용됩니다. 하지만 커널이 이 스핀락, 즉 논블로킹 락을 잡고 있는 상태에서 커널 선점을 허용한다면, 이는 많은 비효율을 초래할 수 있고 데드락(deadlock) 문제로도 이어질 수 있습니다. 그래서 이 경우에는 커널 선점이 비활성화되는 것입니다. 이 필드에는 여기 적힌 이 모든 카운터들이 담겨 있는데, 이 preempt_count 부분은 지난 금요일에 이미 설명했으니 오늘은 넘어가겠습니다."
+    },
+    {
+      "t": 2064,
+      "en": "So, yes, I think I should wrap up the first video here. This is pretty much all for the first video, and I think this first video can replace the class on this Wednesday. So — have a great day. Bye!",
+      "ko": "네, 이제 첫 번째 영상은 여기서 마무리해야 할 것 같습니다. 첫 번째 영상은 이 정도면 충분한 것 같고, 이 영상이 이번 주 수요일 수업을 대체할 수 있을 것 같습니다. 좋은 하루 보내세요. 안녕히 계세요!"
+    }
+  ]
+}
