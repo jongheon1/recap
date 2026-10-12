@@ -5,6 +5,20 @@
       "name": "Quantum Computer Programming",
       "files": [
         {
+          "id": "2026-10-07-quantum-computer-programming-1",
+          "title": "Mapping Qubits onto the Bloch Sphere: States, Angles & Measurement Probabilities",
+          "date": "2026-10-07",
+          "duration_sec": 3066,
+          "paragraphs": 82
+        },
+        {
+          "id": "2026-10-12-quantum-computer-programming-1",
+          "title": "Measurement Postulates, Global/Relative Phase & the Reversibility of Quantum Gates",
+          "date": "2026-10-12",
+          "duration_sec": 6843,
+          "paragraphs": 73
+        },
+        {
           "id": "2026-09-23-quantum-computer-programming-1",
           "title": "Bra-Ket Notation, Inner Products & the Bloch Sphere",
           "date": "2026-09-23",
