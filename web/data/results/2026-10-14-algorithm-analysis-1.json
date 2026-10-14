@@ -1,0 +1,290 @@
+{
+  "id": "2026-10-14-algorithm-analysis-1",
+  "course": "algorithm-analysis",
+  "title": "Proof Techniques: The Certificate Argument & Residual Graph Review",
+  "date": "2026-10-14",
+  "duration_sec": 3070,
+  "audio_url": "https://pub-950a8b85c4a448b4b96d2942eec87d6b.r2.dev/2026-10-14-algorithm-analysis-1.m4a",
+  "paragraphs": [
+    {
+      "t": 0,
+      "en": "I promised that we're going to cover the third proof technique today, since I wanted to prepare it offline. After that, we'll go back to the maximum flow problem and continue our discussion there.",
+      "ko": "오늘은 제가 미리 준비하고 싶어서 오프라인으로 따로 준비했던 세 번째 증명 기법을 다루겠다고 약속드렸었죠. 그걸 마치고 나면 다시 최대 유량(maximum flow) 문제로 돌아가 논의를 이어가겠습니다."
+    },
+    {
+      "t": 23,
+      "en": "For the third example, let's go back to the interval scheduling problem: you're given a set of intervals, and the goal is to find the maximum-cardinality subset such that every two intervals in the chosen subset are compatible — meaning they don't intersect.",
+      "ko": "세 번째 예시로 다시 구간 스케줄링(interval scheduling) 문제로 돌아가겠습니다. 구간들의 집합이 주어지고, 선택한 부분집합 안의 모든 두 구간이 서로 호환(compatible) — 즉 겹치지 않도록 — 하면서 카디널리티(원소 개수)가 최대인 부분집합을 찾는 문제입니다."
+    },
+    {
+      "t": 58,
+      "en": "Let's not worry about the algorithm itself for a moment, since we already know it. Suppose you have some instance I, and let opt(I) be the maximum size of a compatible subset of that instance. Because you already know the algorithm, you already know opt(I) — for this particular instance it's 3. If I want to convince you opt(I) is 3, I don't need to say anything extra: you can just run the algorithm yourself and see it.",
+      "ko": "잠시 알고리즘 자체는 신경 쓰지 말죠, 이미 알고 있으니까요. 어떤 인스턴스 I가 있다고 하고, opt(I)를 그 인스턴스의 호환 가능한 부분집합의 최대 크기라고 합시다. 여러분은 이미 알고리즘을 알고 있으니 이 특정 인스턴스에서 opt(I)가 3이라는 것도 이미 압니다. 제가 opt(I)가 3이라는 걸 설득하려 할 때, 추가로 말할 게 없어요 — 여러분이 직접 알고리즘을 돌려서 확인하면 그만이니까요."
+    },
+    {
+      "t": 128,
+      "en": "But suppose you want to convince a friend who isn't stupid but hasn't taken an algorithms course that opt(I) is at least 2 for this instance — which happens to be true. How would you convince your friend of that, given that they can't just run an algorithm they don't know?",
+      "ko": "그런데 이번엔 알고리즘을 배운 적 없는, 멍청하지는 않은 친구에게 이 인스턴스에서 opt(I)가 적어도 2라는 걸 — 실제로 참인 사실을 — 설득시키고 싶다고 합시다. 알고리즘을 모르는 친구에게 어떻게 이걸 납득시킬 수 있을까요?"
+    },
+    {
+      "t": 152,
+      "en": "For a simple instance this is easy, but imagine a much more complicated one — your friend has no way to enumerate every possibility and check which is the largest compatible choice. You know an algorithm, so you can compute the true value of opt(I) yourself, but your friend still needs to be convinced without learning the algorithm.",
+      "ko": "간단한 인스턴스라면 쉽지만, 훨씬 복잡한 인스턴스를 상상해보세요 — 친구는 모든 경우의 수를 따져서 어느 것이 최대 호환 선택인지 확인할 방법이 없습니다. 여러분은 알고리즘을 알고 있으니 opt(I)의 실제 값을 스스로 계산할 수 있지만, 친구는 그 알고리즘을 배우지 않고도 설득되어야 합니다."
+    },
+    {
+      "t": 246,
+      "en": "To show opt(I) is at least 2, you just need to exhibit two intervals that are in fact compatible with each other. Your friend can check for themselves that those two don't overlap, and will be convinced opt(I) >= 2. (Showing opt(I) >= 3 the same way would be trivial — just exhibit three.)",
+      "ko": "opt(I)가 적어도 2라는 걸 보이려면, 실제로 서로 호환되는 두 구간을 딱 짚어서 보여주면 됩니다. 친구는 그 두 구간이 겹치지 않는다는 걸 스스로 확인할 수 있고, 그걸로 opt(I)≥2가 설득됩니다. (같은 식으로 opt(I)≥3을 보이는 것도 간단하죠 — 그냥 세 개를 보여주면 됩니다.)"
+    },
+    {
+      "t": 320,
+      "en": "Here's the general observation: if a subset J of the given intervals is compatible, then opt(I) >= |J|. This seems trivial, but what's nice is that this technique is always tight — whatever the true optimal value is, even something like 72, you can always certify exactly that value by exhibiting the actual optimal subset itself.",
+      "ko": "일반화하면 이렇습니다: 주어진 구간들의 부분집합 J가 호환 가능하다면, opt(I) ≥ |J|입니다. 당연해 보이지만 좋은 점은, 이 기법은 항상 타이트(tight)하다는 것입니다 — 실제 최적값이 72처럼 어떤 값이든, 실제 최적해 자체를 그대로 제시하면 정확히 그 값을 증명할 수 있습니다."
+    },
+    {
+      "t": 403,
+      "en": "Now let's flip the question: how do you show an upper bound, opt(I) <= k? Example: if two intervals are identical (completely overlapping), you can never choose both, and since there are only 5 intervals total, opt(I) can be at most 4. That part was easy.",
+      "ko": "이제 질문을 뒤집어 보죠: opt(I) ≤ k라는 상한을 어떻게 보일까요? 예시: 두 구간이 동일(완전히 겹침)하다면 둘 다 선택할 수 없고, 전체가 5개뿐이니 opt(I)는 최대 4입니다. 여기까지는 쉬웠죠."
+    },
+    {
+      "t": 444,
+      "en": "What about showing opt(I) <= 3? You can point out that three of the intervals are all mutually identical, so you can choose at most one from that group of three; the remaining two intervals add at most 2 more, so opt(I) cannot exceed 3.",
+      "ko": "그럼 opt(I) ≤ 3은 어떻게 보일까요? 세 개의 구간이 서로 전부 동일하다는 걸 짚어주면, 그 셋 중에서는 최대 하나만 고를 수 있고, 나머지 두 구간에서 최대 2개를 더할 수 있으니 opt(I)는 3을 넘을 수 없습니다."
+    },
+    {
+      "t": 526,
+      "en": "For another instance, you can divide the intervals into three groups where, within each group, all intervals are identical to each other — so at most one can be chosen per group, and with 3 groups, opt(I) <= 3.",
+      "ko": "다른 인스턴스에서는, 구간들을 세 그룹으로 나눌 수 있는데 — 각 그룹 안의 구간들이 서로 모두 동일해서 그룹당 최대 하나만 고를 수 있고, 그룹이 3개이니 opt(I) ≤ 3이 됩니다."
+    },
+    {
+      "t": 573,
+      "en": "Let me formalize this with the notion of a partition — a general set-theoretic term, not specific to this problem. I_1, ..., I_k is a partition of I if the I_i are mutually disjoint and their union is all of I, i.e. every interval belongs to exactly one subset.",
+      "ko": "이걸 파티션(partition)이라는 개념으로 정리해보겠습니다 — 이 문제에 국한된 게 아니라 일반적인 집합론 용어입니다. I_1, ..., I_k가 I의 파티션이라는 것은, I_i들이 서로소(mutually disjoint)이고 그 합집합이 I 전체와 같다는 것, 즉 모든 구간이 정확히 하나의 부분집합에 속한다는 뜻입니다."
+    },
+    {
+      "t": 649,
+      "en": "Generalizing what we just did: if I_1, ..., I_k is a partition of I such that the intervals within each I_i are identical to each other, then opt(I) <= k. This statement is true in general: however many groups of mutual-identical intervals you partition the input into, the optimum can never exceed that number of groups.",
+      "ko": "방금 했던 걸 일반화하면: I_1, ..., I_k가 I의 파티션이고 각 I_i 안의 구간들이 서로 동일하다면, opt(I) ≤ k입니다. 이 명제는 일반적으로 참입니다 — 입력을 서로 동일한 구간들의 그룹 몇 개로 나누든, 최적값은 그 그룹 개수를 절대 넘지 않습니다."
+    },
+    {
+      "t": 728,
+      "en": "But now suppose opt(I) is actually 2 for some instance, and you want to show opt(I) <= 3. The only partition-into-identical-intervals you can find here might be letting every interval be its own singleton — since no two intervals are identical — which only gives opt(I) <= 4. That's true but not tight; the true value is 2, not 4.",
+      "ko": "그런데 어떤 인스턴스에서 실제로 opt(I)=2인데 opt(I)≤3을 보이고 싶다고 합시다. 여기서 찾을 수 있는 유일한 '동일 구간끼리 묶는' 파티션은 서로 동일한 구간이 하나도 없어서 모든 구간을 각자 싱글톤으로 두는 것뿐이고, 그러면 opt(I)≤4밖에 못 보입니다. 참이긴 하지만 타이트하지 않죠 — 실제 값은 2인데 4를 보인 거니까요."
+    },
+    {
+      "t": 803,
+      "en": "This is in sharp contrast to the lower-bound technique, which is always tight — if the optimum is 70, you're guaranteed to be able to exhibit a compatible subset of size 70. Presenting an upper bound via a partition into identical intervals is simply not a strong enough technique in general.",
+      "ko": "이건 앞서 본 하한(lower bound) 기법과는 크게 대조됩니다 — 하한 기법은 항상 타이트해서, 최적값이 70이면 크기 70짜리 호환 부분집합을 반드시 제시할 수 있습니다. 반면 동일 구간 파티션으로 상한을 보이는 방식은 일반적으로 충분히 강력한 기법이 아닙니다."
+    },
+    {
+      "t": 840,
+      "en": "So: is there a stronger way? For an instance where opt(I) is actually 3, how can we show opt(I) <= 3 more cleverly? If we sort the intervals, we notice the first three connect to each other, but the upper two don't — they can't share the same group as the middle ones.",
+      "ko": "그래서 질문은, 더 강력한 방법이 있을까? 실제로 opt(I)=3인 인스턴스에서, opt(I)≤3을 더 영리하게 어떻게 보일까요? 구간들을 정렬해보면, 처음 세 개는 서로 연결되지만 위쪽 두 개는 그렇지 않습니다 — 가운데 것들과 같은 그룹으로 묶을 수 없습니다."
+    },
+    {
+      "t": 946,
+      "en": "We're assuming now that we don't know an algorithm — or rather, I know one but my friend doesn't, and I don't want to teach it to them. I just want to give small evidence that opt(I) can't exceed a certain value for this specific instance. Here, just pointing out that two particular intervals intersect — you can never choose both — combined with there being only 4 intervals total, shows opt(I) <= 3.",
+      "ko": "지금은 알고리즘을 모른다고 가정합니다 — 정확히는, 저는 알지만 친구는 모르고, 알고리즘을 가르쳐주고 싶지는 않습니다. 그저 이 특정 인스턴스에서 opt(I)가 어떤 값을 넘을 수 없다는 작은 증거만 주고 싶은 것이죠. 여기서는 특정 두 구간이 겹친다는 것 — 둘 다 선택할 수 없다는 것 — 만 짚고, 전체가 4개뿐이라는 사실과 합치면 opt(I)≤3을 보일 수 있습니다."
+    },
+    {
+      "t": 975,
+      "en": "For another instance where opt(I) is actually 2, how do we show opt(I) <= 2? Divide the intervals into two groups; within each group there's no pair of compatible (non-overlapping) intervals, so at most one can be chosen from each group, giving opt(I) <= 2.",
+      "ko": "실제로 opt(I)=2인 또 다른 인스턴스에서, opt(I)≤2는 어떻게 보일까요? 구간들을 두 그룹으로 나눕니다 — 각 그룹 안에는 서로 호환(겹치지 않음)되는 구간 쌍이 없으므로, 그룹당 최대 하나만 고를 수 있어 opt(I)≤2가 됩니다."
+    },
+    {
+      "t": 1031,
+      "en": "Let's generalize this into a lemma: if I_1, ..., I_k is a partition of I such that every pair of intervals within each I_i intersects, then opt(I) <= k. Notice this condition — pairwise intersecting — is weaker (more general) than requiring the intervals to be fully identical, so this lemma is strictly stronger than the earlier one.",
+      "ko": "이걸 일반화해서 보조정리(lemma)로 만들어 보죠: I_1, ..., I_k가 I의 파티션이고 각 I_i 안의 모든 구간 쌍이 서로 교차(intersect)한다면, opt(I) ≤ k입니다. 이 '쌍마다 교차한다'는 조건은 '완전히 동일하다'는 조건보다 약한(더 일반적인) 조건이라는 걸 주목하세요 — 그래서 이 보조정리는 앞의 것보다 엄격히 더 강력합니다."
+    },
+    {
+      "t": 1103,
+      "en": "Let's prove it. As usual, start by naming an arbitrary optimal solution: let script-O denote it. For each part I_i, the intersection of I_i with O can contain at most one element, because O is a compatible set — but within I_i every pair intersects, so O can't contain two intervals from the same I_i.",
+      "ko": "증명해 보죠. 늘 그렇듯 임의의 최적해를 하나 이름 붙이는 데서 시작합니다: 스크립트-O라고 하겠습니다. 각 부분 I_i에 대해, I_i와 O의 교집합은 원소를 최대 하나만 가질 수 있는데, O는 호환 집합이지만 I_i 안에서는 모든 쌍이 서로 교차하므로 O가 같은 I_i에서 두 구간을 동시에 가질 수 없기 때문입니다."
+    },
+    {
+      "t": 1177,
+      "en": "Since I_1, ..., I_k partition I and O is a subset of I, we have opt(I) = |O| = the sum over all i of |I_i ∩ O| (by the definition of a partition), and each term in that sum is at most 1 — so the total is at most k. That completes the proof.",
+      "ko": "I_1, ..., I_k가 I를 파티션하고 O가 I의 부분집합이므로, opt(I) = |O| = 모든 i에 대한 |I_i ∩ O|의 합(파티션의 정의에 의해)이고, 이 합의 각 항은 최대 1이므로 전체 합은 최대 k입니다. 이걸로 증명이 끝납니다."
+    },
+    {
+      "t": 1266,
+      "en": "What I like about this new lemma is that it's strictly stronger: for that instance where opt(I) was actually 2, the old 'identical intervals' form could only get an upper bound of 5 (singleton partition), but this new lemma lets us show an upper bound that matches the true optimum exactly.",
+      "ko": "이 새 보조정리에서 마음에 드는 점은 엄격히 더 강력하다는 겁니다. opt(I)가 실제로 2였던 그 인스턴스에서, 예전의 '동일 구간' 방식으로는 상한이 5(싱글톤 파티션)밖에 안 나왔지만, 이 새 보조정리로는 실제 최적값과 정확히 일치하는 상한을 보일 수 있습니다."
+    },
+    {
+      "t": 1312,
+      "en": "A natural question: is it always possible to find such a partition that gives an upper bound exactly matching the true optimum, for every instance? It turns out yes, and here's why — let's go back to the greedy algorithm we already know solves this problem.",
+      "ko": "자연스러운 질문: 모든 인스턴스에 대해, 실제 최적값과 정확히 일치하는 상한을 주는 그런 파티션을 항상 찾을 수 있을까요? 결론부터 말하면 가능합니다 — 그 이유를 보기 위해 이미 이 문제를 푼다고 알고 있는 그리디 알고리즘으로 돌아가 봅시다."
+    },
+    {
+      "t": 1332,
+      "en": "Recall the algorithm: let R be the set of given intervals, solution starts empty. While R is nonempty, choose the interval i in R with the earliest finishing time, add it to the solution, and remove from R every interval (including i) that intersects i. At the end, return the solution.",
+      "ko": "알고리즘을 다시 떠올려 보면: R을 주어진 구간들의 집합으로 두고, solution은 빈 집합으로 시작합니다. R이 비어있지 않은 동안, R에서 가장 빨리 끝나는 구간 i를 골라 solution에 추가하고, i와 교차하는 모든 구간(i 자신 포함)을 R에서 제거합니다. 끝나면 solution을 반환합니다."
+    },
+    {
+      "t": 1448,
+      "en": "Now I want to slightly modify this algorithm, but without touching its actual output or behavior at all — it's just extra bookkeeping purely for the sake of analysis, which you don't even need to implement, but it turns out to be very helpful for proving correctness.",
+      "ko": "이제 이 알고리즘을 살짝 수정하려고 하는데, 실제 출력이나 동작에는 전혀 손대지 않습니다 — 그저 분석을 위한 추가적인 장부 기록일 뿐이고, 실제로 구현할 필요도 없지만 알고리즘의 정확성을 증명하는 데 아주 유용하다는 게 드러납니다."
+    },
+    {
+      "t": 1486,
+      "en": "The bookkeeping: count iterations with an index k (initialized to 0, incremented each loop). Name the chosen interval each iteration i_k instead of just i. And instead of just discarding the removed intervals, give that removed set a name — C_k — for each iteration.",
+      "ko": "장부 기록 내용: 반복 횟수를 인덱스 k로 세고(0에서 시작해 매 루프 1씩 증가), 매 반복에서 선택된 구간을 그냥 i가 아니라 i_k라고 이름 붙입니다. 그리고 제거되는 구간 집합도 그냥 버리지 않고 매 반복마다 C_k라는 이름을 붙여둡니다."
+    },
+    {
+      "t": 1603,
+      "en": "The claim is: at the end, the algorithm can be seen as producing, in addition to its usual output, a collection of subsets C_1, C_2, .... These turn out to be exactly the pairwise-intersecting partition we were looking for, and we can use it to show that opt(I) is no greater than the size of the solution the algorithm produces.",
+      "ko": "주장은 이렇습니다: 끝날 때, 이 알고리즘은 평소 출력 외에도 부분집합들의 모음 C_1, C_2, ...를 함께 만들어낸다고 볼 수 있습니다. 이 C_k들이 바로 우리가 찾던 '쌍마다 교차하는' 파티션이고, 이걸로 opt(I)가 알고리즘이 만든 solution의 크기를 넘지 않는다는 걸 보일 수 있습니다."
+    },
+    {
+      "t": 1676,
+      "en": "Here's the proof that the algorithm is correct. Let k* be the value of k when the algorithm terminates. What's already clear from before is that the algorithm's output is a compatible subset, so what remains is to show k* >= opt(I).",
+      "ko": "알고리즘이 정확하다는 걸 증명해 보죠. 알고리즘이 종료될 때의 k 값을 k*라고 합시다. 이전에 이미 알고리즘의 출력이 호환 가능한 부분집합이라는 건 보였으니, 남은 건 k* ≥ opt(I)를 보이는 것뿐입니다."
+    },
+    {
+      "t": 1768,
+      "en": "First observation: the collection C_1, ..., C_k* is in fact a partition of I. Why? R starts as the entire interval set, and every interval eventually enters exactly one C_k when it gets removed from R, never to return; the algorithm terminates when R is empty, so every interval belongs to exactly one subset.",
+      "ko": "첫 번째 관찰: 모음 C_1, ..., C_k*는 실제로 I의 파티션입니다. 왜냐하면 R은 전체 구간 집합으로 시작하고, 모든 구간은 R에서 제거될 때 정확히 하나의 C_k에 들어가며 다시는 R로 돌아오지 않고, 알고리즘은 R이 비면 종료되기 때문에 모든 구간이 정확히 하나의 부분집합에 속하게 됩니다."
+    },
+    {
+      "t": 1822,
+      "en": "Second observation: for every k, every interval in C_k intersects i_k by construction, since C_k is exactly the set of intervals removed for intersecting i_k.",
+      "ko": "두 번째 관찰: 모든 k에 대해, C_k 안의 모든 구간은 구성상 i_k와 교차합니다 — C_k는 정확히 i_k와 교차해서 제거된 구간들의 집합이기 때문입니다."
+    },
+    {
+      "t": 1864,
+      "en": "More precisely: for any j in C_k, its finishing time f(j) can't be earlier than f(i_k), since i_k was chosen as the earliest-finishing interval still alive at that point, and j was still alive too. Combined with j intersecting i_k, j's starting time must be strictly before f(i_k) — recall intervals are treated as left-open.",
+      "ko": "더 정확히 보면: C_k에 속한 어떤 j에 대해서도, 그 끝나는 시각 f(j)는 f(i_k)보다 빠를 수 없습니다. i_k가 그 시점에 남아있던 구간들 중 가장 빨리 끝나는 걸로 선택됐고, j도 그때 아직 남아있었기 때문입니다. 여기에 j가 i_k와 교차한다는 사실을 더하면, j의 시작 시각은 f(i_k)보다 엄격히 빨라야 합니다 — 구간을 왼쪽 열린 구간(left-open)으로 다루고 있다는 걸 기억하세요."
+    },
+    {
+      "t": 2018,
+      "en": "So every interval in C_k contains the single point f(i_k): it ends no earlier than that point and starts before it. That means every pair of intervals in C_k shares that common point, so no two of them can be compatible — exactly the condition our lemma needs.",
+      "ko": "따라서 C_k 안의 모든 구간은 f(i_k)라는 하나의 점을 포함합니다 — 그 점보다 늦게 끝나지 않고 그 점보다 먼저 시작하니까요. 즉 C_k 안의 모든 구간 쌍이 그 공통점을 공유하므로, 어느 둘도 호환될 수 없습니다 — 정확히 우리 보조정리가 요구하는 조건입니다."
+    },
+    {
+      "t": 2049,
+      "en": "Call this Lemma 1. Since C_1, ..., C_k* is a partition where every pair within each part intersects, the lemma gives opt(I) <= k*. That's exactly what we needed, completing the proof that the algorithm is correct.",
+      "ko": "이걸 보조정리 1이라고 부르겠습니다. C_1, ..., C_k*가 각 부분 안의 모든 쌍이 교차하는 파티션이므로, 보조정리에 의해 opt(I) ≤ k*가 됩니다. 이게 정확히 필요했던 것이고, 이걸로 알고리즘이 정확하다는 증명이 끝납니다."
+    },
+    {
+      "t": 2090,
+      "en": "This is an illustration of a proof technique called the certificate argument. We call it that because you can think of this partition as a kind of certificate — going back to the story with your friend, when you show evidence that opt(I) is at least some value, you're exhibiting a certificate for that claim.",
+      "ko": "이것이 증명서 논증(certificate argument)이라는 증명 기법의 한 예시입니다. 이렇게 부르는 이유는, 이 파티션을 일종의 증명서(certificate)로 볼 수 있기 때문입니다 — 아까 친구 이야기로 돌아가면, opt(I)가 적어도 어떤 값이라는 증거를 보여줄 때, 그 주장에 대한 증명서를 제시하는 셈입니다."
+    },
+    {
+      "t": 2142,
+      "en": "Likewise, when you want to establish that opt(I) cannot exceed a certain value, you can do that by presenting such a partition — it's a certificate for that upper-bound statement. Earlier we had the original greedy algorithm, and I argued we can imagine modifying it so that, purely for analysis, it also produces this certificate as a side product.",
+      "ko": "마찬가지로, opt(I)가 어떤 값을 넘지 않는다는 걸 보이고 싶을 때도 이런 파티션을 제시하면 됩니다 — 그 상한 명제에 대한 증명서인 셈이죠. 앞서 봤던 원래의 그리디 알고리즘을, 분석만을 위해 이 증명서도 부산물로 함께 만들어내도록 수정할 수 있다고 상상한 것입니다."
+    },
+    {
+      "t": 2202,
+      "en": "This kind of algorithm is called a certifying algorithm. It's quite different from ordinary algorithms you've seen so far. Take the longest non-decreasing subsequence algorithm, for example: looking at its output, you can verify it IS a non-decreasing subsequence, but you have no way to tell from the output alone whether it's the longest one.",
+      "ko": "이런 종류의 알고리즘을 증명 알고리즘(certifying algorithm)이라고 부릅니다. 지금까지 본 일반적인 알고리즘들과는 꽤 다릅니다. 예를 들어 최장 비감소 부분수열 알고리즘을 보면, 출력을 보고 그게 비감소 부분수열이라는 건 확인할 수 있지만, 그게 최장인지는 출력만으로는 알 방법이 없습니다."
+    },
+    {
+      "t": 2251,
+      "en": "There are two separate concerns with ordinary algorithms: first, you don't know whether the particular algorithm you're using is correct — you have to rely on a separate analysis for that judgment. Second, even if the algorithm is correct, the specific implementation might be buggy, so its output could still be wrong.",
+      "ko": "일반적인 알고리즘에는 두 가지 별개의 문제가 있습니다. 첫째, 지금 쓰는 알고리즘이 정말 정확한지 알 수 없고, 그 판단은 별도의 분석에 의존해야 합니다. 둘째, 알고리즘 자체가 정확하더라도, 실제 구현에 버그가 있을 수 있어서 출력이 여전히 틀릴 수 있습니다."
+    },
+    {
+      "t": 2273,
+      "en": "If you've implemented a certifying algorithm, you don't have that second issue: when it terminates, in addition to the intended output, it also outputs a small piece of information you can use to verify, for this specific given input, that the output really is correct — not in general, but for this particular instance.",
+      "ko": "증명 알고리즘을 구현했다면 두 번째 문제는 없습니다. 알고리즘이 종료될 때 원래 의도한 출력 외에도, 이 특정 입력에 대해 그 출력이 실제로 정확하다는 걸 직접 검증할 수 있는 작은 정보도 함께 내놓기 때문입니다 — 일반적으로가 아니라 바로 이 인스턴스에 대해서요."
+    },
+    {
+      "t": 2291,
+      "en": "Concretely: you can check yourself that the produced collection really is a partition, and that every pair within each part intersects — so opt(I) <= 10, say, while the algorithm's own output has 10 compatible intervals, so it must be optimal. You don't know if the implementation is correct in general, but you know it succeeded on this particular input.",
+      "ko": "구체적으로는: 만들어진 모음이 실제로 파티션이 맞는지, 각 부분 안의 모든 쌍이 교차하는지를 직접 확인할 수 있습니다 — 예컨대 그러면 opt(I)≤10이고, 알고리즘 자신의 출력은 10개의 호환 구간을 가지니 최적이어야 합니다. 구현이 일반적으로 맞는지는 몰라도, 적어도 이 특정 입력에서는 성공했다는 걸 알 수 있는 거죠."
+    },
+    {
+      "t": 2336,
+      "en": "So a certificate argument is an argument showing a given algorithm either is, or can be turned into, a certifying algorithm — and that fact alone proves correctness, since the algorithm can certify its own output on every instance, which is the same as saying the algorithm is actually correct.",
+      "ko": "그래서 증명서 논증이란, 주어진 알고리즘이 증명 알고리즘이거나 증명 알고리즘으로 바꿀 수 있다는 걸 보이는 논증입니다 — 그 사실 하나만으로 정확성이 증명되는데, 알고리즘이 모든 인스턴스에서 자기 출력을 스스로 증명할 수 있다는 건 곧 그 알고리즘이 실제로 정확하다는 것과 같은 말이기 때문입니다."
+    },
+    {
+      "t": 2364,
+      "en": "So by now we have three different proof techniques: the greedy-stays-ahead argument, the exchange argument, and the certificate argument.",
+      "ko": "그래서 지금까지 세 가지 증명 기법을 봤습니다: 그리디가 앞서간다(greedy-stays-ahead) 논증, 교환(exchange) 논증, 그리고 증명서(certificate) 논증입니다."
+    },
+    {
+      "t": 2371,
+      "en": "Greedy-stays-ahead is usually the easiest to understand intuitively, but it's rather limited — empirically, it's not always possible to come up with that form of argument for a given algorithm.",
+      "ko": "그리디가 앞서간다 논증은 대개 직관적으로 가장 이해하기 쉽지만, 적용 범위가 다소 제한적입니다 — 경험적으로, 주어진 알고리즘에 대해 항상 이런 형태의 논증을 만들 수 있는 건 아닙니다."
+    },
+    {
+      "t": 2404,
+      "en": "The exchange argument is usually more complicated, but also more general — whenever a greedy-stays-ahead argument works, it's usually possible to convert it into an exchange argument too. It's also a bit more mechanical: the whole point is to massage an arbitrary optimal solution into the one the algorithm would produce, step by step, guided directly by the algorithm's own behavior.",
+      "ko": "교환 논증은 보통 더 복잡하지만 더 일반적이기도 합니다 — 그리디가 앞서간다 논증이 통하는 경우라면 대개 교환 논증으로도 바꿀 수 있습니다. 또한 조금 더 기계적인데, 핵심은 임의의 최적해를 알고리즘이 만들어낼 해로 한 단계씩 '주물러서' 바꿔가는 것이고, 그 과정은 알고리즘 자신의 동작이 직접 안내해준다는 점입니다."
+    },
+    {
+      "t": 2464,
+      "en": "The certificate argument, on the other hand, is a very strong technique — it can prove correctness for many algorithms beyond just greedy ones, and the proof itself tends to be short once you have a certificate of the right form. The catch is that it's not always obvious what that right-form certificate should be just from the algorithm's description — finding it can feel like pulling a rabbit out of a hat. But once you do, you usually get a nice, easy proof.",
+      "ko": "반면 증명서 논증은 매우 강력한 기법입니다 — 그리디 알고리즘뿐 아니라 훨씬 많은 알고리즘의 정확성을 증명할 수 있고, 올바른 형태의 증명서만 있으면 증명 자체는 대개 짧습니다. 함정은, 알고리즘 설명만 보고 그 '올바른 형태의 증명서'가 뭔지가 항상 명확하지는 않다는 것입니다 — 그걸 찾아내는 건 마치 모자에서 토끼를 꺼내는 마술 같을 수 있습니다. 하지만 일단 찾으면 보통 깔끔하고 쉬운 증명을 얻게 됩니다."
+    },
+    {
+      "t": 2517,
+      "en": "So in general, given a problem where you want to apply the greedy method: you first go through trial and error, coming up with a natural algorithm and hunting for a counterexample. If you find one, that tells you how to revise the algorithm. If not, you build intuition for why there's no counterexample, and try to formalize that into a proof using one of these three techniques.",
+      "ko": "일반적으로, 그리디 방법을 적용하고 싶은 문제가 있다면: 먼저 시행착오를 거치며 자연스러운 알고리즘을 떠올리고 반례를 찾아봅니다. 반례를 찾으면 알고리즘을 어떻게 고쳐야 할지 알게 되고, 못 찾으면 왜 반례가 없는지에 대한 직관을 쌓은 뒤 이 세 기법 중 하나로 정식 증명을 만들어보려 시도합니다."
+    },
+    {
+      "t": 2553,
+      "en": "That's all I wanted to say about greedy algorithms. Let's go back to the maximum flow problem and continue our discussion — let me remind you of a couple of definitions before we talk about residual graphs.",
+      "ko": "그리디 알고리즘에 대해 하고 싶었던 얘기는 여기까지입니다. 이제 최대 유량 문제로 돌아가 논의를 이어가겠습니다 — 잔여 그래프(residual graph)를 다루기 전에 몇 가지 정의를 다시 짚고 가겠습니다."
+    },
+    {
+      "t": 2591,
+      "en": "I won't write the full definitions again, just key terms. A flow network is a directed graph where each edge has a non-negative capacity, with designated source and sink nodes; all other nodes are internal nodes.",
+      "ko": "전체 정의를 다시 쓰지는 않고 핵심 용어만 짚겠습니다. 유량 네트워크(flow network)는 각 간선(edge)이 음이 아닌 용량(capacity)을 가진 방향 그래프이고, 지정된 소스(source)와 싱크(sink) 노드가 있으며, 나머지 노드들은 내부 노드(internal node)입니다."
+    },
+    {
+      "t": 2624,
+      "en": "An s-t flow f on flow network G satisfies two conditions. First, the capacity condition: the flow on every edge must be between 0 and that edge's capacity, inclusive. Second, flow conservation: for every internal node, total incoming flow must equal total outgoing flow — that's shorthand for summing f(e) over all edges into the node versus out of it.",
+      "ko": "유량 네트워크 G 위의 s-t 유량 f는 두 조건을 만족해야 합니다. 첫째, 용량 조건(capacity condition): 모든 간선의 유량은 0 이상이고 그 간선의 용량 이하여야 합니다. 둘째, 유량 보존(flow conservation): 모든 내부 노드에 대해 들어오는 총 유량이 나가는 총 유량과 같아야 합니다 — 이는 노드로 들어오는/나가는 모든 간선에 대해 f(e)를 합한 것의 축약 표현입니다."
+    },
+    {
+      "t": 2713,
+      "en": "The value of a flow, denoted p(f), is defined as the total flow leaving the source node.",
+      "ko": "유량의 값(value), p(f)로 표기하는 이것은 소스 노드에서 나가는 총 유량으로 정의됩니다."
+    },
+    {
+      "t": 2741,
+      "en": "Recall this definition relies on three standing assumptions: no edge enters the source, no edge leaves the sink, every node is incident to at least one edge (in the undirected sense), and all capacities are integers. Because of the first assumption, there's no incoming flow to the source, so the value is simply its total outgoing flow.",
+      "ko": "이 정의는 세 가지 가정 위에 서 있다는 걸 기억하세요: 소스로 들어오는 간선이 없고, 싱크에서 나가는 간선이 없으며, 모든 노드는 (방향을 무시한 의미에서) 적어도 하나의 간선과 연결돼 있고, 모든 용량은 정수입니다. 첫 번째 가정 덕분에 소스로 들어오는 유량이 없으므로, 유량의 값은 단순히 그 총 나가는 유량이 됩니다."
+    },
+    {
+      "t": 2798,
+      "en": "Then we tried to come up with an algorithm for finding the maximum flow. Our first attempt: repeatedly find an s-t path in the flow network, determine the maximum amount of flow routable along it from the edge capacities, route that flow, update the remaining capacities, rebuild a new directed graph keeping only edges with leftover capacity, and repeat until no s-t path remains.",
+      "ko": "그다음 최대 유량을 찾는 알고리즘을 시도해봤습니다. 첫 시도는: 유량 네트워크에서 s-t 경로를 반복적으로 찾고, 그 경로 위 간선들의 용량을 보고 보낼 수 있는 최대 유량을 정한 뒤 그만큼 유량을 보내고, 남은 용량을 갱신해서 남은 용량이 있는 간선만으로 새 방향 그래프를 다시 그리고, s-t 경로가 더 이상 없을 때까지 이를 반복하는 것이었습니다."
+    },
+    {
+      "t": 2847,
+      "en": "I pointed out that if you're lucky, this algorithm finds the maximum flow, but if you're not, it can fail to find it.",
+      "ko": "만약 운이 좋다면 이 알고리즘이 최대 유량을 찾아내지만, 운이 나쁘면 찾지 못할 수 있다고 짚었었죠."
+    },
+    {
+      "t": 2859,
+      "en": "The idea was: even when the first choice of path wasn't fortunate and no further s-t path exists afterward, you could still route additional flow from s to t in effect — by canceling flow in the opposite direction on some edge, which has the same effect as sending flow the other way. That motivated the definition of a residual graph.",
+      "ko": "그 아이디어는 이랬습니다: 처음 고른 경로가 운이 나빠서 이후 s-t 경로가 더는 없어 보이더라도, 어떤 간선의 유량을 반대 방향으로 취소(cancel)함으로써 사실상 s에서 t로 추가 유량을 보내는 것과 같은 효과를 낼 수 있다는 것입니다. 이게 잔여 그래프(residual graph) 정의의 동기가 됐습니다."
+    },
+    {
+      "t": 2909,
+      "en": "Formally: given a flow network G with capacity c and flow f on G, the residual graph G_f has the same node set, and two types of edges. For each original edge where the flow is still less than the capacity — meaning there's remaining capacity — we add a forward edge u→v to the residual graph, with capacity equal to the remaining amount, c(e) - f(e).",
+      "ko": "formally: 용량 c와 유량 f를 가진 유량 네트워크 G가 주어지면, 잔여 그래프 G_f는 같은 노드 집합을 가지고, 두 종류의 간선을 가집니다. 유량이 아직 용량보다 작은 — 즉 남은 용량이 있는 — 원래 간선마다, 잔여 그래프에 u→v 방향의 전진 간선(forward edge)을 추가하는데, 그 용량은 남은 양인 c(e) - f(e)입니다."
+    },
+    {
+      "t": 2969,
+      "en": "One thing to note: although we typically draw the source on the left and sink on the right, there's no actual notion of left/right in the graph. 'Forward edge' doesn't mean it's drawn left-to-right — it just refers to using an existing edge of the flow network to send additional flow.",
+      "ko": "한 가지 짚을 점은, 보통 소스를 왼쪽에, 싱크를 오른쪽에 그리긴 하지만 그래프 자체에는 왼쪽/오른쪽 개념이 실제로 없다는 것입니다. '전진 간선'이라는 이름이 그림에서 왼쪽에서 오른쪽으로 그려진다는 뜻이 아니라, 그저 유량 네트워크의 기존 간선을 이용해 추가 유량을 보낸다는 걸 가리킬 뿐입니다."
+    },
+    {
+      "t": 3003,
+      "en": "Backward edges, by contrast, correspond to canceling or undoing existing flow. For each edge where some cancellation is possible — meaning f(e) is strictly greater than 0 — we can define a backward edge, drawn in the literal reverse direction, with capacity equal to the existing flow amount f(e), since that's the maximum amount of cancellation possible. These capacities are called residual capacities.",
+      "ko": "반대로 후진 간선(backward edge)은 기존 유량을 취소하거나 되돌리는 것에 대응합니다. 취소가 가능한 — 즉 f(e)가 0보다 엄격히 큰 — 간선마다, 실제로 반대 방향으로 그려지는 후진 간선을 정의할 수 있고, 그 용량은 취소할 수 있는 최대량인 기존 유량 f(e)와 같습니다. 이 용량들을 잔여 용량(residual capacity)이라고 부릅니다."
+    },
+    {
+      "t": 3051,
+      "en": "So today was mostly enough to review what I'd already covered in lecture before. Let's stop here for today, and on Friday we'll continue from this point.",
+      "ko": "그래서 오늘은 이전 강의에서 이미 다뤘던 내용을 복습하는 정도로 충분했습니다. 오늘은 여기서 마치고, 금요일에 이어서 계속하겠습니다."
+    }
+  ]
+}

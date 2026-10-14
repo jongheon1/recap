@@ -1,0 +1,360 @@
+{
+  "id": "2026-10-14-distributed-learning-and-inference-1",
+  "course": "distributed-learning-and-inference",
+  "title": "Mixture of Experts: Motivation, Routing & the Load-Balancing Loss",
+  "date": "2026-10-14",
+  "duration_sec": 2933,
+  "audio_url": "https://pub-950a8b85c4a448b4b96d2942eec87d6b.r2.dev/2026-10-14-distributed-learning-and-inference-1.m4a",
+  "paragraphs": [
+    {
+      "t": 0,
+      "en": "Today's topic is expert parallelism — week 7. But before getting into the details, a quick notice about the midterm.",
+      "ko": "오늘 주제는 전문가 병렬화(expert parallelism), 7주차 내용입니다. 세부 내용에 들어가기 전에 중간고사 관련 공지를 먼저 드리겠습니다."
+    },
+    {
+      "t": 18,
+      "en": "The date is fixed for next week Friday, and it's a pre-set time slot, so there won't be any overlap unless something forces a change — we won't move the time or grant exceptions except for genuine emergencies.",
+      "ko": "날짜는 다음 주 금요일로 고정되어 있고, 이미 정해진 시간대라 다른 일정과 겹칠 일은 없습니다. 정말 불가피한 비상 상황이 아니면 시간을 바꾸거나 예외를 두지 않을 것입니다."
+    },
+    {
+      "t": 59,
+      "en": "The exam covers lecture notes from week 1 through week 7 (expert parallelism). You only need something to write with, like a pen or pencil.",
+      "ko": "시험 범위는 1주차부터 7주차(전문가 병렬화)까지의 강의 노트입니다. 준비물은 펜이나 연필처럼 필기할 것 하나면 됩니다."
+    },
+    {
+      "t": 82,
+      "en": "You're not allowed to use books, lecture notes, handwritten notes, devices, the internet, or AI glasses.",
+      "ko": "책, 강의 노트, 손으로 쓴 필기, 전자기기, 인터넷, AI 글래스는 모두 사용할 수 없습니다."
+    },
+    {
+      "t": 94,
+      "en": "Even handwritten notes aren't allowed, because honestly even I feel like we don't use our brains as much anymore these days — our neurons are less activated compared to before AI existed.",
+      "ko": "손으로 쓴 필기조차 허용하지 않는 이유는, 솔직히 저조차도 요즘은 뇌를 예전만큼 쓰지 않는다고 느끼기 때문입니다. AI가 없던 시절에 비해 우리 뉴런이 덜 활성화되고 있는 것 같습니다."
+    },
+    {
+      "t": 131,
+      "en": "So at least during the exam I want you to genuinely activate your brain and understand the key concepts clearly, rather than just memorizing. This course isn't about memorizing — understanding the fundamentals will serve you much better in the long run.",
+      "ko": "그러니 적어도 시험 때만큼은 단순 암기가 아니라 진짜로 뇌를 써서 핵심 개념을 명확히 이해하길 바랍니다. 이 수업은 암기가 목적이 아닙니다 — 기본 개념을 이해하는 것이 장기적으로 훨씬 도움이 될 것입니다."
+    },
+    {
+      "t": 173,
+      "en": "There have also been a lot of issues recently around people bringing internet access or AI glasses into exams. If we notice that, it becomes a much bigger problem than it's worth — the university level will decide what happens, so please don't bring that kind of thing, especially AI glasses; there have been a lot of issues with those lately.",
+      "ko": "최근 인터넷 연결이나 AI 글래스를 시험장에 가져오는 것과 관련해 문제가 많이 생기고 있습니다. 그런 게 적발되면 득보다 훨씬 큰 문제가 됩니다 — 학교 차원에서 처리가 결정되니, 그런 물건은 절대 가져오지 말아 주세요. 특히 AI 글래스는 최근 문제가 많습니다."
+    },
+    {
+      "t": 215,
+      "en": "Basically, don't try to do anything unethical — it won't help you in the long run. In the long run it really doesn't matter much whether you get an A or a B, but if you actually study, your grades will naturally be better.",
+      "ko": "기본적으로 비윤리적인 일은 시도하지 마세요 — 장기적으로 전혀 도움이 안 됩니다. 길게 보면 A를 받든 B를 받든 사실 큰 차이는 없지만, 실제로 공부를 하면 성적은 자연히 더 잘 나올 것입니다."
+    },
+    {
+      "t": 271,
+      "en": "Any questions about the midterm? Okay — so here's where we are right now.",
+      "ko": "중간고사 관련 질문 있으신가요? 없으면, 지금 우리가 어디까지 왔는지 보겠습니다."
+    },
+    {
+      "t": 287,
+      "en": "We're in the distributed training part of the course. We've already covered data parallelism, pipeline parallelism, and tensor parallelism, and today's topic is expert parallelism.",
+      "ko": "지금은 분산 학습(distributed training) 파트를 다루고 있습니다. 이미 데이터 병렬화(data parallelism), 파이프라인 병렬화(pipeline parallelism), 텐서 병렬화(tensor parallelism)를 다뤘고, 오늘 주제는 전문가 병렬화입니다."
+    },
+    {
+      "t": 305,
+      "en": "We also briefly touched on inference already, especially during the tensor parallelism lecture, though we didn't focus much on inference back then — mostly on training.",
+      "ko": "추론(inference)도 이미 살짝 다뤘는데, 특히 텐서 병렬화 수업 때 그랬습니다. 다만 그때는 추론보다는 주로 학습(training)에 초점을 맞췄습니다."
+    },
+    {
+      "t": 326,
+      "en": "Training and inference aren't really independent of each other — they're correlated, and the same ideas (pipeline, tensor, expert, data parallelism) can all be applied during inference too. Once you understand these concepts clearly for training, inference becomes easy to understand as well, since during inference there's no backpropagation — you're just splitting the model across multiple machines, like in pipeline parallelism.",
+      "ko": "학습과 추론은 완전히 독립적인 게 아니라 서로 연관되어 있습니다. 파이프라인·텐서·전문가·데이터 병렬화 같은 개념은 추론 단계에서도 그대로 쓸 수 있습니다. 학습 쪽에서 이 개념들을 명확히 이해하면 추론도 쉽게 이해됩니다. 추론에는 역전파(backpropagation)가 없으니, 파이프라인 병렬화처럼 그냥 모델을 여러 장비에 나눠 올리는 것뿐이기 때문입니다."
+    },
+    {
+      "t": 386,
+      "en": "So what's the common thread shared across all of these approaches — data, pipeline, tensor parallelism? It's written in red here: whatever we do, we first feed a data sample (or mini-batch) into the model to do forward propagation, and then either make a prediction (inference) or do backpropagation (training).",
+      "ko": "그럼 데이터·파이프라인·텐서 병렬화에 공통적으로 깔려 있는 것은 뭘까요? 여기 빨간 글씨로 적혀 있듯이, 우리가 뭘 하든 먼저 데이터 샘플(또는 미니배치)을 모델에 넣어 순전파(forward propagation)를 수행하고, 그다음 예측을 하거나(추론) 역전파를 합니다(학습)."
+    },
+    {
+      "t": 418,
+      "en": "But in all of these approaches, the FULL model is used for every single sample — every input has to pass through all of the model's parameters to produce an output or compute the loss. That means as the model gets bigger, both the computation cost and the parameter memory grow, and the activation memory grows too since there are more activations.",
+      "ko": "그런데 지금까지의 방식들은 모두 모든 샘플에 대해 모델 전체를 사용합니다 — 입력 하나하나가 모델의 모든 파라미터를 거쳐야 출력이나 손실값이 나옵니다. 즉 모델이 커질수록 연산 비용과 파라미터 메모리가 함께 커지고, 활성화(activation)도 늘어나므로 활성화 메모리도 커집니다."
+    },
+    {
+      "t": 462,
+      "en": "So here's our question: can we design an approach that activates only a specific part of the model for a given input, instead of activating every parameter every time, to reduce computation? That's the key question for today, and to answer it we need to talk about Mixture of Experts (MoE) — you may or may not have heard of it, but we'll cover it today.",
+      "ko": "그래서 질문은 이렇습니다: 매번 모든 파라미터를 활성화하는 대신, 주어진 입력에 대해 모델의 특정 부분만 활성화해서 연산량을 줄이는 방식을 설계할 수 있을까요? 이게 오늘의 핵심 질문이고, 이를 풀려면 혼합 전문가 모델(Mixture of Experts, MoE)을 알아야 합니다. 들어본 분도 있고 아닌 분도 있겠지만, 오늘 다루겠습니다."
+    },
+    {
+      "t": 507,
+      "en": "This week's goal: first, the basic concept of MoE, its advantages, and how to train an MoE architecture. Then, the concept of expert parallelism — which is nothing more than splitting the MoE modules across multiple GPUs.",
+      "ko": "이번 주 목표는, 먼저 MoE의 기본 개념과 장점, MoE 아키텍처를 학습시키는 방법을 보는 것입니다. 그다음 전문가 병렬화 개념을 다루는데, 이는 결국 MoE 모듈을 여러 GPU에 나누는 것에 불과합니다."
+    },
+    {
+      "t": 534,
+      "en": "This is the diagram I've shown several times throughout the course — from the DeepSeek technical report, showing that during training they used data parallelism (week 3's topic), pipeline parallelism (week 4's topic), and expert parallelism, which is this week's topic. So the concepts we're learning really are the ones used in practice.",
+      "ko": "이건 이번 학기 내내 여러 번 보여드린 그림입니다 — DeepSeek 기술 보고서에서 가져온 것으로, 학습 과정에서 데이터 병렬화(3주차 내용), 파이프라인 병렬화(4주차 내용), 그리고 이번 주 주제인 전문가 병렬화를 사용했다는 걸 보여줍니다. 즉 우리가 배우는 개념들이 실제로 현업에서 쓰이는 것들입니다."
+    },
+    {
+      "t": 594,
+      "en": "There's no tensor parallelism shown here, but it's still used — as I mentioned before, tensor parallelism is mainly used during inference, so we'll see it when we get to the inference part. During inference they used expert parallelism, tensor parallelism, and data parallelism together.",
+      "ko": "여기엔 텐서 병렬화가 안 보이지만, 그래도 쓰이긴 합니다 — 전에 말씀드렸듯이 텐서 병렬화는 주로 추론 단계에서 쓰이기 때문에, 추론 파트에서 다시 보게 될 것입니다. 추론 단계에서는 전문가 병렬화, 텐서 병렬화, 데이터 병렬화를 함께 사용했습니다."
+    },
+    {
+      "t": 624,
+      "en": "But to understand expert parallelism, you first need to understand what a Mixture of Experts is — and the concept is actually very easy once you know how a standard neural network works.",
+      "ko": "다만 전문가 병렬화를 이해하려면 먼저 혼합 전문가 모델이 뭔지 알아야 합니다 — 일반적인 신경망이 어떻게 동작하는지만 알면 개념 자체는 사실 아주 쉽습니다."
+    },
+    {
+      "t": 644,
+      "en": "In a traditional neural network, all the model's parameters are activated every single time: whenever you feed something in, that input vector gets multiplied through the full weight matrix of each layer in turn, and every parameter in the network affects the final output, because it's all just matrix multiplication.",
+      "ko": "전통적인 신경망에서는 매번 모델의 모든 파라미터가 활성화됩니다. 무언가를 입력하면 그 입력 벡터가 각 레이어의 전체 가중치 행렬과 차례로 곱해지고, 전부 행렬 곱셈이기 때문에 네트워크의 모든 파라미터가 최종 출력에 영향을 줍니다."
+    },
+    {
+      "t": 708,
+      "en": "The motivation behind Mixture of Experts is that this full activation requires a lot of computation — especially during inference, we don't want to activate every parameter. The problem is, we don't know in advance which part we'd even want to activate.",
+      "ko": "MoE의 동기는, 이렇게 전부 활성화하는 데 연산량이 너무 많이 든다는 것입니다 — 특히 추론 시에는 모든 파라미터를 활성화하고 싶지 않습니다. 문제는 어느 부분을 활성화해야 할지 미리 알 수 없다는 점입니다."
+    },
+    {
+      "t": 743,
+      "en": "But conceptually, what we'd like is something like this: given one input sample, activate only a specific part of the model; given a different sample, activate a different part (or possibly the same part). We haven't yet said how to decide which part to activate, or the exact architecture — at a high level, that's the idea of Mixture of Experts.",
+      "ko": "개념적으로 원하는 건 이런 것입니다: 특정 입력 샘플이 주어지면 모델의 특정 부분만 활성화하고, 다른 샘플이 주어지면 다른 부분(또는 같은 부분일 수도)을 활성화하는 것. 어떤 부분을 활성화할지 결정하는 방법이나 정확한 아키텍처는 아직 얘기 안 했지만, 큰 그림에서 이게 바로 혼합 전문가 모델의 아이디어입니다."
+    },
+    {
+      "t": 785,
+      "en": "So we don't want to activate all the parameters — which means during inference we're only really using a subset of them, so the computational cost of the forward pass can go down.",
+      "ko": "즉 모든 파라미터를 활성화하고 싶지 않다는 것은, 추론 시 실제로는 일부 파라미터만 쓰게 되어 순전파의 연산 비용이 줄어들 수 있다는 뜻입니다."
+    },
+    {
+      "t": 801,
+      "en": "But at the same time, we can make the overall model much bigger — increasing model capacity — and then strategically decide which part to activate depending on the input. In this case three experts weren't activated, so let's say we activate them instead.",
+      "ko": "동시에 전체 모델 자체는 훨씬 크게 만들 수 있습니다 — 모델 용량(capacity)을 키우는 것이죠. 그런 다음 입력에 따라 전략적으로 어느 부분을 활성화할지 정합니다. 여기 그림에서는 세 개의 전문가가 활성화되지 않았는데, 대신 이 셋을 활성화한다고 해보죠."
+    },
+    {
+      "t": 840,
+      "en": "Why do we do this? We want to increase model capacity — more parameters, more expressiveness — without increasing the computational cost at inference time. So the idea is: make the model very large, then introduce 'experts,' which are essentially different computation paths.",
+      "ko": "왜 이렇게 할까요? 추론 시 연산 비용을 늘리지 않으면서도 모델 용량 — 더 많은 파라미터, 더 큰 표현력 — 을 키우고 싶기 때문입니다. 그래서 아이디어는, 모델을 먼저 아주 크게 만들고 '전문가(expert)'라는 개념을 도입하는 것인데, 이는 사실상 서로 다른 연산 경로들입니다."
+    },
+    {
+      "t": 884,
+      "en": "But we also need something called a router, or gating network, which decides which experts to activate. We need some mechanism — not just random — to make that decision. The router's job is to select the right paths depending on the input.",
+      "ko": "또한 어떤 전문가를 활성화할지 결정해 줄 라우터(router), 즉 게이팅 네트워크(gating network)가 필요합니다. 무작위가 아니라 어떤 메커니즘으로 이 결정을 내려야 합니다. 라우터의 역할은 입력에 따라 올바른 경로를 선택하는 것입니다."
+    },
+    {
+      "t": 918,
+      "en": "We'll go into detail on how the router works, but at a basic level it produces a score vector whose dimension equals the number of experts — if there are 3 experts in a layer, the router's output has 3 dimensions, producing 3 probability values that sum to 1.",
+      "ko": "라우터가 어떻게 동작하는지는 자세히 다루겠지만, 기본적으로 전문가 수와 같은 차원의 점수 벡터를 출력합니다 — 한 레이어에 전문가가 3개 있다면 라우터 출력도 3차원이고, 합이 1이 되는 확률값 3개를 만들어냅니다."
+    },
+    {
+      "t": 955,
+      "en": "Then you have design choices: top-1 activates only the single expert with the highest probability; top-2 activates the two experts with the highest and second-highest probabilities. In practical applications you might have 128 experts in a single layer and activate only 2 or 4 of them — but either way, we're never using the full set of parameters to produce the output, only the specific part selected depending on the input, which is how we cut computational cost.",
+      "ko": "여기서 설계 선택지가 있습니다. top-1은 확률이 가장 높은 전문가 하나만 활성화하고, top-2는 확률 1·2등인 전문가 둘을 활성화합니다. 실제 응용에서는 한 레이어에 전문가가 128개 있고 그중 2개나 4개만 활성화하는 경우도 있습니다. 어느 쪽이든 출력을 만들 때 전체 파라미터를 다 쓰지 않고 입력에 따라 선택된 일부만 쓰므로, 이렇게 연산 비용을 줄입니다."
+    },
+    {
+      "t": 1021,
+      "en": "Let's walk through the detailed process. This is the traditional model — imagine we're focusing on one specific layer (you could introduce MoE at multiple layers, e.g. 3 experts in layer 1, 4 in layer 2 — that's a design choice). Say this layer's input is X and output is Y; in a traditional model you'd just do a matrix multiplication (or attention) to get Y.",
+      "ko": "자세한 과정을 보겠습니다. 이건 전통적인 모델이고, 특정 레이어 하나에 집중한다고 해보죠(여러 레이어에 MoE를 도입할 수도 있습니다 — 예를 들어 1번 레이어엔 전문가 3개, 2번 레이어엔 4개, 이건 설계 선택입니다). 이 레이어의 입력을 X, 출력을 Y라 하면, 전통적인 모델에서는 그냥 행렬 곱셈(또는 어텐션)으로 Y를 얻습니다."
+    },
+    {
+      "t": 1069,
+      "en": "But now, instead of one large layer, we introduce multiple experts — each one is typically a small MLP — say N of them. We also introduce a gating network (the router).",
+      "ko": "하지만 이제 하나의 큰 레이어 대신 여러 개의 전문가를 도입합니다 — 각 전문가는 보통 작은 다층 퍼셉트론(MLP)이고, N개가 있다고 해보죠. 그리고 게이팅 네트워크(라우터)도 함께 도입합니다."
+    },
+    {
+      "t": 1108,
+      "en": "Depending on X, the gating network decides which expert(s) to activate for this input. Right now we're just talking about the architecture — to actually train this model you also have to train the gating network, jointly, using a cross-entropy loss. I'll cover that on a later slide — for now let's focus on the basic structure.",
+      "ko": "게이팅 네트워크는 X에 따라 이 입력에 어떤 전문가를 활성화할지 결정합니다. 지금은 아키텍처만 얘기하고 있는데, 실제로 이 모델을 학습시키려면 게이팅 네트워크도 함께 학습시켜야 하고, 교차 엔트로피 손실(cross-entropy loss)을 사용합니다. 이건 뒤에서 다루기로 하고, 지금은 기본 구조에 집중하겠습니다."
+    },
+    {
+      "t": 1148,
+      "en": "So X goes through the gating network, which produces probability values. Let G(x, i) denote the score — the probability of routing to expert i — produced by the gating network, where x is this layer's input and i indexes the expert.",
+      "ko": "X는 게이팅 네트워크를 거쳐 확률값을 만들어냅니다. 게이팅 네트워크가 만드는 점수를 G(x, i)라 하면, 이는 전문가 i로 라우팅될 확률이고, x는 이 레이어의 입력, i는 해당 전문가를 가리킵니다."
+    },
+    {
+      "t": 1200,
+      "en": "The sum of G(x, i) over all i from 1 to N equals 1. Say we're doing top-k routing with k=2 among N experts — we activate only the two experts with the highest and second-highest G(x, i) values. Say expert 2 and expert N−1 turn out to be the top two.",
+      "ko": "i가 1부터 N까지일 때 G(x, i)의 합은 1입니다. N개의 전문가 중 k=2인 top-k 라우팅을 한다고 하면, G(x, i) 값이 가장 크고 두 번째로 큰 전문가 둘만 활성화합니다. 예를 들어 전문가 2와 전문가 N-1이 상위 두 개로 뽑혔다고 해보죠."
+    },
+    {
+      "t": 1262,
+      "en": "Then here's what happens: X goes through expert 2, and X also goes through expert N−1 — but X never goes through expert 1, expert N, or any of the other experts, since only two are activated.",
+      "ko": "그러면 X는 전문가 2를 거치고, 전문가 N-1도 거칩니다. 하지만 전문가 1이나 전문가 N, 그 외 다른 전문가들은 전혀 거치지 않는데, 둘만 활성화되기 때문입니다."
+    },
+    {
+      "t": 1299,
+      "en": "Say Y₂ is expert 2's output and Y_{N−1} is expert N−1's output. Once you have both outputs, you combine them with a weighted sum — because there's a question of how to combine two outputs (you could just add them, concatenate them, etc.), but the common choice is a weighted sum using the gating network's scores.",
+      "ko": "전문가 2의 출력을 Y₂, 전문가 N-1의 출력을 Y_{N-1}이라 하면, 두 출력을 얻은 뒤 가중합(weighted sum)으로 결합합니다. 두 출력을 어떻게 합칠지는(단순히 더하거나 이어붙이는 등 여러 방법이 있을 수 있지만) 일반적으로 게이팅 네트워크의 점수를 이용한 가중합을 씁니다."
+    },
+    {
+      "t": 1347,
+      "en": "So if expert 2's probability is larger, you give Y₂ a larger weight than Y_{N−1} — you're relying on the gating network again for this weighted-sum step. That's why you multiply each output by its probability and then sum them.",
+      "ko": "전문가 2의 확률이 더 크다면 Y₂에 Y_{N-1}보다 더 큰 가중치를 줍니다 — 이 가중합 단계에서도 다시 게이팅 네트워크에 의존하는 것입니다. 그래서 각 출력에 해당 확률을 곱한 뒤 더하는 것입니다."
+    },
+    {
+      "t": 1382,
+      "en": "You can see there are two distinct processes here. One is the stage where the gating network selects which expert(s) to activate — we call this the dispatch phase: we're routing a sample (or 'token' — for now just think of a token as a sample, it doesn't matter) to a specific expert.",
+      "ko": "여기엔 두 개의 구분된 과정이 있습니다. 하나는 게이팅 네트워크가 어떤 전문가를 활성화할지 선택하는 단계로, 이를 디스패치(dispatch) 단계라 부릅니다 — 샘플(또는 '토큰'. 지금은 토큰을 그냥 샘플이라 생각해도 무방합니다)을 특정 전문가로 라우팅하는 것입니다."
+    },
+    {
+      "t": 1439,
+      "en": "The other is the combine phase — where we combine each selected expert's output using the weighted sum, with weights from the gating network's probabilities.",
+      "ko": "다른 하나는 컴바인(combine) 단계로, 선택된 각 전문가의 출력을 게이팅 네트워크가 준 확률을 가중치로 하여 가중합으로 결합하는 단계입니다."
+    },
+    {
+      "t": 1468,
+      "en": "Go back to the pipeline parallelism slide from before — you'll remember seeing the terms 'dispatch' and 'combine' there too, and they correspond exactly to the dispatch and combine stages here. That earlier slide looked so complicated because it combined pipeline parallelism and expert parallelism together within an MoE architecture — we'll revisit that later, but now you at least understand, at a high level, what's going on in the dispatch and combine phases.",
+      "ko": "앞서 봤던 파이프라인 병렬화 슬라이드로 돌아가 보면, 거기서도 '디스패치'와 '컴바인'이라는 용어를 보셨을 텐데, 지금 여기서의 디스패치·컴바인 단계와 정확히 대응됩니다. 그 슬라이드가 그렇게 복잡해 보였던 이유는 MoE 아키텍처 안에서 파이프라인 병렬화와 전문가 병렬화를 함께 썼기 때문입니다 — 나중에 다시 다루겠지만, 이제 적어도 디스패치·컴바인 단계에서 무슨 일이 일어나는지 큰 그림은 이해하셨을 겁니다."
+    },
+    {
+      "t": 1563,
+      "en": "If you imagine training this architecture on a single GPU, the dispatch and combine phases don't involve any cross-machine communication at all — they're just indexing/routing operations happening within that one GPU.",
+      "ko": "이 아키텍처를 GPU 하나로 학습시킨다고 상상하면, 디스패치·컴바인 단계는 장비 간 통신이 전혀 필요 없습니다 — 그냥 그 GPU 한 대 안에서 일어나는 인덱싱·라우팅 연산일 뿐입니다."
+    },
+    {
+      "t": 1605,
+      "en": "But with multiple GPUs — say GPU 1 holds experts 1 and 2, GPU 2 holds experts 3 and 4, and so on — the dispatch and combine phases can now require actual communication between GPUs. We'll get into that in a later slide; on a single machine you don't need to worry about device-to-device communication, but conceptually you still have to think about routing and the weighted combination.",
+      "ko": "하지만 GPU가 여러 대라면 — 예를 들어 GPU 1이 전문가 1·2를, GPU 2가 전문가 3·4를 담당한다면 — 디스패치·컴바인 단계에 실제 GPU 간 통신이 필요해질 수 있습니다. 이건 뒤에서 다루겠습니다. 단일 장비에서는 장비 간 통신을 신경 쓸 필요가 없지만, 개념적으로는 여전히 라우팅과 가중합을 생각해야 합니다."
+    },
+    {
+      "t": 1664,
+      "en": "So that's the basic concept of Mixture of Experts — once you have the gating network and the expert architecture, producing the output is straightforward. How many experts to activate is a design choice: k=1 corresponds to the Switch Transformer, k=2 corresponds to DeepSpeed-MoE.",
+      "ko": "이것이 혼합 전문가 모델의 기본 개념입니다 — 게이팅 네트워크와 전문가 아키텍처만 있으면 출력을 만드는 건 간단합니다. 전문가를 몇 개 활성화할지는 설계 선택이고, k=1이면 스위치 트랜스포머(Switch Transformer), k=2면 DeepSpeed-MoE에 해당합니다."
+    },
+    {
+      "t": 1715,
+      "en": "You can have many, many experts but only activate a handful of them, which is exactly what reduces computational cost — unlike standard models where every parameter is activated for every input.",
+      "ko": "전문가를 아주 많이 둘 수 있지만 그중 소수만 활성화하는데, 이것이 바로 연산 비용을 줄여주는 포인트입니다 — 모든 입력에 대해 모든 파라미터가 활성화되는 표준 모델과는 다릅니다."
+    },
+    {
+      "t": 1734,
+      "en": "So even as you increase the number of experts, if each expert's size stays fixed and you keep activating a constant number of them, the inference-time computational cost doesn't really increase even as the overall model size grows. You get more capacity and a more precise choice of which part to activate, while keeping compute roughly constant.",
+      "ko": "그래서 전문가 수를 늘리더라도 각 전문가 크기를 고정하고 활성화하는 개수를 일정하게 유지하면, 전체 모델 크기가 커져도 추론 시 연산 비용은 크게 늘지 않습니다. 연산량은 거의 일정하게 유지하면서 용량을 키우고 어느 부분을 활성화할지 더 정교하게 고를 수 있는 것입니다."
+    },
+    {
+      "t": 1771,
+      "en": "One caveat on the last point — it's not 100% true. Experts MAY learn to specialize in different patterns or modalities, which can boost performance, but whether each expert genuinely becomes 'an expert' in some specific sub-skill (e.g. one expert for math, another for something else) is something people have actually studied — it holds true in some applications and not in others, so it's not a guarantee.",
+      "ko": "마지막 포인트 하나는 주의가 필요합니다 — 100% 사실은 아닙니다. 전문가들이 서로 다른 패턴이나 모달리티에 특화되도록 학습되어 성능이 좋아질 수는 있지만, 각 전문가가 실제로 특정 하위 능력(예: 하나는 수학, 다른 하나는 다른 작업)에 '전문화'되는지는 연구된 바가 있는데, 어떤 응용에서는 맞지만 다른 응용에서는 아닐 수 있어 항상 보장되는 건 아닙니다."
+    },
+    {
+      "t": 1843,
+      "en": "We've been focusing on a single layer, but here's how MoE is actually used in practice. We haven't covered the Transformer architecture in detail — you don't need to know exactly how a Transformer works to do well on the exam, though it's genuinely useful to understand for your future, and there are plenty of good courses on it in our department if you want to go deeper.",
+      "ko": "지금까지는 레이어 하나에 집중했는데, 실제로 MoE가 어떻게 쓰이는지 보겠습니다. 트랜스포머(Transformer) 아키텍처를 자세히 다루진 않았는데, 시험을 잘 보기 위해 트랜스포머 동작을 정확히 알 필요는 없습니다. 다만 여러분의 미래를 생각하면 이해해 두는 게 정말 유용하고, 더 깊이 알고 싶다면 우리 학과에도 좋은 강의가 많이 있습니다."
+    },
+    {
+      "t": 1909,
+      "en": "Basically, in a Transformer you have an attention layer followed by a fully-connected (feed-forward) layer — that's the dense model on the left. The sparse (MoE) version replaces that single feed-forward network with multiple feed-forward networks, and you only activate a specific subset of them, with a gating network choosing which ones. Across multiple Transformer layers, you can apply MoE to just some layers or to every layer — that's a design choice too.",
+      "ko": "기본적으로 트랜스포머에는 어텐션 레이어 다음에 완전연결(feed-forward) 레이어가 옵니다 — 왼쪽이 그 밀집(dense) 모델입니다. 희소(sparse, MoE) 버전은 이 하나의 피드포워드 네트워크를 여러 개의 피드포워드 네트워크로 대체하고, 게이팅 네트워크가 고른 일부만 활성화합니다. 여러 트랜스포머 레이어 중 일부에만 MoE를 적용할 수도, 모든 레이어에 적용할 수도 있습니다 — 이것도 설계 선택입니다."
+    },
+    {
+      "t": 1993,
+      "en": "MoE is used very widely — you'll see it in many DeepSeek models and other well-known models. If you write a paper using one of these architectures, there's a good chance it includes some form of MoE.",
+      "ko": "MoE는 매우 널리 쓰이고 있습니다 — 여러 DeepSeek 모델을 비롯한 유명 모델들에서 볼 수 있습니다. 이런 아키텍처로 논문을 쓴다면 어떤 형태로든 MoE가 들어갈 가능성이 높습니다."
+    },
+    {
+      "t": 2018,
+      "en": "This is a recap of what we've covered: we replace a single feed-forward network with multiple feed-forward networks, which together we call Mixture of Experts. In detail, there's a gating network producing probability values; with top-1 you multiply that probability by the one output, with top-2 you multiply each of the two selected outputs by its probability and then sum them.",
+      "ko": "지금까지 다룬 내용을 정리하면, 하나의 피드포워드 네트워크를 여러 개의 피드포워드 네트워크로 바꾸고 이를 합쳐서 혼합 전문가 모델이라 부릅니다. 자세히 보면 게이팅 네트워크가 확률값을 만들고, top-1이면 그 확률을 출력 하나에 곱하고, top-2면 선택된 두 출력 각각에 확률을 곱한 뒤 더합니다."
+    },
+    {
+      "t": 2088,
+      "en": "This is a figure from the Switch Transformer paper, which uses an MoE layer with top-1 routing. The text here covers what I've already mentioned: each token is independently routed to a specific expert, that expert produces an output, and you multiply it by the routing probability.",
+      "ko": "이건 스위치 트랜스포머 논문의 그림으로, top-1 라우팅을 쓰는 MoE 레이어를 보여줍니다. 여기 텍스트는 앞서 말씀드린 내용과 같습니다 — 각 토큰은 독립적으로 특정 전문가로 라우팅되고, 그 전문가가 출력을 만들면 라우팅 확률을 곱합니다."
+    },
+    {
+      "t": 2142,
+      "en": "So even with just one activated expert, if the router is very confident in its choice (say the top probability is 0.8), the output gets a larger weight; if the router is less confident (say the top probability is only 0.3 among four options), the output gets a smaller weight. That's the basic picture of how MoE is used in Transformer models.",
+      "ko": "그래서 전문가를 하나만 활성화하더라도, 라우터가 그 선택에 확신이 강하면(예: 최고 확률이 0.8) 출력에 더 큰 가중치가 붙고, 확신이 약하면(예: 네 개 중 최고 확률이 0.3밖에 안 되면) 더 작은 가중치가 붙습니다. 이것이 트랜스포머 모델에서 MoE가 쓰이는 기본 그림입니다."
+    },
+    {
+      "t": 2199,
+      "en": "Now, during inference: the Transformer models we typically use are autoregressive, meaning they generate the next word/token one at a time. So if you ask a question like 'What is MoE?', you feed that into the trained model (which has many experts and gating networks), and depending on the gating network's output, a specific path through the model gets activated to produce an answer.",
+      "ko": "이제 추론 단계를 보면, 우리가 보통 쓰는 트랜스포머 모델은 자기회귀(autoregressive) 모델입니다. 즉 다음 단어(토큰)를 하나씩 생성합니다. 'MoE가 뭐야?' 같은 질문을 하면, 여러 전문가와 게이팅 네트워크를 가진 학습된 모델에 입력하고, 게이팅 네트워크의 출력에 따라 특정 경로가 활성화되어 답을 만들어냅니다."
+    },
+    {
+      "t": 2256,
+      "en": "But a typical autoregressive Transformer doesn't produce the whole answer in one shot — it runs multiple times: one pass produces the first word, then that word plus the original question is fed back in to produce the next word, and you repeat this until you reach the final answer. That's why it's called 'autoregressive.'",
+      "ko": "하지만 일반적인 자기회귀 트랜스포머는 답 전체를 한 번에 만들지 않습니다 — 여러 번 실행됩니다. 한 번 실행하면 첫 단어가 나오고, 그 단어와 원래 질문을 다시 입력해 다음 단어를 만들고, 이를 최종 답에 도달할 때까지 반복합니다. 그래서 '자기회귀'라 부르는 것입니다."
+    },
+    {
+      "t": 2298,
+      "en": "This takes a lot of time to generate a full response, which is exactly why people have developed things like speculative decoding and other architectures that try to get around the autoregressive bottleneck. Anyway, the point here is just that depending on the input, a different part of the model gets activated, based on what the routing/gating network outputs.",
+      "ko": "이렇게 전체 응답을 생성하는 데 시간이 많이 걸리기 때문에, 사람들이 추측 디코딩(speculative decoding)이나 자기회귀 방식의 병목을 피하려는 다른 아키텍처들을 개발하고 있습니다. 아무튼 여기서 보여드리고 싶었던 건, 입력에 따라 라우팅·게이팅 네트워크의 출력에 맞춰 모델의 다른 부분이 활성화된다는 점입니다."
+    },
+    {
+      "t": 2350,
+      "en": "So, to summarize: the goal of Mixture of Experts is to make models smarter without making computation too heavy. It introduces conditional computation — only a few experts are used per input — which allows for larger model capacity and more diverse specialization.",
+      "ko": "정리하면, 혼합 전문가 모델의 목표는 연산을 과도하게 늘리지 않으면서 모델을 더 똑똑하게 만드는 것입니다. 조건부 연산(conditional computation)을 도입해서 입력마다 소수의 전문가만 사용하고, 이를 통해 더 큰 모델 용량과 더 다양한 특화가 가능해집니다."
+    },
+    {
+      "t": 2389,
+      "en": "But we haven't yet talked about how to actually train this kind of model — what loss function to use, and how backpropagation works when you have this architecture with a gating network.",
+      "ko": "하지만 아직 이런 모델을 실제로 어떻게 학습시키는지는 다루지 않았습니다 — 어떤 손실 함수를 쓰는지, 게이팅 네트워크가 있는 이 아키텍처에서 역전파가 어떻게 동작하는지 말입니다."
+    },
+    {
+      "t": 2425,
+      "en": "Here's how it works: say we're doing gradient descent, and we're training the gating network to do top-2 routing well. Starting from a randomly-initialized gating network, it picks two experts for a given input, we do forward propagation through only those two selected experts, and at the end compute the cross-entropy loss.",
+      "ko": "이렇게 동작합니다: 경사하강법(gradient descent)을 쓰고, 게이팅 네트워크가 top-2 라우팅을 잘하도록 학습시킨다고 해보죠. 무작위로 초기화된 게이팅 네트워크에서 시작해, 주어진 입력에 대해 전문가 둘을 고르고, 선택된 그 두 전문가만 거쳐 순전파를 한 뒤 마지막에 교차 엔트로피 손실을 계산합니다."
+    },
+    {
+      "t": 2463,
+      "en": "Then we do backpropagation — but the gradient only flows through the experts that were actually selected, since expert 1 or expert N (say) never contributed to the output, so only expert 2 and expert N−1 get their gradients and get updated.",
+      "ko": "그다음 역전파를 하는데, 그래디언트는 실제로 선택된 전문가로만 흘러갑니다. 예를 들어 전문가 1이나 전문가 N은 출력에 전혀 기여하지 않았으므로, 전문가 2와 전문가 N-1만 그래디언트를 받아 업데이트됩니다."
+    },
+    {
+      "t": 2488,
+      "en": "At the same time, those same gradients also flow back through the gating network, so the gating network gets updated too. Then, on the next mini-batch, a different subset of experts might get activated — only those get used for forward propagation and get updated that time, along with the gating network again.",
+      "ko": "동시에 같은 그래디언트가 게이팅 네트워크로도 흘러가서 게이팅 네트워크도 업데이트됩니다. 다음 미니배치에서는 다른 전문가 조합이 활성화될 수 있는데, 그때는 그 전문가들만 순전파에 쓰이고 업데이트되며, 게이팅 네트워크도 다시 업데이트됩니다."
+    },
+    {
+      "t": 2522,
+      "en": "So the basic training recipe is the same as what we've already covered: compute the loss, do backpropagation, update with mini-batch SGD or whatever optimizer — but with top-k routing, an expert's gradient is computed only from the inputs that were actually routed to it. Experts that received no inputs at all get no gradient update that step; only the selected experts get updated.",
+      "ko": "기본적인 학습 방법은 지금까지 다룬 것과 같습니다 — 손실을 계산하고, 역전파를 하고, 미니배치 SGD 등의 옵티마이저로 업데이트합니다. 다만 top-k 라우팅에서는 전문가의 그래디언트가 실제로 그 전문가로 라우팅된 입력들로부터만 계산됩니다. 그 단계에서 입력을 전혀 받지 못한 전문가는 업데이트되지 않고, 선택된 전문가만 업데이트됩니다."
+    },
+    {
+      "t": 2591,
+      "en": "Meanwhile the router (gating network) gets gradients from every single token, since every token contributes to the routing decision — so for every input, the gating network always gets updated, but not every expert does; only the selected ones do.",
+      "ko": "반면 라우터(게이팅 네트워크)는 모든 토큰이 라우팅 결정에 기여하기 때문에 모든 토큰으로부터 그래디언트를 받습니다 — 그래서 모든 입력에 대해 게이팅 네트워크는 항상 업데이트되지만, 전문가는 그렇지 않고 선택된 전문가만 업데이트됩니다."
+    },
+    {
+      "t": 2622,
+      "en": "One more important point: the load-balancing loss used during training. The goal is to prevent scenarios where certain experts get selected far too often.",
+      "ko": "한 가지 더 중요한 포인트는 학습 중에 쓰는 부하 분산 손실(load balancing loss)입니다. 목표는 특정 전문가가 지나치게 자주 선택되는 상황을 막는 것입니다."
+    },
+    {
+      "t": 2644,
+      "en": "If specific experts are consistently over-selected, you're effectively not using the model's full capacity — say only expert 2 and expert N−1 keep getting picked; then your effective model capacity is basically that of a much smaller 2-expert model, not the full N-expert model.",
+      "ko": "특정 전문가가 계속 과도하게 선택되면, 모델의 전체 용량을 제대로 활용하지 못하는 셈입니다 — 예를 들어 전문가 2와 전문가 N-1만 계속 뽑힌다면, 실질적인 모델 용량은 전문가 N개짜리 모델이 아니라 전문가 2개짜리 훨씬 작은 모델 수준밖에 안 됩니다."
+    },
+    {
+      "t": 2686,
+      "en": "So you want to avoid certain experts being overused. That's why people sometimes add a load-balancing loss — not to force perfectly uniform usage, but to balance the selection counts across experts, encouraging the router to send roughly equal traffic to all of them.",
+      "ko": "그래서 특정 전문가가 과하게 쓰이는 것을 피하고 싶습니다. 그래서 부하 분산 손실을 추가하는 경우가 있는데, 완전히 균일한 사용을 강제하는 건 아니고, 전문가별 선택 횟수를 어느 정도 균형 있게 맞춰서 라우터가 모든 전문가에게 대략 비슷한 양의 트래픽을 보내도록 유도하는 것입니다."
+    },
+    {
+      "t": 2728,
+      "en": "This also matters for a different reason: if a particular expert keeps receiving too many inputs from the router, that becomes a problem specifically under expert parallelism — the GPU holding that overloaded expert ends up handling a disproportionate amount of communication traffic, which creates a communication bottleneck across GPUs.",
+      "ko": "이게 중요한 또 다른 이유는, 특정 전문가가 라우터로부터 계속 너무 많은 입력을 받으면 전문가 병렬화 상황에서 특히 문제가 되기 때문입니다 — 그 과부하된 전문가를 맡은 GPU가 불균형하게 많은 통신 트래픽을 처리해야 해서, GPU 간 통신 병목이 생깁니다."
+    },
+    {
+      "t": 2781,
+      "en": "Even on a single GPU with a single expert, overloading one expert this way can still hurt performance — so for efficiency, this load-balancing loss can matter quite a bit.",
+      "ko": "GPU 한 대에 전문가 하나만 있는 경우에도, 이런 식으로 전문가 하나에 과부하가 걸리면 성능에 영향을 줄 수 있습니다 — 그래서 효율성 측면에서 이 부하 분산 손실이 꽤 중요할 수 있습니다."
+    },
+    {
+      "t": 2800,
+      "en": "So, pros and cons of sparse MoE layers. The advantage: you increase model parameters without sacrificing computation nearly as much, giving more efficient computation and faster inference — though training can become somewhat unstable because of the router.",
+      "ko": "희소(sparse) MoE 레이어의 장단점을 보면, 장점은 연산을 그만큼 희생하지 않으면서 모델 파라미터를 늘릴 수 있다는 것입니다 — 더 효율적인 연산과 더 빠른 추론이 가능합니다. 다만 라우터 때문에 학습이 다소 불안정해질 수 있습니다."
+    },
+    {
+      "t": 2828,
+      "en": "On a single machine, storing every expert on every GPU costs a huge amount of memory — implementation gets difficult because of that memory pressure. And if you instead try to run all the experts on just one GPU, computation itself becomes a huge bottleneck too, slowing down both inference and training.",
+      "ko": "단일 장비에서 모든 GPU에 모든 전문가를 저장하면 메모리가 엄청나게 많이 들어서 구현이 어려워집니다. 반대로 모든 전문가를 GPU 한 대에서 처리하려 하면 이번엔 연산 자체가 큰 병목이 되어 추론과 학습 모두 느려집니다."
+    },
+    {
+      "t": 2867,
+      "en": "So how do you handle this? The answer is expert parallelism — using multiple GPUs to split the Mixture-of-Experts modules across different machines. That's exactly what DeepSeek did when they trained their model: they used the MoE architecture and split the different experts across different GPUs.",
+      "ko": "그럼 이 문제를 어떻게 해결할까요? 답은 전문가 병렬화입니다 — 여러 GPU를 사용해 MoE 모듈을 여러 장비에 나누는 것입니다. 실제로 DeepSeek도 모델을 학습시킬 때 이렇게 했습니다 — MoE 아키텍처를 쓰고 서로 다른 전문가들을 서로 다른 GPU에 나눠 배치했습니다."
+    },
+    {
+      "t": 2901,
+      "en": "So we'll stop here for today — we'll cover the basic concept of expert parallelism on Friday, and I'll also take some questions before the midterm. We don't have class next Wednesday, so right after this Friday's lecture, we'll go straight into the midterm exam next Friday. Thank you very much.",
+      "ko": "오늘은 여기서 마치겠습니다 — 금요일에 전문가 병렬화의 기본 개념을 다루고, 중간고사 전에 질문도 받겠습니다. 다음 주 수요일엔 수업이 없으니, 이번 주 금요일 강의가 끝나면 바로 다음 주 금요일 중간고사로 들어갑니다. 감사합니다."
+    }
+  ]
+}

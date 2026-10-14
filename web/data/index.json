@@ -5,6 +5,13 @@
       "name": "Quantum Computer Programming",
       "files": [
         {
+          "id": "2026-10-14-quantum-computer-programming-1",
+          "title": "Verifying Gate Unitarity & the X, Z, and Hadamard Gates: Bit-Flip, Phase-Flip, and Creating Superposition",
+          "date": "2026-10-14",
+          "duration_sec": 2636,
+          "paragraphs": 23
+        },
+        {
           "id": "2026-10-07-quantum-computer-programming-1",
           "title": "Mapping Qubits onto the Bloch Sphere: States, Angles & Measurement Probabilities",
           "date": "2026-10-07",
@@ -74,6 +81,13 @@
       "name": "Algorithm Analysis",
       "files": [
         {
+          "id": "2026-10-14-algorithm-analysis-1",
+          "title": "Proof Techniques: The Certificate Argument & Residual Graph Review",
+          "date": "2026-10-14",
+          "duration_sec": 3070,
+          "paragraphs": 56
+        },
+        {
           "id": "2026-10-02-algorithm-analysis-1",
           "title": "Bellman-Ford Shortest Paths & Intro to Greedy Algorithms (Interval Scheduling)",
           "date": "2026-10-02",
@@ -128,6 +142,13 @@
       "id": "system-programming",
       "name": "System Programming",
       "files": [
+        {
+          "id": "2026-10-14-system-programming-1",
+          "title": "Kernel Modules: Micro vs. Monolithic Design, Module Loading & the proc Filesystem",
+          "date": "2026-10-14",
+          "duration_sec": 2649,
+          "paragraphs": 42
+        },
         {
           "id": "2026-10-07-system-programming-1",
           "title": "Kernel Preemption Review: Spinlocks, Mutexes & Process/Interrupt Context",
@@ -226,6 +247,13 @@
       "name": "Distributed Learning and Inference",
       "files": [
         {
+          "id": "2026-10-14-distributed-learning-and-inference-1",
+          "title": "Mixture of Experts: Motivation, Routing & the Load-Balancing Loss",
+          "date": "2026-10-14",
+          "duration_sec": 2933,
+          "paragraphs": 70
+        },
+        {
           "id": "2026-10-02-distributed-learning-and-inference-1",
           "title": "Pipeline Parallelism Wrap-up (1F1B, ZBPP) & Tensor Parallelism Intro",
           "date": "2026-10-02",
@@ -301,6 +329,13 @@
       "id": "real-time-systems",
       "name": "Real-Time Systems",
       "files": [
+        {
+          "id": "2026-10-13-real-time-systems-1",
+          "title": "Cyclic Executive Presentations, Feasibility-Optimality Review & Non-Preemptive EDF Limits",
+          "date": "2026-10-13",
+          "duration_sec": 4851,
+          "paragraphs": 29
+        },
         {
           "id": "2026-09-29-real-time-systems-1",
           "title": "Student Presentations & Scheduling Policies: FCFS, SJF, LLF",

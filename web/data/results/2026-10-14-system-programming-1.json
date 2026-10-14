@@ -1,0 +1,220 @@
+{
+  "id": "2026-10-14-system-programming-1",
+  "course": "system-programming",
+  "title": "Kernel Modules: Micro vs. Monolithic Design, Module Loading & the proc Filesystem",
+  "date": "2026-10-14",
+  "duration_sec": 2649,
+  "audio_url": "https://pub-950a8b85c4a448b4b96d2942eec87d6b.r2.dev/2026-10-14-system-programming-1.m4a",
+  "paragraphs": [
+    {
+      "t": 0,
+      "en": "So the midterm exam questions will all be open-ended — not short-answer or multiple choice — so it will be hard to get a perfect score. I haven't prepared the exam yet, but here's an example of the style: something like \"what are the three requirements for interrupt handling, and how can we address each of them?\" The answer would be: kernel efficiency, efficient handling of multiple I/O devices, and kernel synchronization — there are critical regions inside the kernel where interrupts must be disabled, so you'd need to explain why. The follow-up would be how to address those three requirements: top half/bottom half, nesting kernel control paths, and keeping critical regions as small as possible to preserve responsiveness. I think keywords will matter a lot here, since the TA grades based on keyword matching.",
+      "ko": "중간고사 문제는 전부 서술형(open-ended)이고 단답형이나 객관식이 아니라서, 만점 받기가 쉽지 않을 겁니다. 아직 시험을 준비하진 않았지만, 스타일은 이런 식이에요: \"인터럽트 처리를 위한 세 가지 요구사항은 무엇이고, 각각을 어떻게 해결할 수 있는가?\" 답은 커널 효율성, 여러 I/O 장치를 효율적으로 처리하는 것, 그리고 커널 동기화 — 커널 내부에는 인터럽트를 반드시 비활성화해야 하는 임계 영역이 있으므로 그 이유를 설명해야 합니다. 후속 질문은 이 세 요구사항을 어떻게 해결하는가인데, top half/bottom half 구조, 커널 제어 경로의 중첩, 그리고 응답성을 지키기 위해 임계 영역을 최대한 작게 유지하는 것이 답이 됩니다. 키워드가 꽤 중요할 것 같은데, TA가 키워드 매칭으로 채점하기 때문입니다."
+    },
+    {
+      "t": 138,
+      "en": "I'll post the full midterm details in the announcement, maybe today or tomorrow. The exam will cover lectures 1 through 4, plus today's slides.",
+      "ko": "중간고사 상세 내용은 오늘이나 내일쯤 공지에 올리겠습니다. 시험 범위는 1강부터 4강까지, 그리고 오늘 슬라이드까지입니다."
+    },
+    {
+      "t": 155,
+      "en": "On the assignment: there's a hard deadline, and I won't accept any submission after it, so even if you haven't finished, submit what you have before the deadline. The TA wrote the assignment description with the important notes and specs, so read it carefully.",
+      "ko": "과제 얘기를 하자면, 명확한 마감 기한이 있고 그 이후 제출은 받지 않으니, 설령 다 못 끝냈더라도 마감 전에 제출하세요. TA가 중요한 주의사항과 스펙을 담아 과제 설명서를 작성했으니 꼼꼼히 읽어보시기 바랍니다."
+    },
+    {
+      "t": 202,
+      "en": "It's up to you whether to install a VM — you could do the assignment directly on your machine if it already runs Ubuntu, but that risks damaging your system, so we strongly recommend a VM. The VM needs at least 2 CPU cores, since that's an assumption the TA made in the assignment. Please use Ubuntu 22.04 LTS specifically, since that determines your kernel version.",
+      "ko": "가상머신(VM)을 쓸지는 여러분 선택입니다. 컴퓨터가 이미 Ubuntu로 돌아간다면 직접 그 위에서 과제를 해도 되지만, 시스템이 손상될 위험이 있으니 VM 사용을 강력히 권장합니다. VM은 CPU 코어가 최소 2개는 있어야 하는데, TA가 과제에서 그걸 전제로 뒀기 때문입니다. 꼭 Ubuntu 22.04 LTS 버전을 쓰세요 — 그게 커널 버전을 결정합니다."
+    },
+    {
+      "t": 274,
+      "en": "The assignment is based on the CFS/EEVDF specification — we've already covered EEVDF and how the scheduler manages processes using a red-black tree, with internal values like virtual deadline and virtual runtime, and the task_struct holding process id and task name, that kind of thing. So it's mostly about understanding the kernel data structures and scheduler-related calls for EEVDF — I don't think it'll be too difficult if you read the description carefully.",
+      "ko": "과제는 CFS/EEVDF 명세를 기반으로 합니다 — 스케줄러가 red-black tree를 이용해 프로세스를 관리하는 방식, virtual deadline·virtual runtime 같은 내부 값들, task_struct가 담고 있는 process id·task name 등은 이미 EEVDF에서 다뤘죠. 그러니 이번 과제는 주로 이 커널 자료구조와 EEVDF 관련 스케줄러 호출들을 이해하는 게 핵심이고, 설명서를 꼼꼼히 읽으면 그렇게 어렵진 않을 겁니다."
+    },
+    {
+      "t": 362,
+      "en": "Most of the grading will be based on your report, so write it carefully. You can use AI, but if it looks too AI-generated you'll get a poor grade — I think we can tell what's mostly AI-written versus not, so I suggest writing the content in your own words. You should analyze the EEVDF source code, and alongside that, write up your kernel-module implementation and how you verified it.",
+      "ko": "채점은 대부분 보고서를 기준으로 하니 신경 써서 작성하세요. AI를 써도 되지만, AI가 쓴 티가 너무 많이 나면 점수가 낮게 나올 겁니다 — 대부분 AI가 쓴 건지 아닌지 저희가 구분할 수 있다고 생각하니, 가급적 본인 말로 작성하길 권합니다. EEVDF 소스 코드를 분석하고, 그와 함께 여러분이 구현한 커널 모듈과 그 검증 과정도 보고서에 써야 합니다."
+    },
+    {
+      "t": 441,
+      "en": "If you have questions, please post them on the Q&A board on LearnUs. And regarding the midterm — the questions will be given in English, but you can write your answers in Korean or English, whichever you prefer. No other languages are accepted.",
+      "ko": "질문이 있으면 LearnUs의 Q&A 게시판에 올려주세요. 그리고 중간고사 관련해서, 문제는 영어로 출제되지만 답안은 한국어든 영어든 편한 언어로 쓰면 됩니다. 그 외 다른 언어는 허용되지 않습니다."
+    },
+    {
+      "t": 494,
+      "en": "I prepared today's slides because the assignment is about kernel module programming, so I thought I'd introduce this material to help you with it. Today's lecture is about understanding kernel modules — and one more note on the midterm: it covers lectures 1 through 4, plus today's slide deck.",
+      "ko": "오늘 슬라이드는 과제가 커널 모듈 프로그래밍에 관한 것이라서, 과제에 도움이 되도록 관련 내용을 소개하려고 준비했습니다. 오늘 강의 주제는 커널 모듈 이해하기(understanding kernel modules)입니다 — 그리고 중간고사 관련해서 하나 더, 범위는 1강부터 4강까지 더해서 오늘 이 슬라이드까지입니다."
+    },
+    {
+      "t": 541,
+      "en": "Before we get to kernel modules, we need to understand microkernels versus monolithic kernels. This isn't usually covered in an operating systems course, but I'd like to re-explain it, because there was a very famous debate between a professor and a student about operating system design.",
+      "ko": "커널 모듈로 들어가기 전에, 먼저 마이크로커널(microkernel)과 모놀리식 커널(monolithic kernel)의 차이를 이해해야 합니다. 보통 운영체제 수업에서 다루는 내용은 아니지만, 한 교수와 한 학생 사이에 있었던 아주 유명한 운영체제 설계 논쟁이 있어서 다시 설명하고 싶습니다."
+    },
+    {
+      "t": 596,
+      "en": "That professor was Andrew Tanenbaum, who developed an operating system called Minix. It was an educational-purpose OS, based on a microkernel, because he wanted to build something for teaching operating systems.",
+      "ko": "그 교수는 앤드루 타넨바움(Andrew Tanenbaum)이고, 미닉스(Minix)라는 운영체제를 만들었습니다. 교육용 목적의 OS였고, 마이크로커널 기반이었는데, 운영체제 교육을 위한 것을 만들고 싶어했기 때문입니다."
+    },
+    {
+      "t": 621,
+      "en": "At the time, Linus Torvalds was a student at the University of Helsinki in Finland — about 20 or 21 years old, the same age as you. He was using Minix but wasn't happy with it, and that's why, as far as I know, he went on to develop a new operating system called Linux.",
+      "ko": "당시 리누스 토르발스(Linus Torvalds)는 핀란드 헬싱키 대학교의 학생이었고, 나이는 20~21살 정도 — 여러분과 비슷한 또래였습니다. 그는 Minix를 쓰고 있었지만 만족하지 못했고, 제가 알기로는 그게 바로 그가 리눅스(Linux)라는 새 운영체제를 개발하게 된 이유입니다."
+    },
+    {
+      "t": 672,
+      "en": "Minix's purpose was education, so it was based on a microkernel. Linux's main goal, in contrast, was practicality, so when Torvalds built it he based it on a monolithic kernel. Let's go into what microkernel and monolithic kernel actually mean.",
+      "ko": "Minix의 목적은 교육이었고, 그래서 마이크로커널 기반이었습니다. 반대로 Linux의 핵심 목표는 실용성(practicality)이었고, 그래서 토르발스는 모놀리식 커널 기반으로 만들었습니다. 이제 마이크로커널과 모놀리식 커널이 실제로 무엇을 뜻하는지 살펴보겠습니다."
+    },
+    {
+      "t": 704,
+      "en": "A microkernel is the near-minimum amount of software that can provide the mechanisms needed to implement an OS — only the minimum part runs in kernel mode. For example, things like memory management and file systems, which we'll cover later — in Minix, these run outside kernel mode, in user space. That's a huge difference: traditional OS functions such as drivers and file stacks are removed from the microkernel and instead run in user space.",
+      "ko": "마이크로커널은 OS를 구현하는 데 필요한 메커니즘을 제공할 수 있는 '거의 최소한'의 소프트웨어이고, 커널 모드에서는 정말 최소한의 부분만 돌아갑니다. 예를 들어 나중에 다룰 메모리 관리나 파일시스템 같은 것들이, Minix에서는 커널 모드 바깥, 즉 유저 공간에서 돌아갑니다. 이게 큰 차이인데, 드라이버나 파일 스택 같은 전통적인 OS 기능들이 마이크로커널에서는 빠져서 유저 공간에서 실행됩니다."
+    },
+    {
+      "t": 768,
+      "en": "The pros of a microkernel: it's reliable and safe, because developers can make each small piece very reliable individually. The cons: worse performance, since those pieces run in user mode rather than kernel mode. So it's a trade-off.",
+      "ko": "마이크로커널의 장점은 신뢰성과 안전성입니다 — 개발자가 작은 조각 하나하나를 개별적으로 매우 신뢰성 있게 만들 수 있기 때문입니다. 단점은 성능이 떨어진다는 것인데, 그 조각들이 커널 모드가 아니라 유저 모드에서 돌아가기 때문입니다. 그러니 트레이드오프가 있는 거죠."
+    },
+    {
+      "t": 802,
+      "en": "Since I mentioned reliability and safety, let me also introduce seL4 — have you heard of it? It's a high-assurance microkernel. I don't think it's high-performance, but it is high-assurance, and it's unique for its comprehensive formal verification. Have you heard of formal verification? Probably not — the goal is to make the kernel provably reliable and safe, with all the code mathematically verified against a specification. For example, \"the scheduler must behave like this\" is a specification.",
+      "ko": "신뢰성과 안전성을 얘기한 김에, seL4라는 것도 소개하고 싶네요 — 들어보셨나요? 이건 고신뢰성(high-assurance) 마이크로커널입니다. 고성능이라고는 생각하지 않지만, 고신뢰성 커널이고, 포괄적인 정형 검증(formal verification)으로 독특합니다. 정형 검증이라는 거, 들어보셨어요? 아마 못 들어보셨을 텐데, 목표는 커널을 수학적으로 명세(specification)에 맞게 검증해서 신뢰성과 안전성을 증명 가능하게 만드는 것입니다. 예를 들어 '스케줄러는 이렇게 동작해야 한다'는 게 하나의 명세입니다."
+    },
+    {
+      "t": 875,
+      "en": "The kernel is written in C for good performance, since C runs fast and efficiently. But humans can still make mistakes when implementing it, so the goal is to remove all those human errors through mathematical proof. To do that, they used Haskell — have you heard of it? It's a pure functional language, and honestly quite difficult to use; I don't think ordinary people could implement an OS in it. But because it's pure — no side effects — using Haskell together with Isabelle/HOL, the developers removed all errors and formally verified the kernel code to achieve this high-assurance microkernel.",
+      "ko": "커널 자체는 성능을 위해 C로 작성됩니다 — C가 빠르고 효율적으로 돌아가니까요. 하지만 사람이 구현하는 이상 실수가 생길 수 있어서, 목표는 수학적 증명을 통해 그 모든 인간의 실수를 제거하는 것입니다. 이를 위해 하스켈(Haskell)을 사용했는데, 들어보셨나요? 순수 함수형 언어이고, 솔직히 쓰기 꽤 어려운 언어라서 보통 사람이 이걸로 OS를 구현할 수 있을 것 같진 않습니다. 하지만 부수 효과(side effect)가 없는 순수 함수형이라는 특성 덕분에, 하스켈과 Isabelle/HOL을 함께 사용해서 개발자들이 모든 오류를 제거하고 커널 코드를 정형적으로 검증해 이 고신뢰성 마이크로커널을 만들어냈습니다."
+    },
+    {
+      "t": 988,
+      "en": "There were specific proof assumptions: no buffer overflows, no null pointer dereferences, no pointer errors, no memory leaks, no arithmetic overflows or exceptions, no undefined behavior. These are exactly the kinds of human errors that typically creep in — but in this kernel, it's proven there are none. It took a huge effort — many people, several years — to verify it.",
+      "ko": "구체적인 증명 가정(proof assumption)들이 있습니다: 버퍼 오버플로우 없음, 널 포인터 역참조 없음, 포인터 오류 없음, 메모리 누수 없음, 산술 오버플로우나 예외 없음, 정의되지 않은 동작(undefined behavior) 없음. 이것들이 바로 보통 사람이 만들기 쉬운 실수 유형인데, 이 커널에서는 그런 게 없다는 게 증명되어 있습니다. 이걸 검증하는 데 여러 사람이 수년에 걸친 엄청난 노력을 들였습니다."
+    },
+    {
+      "t": 1034,
+      "en": "I don't think this kind of formal verification could be applied to Linux — Linux has around 10 million lines of code, versus roughly 10,000 for seL4. It's fine if seL4 takes 10 years to verify at that scale, but I don't think the same approach scales to a monolithic kernel like Linux.",
+      "ko": "이런 정형 검증 방식을 리눅스에 그대로 적용할 수 있을 것 같진 않습니다 — 리눅스는 코드가 약 천만 줄 정도인데, seL4는 약 1만 줄 수준이거든요. seL4 규모에서 검증에 10년이 걸리는 건 괜찮지만, 같은 방식을 리눅스 같은 모놀리식 커널로 확장할 수 있을 것 같진 않습니다."
+    },
+    {
+      "t": 1060,
+      "en": "Still, the big advantage of a microkernel is that you can make the kernel very reliable. In a monolithic kernel, by contrast, the entire OS — process management, memory management, file systems, etc. — runs in kernel space. But that tends to be more practical, lead to better performance, and be more straightforward to implement for large operating systems, because the design is more sophisticated once you push things to user-level OS functions — that part is actually more complicated to implement than a monolithic kernel, in my view. That's why Linux went with a monolithic design.",
+      "ko": "그래도 마이크로커널의 큰 장점은 커널을 매우 신뢰성 있게 만들 수 있다는 점입니다. 반면 모놀리식 커널은 프로세스 관리, 메모리 관리, 파일시스템 등 운영체제 전체가 커널 공간에서 돌아갑니다. 하지만 이쪽이 대체로 더 실용적이고, 성능도 더 좋고, 큰 운영체제를 구현하기에 더 직관적인 경향이 있습니다 — 기능을 유저 레벨 OS 함수로 빼내려고 하면 설계가 더 정교해져야 하는데, 제 생각엔 그게 모놀리식 커널보다 오히려 구현하기 더 복잡합니다. 그래서 리눅스는 모놀리식 설계를 택한 겁니다."
+    },
+    {
+      "t": 1132,
+      "en": "So, Minix came first, and then Linus Torvalds developed Linux — though Linux isn't based on Minix; he just used a computer running Minix to develop it. Linux gained a lot of attention, and Tanenbaum became aware of this new OS, but it looks like he wasn't happy about it, so he posted an article titled \"Linux is Obsolete.\"",
+      "ko": "그러니까 Minix가 먼저 있었고, 그다음에 리누스 토르발스가 리눅스를 개발했습니다 — 다만 리눅스가 Minix를 기반으로 한 건 아니고, 그냥 Minix가 돌아가는 컴퓨터를 이용해서 개발한 것뿐입니다. 리눅스가 큰 주목을 받으면서 타넨바움도 이 새 OS를 알게 됐는데, 별로 달갑지 않았던 것 같아서 'Linux is Obsolete'라는 제목의 글을 올렸습니다."
+    },
+    {
+      "t": 1192,
+      "en": "His first point was microkernel versus monolithic kernel: he said most modern operating systems are microkernel-based, that this is the way forward, and that monolithic kernels are old news — that's what he thought in 1992, and it looks like he still thinks so. From his perspective, a microkernel-based system — where most of the OS runs as separate processes, mostly outside the kernel, communicating by message passing — is simply more elegant than a monolithic kernel.",
+      "ko": "그가 첫 번째로 지적한 건 마이크로커널 대 모놀리식 커널 문제였습니다. 그는 최신 운영체제 대부분이 마이크로커널 기반이고, 그게 나아갈 방향이며, 모놀리식 커널은 낡은 방식이라고 주장했습니다 — 1992년에 그렇게 생각했고, 지금도 여전히 그렇게 생각하는 것 같습니다. 그의 관점에서는 OS 대부분이 커널 바깥의 독립된 프로세스로 돌아가면서 메시지 패싱으로 통신하는 마이크로커널 기반 시스템이, 모놀리식 커널보다 그냥 더 우아하다는 것입니다."
+    },
+    {
+      "t": 1256,
+      "en": "Torvalds replied: \"Sorry, but you lose: I've got more excuses than you have, and Linux still beats the pants off Minix in almost all areas.\" He was only about 21 at the time, but very bold about it.",
+      "ko": "토르발스는 이렇게 답했습니다: \"미안하지만 당신이 졌어요. 나는 당신보다 변명거리가 더 많고, 리눅스는 거의 모든 면에서 여전히 Minix를 압도합니다.\" 당시 그는 겨우 21살 정도였지만 꽤 당돌하게 받아친 거죠."
+    },
+    {
+      "t": 1297,
+      "en": "His fuller response was roughly: true, Linux is monolithic, and I agree microkernels are nicer on paper — from a purely theoretical standpoint, Linux loses. But what Tanenbaum doesn't mention is that it's genuinely hard to build a good, practical operating system purely on the microkernel concept — conceptually it's great, but people struggle to turn that concept into a good working OS. So his point was that Linux, despite being \"theoretically inferior,\" is more practical.",
+      "ko": "그의 답변을 좀 더 풀면 대략 이런 내용이었습니다: 맞다, 리눅스는 모놀리식이고, 마이크로커널이 이론적으로 더 깔끔하다는 데 동의한다 — 순수하게 이론적인 관점에서는 리눅스가 진다. 하지만 타넨바움이 언급하지 않은 건, 마이크로커널 개념만으로 좋고 실용적인 운영체제를 실제로 만들기가 정말 어렵다는 점이다 — 개념 자체는 훌륭하지만, 그 개념을 실제로 잘 동작하는 OS로 구현해내기가 쉽지 않다는 것. 즉 리눅스가 '이론적으로는 열등'해도 더 실용적이라는 게 그의 요지였습니다."
+    },
+    {
+      "t": 1358,
+      "en": "Anyway, we use Linux today, so maybe Torvalds won — though there are still some unique devices that use microkernels. That said, monolithic kernels aren't a perfect answer either, because Linux itself is now huge, and that's a real problem.",
+      "ko": "어쨌든 지금 우리는 리눅스를 쓰고 있으니, 어쩌면 토르발스가 이긴 걸 수도 있겠네요 — 물론 여전히 마이크로커널을 쓰는 특수한 장치들도 있긴 합니다. 그렇다고 모놀리식 커널이 완벽한 답인 것도 아닌데, 리눅스 자체가 지금은 너무 거대해졌고, 이게 실질적인 문제이기 때문입니다."
+    },
+    {
+      "t": 1392,
+      "en": "To address that problem, Linux introduced the concept of kernel modules. Linux is monolithic, but it still had to solve the \"too big\" problem — the solution was loadable kernel modules. Without them, an OS would have to compile all possible functionality directly into the base kernel — a huge amount of that functionality would then sit in memory unused, wasting memory, and you'd need to rebuild and reboot the base kernel every time you wanted new functionality.",
+      "ko": "이 문제를 해결하기 위해 리눅스는 커널 모듈이라는 개념을 도입했습니다. 리눅스는 모놀리식이지만, 그래도 '너무 크다'는 문제는 해결해야 했고, 그 해법이 바로 로더블 커널 모듈(loadable kernel module)입니다. 이게 없다면 운영체제는 가능한 모든 기능을 기본 커널에 직접 컴파일해 넣어야 하는데, 그중 상당수는 쓰이지도 않은 채 메모리에 그냥 올라가 있어서 메모리 낭비가 되고, 새 기능이 필요할 때마다 기본 커널을 다시 빌드하고 재부팅해야 합니다."
+    },
+    {
+      "t": 1457,
+      "en": "Kernel modules let you support many different devices — today's devices are very diverse, like different laptops — and if you had just one monolithic kernel, it would need to include every driver in the world, wasting a huge amount of space. Modules also make it easy to develop and test drivers without rebooting: device driver developers would otherwise have to recompile the entire OS every time they update a driver, which wastes a lot of time.",
+      "ko": "커널 모듈 덕분에 다양한 장치들을 지원할 수 있습니다 — 요즘 장치들은 종류가 정말 다양하잖아요, 노트북 기종만 봐도요 — 만약 커널이 하나뿐이라면 세상의 모든 드라이버를 다 포함해야 해서 엄청난 공간 낭비가 됩니다. 모듈은 재부팅 없이 드라이버를 개발·테스트하기 쉽게도 해주는데, 모듈이 없다면 드라이버 개발자는 드라이버를 업데이트할 때마다 OS 전체를 다시 컴파일해야 해서 시간이 많이 낭비됩니다."
+    },
+    {
+      "t": 1541,
+      "en": "Another advantage: kernel modules help keep the kernel image size to a minimum and reduce boot time. If everything were built into the kernel, boot time would be very long — but with some kernel functionality split into modules, the OS doesn't need to spend time initializing devices, drivers, and features you only need later; the system can just load those modules when you actually need them.",
+      "ko": "또 다른 장점은, 커널 모듈이 커널 이미지 크기를 최소화하고 부팅 시간을 줄여준다는 것입니다. 모든 게 커널에 다 들어있다면 부팅 시간이 매우 길어지겠지만, 일부 커널 기능을 모듈로 분리해두면 나중에야 필요한 장치·드라이버·기능들을 초기화하는 데 시간을 쓸 필요가 없습니다. 시스템은 실제로 필요할 때만 그 모듈들을 로드하면 됩니다."
+    },
+    {
+      "t": 1601,
+      "en": "There's still a downside, though: there's no particular protection — any root user can load and unload modules, so there's a reliability and safety concern. But I think the advantage outweighs this disadvantage, which is why Linux uses kernel modules. Because a kernel module runs in kernel mode, not user mode, it has full control of the system and can access a lot of kernel functions, variables, and data structures.",
+      "ko": "다만 여전히 단점은 있는데, 특별한 보호 장치가 없다는 것입니다 — root 권한만 있으면 누구든 모듈을 로드·언로드할 수 있어서 신뢰성·안전성 문제가 생깁니다. 하지만 그 장점이 단점을 상쇄한다고 생각하고, 그래서 리눅스가 커널 모듈 방식을 쓰는 것입니다. 커널 모듈은 유저 모드가 아니라 커널 모드에서 돌아가기 때문에 시스템을 완전히 제어할 수 있고, 수많은 커널 함수·변수·자료구조에 접근할 수 있습니다."
+    },
+    {
+      "t": 1651,
+      "en": "When you do the assignment, you'll use a few terminal utilities a lot — commands that get information about a module without loading it, and so on. Modules also need to be explicitly loaded and unloaded — or removed.",
+      "ko": "과제를 할 때는 터미널 유틸리티 몇 개를 자주 쓰게 될 겁니다 — 모듈을 로드하지 않고도 그 모듈 정보를 가져오는 명령어 같은 것들이요. 그리고 모듈은 명시적으로 로드하고 언로드(또는 제거)해줘야 합니다."
+    },
+    {
+      "t": 1706,
+      "en": "To load a module you use insmod, and the module file has a .ko extension. To unload it you use rmmod — there's another command you could use too, but you probably won't need it. To see the list of currently loaded modules, you use lsmod — run that first to confirm your module actually loaded successfully.",
+      "ko": "모듈을 로드할 때는 insmod를 쓰고, 모듈 파일은 .ko 확장자를 갖습니다. 언로드할 때는 rmmod를 쓰고요 — 쓸 수 있는 다른 명령어도 있긴 하지만 아마 필요 없을 겁니다. 현재 로드된 모듈 목록을 보려면 lsmod를 쓰는데, 여러분의 모듈이 정상적으로 로드됐는지 확인하려면 이걸 먼저 실행해보면 됩니다."
+    },
+    {
+      "t": 1763,
+      "en": "One note on insmod versus rmmod: insmod takes the module's file name as its argument, while rmmod takes the module name, not the file name — that's the difference.",
+      "ko": "insmod와 rmmod의 차이 하나: insmod는 인자로 모듈의 파일 이름을 받고, rmmod는 파일 이름이 아니라 모듈 이름을 받습니다 — 이게 둘의 차이입니다."
+    },
+    {
+      "t": 1816,
+      "en": "A useful hint: when loading a module fails, insmod doesn't give you enough detail — you might just get something like \"device or resource busy,\" which isn't informative. In that case, look at the kernel log — e.g., using dmesg — which will show you more detail, like \"failed to register handler for IRQ channel 2.\" That'll help a lot with your assignment.",
+      "ko": "유용한 팁 하나: 모듈 로딩이 실패하면 insmod는 충분한 정보를 주지 않습니다 — 예를 들어 'device or resource busy' 같은 메시지만 뜨고 끝나는 식이라 별 도움이 안 됩니다. 이럴 때는 커널 로그를 봐야 하는데, 예를 들어 dmesg를 쓰면 'failed to register handler for irq channel 2'처럼 더 자세한 내용을 볼 수 있습니다. 이게 과제할 때 큰 도움이 될 겁니다."
+    },
+    {
+      "t": 1878,
+      "en": "Now, an example: the \"hello module,\" basically a hello-world kernel module. You'll have C/C++ experience, but there are a few differences from normal C code. First, the headers are different — you can't use stdio.h or stdlib.h, because those headers are for normal user-mode programs, and you're doing kernel programming instead, so you need to find the right kernel headers on your own. For this assignment you'll also need some scheduler-related headers, since it's about the scheduler.",
+      "ko": "이제 예시를 하나 보죠: '헬로 모듈(hello module)', 기본적으로 커널 모듈판 hello-world입니다. C/C++ 경험은 있으시겠지만, 일반 C 코드와 몇 가지 다른 점이 있습니다. 먼저 헤더가 다릅니다 — stdio.h나 stdlib.h를 쓸 수 없는데, 이런 헤더들은 일반 유저 모드 프로그램용이고, 여러분은 커널 프로그래밍을 하는 것이기 때문입니다. 그래서 알맞은 커널 헤더를 직접 찾아야 합니다. 이번 과제에서는 스케줄러 관련 헤더도 필요한데, 과제 주제가 스케줄러이기 때문입니다."
+    },
+    {
+      "t": 2009,
+      "en": "There are headers specific to the Linux kernel, with no access to the usual C library. You need two functions: an initialization function, called when the module loads, returning 0 on success or a negative value on failure, declared with the module_init() macro — by convention named something like hello_init(), though that's just a convention, not a requirement. And an exit/cleanup function, called when the module unloads, declared with module_exit(). Both of these must exist in your kernel module, along with metadata declared via macros like MODULE_LICENSE, MODULE_DESCRIPTION, and MODULE_AUTHOR.",
+      "ko": "리눅스 커널 전용 헤더들이 있고, 일반 C 라이브러리에는 접근할 수 없습니다. 함수 두 개가 꼭 필요한데, 하나는 모듈이 로드될 때 호출되는 초기화 함수로, 성공 시 0, 실패 시 음수 값을 반환하고 module_init() 매크로로 등록합니다 — 관례적으로 hello_init() 같은 이름을 쓰지만, 이건 그냥 관례일 뿐 필수는 아닙니다. 다른 하나는 모듈이 언로드될 때 호출되는 종료/정리 함수로 module_exit()으로 등록합니다. 이 두 함수는 반드시 커널 모듈에 있어야 하고, 더불어 MODULE_LICENSE, MODULE_DESCRIPTION, MODULE_AUTHOR 같은 매크로로 메타데이터도 선언해줘야 합니다."
+    },
+    {
+      "t": 2103,
+      "en": "I mentioned there's no particular protection and kernel modules have full control of the system — but that doesn't mean a module can call just any kernel function. Symbols have to be explicitly exported to be visible to modules: only functions and variables exported by the kernel can be called from a module. For example, if a kernel source file exports a given function, a kernel module can call it because that symbol was exported — otherwise it can't.",
+      "ko": "아까 특별한 보호 장치가 없고 커널 모듈이 시스템을 완전히 제어할 수 있다고 했는데, 그렇다고 모듈이 아무 커널 함수나 호출할 수 있다는 뜻은 아닙니다. 심볼은 명시적으로 export돼야 모듈에서 보이는데, 커널이 export한 함수·변수만 모듈에서 호출할 수 있습니다. 예를 들어 어떤 커널 소스 파일이 특정 함수를 export했다면, 그 심볼이 export됐기 때문에 커널 모듈에서 그 함수를 호출할 수 있는 것이고, 그렇지 않으면 호출할 수 없습니다."
+    },
+    {
+      "t": 2181,
+      "en": "There are two macros used for this, differing in license: EXPORT_SYMBOL() exports a function or variable to all modules, while the GPL variant restricts it to GPL-licensed modules. A normal driver generally shouldn't need any non-exported function. Here's a worked example: a kernel source file defines functions 1 through 4. Function 1 and 2 are exported (function 2 under a GPL-only export), function 3 is exported under GPL, and function 4 isn't exported at all — it's used only inside the kernel itself.",
+      "ko": "여기 쓰이는 매크로는 두 개인데, 차이는 라이선스입니다: EXPORT_SYMBOL()은 함수나 변수를 모든 모듈에 export하고, GPL 버전은 GPL 라이선스 모듈로만 제한합니다. 일반적인 드라이버는 보통 export 안 된 함수가 필요할 일이 없습니다. 예시를 하나 보죠: 어떤 커널 소스 파일이 함수 1~4를 정의한다고 합시다. 함수 1과 2는 export되어 있고(2번은 GPL 전용 export), 함수 3도 GPL로 export됐고, 함수 4는 전혀 export되지 않아서 커널 내부에서만 쓰입니다."
+    },
+    {
+      "t": 2239,
+      "en": "A kernel module cannot call the functions a module itself defines — kernel code cannot call functions defined inside kernel modules, full stop. Now take a GPL-licensed module A, which defines its own function. Module A cannot call function 1 (not exported at all), but it can call functions 2 and 3, since both are exported and it's GPL-licensed. A non-GPL module B, on the other hand, can only call function 2, since that's the only one exported without a GPL restriction. A GPL module C can call functions 2 and 3, but not function 1 — and all of these modules can call each other's exported functions too, since modules can call functions defined by other modules, even though kernel code cannot call functions defined by modules.",
+      "ko": "커널 코드는 모듈 내부에 정의된 함수를 호출할 수 없습니다 — 이건 예외 없는 규칙입니다. 이제 자체 함수를 하나 정의하는 GPL 라이선스 모듈 A를 생각해봅시다. 모듈 A는 함수 1(전혀 export 안 됨)은 호출할 수 없지만, 함수 2와 3은 호출할 수 있습니다 — 둘 다 export됐고 모듈 A가 GPL 라이선스니까요. 반면 non-GPL 모듈 B는 함수 2만 호출할 수 있는데, GPL 제한 없이 export된 게 그것뿐이기 때문입니다. GPL 모듈 C는 함수 2와 3을 호출할 수 있지만 함수 1은 안 됩니다 — 그리고 이 모듈들은 서로의 export된 함수도 호출할 수 있습니다. 커널 코드는 모듈이 정의한 함수를 호출할 수 없지만, 모듈끼리는 서로 다른 모듈이 정의한 함수를 호출할 수 있기 때문입니다."
+    },
+    {
+      "t": 2357,
+      "en": "You also need to compile your module — there are two approaches, out-of-tree (outside the kernel source tree, in its own directory, not integrated into the kernel build, built separately) and in-tree. I'll skip most of this since your assignment is the out-of-tree case, so you'll just follow that pattern.",
+      "ko": "모듈을 컴파일하는 것도 필요한데, 방법이 두 가지입니다 — out-of-tree(커널 소스 트리 밖, 별도 디렉터리에서, 커널 빌드에 통합되지 않고 따로 빌드하는 방식)와 in-tree입니다. 이 부분은 대부분 생략할 텐데, 여러분 과제가 out-of-tree 케이스라서 그 패턴만 따라가면 됩니다."
+    },
+    {
+      "t": 2400,
+      "en": "For the assignment you'll use the proc filesystem (procfs). It was originally built to expose information about processes — hence \"proc\" — but these days it also exposes general system information, like /proc/cpuinfo, /proc/modules, /proc/meminfo. The proc filesystem provides a method of communication between kernel space and user space: these aren't real files on your disk, they're virtual files.",
+      "ko": "과제에서는 proc 파일시스템(procfs)을 쓰게 됩니다. 원래는 프로세스에 대한 정보를 노출하려고 만들어졌고 — 그래서 이름이 'proc'인데 — 요즘은 /proc/cpuinfo, /proc/modules, /proc/meminfo처럼 시스템 전반의 정보도 노출합니다. proc 파일시스템은 커널 공간과 유저 공간 사이의 통신 수단을 제공하는데, 디스크에 실제로 존재하는 파일이 아니라 가상 파일(virtual file)들입니다."
+    },
+    {
+      "t": 2462,
+      "en": "What we want is to get information out of a kernel module, and procfs is how we do that — it's a communication channel between kernel space and user space, also usable for reading kernel info or even changing certain kernel parameters at runtime. So it lets a user program talk to your module and get results back.",
+      "ko": "우리가 하고 싶은 건 커널 모듈에서 정보를 꺼내오는 것인데, procfs가 바로 그 방법입니다 — 커널 공간과 유저 공간 사이의 통신 채널로, 커널 정보를 읽거나 심지어 런타임에 특정 커널 파라미터를 바꾸는 데도 쓸 수 있습니다. 그래서 유저 프로그램이 여러분의 모듈과 통신해서 결과를 받아올 수 있게 해줍니다."
+    },
+    {
+      "t": 2488,
+      "en": "Here's the code structure with the proc filesystem: in your init function, when the kernel module initializes, it should also set up the proc file — you'll use proc_create(), registering the proc file's info via a struct with the relevant fields. This is the code path triggered when, say, a user runs `cat /proc/hw1` — it describes what happens when a user opens that proc file, so you need to register a handler for opening it, using the proper struct and function for that.",
+      "ko": "proc 파일시스템을 쓰는 코드 구조는 이렇습니다: init 함수 안에서, 커널 모듈이 초기화될 때 proc 파일도 함께 설정해야 합니다 — proc_create()를 사용해서, 관련 필드를 담은 구조체로 proc 파일 정보를 등록하게 됩니다. 이건 예를 들어 사용자가 `cat /proc/hw1`을 실행했을 때 타는 코드 경로인데, 사용자가 이 proc 파일을 열었을 때 어떤 일이 일어나는지를 기술하는 것입니다. 그래서 적절한 구조체와 함수로 파일 열기(open) 핸들러를 등록해줘야 합니다."
+    },
+    {
+      "t": 2565,
+      "en": "Why does this matter? The proc filesystem exposes kernel data as virtual files, generating output on demand rather than reading it from disk — so the kernel module has to manage its own buffers. A seq_file-style structure helps kernel modules handle those buffers when a user or other program opens the proc file, managing output buffers and read position so formatted output works cleanly across multiple reads. There's a link in your assignment spec with the full sample code and Makefile — the exact version may differ slightly, but it shouldn't be an issue. That wraps up today's lecture.",
+      "ko": "왜 이게 중요하냐면, proc 파일시스템은 디스크에서 읽어오는 게 아니라 커널 데이터를 요청 시점에 생성해서(on demand) 가상 파일 형태로 노출하기 때문에, 커널 모듈이 직접 버퍼를 관리해야 합니다. seq_file류의 구조체가 사용자나 다른 프로그램이 proc 파일을 열었을 때 이 버퍼 처리를 도와주는데, 출력 버퍼와 읽기 위치(position)를 관리해서 여러 번 읽어도(multiple reads) 포맷된 출력이 깔끔하게 나오도록 해줍니다. 과제 스펙에 전체 샘플 코드와 Makefile 링크가 있으니 참고하세요 — 버전이 약간 다를 수 있지만 문제가 되진 않을 겁니다. 오늘 강의는 여기서 마치겠습니다."
+    }
+  ]
+}

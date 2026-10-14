@@ -1,0 +1,155 @@
+{
+  "id": "2026-10-13-real-time-systems-1",
+  "course": "real-time-systems",
+  "title": "Cyclic Executive Presentations, Feasibility-Optimality Review & Non-Preemptive EDF Limits",
+  "date": "2026-10-13",
+  "duration_sec": 4851,
+  "audio_url": "https://pub-950a8b85c4a448b4b96d2942eec87d6b.r2.dev/2026-10-13-real-time-systems-1.m4a",
+  "paragraphs": [
+    {
+      "t": 600,
+      "en": "There's a noticeable silent stretch at the start of this recording — likely the room settling in or a non-verbal warm-up exercise — before audio of the actual class picks up.",
+      "ko": "이 녹음은 시작 부분에 눈에 띄는 무음 구간이 있습니다 — 아마 수업 시작 전 정리 시간이거나 말 없이 진행된 준비 활동으로 보이며, 실제 수업 음성은 이 지점부터 시작됩니다."
+    },
+    {
+      "t": 680,
+      "en": "The class is working through a worked example on a whiteboard about accounting for context-switch overhead in a schedule. The point being made is that the cost of a context switch should already be folded into a task's (worst-case) execution time, rather than drawn as a separate box on the timeline — because whenever a task actually starts running, some unavoidable setup cost is already implicit in that execution time.",
+      "ko": "교수님과 학생들이 화이트보드에서 스케줄에 컨텍스트 스위치 오버헤드를 어떻게 반영할지에 대한 예제를 풀고 있습니다. 요지는, 컨텍스트 스위치 비용은 타임라인에 별도의 박스로 그리는 게 아니라 이미 태스크의 (최악의 경우) 실행 시간 안에 포함되어 있어야 한다는 것입니다 — 태스크가 실제로 실행을 시작할 때마다, 피할 수 없는 준비 비용이 그 실행 시간 안에 이미 암묵적으로 들어 있기 때문입니다."
+    },
+    {
+      "t": 900,
+      "en": "The discussion continues with several near-identical passes through the same diagram — marking where preemption does and doesn't occur, and removing boxes that double-count already-included overhead — audio quality through this stretch is poor and some of the back-and-forth could not be reliably reconstructed.",
+      "ko": "같은 다이어그램을 두고 선점이 일어나는 지점과 일어나지 않는 지점을 표시하고, 이미 포함된 오버헤드를 중복으로 세는 박스를 지우는 식의 거의 동일한 설명이 몇 차례 반복됩니다 — 이 구간은 음질이 좋지 않아 일부 주고받은 대화는 신뢰성 있게 복원하지 못했습니다."
+    },
+    {
+      "t": 1035,
+      "en": "The conversation shifts to a Round-Robin-style quantum/time-slice exercise: given N tasks and a fixed time quantum, working out how many rounds and how much total time elapses before a given task finishes, and flagging a point of confusion that comes up about how the numbers were derived.",
+      "ko": "대화는 라운드로빈 방식의 퀀텀(타임 슬라이스) 계산 예제로 넘어갑니다: 태스크 N개와 고정된 타임 퀀텀이 주어졌을 때 특정 태스크가 끝나기까지 몇 라운드, 총 몇 시간이 걸리는지를 계산하고, 그 수치가 어떻게 도출됐는지에 대해 헷갈리는 지점이 있었음을 짚습니다."
+    },
+    {
+      "t": 1200,
+      "en": "The same preemption-marking exercise is revisited once more — the professor clarifies what counts as a genuine preemption (a task has remaining, unfinished work and gets displaced by something else) versus what doesn't (a task that has already completed, or one with nothing left to preempt), and the class works through saving/restoring task state (register contents, cache effects) as the real cost behind that overhead.",
+      "ko": "같은 선점 표시 연습을 한 번 더 짚습니다 — 교수님은 무엇이 진짜 선점인지(아직 남은 작업이 있는 태스크가 다른 것에 의해 밀려나는 경우)와 무엇이 아닌지(이미 끝난 태스크, 혹은 더 이상 밀려날 것이 없는 태스크)를 명확히 하고, 그 오버헤드의 실제 비용인 태스크 상태 저장/복원(레지스터 내용, 캐시 효과)을 함께 짚습니다."
+    },
+    {
+      "t": 1626,
+      "en": "That exercise wraps up, and the class moves into student presentations.",
+      "ko": "그 연습이 마무리되고, 수업은 학생 발표로 넘어갑니다."
+    },
+    {
+      "t": 1648,
+      "en": "A student named Rachel presents her group's solution to a Cyclic Executive scheduling exercise. She explains how to find the minor cycle and major cycle for a given task set — the minor cycle from the greatest common divisor of the task periods, the major cycle from their least common multiple — then walks through how tasks get allocated into the resulting minor-cycle slots.",
+      "ko": "Rachel이라는 학생이 Cyclic Executive(순환 실행) 스케줄링 연습 문제에 대한 자기 그룹의 풀이를 발표합니다. 주어진 태스크 집합에 대해 minor cycle과 major cycle을 구하는 방법을 설명하는데 — minor cycle은 태스크 주기들의 최대공약수(GCD)로, major cycle은 최소공배수(LCM)로 구하고, 이어서 그렇게 나온 minor cycle 슬롯에 태스크를 어떻게 배치하는지를 풀어나갑니다."
+    },
+    {
+      "t": 2010,
+      "en": "She works a concrete numeric example — periods whose GCD gives a minor cycle of 25 and whose LCM gives a major cycle of 100 — and allocates each task into the four resulting 25-unit minor-cycle slots, checking that each slot's total allocated execution time stays within the 25-unit budget.",
+      "ko": "구체적인 숫자 예제를 풀어나갑니다 — 주기들의 GCD로 minor cycle 25, LCM으로 major cycle 100이 나오는 경우를 들어, 그 결과로 생기는 25 단위짜리 minor cycle 슬롯 4개에 각 태스크를 배치하고, 각 슬롯의 총 할당 실행시간이 25 단위 예산 안에 들어오는지 확인합니다."
+    },
+    {
+      "t": 2139,
+      "en": "She discusses practical concerns with this schedule: whether it's flexible if a task's execution time runs slightly over what was planned within a minor cycle, and whether this kind of fixed, pre-computed table is easy to change or well-localized when something needs to be adjusted later. The general sense conveyed is that cyclic/table-driven scheduling is simple and practical, but rigid and hard to modify once built.",
+      "ko": "이 스케줄의 실질적인 문제들도 함께 짚습니다: 태스크 실행시간이 minor cycle 안에서 계획보다 조금 초과하면 유연하게 대응 가능한지, 그리고 이런 고정된 사전계산 테이블이 나중에 뭔가 바꿔야 할 때 쉽게 변경 가능하고 국소적으로(localized) 수정 가능한지를 논의합니다. 전체적인 결론은, 순환/테이블 기반 스케줄링은 단순하고 실용적이지만 한번 만들어지면 경직되어 수정하기 어렵다는 쪽입니다."
+    },
+    {
+      "t": 2250,
+      "en": "The presentation continues working through how to predict and handle a task that sometimes runs longer than its expected execution time within this cyclic framework — audio quality is weaker through this stretch and some specific numbers could not be reliably captured.",
+      "ko": "발표는 이 순환 스케줄 틀 안에서 예상보다 실행시간이 더 걸리는 태스크를 어떻게 예측하고 다룰지를 계속 다룹니다 — 이 구간은 음질이 약해 일부 구체적인 수치는 신뢰성 있게 포착하지 못했습니다."
+    },
+    {
+      "t": 2600,
+      "en": "The presentations conclude, and the professor opens the floor for a general Q&A, then moves to class administration: this and next Thursday's classes are not yet finalized (possibly cancelled), with recorded material to cover that gap — students are reminded to watch an earlier-assigned video before the next class, with a review of the remaining material planned for next Tuesday.",
+      "ko": "발표가 마무리되고, 교수님이 자유 질의응답 시간을 연 뒤 수업 운영 공지로 넘어갑니다: 이번 주와 다음 주 목요일 수업은 아직 확정되지 않았고(취소 가능성), 그 공백은 녹화 자료로 보충할 예정입니다 — 학생들에게 다음 수업 전 이미 안내된 영상을 미리 봐둘 것을 당부하고, 남은 내용은 다음 주 화요일에 복습하기로 합니다."
+    },
+    {
+      "t": 2692,
+      "en": "A student asks about the exam: whether answers can be written in Korean versus English. The professor explains that for some problems a specific English technical term is required, but general explanations can be written in Korean — and separately reiterates that the exam questions will be open-ended rather than short-answer or multiple-choice, and that wrong true/false-style answers lose full credit, a policy he says he personally disliked as a student too.",
+      "ko": "한 학생이 시험 답안을 한국어로 써도 되는지, 영어로 써야 하는지 질문합니다. 교수님은 일부 문제는 특정 영어 전문 용어 사용이 필요하지만 일반적인 설명은 한국어로 써도 된다고 답하고, 별도로 시험 문제는 단답형·객관식이 아니라 전부 서술형(open-ended)이 될 것이며, 참/거짓형 문제에서 틀리면 감점이 크다는 정책도 다시 짚습니다 — 본인도 학생 때 그런 방식이 싫었다고 덧붙입니다."
+    },
+    {
+      "t": 2779,
+      "en": "The professor then reviews the 'optimal with respect to feasibility' property from the previous session: if a task set cannot be scheduled by an algorithm that is optimal in this sense, then no algorithm can schedule it — that's precisely what makes a feasibility-optimal algorithm optimal.",
+      "ko": "교수님은 지난 시간에 다룬 'feasibility에 대한 optimal(실현가능성 관점의 최적)' 속성을 복습합니다: 이러한 의미에서 optimal한 알고리즘조차 어떤 태스크셋을 스케줄링할 수 없다면, 그 어떤 알고리즘도 그 태스크셋을 스케줄링할 수 없다는 것 — 바로 이 성질이 feasibility-optimal 알고리즘을 optimal하게 만드는 것입니다."
+    },
+    {
+      "t": 2902,
+      "en": "He reviews maximum lateness (L-max) next: an algorithm that minimizes L-max is worst-case optimal for that criterion. If the minimized L-max is zero or negative, every task meets its deadline; if it's positive, at least one task misses its deadline by that much — and he stresses that being optimal with respect to feasibility and minimizing L-max are different properties: a feasibility-optimal algorithm does not automatically also minimize L-max.",
+      "ko": "이어서 최대 지연(L-max)을 복습합니다: L-max를 최소화하는 알고리즘은 그 기준에서 worst-case optimal입니다. 최소화된 L-max가 0 이하면 모든 태스크가 데드라인을 지킨 것이고, 양수이면 적어도 하나의 태스크가 그만큼 데드라인을 넘긴 것입니다 — 그리고 feasibility에 대한 optimal과 L-max를 최소화하는 것은 서로 다른 성질이라는 점을 강조합니다: feasibility-optimal 알고리즘이라고 해서 자동으로 L-max도 최소화하는 것은 아닙니다."
+    },
+    {
+      "t": 2985,
+      "en": "Moving to new material, the professor revisits non-preemptive scheduling and shows that EDF is no longer optimal once preemption is disallowed, even in the single-processor setting where it was optimal under preemptive scheduling. The problem is that non-preemptive EDF can violate the work-conserving property — the rule that the CPU should never sit idle while there's a ready, unfinished task — because once a (possibly long, low-priority) task has started, nothing can displace it even if a more urgent task arrives.",
+      "ko": "새 내용으로 넘어가, 교수님은 비선점형(non-preemptive) 스케줄링을 다시 꺼내며 선점이 금지되면 EDF가 더 이상 optimal이 아님을 보입니다 — 선점형에서는 단일 프로세서 환경에서 EDF가 optimal이었던 것과 대조적입니다. 문제는 비선점형 EDF가 work-conserving 속성(실행 가능한 미완료 태스크가 있는데 CPU를 놀리지 않는다는 규칙)을 위반할 수 있다는 점입니다 — 일단 (어쩌면 길고 우선순위 낮은) 태스크가 시작되면, 더 급한 태스크가 도착해도 아무도 그것을 밀어낼 수 없기 때문입니다."
+    },
+    {
+      "t": 3094,
+      "en": "He notes a fix: if we additionally forbid leaving the CPU idle while something is ready to run (i.e., explicitly restore the work-conserving constraint), non-preemptive EDF becomes acceptable again — but outside that restriction it isn't.",
+      "ko": "해결책을 하나 짚습니다: 실행 가능한 태스크가 있는데 CPU를 놀리는 것을 추가로 금지하면(즉 work-conserving 제약을 명시적으로 복원하면), 비선점형 EDF도 다시 받아들일 만해집니다 — 그러나 그 제약이 없으면 그렇지 않습니다."
+    },
+    {
+      "t": 3130,
+      "en": "The discussion then turns to clairvoyant scheduling — an idealized scheduler that can 'see the future' (know in advance exactly when future jobs will be released) — and why not knowing future releases makes it impossible to guarantee a feasible schedule in general. A student asks whether any real clairvoyant-like algorithm exists in practice; the professor answers that for strictly periodic task sets, where future release times are fully predictable from the period, a scheduler can effectively behave as if clairvoyant, but this breaks down for sporadic tasks, where only a minimum inter-arrival time is known and future release times genuinely aren't predictable.",
+      "ko": "논의는 '미래를 볼 수 있는' 이상화된 스케줄러인 clairvoyant 스케줄링으로 넘어갑니다 — 미래의 잡이 정확히 언제 release될지 미리 안다는 가정입니다 — 그리고 미래의 release를 모르면 일반적으로 실현가능한 스케줄을 보장할 수 없는 이유를 설명합니다. 한 학생이 실제로 이런 clairvoyant에 가까운 알고리즘이 존재하는지 묻고, 교수님은 순수 주기적(periodic) 태스크셋이라면 주기로부터 미래 release 시각을 완전히 예측 가능하므로 사실상 clairvoyant처럼 동작할 수 있지만, sporadic 태스크(release 간 최소 간격만 알려진 경우)에서는 미래 release를 실제로 예측할 수 없어 이것이 깨진다고 답합니다."
+    },
+    {
+      "t": 3294,
+      "en": "The professor briefly previews the remaining syllabus for this part of the course before continuing — noting that the material up to a certain point in the deck is required for this unit — then returns to working through proportional-share / time-slice-based scheduling as a candidate deadline-aware policy.",
+      "ko": "교수님은 계속하기 전에 이 단원의 남은 진도를 간단히 미리 짚고 — 이 강의안의 특정 지점까지가 이번 단원에 필요한 범위라고 언급한 뒤 — 데드라인을 고려한 후보 정책으로서 proportional-share(비례 공유)/타임 슬라이스 기반 스케줄링을 계속 풀어나갑니다."
+    },
+    {
+      "t": 3404,
+      "en": "Working a numeric example, he splits CPU time proportionally according to each task's share of total demand (e.g., a task needing 8 out of a 16-unit cycle gets a 50% slice; one needing 8 out of 40 gets a 20% slice) — as long as the shares sum to at most 100%, this looks simple, optimal-seeming, and practical.",
+      "ko": "숫자 예제를 풀면서, 각 태스크가 전체 수요에서 차지하는 비율대로 CPU 시간을 나눕니다(예: 16단위 주기 중 8단위가 필요한 태스크는 50% 슬라이스, 40단위 중 8단위가 필요한 태스크는 20% 슬라이스를 받음) — 비율의 합이 100%를 넘지 않는 한 이는 단순하고, 얼핏 optimal해 보이며, 실용적으로 보입니다."
+    },
+    {
+      "t": 3497,
+      "en": "But then he shows where it breaks down: if two tasks' periods are relatively prime (e.g. 17 and 9, with GCD 1), the resulting 'quantum' implied by the proportional split becomes impractically small or even meaningless, and simply shrinking the quantum doesn't fix the general case — for a large number of tasks with periods that aren't nicely related, there's no quantum size that works cleanly for all of them.",
+      "ko": "하지만 이어서 이 방식이 어디서 무너지는지 보여줍니다: 두 태스크의 주기가 서로소(예: 17과 9, GCD=1)이면, 비례 분할이 암시하는 '퀀텀'이 비현실적으로 작아지거나 의미가 없어지며, 단순히 퀀텀을 더 잘게 쪼갠다고 일반적인 경우가 해결되지 않습니다 — 주기들이 서로 깔끔하게 맞아떨어지지 않는 다수의 태스크가 있으면, 모두에게 깔끔하게 맞는 퀀텀 크기란 존재하지 않습니다."
+    },
+    {
+      "t": 3600,
+      "en": "He walks through a further numeric example of round-robin-style time-slicing across several tasks with different periods and priorities, tracking when each task sleeps and resumes, and shows a case where a lower-priority task's deadline is eventually missed because it keeps getting delayed by higher-priority slices.",
+      "ko": "주기와 우선순위가 다른 여러 태스크에 대해 라운드로빈 방식 타임슬라이싱을 추가 숫자 예제로 풀어나가며, 각 태스크가 언제 잠들고 언제 재개되는지를 추적하고, 우선순위 높은 슬라이스들에 계속 밀려 결국 우선순위 낮은 태스크의 데드라인을 놓치는 사례를 보여줍니다."
+    },
+    {
+      "t": 3776,
+      "en": "His conclusion: proportional-share / round-robin-style time-slicing, as a work-conserving loop-scheduling approach, isn't generally well-suited to meeting hard deadlines — it can work fine for small, fixed, non-overloaded task sets, but doesn't scale or generalize, which is the motivation for looking at more deadline-aware scheduling approaches instead.",
+      "ko": "결론: proportional-share/라운드로빈 방식 타임슬라이싱은 work-conserving 루프 스케줄링 방식으로서, 일반적으로 hard deadline을 만족시키기에 적합하지 않습니다 — 작고 고정된, 과부하 없는 태스크셋에서는 괜찮을 수 있지만 확장되거나 일반화되지는 않으며, 이것이 바로 더 데드라인을 고려한 스케줄링 방식을 살펴보게 되는 동기입니다."
+    },
+    {
+      "t": 3821,
+      "en": "After a short break for questions, a student asks about the real-world dimensions of a mixed hardware/software real-time system — essentially, how deadline requirements differ when a system spans both hard, timing-critical components and softer, more flexible ones. The professor explains that it depends heavily on the specific system: in a mixed setup, higher-priority (e.g. hardware-timing-critical) groups get scheduled with the kind of hard-deadline approaches already discussed, while lower-priority (e.g. software) groups might instead be handled with value/utility-maximizing approaches, since existing hard-deadline scheduling theory doesn't directly apply to them.",
+      "ko": "질문 시간이 짧게 있은 뒤, 한 학생이 하드웨어와 소프트웨어가 섞인 실제 real-time 시스템의 차원에 대해 질문합니다 — 요컨대 시스템이 타이밍이 엄격한 하드웨어 요소와 더 유연한 소프트웨어 요소를 동시에 가질 때 데드라인 요구사항이 어떻게 달라지는가입니다. 교수님은 구체적인 시스템에 따라 크게 달라진다고 답합니다: 혼합된 환경에서는 우선순위가 높은(예: 타이밍이 엄격한 하드웨어) 그룹은 이미 다룬 hard-deadline 접근법으로 스케줄링하고, 우선순위가 낮은(예: 소프트웨어) 그룹은 기존 hard-deadline 스케줄링 이론이 직접 적용되지 않으므로 가치/효용을 최대화하는 접근법으로 다룰 수 있다고 설명합니다."
+    },
+    {
+      "t": 3999,
+      "en": "The professor returns to explaining feasibility-optimality one more time, this time via a knapsack-problem analogy: given a bag of fixed capacity and items (food) with some volume each, the goal of maximizing how much you can fit is structurally similar to the goal of finding a feasible schedule within fixed resource constraints — intended to make the earlier, more abstract argument land more intuitively.",
+      "ko": "교수님은 feasibility-optimality를 한 번 더, 이번엔 배낭 문제(knapsack problem) 비유로 설명합니다: 용량이 고정된 가방과, 각각 부피가 있는 물건(음식)들이 주어졌을 때 최대한 많이 담으려는 목표가, 고정된 자원 제약 안에서 실현가능한 스케줄을 찾으려는 목표와 구조적으로 비슷하다는 것입니다 — 앞서 다룬 더 추상적인 논증을 더 직관적으로 와닿게 하려는 의도입니다."
+    },
+    {
+      "t": 4100,
+      "en": "Working through the formal argument once more with this framing: if task set A is scheduled infeasibly by some optimal-with-respect-to-feasibility algorithm, no other algorithm can do better on it either — so whether or not a given task set is actually feasible is entirely determined by whether this one algorithm succeeds or fails on it.",
+      "ko": "이 비유를 바탕으로 형식적 논증을 다시 한 번 짚습니다: 어떤 feasibility에 대해 optimal한 알고리즘이 태스크셋 A를 실현가능하게 스케줄링하지 못한다면, 다른 어떤 알고리즘도 그것보다 더 잘할 수 없습니다 — 따라서 어떤 태스크셋이 실제로 feasible한지 여부는 전적으로 이 하나의 알고리즘이 그 태스크셋에서 성공하는지 실패하는지로 결정됩니다."
+    },
+    {
+      "t": 4311,
+      "en": "A student then asks the natural follow-up: if a feasibility-optimal scheduler exists, why would anyone ever use a non-optimal one instead? The professor calls it a good question and frames the answer around tradeoffs — he reminds the class that the feasibility-optimal result was proven under simplifying assumptions (a single processor, no context-switch overhead), and those assumptions don't hold in more realistic, complex settings (e.g. multiple or heterogeneous processors).",
+      "ko": "그러자 한 학생이 자연스러운 후속 질문을 던집니다: feasibility에 대해 optimal한 스케줄러가 존재한다면, 왜 굳이 optimal하지 않은 스케줄러를 쓰는 경우가 있는가? 교수님은 좋은 질문이라며 답을 트레이드오프 중심으로 풀어냅니다 — feasibility-optimal 결과는 단순화된 가정(단일 프로세서, 컨텍스트 스위치 오버헤드 없음) 하에서 증명된 것이고, 더 현실적이고 복잡한 환경(예: 다중/이기종 프로세서)에서는 그 가정이 성립하지 않는다고 다시 짚습니다."
+    },
+    {
+      "t": 4429,
+      "en": "When those assumptions break down, the feasibility-optimality guarantee stops being useful on its own, so in more complex or technical real-world settings it's often more practical to use a simpler scheduler that's easier to reason about and implement, even if it isn't formally optimal — which he says is the most common reason, among several, for not always using the 'optimal' scheduler.",
+      "ko": "그 가정들이 깨지면 feasibility-optimality 보장 자체는 더 이상 쓸모가 없어지므로, 더 복잡하거나 기술적인 실제 환경에서는 비록 형식적으로 optimal하지 않더라도 추론하고 구현하기 더 쉬운 단순한 스케줄러를 쓰는 편이 실용적인 경우가 많다고 말합니다 — 여러 이유 중 이것이 'optimal' 스케줄러를 항상 쓰지는 않는 가장 흔한 이유라고 설명합니다."
+    },
+    {
+      "t": 4509,
+      "en": "The remaining Q&A works through a related concrete example involving writing versus not-yet-written data (e.g. to RAM or disk) and how that changes the cost already folded into a task's accounting — the professor acknowledges mid-explanation that he's gotten a bit confused about which case is which, distinguishes the two cases (a task being preempted mid-way with state that must be saved, versus being able to simply resume prior state), and tells the student he'll think it through more and follow up before or in the next class.",
+      "ko": "남은 질의응답은 데이터를 (RAM이나 디스크에) 이미 썼는지 아직 안 썼는지에 관련된 구체적인 예제를 다루며 그것이 태스크 비용 계산에 이미 반영된 부분을 어떻게 바꾸는지를 논의합니다 — 교수님은 설명 도중 본인이 어느 경우가 어느 경우인지 조금 헷갈렸다고 인정하고, 두 경우(저장해야 할 상태를 남긴 채 중간에 선점되는 경우 vs 이전 상태를 그대로 재개할 수 있는 경우)를 구분한 뒤, 더 생각해보고 다음 수업 전후로 답을 주겠다고 학생에게 말합니다."
+    },
+    {
+      "t": 4800,
+      "en": "With no further questions, the professor formally closes the class, noting he'll stay available afterward for any personal questions, and signs off until next week.",
+      "ko": "더 이상 질문이 없자 교수님은 공식적으로 수업을 마치며, 개인적으로 질문이 있으면 수업 후에도 남아있겠다고 말하고 다음 주에 보자며 마칩니다."
+    }
+  ]
+}
