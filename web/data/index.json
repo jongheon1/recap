@@ -81,6 +81,13 @@
       "name": "Algorithm Analysis",
       "files": [
         {
+          "id": "2026-10-16-algorithm-analysis-1",
+          "title": "Ford-Fulkerson: The Augment Procedure, Termination Proof & S-T Cuts as Certificates",
+          "date": "2026-10-16",
+          "duration_sec": 4572,
+          "paragraphs": 51
+        },
+        {
           "id": "2026-10-14-algorithm-analysis-1",
           "title": "Proof Techniques: The Certificate Argument & Residual Graph Review",
           "date": "2026-10-14",
@@ -142,6 +149,13 @@
       "id": "system-programming",
       "name": "System Programming",
       "files": [
+        {
+          "id": "2026-10-16-system-programming-1",
+          "title": "Interrupt Handling Software Path: IDT, irq_desc & the Top-Half/Bottom-Half Split (Soft IRQ, Tasklet, ksoftirqd, Workqueue)",
+          "date": "2026-10-16",
+          "duration_sec": 6303,
+          "paragraphs": 30
+        },
         {
           "id": "2026-10-14-system-programming-1",
           "title": "Kernel Modules: Micro vs. Monolithic Design, Module Loading & the proc Filesystem",

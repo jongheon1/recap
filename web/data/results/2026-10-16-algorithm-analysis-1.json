@@ -1,0 +1,265 @@
+{
+ "id": "2026-10-16-algorithm-analysis-1",
+ "course": "algorithm-analysis",
+ "title": "Ford-Fulkerson: The Augment Procedure, Termination Proof & S-T Cuts as Certificates",
+ "date": "2026-10-16",
+ "duration_sec": 4572,
+ "audio_url": "https://pub-950a8b85c4a448b4b96d2942eec87d6b.r2.dev/2026-10-16-algorithm-analysis-1.m4a",
+ "paragraphs": [
+  {
+   "t": 0,
+   "en": "Let's go back to the maximum flow problem. Today I'm going to show how an algorithm can use the idea from last lecture — but fix the issue we ran into — by working through a small example first, and then generalizing it into an algorithm.",
+   "ko": "다시 최대 유량(maximum flow) 문제로 돌아가 보죠. 오늘은 지난 시간에 다룬 아이디어를 가져오되, 그때 발견한 문제를 고치는 식으로 알고리즘을 만들어볼 겁니다. 먼저 작은 예제로 시작해서 일반적인 알고리즘으로 확장하겠습니다."
+  },
+  {
+   "t": 30,
+   "en": "So we have four vertices: S, X, Y, and T. In this instance the maximum flow has value 30. Let me show you how you can route 20 units along one path, then 10 more units along another, to achieve the full value of 30.",
+   "ko": "정점 네 개, S, X, Y, T가 있다고 합시다. 이 인스턴스에서 최대 유량의 값은 30입니다. 한 경로로 20을 보내고, 다른 경로로 10을 더 보내서 총 30이라는 최대값을 어떻게 달성하는지 보여드리겠습니다."
+  },
+  {
+   "t": 93,
+   "en": "Now, what I pointed out last time is that if you're lucky, a greedy algorithm — one that only looks at remaining capacities and repeatedly finds a path from s to t — will find the maximum flow. In a lucky execution, suppose we first find a path and increase the flow on its edges by 10, then find another path in the remaining graph and increase those edges by 10 again, and finally a third path that increases the last edges by 10. After this, there's no more path left in the graph of remaining capacities, and we've actually found the maximum flow.",
+   "ko": "지난 시간에 지적했듯이, 운이 좋다면 — 즉 남은 용량(remaining capacity)만 보고 s에서 t로 가는 경로를 반복해서 찾는 탐욕적인 알고리즘이 — 최대 유량을 찾아낼 수 있습니다. 운이 좋은 실행에서는, 먼저 경로 하나를 찾아 그 위의 간선들의 유량을 10만큼 늘리고, 남은 그래프에서 또 다른 경로를 찾아 그 간선들을 다시 10만큼 늘리고, 마지막으로 세 번째 경로를 찾아 남은 간선들을 10만큼 늘립니다. 이렇게 하고 나면 남은 용량의 그래프에는 더 이상 경로가 없고, 실제로 최대 유량을 찾은 것이 됩니다."
+  },
+  {
+   "t": 168,
+   "en": "But we also saw that the algorithm's execution can be unlucky. Suppose the first path we find uses up all the capacity on three particular edges by routing 10 units of flow. After that, those three edges are gone, so only two other edges remain, and you don't have a path anymore — even though the actual maximum flow of this instance was 30, this unlucky execution gets stuck with a much smaller value, because there's no path left in the remaining-capacity graph. That's the example that showed the first, naive version of the algorithm is incorrect.",
+   "ko": "하지만 이 알고리즘의 실행이 운이 나쁠 수도 있다는 것 역시 봤습니다. 처음 찾은 경로가 특정 간선 세 개의 용량을 10단위 유량을 보내는 것으로 다 써버린다고 해봅시다. 그러면 그 세 간선은 사라지고 다른 간선 두 개만 남는데, 더 이상 경로가 없습니다 — 이 인스턴스의 실제 최대 유량은 30인데도, 이 운 나쁜 실행은 남은 용량 그래프에 경로가 없어서 훨씬 작은 값에서 멈춰버립니다. 이것이 바로 알고리즘의 첫 번째 나이브한 버전이 틀렸다는 걸 보여주는 예시였습니다."
+  },
+  {
+   "t": 232,
+   "en": "So the idea was: rather than only routing additional flow, we can achieve the same effect by also canceling some of the existing flow. For that, we define the notion of a residual graph, which has two types of edges. Forward edges are edges that existed in the original flow network, except their residual capacity is now the difference between the full capacity and what's currently used by the flow — so if the remaining capacity is zero, the edge disappears from the residual graph entirely.",
+   "ko": "그래서 아이디어는 이렇습니다 — 추가로 유량을 보내는 것만으로는 부족하니, 기존 유량의 일부를 취소(cancel)하는 것으로도 같은 효과를 낼 수 있다는 거죠. 이를 위해 잔여 그래프(residual graph)라는 개념을 정의하는데, 여기엔 두 종류의 간선이 있습니다. 정방향 간선(forward edge)은 원래 유량 네트워크에 있던 간선이지만, 그 잔여 용량은 이제 전체 용량에서 현재 유량이 쓰고 있는 만큼을 뺀 차이로 정의됩니다 — 그래서 남은 용량이 0이면 그 간선은 잔여 그래프에서 아예 사라집니다."
+  },
+  {
+   "t": 280,
+   "en": "The second type is backward edges, which exist in the opposite direction. If there's an edge from u to v in the original network, that may give rise to a backward edge from v to u, whose capacity is defined as the current amount of flow on the original edge — because that's the maximum amount of 'undoing' you can do.",
+   "ko": "두 번째 종류는 역방향 간선(backward edge)으로, 반대 방향으로 존재합니다. 원래 네트워크에 u에서 v로 가는 간선이 있다면, 그로부터 v에서 u로 가는 역방향 간선이 생길 수 있는데, 그 용량은 원래 간선에 현재 흐르고 있는 유량의 양으로 정의됩니다 — 그게 '되돌릴(undo)' 수 있는 최대량이기 때문이죠."
+  },
+  {
+   "t": 305,
+   "en": "Let me show how this is used. Suppose in the first iteration we found a path from x-bar to t, and the current flow is 20 on three particular edges and zero everywhere else. Constructing the residual graph: from s to x there's no forward edge left, since no capacity remains; from x to t, 10 capacity remains, so there's a forward edge of residual capacity 10; from x to y, 10 remains as well. Those three are the forward edges.",
+   "ko": "이게 어떻게 쓰이는지 보여드리겠습니다. 첫 번째 반복에서 x에서 t로 가는 경로를 찾았고, 현재 유량은 특정 간선 세 개에 20, 나머지는 전부 0이라고 합시다. 잔여 그래프를 구성해보면: s에서 x로는 남은 용량이 없으므로 정방향 간선이 없고, x에서 t로는 10이 남아있으므로 잔여 용량 10짜리 정방향 간선이 있고, x에서 y로도 10이 남아있습니다. 이 세 개가 정방향 간선입니다."
+  },
+  {
+   "t": 400,
+   "en": "Now for the backward edges: there's a flow of 20 from s to x, meaning we can cancel up to 20 units — that has the same effect as sending flow from x to s, so we introduce a backward edge whose residual capacity equals the current flow in the opposite direction. Where there's no flow on an edge, there's no corresponding backward edge; where the flow is 20, there's a backward edge of capacity 20. That's the full residual graph.",
+   "ko": "이제 역방향 간선을 보면: s에서 x로 유량 20이 흐르고 있으니, 최대 20만큼 취소할 수 있다는 뜻이고 — 이는 x에서 s로 유량을 보내는 것과 같은 효과를 냅니다. 그래서 반대 방향의 현재 유량 값을 잔여 용량으로 갖는 역방향 간선을 도입합니다. 어떤 간선에 유량이 없으면 대응하는 역방향 간선도 없고, 유량이 20이면 용량 20짜리 역방향 간선이 생깁니다. 이게 전체 잔여 그래프입니다."
+  },
+  {
+   "t": 469,
+   "en": "From this residual graph we find an s-t path — and now we do have one, from s to y to x to t, with capacities 10, 20, and 10 along it, meaning we can route at most 10 units along this path. From s to y we increase flow by 10. From y to x, we're using a backward edge — meaning in the original network there's actually no edge from y to x — so instead we cancel 10 units of the existing flow from x to y, which had 20, leaving 10.",
+   "ko": "이 잔여 그래프에서 s-t 경로를 찾아봅니다 — 그리고 이번엔 경로가 있습니다. s에서 y, x를 거쳐 t로 가는 경로인데, 그 위의 용량이 각각 10, 20, 10이므로 이 경로로 최대 10단위를 보낼 수 있습니다. s에서 y로는 유량을 10만큼 늘립니다. y에서 x로 갈 때는 역방향 간선을 쓰는 겁니다 — 즉 원래 네트워크에는 사실 y에서 x로 가는 간선이 없다는 뜻이죠 — 그래서 대신 x에서 y로 흐르던 기존 유량 20 중 10을 취소합니다. 그러면 10이 남습니다."
+  },
+  {
+   "t": 547,
+   "en": "If we'd sent 10 units from s to y to x and routed it no further, we'd have an excess of 10 at node x. And indeed we do — we routed 20 from s to x, but out of x there are only 10 outgoing. So from x to t we use the forward edge and increase that flow by 10 as well, giving the flow we'll have in the next iteration.",
+   "ko": "만약 s에서 y를 거쳐 x까지 10을 보내고 더 이상 보내지 않는다면, x 노드에 10만큼의 잉여(excess)가 남게 됩니다. 실제로 그렇습니다 — s에서 x로 20을 보냈는데, x에서 나가는 건 10뿐이니까요. 그래서 x에서 t로는 정방향 간선을 써서 그 유량도 10만큼 늘립니다. 이게 다음 반복에서 갖게 될 유량입니다."
+  },
+  {
+   "t": 596,
+   "en": "After this, we draw the residual graph again. We've used up the capacity on four edges, so those are gone; 20 remains on one edge, and there are backward edges of 20, 10, 10, 10, 20. If we try to find an s-t path in this residual graph, there isn't one — so the algorithm can terminate here, and it has found the maximum flow. So this version of the algorithm turns out to be correct.",
+   "ko": "이후 잔여 그래프를 다시 그려보면, 간선 네 개의 용량을 다 썼으니 그것들은 사라지고, 한 간선에 20이 남아 있고, 역방향 간선들은 20, 10, 10, 10, 20입니다. 이 잔여 그래프에서 s-t 경로를 찾으려 하면 없습니다 — 그래서 알고리즘은 여기서 종료할 수 있고, 최대 유량을 찾은 것입니다. 그러니까 이번 버전의 알고리즘은 올바른 것으로 판명됩니다."
+  },
+  {
+   "t": 659,
+   "en": "To do the analysis, I first need to precisely define the algorithm rather than just show its behavior on this example. The algorithm repeatedly finds an s-t path in the residual graph, so let's give these paths a name: an s-t path in the residual graph is called an augmenting path. The name makes sense because these paths can be used to augment the value of the current flow.",
+   "ko": "분석을 하려면, 이 예제에서의 동작만 보여주는 대신 알고리즘을 정확히 정의해야 합니다. 알고리즘은 잔여 그래프에서 s-t 경로를 반복해서 찾습니다. 그러니 이런 경로에 이름을 붙여봅시다: 잔여 그래프 안의 s-t 경로를 증가 경로(augmenting path)라고 부릅니다. 이 경로들이 현재 유량의 값을 증가(augment)시키는 데 쓰이기 때문에 이름이 잘 맞습니다."
+  },
+  {
+   "t": 726,
+   "en": "Now let's define a subroutine, augment, that takes a flow and an s-t path T (assume T is a simple path — not much of an assumption, since if an s-t path exists, a simple one exists too) and increases the flow's value using that path.",
+   "ko": "이제 서브루틴 augment를 정의해봅시다. 입력으로 유량 하나와 s-t 경로 T를 받는데(T가 단순 경로(simple path)라고 가정합시다 — 사실 별 제약은 아닙니다, s-t 경로가 존재한다면 단순 경로도 존재하니까요), 그 경로를 이용해 유량의 값을 증가시킵니다."
+  },
+  {
+   "t": 795,
+   "en": "First we determine how much flow to route along the path: the maximum possible, which is the minimum residual capacity among all edges on the path. Call that value b, standing for bottleneck — the minimum residual capacity of any edge on T.",
+   "ko": "먼저 이 경로를 따라 얼마만큼의 유량을 보낼지 정합니다. 가능한 최댓값, 즉 경로 위 모든 간선 중 잔여 용량의 최솟값입니다. 이 값을 병목(bottleneck)을 뜻하는 b라고 부르겠습니다 — T 위에 있는 어떤 간선이든 그 잔여 용량의 최솟값입니다."
+  },
+  {
+   "t": 842,
+   "en": "Then we increase the flow by b. For each edge on the simple s-t path — remember this is a path in the residual graph, so every edge on it is either a forward edge or a backward edge of the original network. If the edge e is a forward edge, it's clear: we just increase the flow on e by b.",
+   "ko": "그다음 유량을 b만큼 늘립니다. 단순 s-t 경로 위의 각 간선에 대해 — 이건 잔여 그래프 안의 경로이므로, 그 위의 모든 간선은 원래 네트워크의 정방향 간선이거나 역방향 간선입니다. 만약 간선 e가 정방향 간선이면 명확합니다: e 위의 유량을 b만큼 늘리면 됩니다."
+  },
+  {
+   "t": 900,
+   "en": "If e is a backward edge, then e itself may not even exist in the original flow network — what's guaranteed is that there's a corresponding edge e' in the opposite direction, from the e's head back to its tail, and we decrease the flow on e' by b. So routing b units of flow along a backward edge means canceling b units of the existing flow on the corresponding original edge. At the end of the loop, after processing every edge on the path, we return the new flow.",
+   "ko": "만약 e가 역방향 간선이면, e 자체는 원래 유량 네트워크에 존재하지 않을 수도 있습니다 — 보장되는 건, e의 반대 방향에 대응하는 간선 e'가 원래 네트워크에 존재한다는 것이고, 그 e' 위의 유량을 b만큼 줄입니다. 즉 역방향 간선을 따라 b단위의 유량을 보낸다는 건, 대응하는 원래 간선의 기존 유량 중 b만큼을 취소한다는 뜻입니다. 경로 위의 모든 간선을 처리한 뒤, for 루프 끝에서 새 유량을 반환합니다."
+  },
+  {
+   "t": 1008,
+   "en": "Now let's prove the properties of this augment procedure. Lemma: let f be an s-t flow and T be a simple s-t path in the residual graph of G with respect to f — that's why the notation has a subscript, G_f, meaning the residual graph of G with respect to f. Then calling augment(f, T) returns an s-t flow in G. Let f' denote the return value; I need to argue f' is a valid s-t flow.",
+   "ko": "이제 이 augment 절차의 성질을 증명해봅시다. 보조정리: f를 s-t 유량, T를 f에 대한 G의 잔여 그래프 G_f 안의 단순 s-t 경로라고 합시다 — 그래서 표기에 G_f라는 아래첨자가 붙는 것이고, f에 대한 G의 잔여 그래프라는 뜻입니다. 그러면 augment(f, T)를 호출하면 G의 s-t 유량이 반환됩니다. 반환값을 f'이라 하고, f'이 유효한 s-t 유량임을 보여야 합니다."
+  },
+  {
+   "t": 1101,
+   "en": "Recall an s-t flow must satisfy two properties: the capacity condition — flow on each edge is between 0 and its capacity, inclusive — and flow conservation — at every internal node other than source and sink, total incoming flow equals total outgoing flow. We just need to verify those two for f'.",
+   "ko": "s-t 유량은 두 가지 조건을 만족해야 함을 기억하세요: 용량 조건(capacity condition) — 각 간선의 유량은 0과 그 용량 사이에 있어야 하고(경계 포함) — 그리고 유량 보존(flow conservation) — 소스와 싱크를 제외한 모든 내부 노드에서, 들어오는 유량의 총합과 나가는 유량의 총합이 같아야 합니다. f'에 대해 이 두 가지만 확인하면 됩니다."
+  },
+  {
+   "t": 1168,
+   "en": "How does f' differ from f? Only on the edges of the path — everything else wasn't touched — so we only need to check the capacity condition on those edges. Let e be an arbitrary edge on the path.",
+   "ko": "f'은 f와 어떻게 다를까요? 경로 위의 간선들에서만 다릅니다 — 나머지는 전혀 건드리지 않았으니까요 — 그러니 그 간선들에 대해서만 용량 조건을 확인하면 됩니다. e를 경로 위의 임의의 간선이라 합시다."
+  },
+  {
+   "t": 1230,
+   "en": "If e is a forward edge, f'(e) = f(e) + b (since a simple path visits each edge once, we never modify f(e) more than once). This is at most f(e) + (c_e - f(e)) = c_e, since b was chosen as the minimum residual capacity, and the residual capacity of e is c_e - f(e), so b can't exceed that. And f'(e) = f(e) + b >= f(e) >= 0. So the capacity condition holds on forward edges — not surprising, since that's exactly how we chose the residual capacities.",
+   "ko": "e가 정방향 간선이면, f'(e) = f(e) + b입니다(단순 경로는 각 간선을 한 번만 지나므로, f(e)를 두 번 이상 바꾸는 일은 없습니다). 이건 최대 f(e) + (c_e - f(e)) = c_e인데, b가 잔여 용량의 최솟값으로 선택됐고 e의 잔여 용량이 c_e - f(e)이므로 b가 그걸 넘을 수 없기 때문입니다. 그리고 f'(e) = f(e) + b >= f(e) >= 0입니다. 그러므로 정방향 간선에서 용량 조건이 성립합니다 — 놀랍지 않은 게, 애초에 잔여 용량을 그렇게 정의한 이유가 바로 이거니까요."
+  },
+  {
+   "t": 1348,
+   "en": "If e is a backward edge, with corresponding original edge e', then f'(e') = f(e') - b, which is at least f(e') - (residual capacity of e) = f(e') - f(e') = 0, since the residual capacity of a backward edge e is exactly f(e'). So the decrease still leaves a non-negative flow. And f'(e') is no greater than the original f(e'), which was already <= c_{e'}, since f was a valid flow to begin with. So the capacity conditions are satisfied here too — again, exactly how we designed the residual capacities.",
+   "ko": "e가 역방향 간선이고 그에 대응하는 원래 간선이 e'이라면, f'(e') = f(e') - b이고, 이는 적어도 f(e') - (e의 잔여 용량) = f(e') - f(e') = 0입니다. 역방향 간선 e의 잔여 용량이 정확히 f(e')이기 때문이죠. 그러므로 이 감소 후에도 유량은 음수가 되지 않습니다. 그리고 f'(e')은 원래 f(e')보다 클 수 없는데, f가 애초에 유효한 유량이었으므로 f(e') <= c_{e'}였습니다. 그러니 여기서도 용량 조건이 만족됩니다 — 역시 잔여 용량을 설계한 방식 그대로입니다."
+  },
+  {
+   "t": 1429,
+   "en": "Now, flow conservation. If a node doesn't appear on the simple s-t path, nothing around it changed, so if conservation held before, it still holds. If a node v does appear on the path, since the path is simple, exactly two edges on it are incident to v — one incoming, call it (u,v), and one outgoing, (v,w) — and we have four cases depending on whether each is a forward or backward edge.",
+   "ko": "이제 유량 보존을 봅시다. 어떤 노드가 단순 s-t 경로 위에 없다면, 그 주변의 유량은 전혀 바뀌지 않았으니 보존이 전에 성립했다면 여전히 성립합니다. 노드 v가 경로 위에 있다면, 경로가 단순하므로 v에 인접한 간선은 정확히 두 개입니다 — 들어오는 간선 (u,v) 하나, 나가는 간선 (v,w) 하나 — 그리고 이 둘이 각각 정방향인지 역방향인지에 따라 네 가지 경우가 생깁니다."
+  },
+  {
+   "t": 1585,
+   "en": "Case 1: both are forward edges. Then the flow into v increases by b (via (u,v)) and the flow out of v increases by b (via (v,w)) — they cancel, so conservation still holds. Formally, f'_in(v) - f'_out(v)... wait, f'_in(v) is the old incoming total minus f(u,v) plus f'(u,v), and similarly for outgoing; since both edges increase by b, the net difference contributed is zero.",
+   "ko": "경우 1: 둘 다 정방향 간선인 경우. 그러면 v로 들어오는 유량이 ((u,v)를 통해) b만큼 늘고, v에서 나가는 유량도 ((v,w)를 통해) b만큼 늘어서 — 서로 상쇄되어 보존이 여전히 성립합니다. 정확히는, f'_in(v)는 기존 들어오는 유량 총합에서 f(u,v)를 빼고 f'(u,v)를 더한 것이고 나가는 쪽도 마찬가지인데, 두 간선 모두 b만큼 늘었으므로 그 차이에 기여하는 순증감은 0입니다."
+  },
+  {
+   "t": 1795,
+   "en": "Case 2: the incoming edge (u,v) is forward and the outgoing edge (v,w) is backward. In the original network we had an edge from u to v, whose flow increases by b (it's a forward edge), and an edge from w to v, whose flow we increase by b too (since this is the backward edge's corresponding original edge, and routing along a backward edge means increasing flow on the reverse-direction original edge). So the total incoming flow at v stays the same — one incoming edge's flow went up by b, but the contribution from the edge (w,v) also went up by b in a way that's subtracted... and no outgoing flow was touched, so conservation continues to hold.",
+   "ko": "경우 2: 들어오는 간선 (u,v)는 정방향이고 나가는 간선 (v,w)는 역방향인 경우. 원래 네트워크에는 u에서 v로 가는 간선이 있어 그 유량이 b만큼 늘고(정방향이니까), w에서 v로 가는 간선도 있어 그 유량이 b만큼 늘어납니다(이게 바로 그 역방향 간선에 대응하는 원래 간선이고, 역방향 간선을 따라 보낸다는 건 반대 방향 원래 간선의 유량을 늘린다는 뜻이니까요). 그래서 v로 들어오는 총유량은 그대로입니다 — 하나는 b만큼 늘고, (w,v) 쪽 기여분이 빠지는 식으로 상쇄되고 — 나가는 유량 쪽은 전혀 건드리지 않았으므로 보존이 계속 성립합니다."
+  },
+  {
+   "t": 1941,
+   "en": "The other two cases — backward-then-forward, and both backward — work out the same way by symmetry, so I won't verify them in detail. The point is that no matter the case, f_in(v) - f_out(v) stays at zero after augmentation, which shouldn't be surprising given how we designed the residual capacities in the first place.",
+   "ko": "나머지 두 경우 — 역방향 다음 정방향, 그리고 둘 다 역방향인 경우 — 는 대칭적으로 똑같이 성립하므로 자세히 확인하진 않겠습니다. 요점은 어떤 경우든 증가(augment) 후에도 f_in(v) - f_out(v)가 0으로 유지된다는 것이고, 애초에 잔여 용량을 그렇게 설계한 걸 생각하면 놀라운 일이 아닙니다."
+  },
+  {
+   "t": 1985,
+   "en": "Now we're ready to present the final algorithm. We initialize the flow as zero everywhere. While there exists an s-t path in the residual graph, we take a simple s-t path T, call augment with the current flow and T, let that be the new flow, and repeat until there's no augmenting path left — then we return the flow.",
+   "ko": "이제 최종 알고리즘을 제시할 준비가 됐습니다. 모든 간선에 유량을 0으로 초기화합니다. 잔여 그래프에 s-t 경로가 존재하는 동안, 단순 s-t 경로 T를 하나 골라 현재 유량과 T로 augment를 호출하고, 그걸 새 유량으로 삼아 반복합니다. 더 이상 증가 경로가 없을 때까지 반복한 뒤, 그 유량을 반환합니다."
+  },
+  {
+   "t": 2091,
+   "en": "At this point it's not at all clear why this algorithm is correct. For an algorithm to be correct it has to terminate, and if it terminates it has to return the correct answer — neither is clear yet. The plan: first establish that the algorithm terminates, then, assuming it has terminated, prove its output must be a maximum flow. This algorithm, by the way, actually has a name — it's called the Ford-Fulkerson algorithm — and we'll be analyzing it probably through after the prelim as well.",
+   "ko": "지금으로선 이 알고리즘이 왜 올바른지 전혀 명확하지 않습니다. 알고리즘이 올바르다는 건, 종료(terminate)해야 하고, 종료한다면 정답을 반환해야 한다는 뜻인데 — 둘 다 아직 명확하지 않습니다. 계획은 이렇습니다: 먼저 이 알고리즘이 종료한다는 걸 증명하고, 그다음 종료했다는 가정 하에 그 출력이 반드시 최대 유량이어야 함을 증명합니다. 참고로 이 알고리즘은 이름이 있는데, 포드-풀커슨(Ford-Fulkerson) 알고리즘이라고 부릅니다 — 아마 중간고사 이후까지도 이 알고리즘을 계속 분석하게 될 겁니다."
+  },
+  {
+   "t": 2182,
+   "en": "To prove termination, we choose a measure of progress and show each iteration makes strictly positive progress under that measure, which must terminate after finitely many iterations. Here's a useful observation: recall we made three assumptions at the start of our discussion of max flow, and the last one was that all capacities are integers. This is where we use that assumption.",
+   "ko": "종료를 증명하려면, 어떤 진척도(measure of progress)를 선택해서 각 반복마다 그 측도가 엄밀히 양의 값만큼 진전된다는 걸 보이면 됩니다. 그러면 유한한 횟수의 반복 후 반드시 종료합니다. 여기 유용한 관찰이 하나 있습니다: 최대 유량 논의를 시작할 때 세 가지 가정을 했었는데, 마지막 가정이 모든 용량이 정수라는 것이었죠. 바로 이 가정을 쓸 차례입니다."
+  },
+  {
+   "t": 2259,
+   "en": "If you imagine implementing this algorithm, you'd declare all the variables as integers, since all the capacities are integers. In other words, every number the algorithm will ever see is an integer — because the residual capacities are defined as differences between capacity and flow, or flow itself, which are all integers (we start with all-zero flow, so everything begins as an integer), and throughout execution we only add, subtract, and take minimums of integers, which always produce integers.",
+   "ko": "이 알고리즘을 구현한다고 상상해보면, 모든 변수를 정수형으로 선언할 겁니다. 모든 용량이 정수니까요. 다시 말해, 이 알고리즘이 다루는 모든 숫자는 정수입니다 — 잔여 용량은 용량과 유량의 차, 또는 유량 그 자체로 정의되는데 이게 다 정수이고(모든 유량을 0으로 시작하니 처음부터 전부 정수입니다), 실행 내내 정수끼리 더하고 빼고 최솟값을 구하는 연산만 하므로 항상 정수가 나옵니다."
+  },
+  {
+   "t": 2318,
+   "en": "So, the observation: the flow and residual capacity of every edge remain integral throughout any execution of the algorithm. I say 'any' rather than 'the' execution because Ford-Fulkerson isn't fully specified — it doesn't say which s-t path to choose when multiple exist, which was exactly the issue with our first incorrect version. When I say this algorithm is correct, I mean no matter which path you choose at each step, any arbitrary choice leads to a maximum s-t flow.",
+   "ko": "그러니까 관찰은 이렇습니다: 이 알고리즘의 어떤 실행에서든, 모든 간선의 유량과 잔여 용량은 항상 정수로 유지됩니다. '어떤 실행이든'이라고 말하는 건, 포드-풀커슨 알고리즘이 완전히 명시되어 있지 않기 때문입니다 — s-t 경로가 여러 개 있을 때 어느 걸 고를지 정해주지 않죠. 이게 바로 첫 번째 잘못된 버전에서 문제였던 부분입니다. 이 알고리즘이 올바르다고 할 때 의미하는 건, 매 단계에서 어떤 경로를 고르든 — 어떤 임의의 선택이든 — 결국 최대 s-t 유량으로 이어진다는 뜻입니다."
+  },
+  {
+   "t": 2457,
+   "en": "To formally prove this, we use induction on the number of iterations: the predicate is 'in the i-th iteration, all flow and residual capacities are integers.' The base case (i=1) is trivial. For the inductive step, at the start of each iteration everything is integers; we find a path and run augment, where all residual capacities are integers, b is the minimum over integers so b is an integer, and the new flow values — adding or subtracting an integer from an integer — are integers too. So by induction, for every iteration, everything stays integral. In particular, b in the function augment is always an integer.",
+   "ko": "이걸 엄밀히 증명하려면, 반복 횟수에 대한 귀납법을 씁니다: 명제는 'i번째 반복에서 모든 유량과 잔여 용량이 정수다'입니다. 기저 사례(i=1)는 자명합니다. 귀납 단계에서는, 각 반복 시작 시점에 모든 게 정수인 상태에서 경로를 찾아 augment를 실행하는데, 모든 잔여 용량이 정수이므로 그 정수들 중 최솟값인 b도 정수이고, 새 유량 값들 — 정수에 정수를 더하거나 빼는 것 — 도 정수입니다. 그러므로 귀납법에 의해 모든 반복에서 전부 정수로 유지됩니다. 특히, 함수 augment 안의 b는 항상 정수입니다."
+  },
+  {
+   "t": 2557,
+   "en": "To show Ford-Fulkerson terminates, we combine two ingredients. First, everything is an integer. Second: each iteration strictly increases the value of the flow.",
+   "ko": "포드-풀커슨 알고리즘이 종료함을 보이려면 두 가지 재료를 결합합니다. 첫째, 모든 것이 정수라는 것. 둘째, 매 반복이 유량의 값을 엄밀하게 증가시킨다는 것입니다."
+  },
+  {
+   "t": 2626,
+   "en": "Since all residual capacities are strictly positive, b is always strictly positive in augment — it's the minimum over finitely many strictly positive integers. The value of the flow is the total outgoing flow from the source node, and the first edge of the augmenting path p must be a forward edge: if it were backward, the original network would need an edge into the source, but one of our assumptions is that the source has no incoming edges, so that can't happen. Since p is simple, once it leaves the source it never returns, so this first edge is the only one incident to the source on the whole path.",
+   "ko": "모든 잔여 용량이 엄밀히 양수이므로, augment 안의 b는 항상 엄밀히 양수입니다 — 유한개의 양의 정수들 중 최솟값이니까요. 유량의 값은 소스 노드에서 나가는 총유량이고, 증가 경로 p의 첫 번째 간선은 반드시 정방향 간선이어야 합니다. 만약 역방향이라면 원래 네트워크에 소스로 들어오는 간선이 있어야 하는데, 우리 가정 중 하나가 소스에는 들어오는 간선이 없다는 것이었으므로 그런 일은 있을 수 없습니다. p가 단순 경로이므로 소스를 떠난 뒤 다시 돌아오지 않고, 따라서 이 첫 번째 간선이 경로 전체에서 소스에 인접한 유일한 간선입니다."
+  },
+  {
+   "t": 2763,
+   "en": "Since that first edge is a forward edge, its flow increases by b, and the entire procedure therefore increases f_out(s) by b — and we already argued b is strictly positive. So each iteration strictly increases the value of the flow.",
+   "ko": "그 첫 간선이 정방향 간선이므로 그 유량은 b만큼 늘어나고, 따라서 전체 과정은 f_out(s)를 b만큼 증가시킵니다 — 그리고 b가 엄밀히 양수라는 건 이미 보였죠. 그러므로 매 반복이 유량의 값을 엄밀하게 증가시킵니다."
+  },
+  {
+   "t": 2839,
+   "en": "So: everything the algorithm ever sees must be an integer, and the value of the flow strictly increases each iteration. If I can also show the maximum flow value can't be indefinitely large, that finishes the termination proof — we started at zero, and if, say, the max flow can't exceed 100, then after at most 100 iterations the algorithm must terminate. What matters is that everything is an integer — otherwise you could imagine the flow value creeping up like 1/2, 3/4, 7/8, approaching but never reaching some bound, and never terminating even with a finite upper bound.",
+   "ko": "정리하면: 알고리즘이 다루는 모든 값은 정수이고, 유량의 값은 매 반복마다 엄밀히 증가합니다. 여기에 더해 최대 유량의 값이 무한정 커질 수 없다는 것만 보이면 종료 증명이 끝납니다 — 0에서 시작했고, 예를 들어 최대 유량이 100을 넘을 수 없다면, 최대 100번의 반복 후에는 반드시 종료해야 합니다. 중요한 건 모든 게 정수라는 점입니다 — 그렇지 않다면 유량 값이 1/2, 3/4, 7/8처럼 어떤 한계에 점점 가까워지기만 하고 결코 도달하지 않아, 유한한 상한이 있어도 영원히 종료하지 않는 경우를 상상할 수 있으니까요."
+  },
+  {
+   "t": 2925,
+   "en": "Why do we know there's an upper bound on the flow value? Consider the source node with a bunch of outgoing edges. Even if I use all outgoing edges of the source to full capacity, their sum is some finite number — say 40 — and the value of the flow can't be greater than that. Let capital C be the sum of capacities over all edges out of s: C = sum over e out of s of c_e.",
+   "ko": "유량 값에 상한이 있다는 건 어떻게 알까요? 소스 노드에서 나가는 간선 여러 개를 생각해봅시다. 소스에서 나가는 모든 간선을 전부 최대 용량까지 쓴다 해도, 그 합은 어떤 유한한 숫자 — 예를 들어 40 — 이고, 유량의 값은 그걸 넘을 수 없습니다. s에서 나가는 모든 간선의 용량 합을 대문자 C라 합시다: C = s에서 나가는 모든 간선 e에 대한 c_e의 합."
+  },
+  {
+   "t": 3058,
+   "en": "For any s-t flow, the value — which by definition is f_out(s) — is at most the total capacity C, since for every outgoing edge, f(e) <= c_e. Each iteration increases f_out(s) by at least 1 (from the two lemmas we just proved), and the flow value starts at 0, so the while loop can run at most C times. The algorithm terminates. What remains is to show it returns the maximum flow, assuming it terminates.",
+   "ko": "임의의 s-t 유량에 대해, 그 값 — 정의상 f_out(s) — 은 전체 용량 C를 넘지 않습니다. 나가는 모든 간선에 대해 f(e) <= c_e이기 때문이죠. 방금 증명한 두 보조정리에 의해 매 반복마다 f_out(s)는 적어도 1씩 늘어나고, 유량 값은 0에서 시작하므로, while 루프는 최대 C번까지만 돌 수 있습니다. 그러므로 알고리즘은 종료합니다. 남은 건, 종료한다는 가정 하에 그게 최대 유량을 반환한다는 걸 보이는 것입니다."
+  },
+  {
+   "t": 3168,
+   "en": "Here's an example maximum flow, with specific values on each edge giving a flow of value 15. If the algorithm produces this flow and also points out that, for a certain boundary drawn in the graph, the total capacity crossing it is only 15, then from those two pieces of information alone you can conclude the maximum flow for this network has to be 15. That's the point: we want to produce this kind of evidence for any instance of the max flow problem.",
+   "ko": "여기 예시로 값이 15인 최대 유량이 있습니다, 각 간선에 특정 값들이 매겨져 있죠. 만약 알고리즘이 이 유량을 만들어내면서, 동시에 그래프 안에 그려진 어떤 경계(boundary)를 가로지르는 전체 용량이 15뿐이라는 것도 짚어준다면, 이 두 정보만으로 이 네트워크의 최대 유량이 반드시 15라는 걸 결론지을 수 있습니다. 바로 이게 요점입니다: 최대 유량 문제의 어떤 인스턴스에 대해서도 이런 종류의 증거(evidence)를 만들어내고 싶은 겁니다."
+  },
+  {
+   "t": 3271,
+   "en": "It won't always be possible to draw a nice boundary on a picture of the flow network — for a dense graph, say, drawing it legibly might not be feasible at all. So instead, I'll focus on just the set of vertices on the source side of that boundary. In the example, that's S = {s, u, v, w}. This set contains the source but not the sink, so eventually some edge must cross from S to outside S, and since the total capacity of such edges is 15, you'll never find a flow whose value exceeds 15.",
+   "ko": "유량 네트워크 그림에 깔끔한 경계를 그리는 게 항상 가능한 건 아닙니다 — 예를 들어 밀집된 그래프라면 그려서 알아보기조차 어려울 수 있죠. 그래서 대신, 그 경계의 소스 쪽에 있는 정점들의 집합에만 집중하겠습니다. 예시에서는 S = {s, u, v, w}입니다. 이 집합은 소스는 포함하지만 싱크는 포함하지 않으므로, 결국 어떤 간선은 S에서 S 바깥으로 넘어가야 하고, 그런 간선들의 총용량이 15이므로 값이 15를 넘는 유량은 결코 찾을 수 없습니다."
+  },
+  {
+   "t": 3318,
+   "en": "Here's the definition: a tuple (S, S̄) — where S is a subset of vertices and S̄ is its complement — is called an s-t cut of a flow network if it satisfies: the source must be in S, the sink must be in S̄, and S and S̄ partition the entire vertex set (disjoint, union is everything). Intuitively this subset is how you cut the source and sink apart — hence 's-t cut,' because it cuts the source from the sink.",
+   "ko": "정의는 이렇습니다: 정점 집합의 부분집합 S와 그 여집합 S̄의 순서쌍 (S, S̄)를, 다음을 만족하면 유량 네트워크의 s-t 절단(s-t cut)이라고 부릅니다 — 소스는 반드시 S에 있어야 하고, 싱크는 반드시 S̄에 있어야 하며, S와 S̄는 전체 정점 집합을 분할(partition)해야 합니다(서로소이고 합집합이 전체). 직관적으로 이 부분집합은 소스와 싱크를 갈라놓는 방법이라고 할 수 있습니다 — 그래서 's-t 절단'이라는 이름이 소스와 싱크를 자른다는 뜻으로 붙었습니다."
+  },
+  {
+   "t": 3451,
+   "en": "I need a way to measure how 'good' a cut is as a certificate — in the example, the cut's value was 15. We call this the capacity of the cut, written c(S, S̄), defined as the sum of the capacities of all edges going out of S — only from the source side to the sink side, not the other direction. So c(S, S̄) = sum over e out of S of c_e.",
+   "ko": "이 절단이 증명서(certificate)로서 얼마나 '좋은지'를 잴 방법이 필요합니다 — 예시에서 이 절단의 값은 15였죠. 이걸 절단의 용량(capacity)이라 부르고 c(S, S̄)라고 씁니다. S에서 나가는 모든 간선의 용량 합으로 정의하는데 — S 쪽에서 S̄ 쪽으로 가는 것만 포함하고 반대 방향은 포함하지 않습니다. 즉 c(S, S̄) = S에서 나가는 모든 간선 e에 대한 c_e의 합입니다."
+  },
+  {
+   "t": 3600,
+   "en": "The plan: whenever the algorithm finds a flow of value 100, it should also be able to produce an s-t cut of capacity 100 as a side product. But first I need to replace the hand-waving about why this capacity is a valid upper bound with an actual proof. Let's call this Lemma 5: let f be an s-t flow, and (S, S̄) be any s-t cut.",
+   "ko": "계획은 이렇습니다: 알고리즘이 값이 100인 유량을 찾으면, 부산물로 용량 100짜리 s-t 절단도 만들어낼 수 있어야 합니다. 하지만 그 전에, 이 용량이 왜 유효한 상한인지에 대한 손짓 설명을 실제 증명으로 바꿔야 합니다. 이걸 보조정리 5라고 부릅시다: f를 s-t 유량, (S, S̄)를 임의의 s-t 절단이라 합시다."
+  },
+  {
+   "t": 3706,
+   "en": "I want to relate the value of a flow, which is globally defined over all edges, to something purely local to a given cut — the capacity of a cut only looks at edges from S to S̄. So given a flow and any cut, I want to express the value of the flow purely by looking at that cut. The claim: the value of the flow equals f_out(S) - f_in(S), the net amount of flow leaving S.",
+   "ko": "유량의 값 — 모든 간선에 대해 전역적으로 정의되는 값 — 을, 어떤 절단에 대해서만 국소적으로 정의되는 것 — 절단의 용량은 S에서 S̄로 가는 간선들만 보니까요 — 과 연결짓고 싶습니다. 그러니까 유량과 임의의 절단이 주어졌을 때, 유량의 값을 그 절단만 들여다봐서 표현하고 싶은 겁니다. 주장은 이렇습니다: 유량의 값은 f_out(S) - f_in(S), 즉 S에서 순수하게 빠져나가는 유량의 양과 같습니다."
+  },
+  {
+   "t": 3918,
+   "en": "Let's verify this with the example cut S = {s, w}: the value of the flow is 15. f_out(s) here is 25 (summing the outgoing edges with nonzero flow), while f_in(S) is 10 (summing incoming edges with nonzero flow) — so f_out(S) - f_in(S) = 25 - 10 = 15, matching the value of the flow. I'm not claiming f here is a maximum flow — just that for any flow and any cut, this difference equals the value of that flow. Let's prove it.",
+   "ko": "예시 절단 S = {s, w}로 확인해봅시다: 유량의 값은 15입니다. 여기서 f_out(S)는 (유량이 0이 아닌 나가는 간선들을 합해서) 25이고, f_in(S)는 (들어오는 간선들을 합해서) 10입니다 — 그래서 f_out(S) - f_in(S) = 25 - 10 = 15, 유량의 값과 일치합니다. f가 최대 유량이라고 주장하는 게 아니라, 어떤 유량과 어떤 절단에 대해서도 이 차이가 그 유량의 값과 같다는 걸 말하는 겁니다. 증명해봅시다."
+  },
+  {
+   "t": 3924,
+   "en": "Consider the sum over all v in S of (f_out(v) - f_in(v)). There are two ways to view this summation. The naive way: for each vertex, compute f_out(v) - f_in(v) and sum them. The other way: look at each edge and see how much it contributes to the sum.",
+   "ko": "S 안의 모든 v에 대한 (f_out(v) - f_in(v))의 합을 생각해봅시다. 이 합을 보는 방법은 두 가지입니다. 나이브한 방법: 각 정점마다 f_out(v) - f_in(v)를 계산해서 더하는 것. 다른 방법: 각 간선을 보고 그게 합에 얼마나 기여하는지 보는 것입니다."
+  },
+  {
+   "t": 4006,
+   "en": "For an edge with both endpoints inside S, its flow f(e) appears exactly twice in the summation: once with coefficient +1 (when computing f_out of its tail) and once with coefficient -1 (when computing f_in of its head) — so these cancel out completely. Edges entirely outside S don't appear at all. The only edges that contribute are the ones crossing the boundary: edges from S to S̄ appear with coefficient +1, and edges from S̄ to S appear with coefficient -1. So the whole summation equals f_out(S) - f_in(S).",
+   "ko": "양 끝점이 전부 S 안에 있는 간선의 경우, 그 유량 f(e)는 합계에서 정확히 두 번 나타납니다 — 한 번은 계수 +1로(꼬리 쪽의 f_out을 계산할 때), 한 번은 계수 -1로(머리 쪽의 f_in을 계산할 때) — 그래서 완전히 상쇄됩니다. S 바깥에 완전히 있는 간선은 아예 나타나지 않습니다. 기여하는 건 오직 경계를 가로지르는 간선들뿐입니다: S에서 S̄로 가는 간선은 계수 +1로, S̄에서 S로 가는 간선은 계수 -1로 나타납니다. 그러므로 이 합 전체는 f_out(S) - f_in(S)와 같습니다."
+  },
+  {
+   "t": 4229,
+   "en": "Now from the other viewpoint — flow conservation. The sum over v in S of (f_out(v) - f_in(v)) splits into the term for v = s, which is f_out(s) - f_in(s), plus the terms for every other vertex in S, which are all zero by flow conservation (since those are internal nodes). And f_in(s) is zero because the source has no incoming edges. So the whole sum reduces to just f_out(s), which by definition is the value of the flow.",
+   "ko": "이제 다른 관점에서 — 유량 보존을 봅시다. S 안의 v에 대한 (f_out(v) - f_in(v))의 합은, v = s일 때의 항 f_out(s) - f_in(s)와, S 안의 나머지 모든 정점에 대한 항들로 나뉘는데, 후자는 전부 유량 보존에 의해 0입니다(내부 노드들이니까요). 그리고 f_in(s)는 소스에 들어오는 간선이 없으므로 0입니다. 그러므로 전체 합은 그냥 f_out(s)로 줄어드는데, 이는 정의상 유량의 값입니다."
+  },
+  {
+   "t": 4358,
+   "en": "So I've shown f_out(s) equals f_out(S) - f_in(S), and f_out(s) is by definition the value of the flow. So for any s-t flow and any s-t cut, the value of the flow equals the net amount of flow leaving the source side of the cut. That's the lemma we wanted.",
+   "ko": "그러니까 f_out(s)가 f_out(S) - f_in(S)와 같고, f_out(s)는 정의상 유량의 값이라는 걸 보였습니다. 즉 임의의 s-t 유량과 임의의 s-t 절단에 대해, 유량의 값은 그 절단의 소스 쪽에서 빠져나가는 순유량과 같습니다. 이게 바로 우리가 원했던 보조정리입니다."
+  },
+  {
+   "t": 4422,
+   "en": "Now the important corollary. Let f be any s-t flow and (S, S̄) be any s-t cut: the value of the flow is at most the capacity c(S, S̄). The proof is simple — we just showed the value equals f_out(S) - f_in(S), which is non-negative, so it's at most f_out(S). And f_out(S) is the sum of flows on edges out of S, each of which is at most its capacity, so f_out(S) <= sum over e out of S of c_e — which is exactly the definition of c(S, S̄).",
+   "ko": "이제 중요한 따름정리(corollary)입니다. f를 임의의 s-t 유량, (S, S̄)를 임의의 s-t 절단이라 하면: 유량의 값은 용량 c(S, S̄)를 넘지 않습니다. 증명은 간단합니다 — 방금 유량의 값이 f_out(S) - f_in(S)와 같다는 걸 보였고, 이는 음이 아니므로 f_out(S) 이하입니다. 그리고 f_out(S)는 S에서 나가는 간선들의 유량 합인데, 각각이 그 용량 이하이므로 f_out(S) <= S에서 나가는 모든 e에 대한 c_e의 합 — 이게 바로 c(S, S̄)의 정의입니다."
+  },
+  {
+   "t": 4505,
+   "en": "So this shows an s-t cut can be used as a valid certificate to prove correctness of our algorithm, because any s-t cut you show me is an upper bound on the value of any s-t flow — and in particular, an upper bound on the maximum flow too. All that remains is to show the algorithm actually produces a cut whose capacity equals the value of the flow it produces.",
+   "ko": "그러니까 이건 s-t 절단이 알고리즘의 정확성을 증명하는 유효한 증명서(certificate)로 쓰일 수 있음을 보여줍니다. 어떤 s-t 절단을 보여주든 그건 임의의 s-t 유량 값의 상한이고 — 특히 최대 유량의 상한이기도 하니까요. 이제 남은 건, 이 알고리즘이 실제로 자신이 만들어낸 유량의 값과 같은 용량을 갖는 절단을 만들어낸다는 걸 보이는 것뿐입니다."
+  },
+  {
+   "t": 4555,
+   "en": "Before I forget — one thing I meant to mention in the first half of today's lecture: the prelim announcement is already posted, so please take a look. Importantly, the prelim is not going to be held in this room, so check the announcement and make sure you go to the right room.",
+   "ko": "잊기 전에 — 오늘 강의 전반부에 말하려다 깜빡한 게 있는데요: 프리림(prelim, 중간고사) 공지가 이미 올라와 있으니 꼭 확인해주세요. 중요한 건, 프리림은 이 강의실에서 치르지 않는다는 겁니다. 공지를 확인해서 꼭 맞는 강의실로 가시기 바랍니다."
+  }
+ ]
+}
